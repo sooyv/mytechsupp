@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <link rel="stylesheet" href="/style/feedbackStyle.css"> -->
+  <link rel="stylesheet" href="/static/style/feedbackStyle.css">
+  <title>TECHSUPP</title>
+</head>
+<body>
+  <!-- 헤더 -->
+  <header class="Header">헤더 생성은 스크립트로</header> 
+  <article class="FeedbackContent">
+    <div class="FeedbackListPicture">
+      <h2>제품 사진</h2>
+    </div>
+    <div class="FeebackListInformation">
+      <div class="FeedbackListName-FeedbackListInformation">
+        <h2>제품 제목</h2>
+        <h3>제품 설명</h3>
+      </div>
+      <div class="FeedbackListScore-LimitDate-SuccesStatus">
+        <h3>상품 점수</h3>
+        <h3>투자 마감일</h3>
+        <h3>투자성공여부</h3>
+      </div>
+    </div>
+  </article>
+  <div class="ContainerFeedBackWriteForm">
+    <div class="FeedbackInsertScore-FeebackUploadImg">
+      <div class="FeedbackInsertScoreByUser">
+        점수
+        <input type="number" placeholder="점수 입력">
+      </div>
+      <div class="FeedbackUploadImg">
+        이미지 업로드
+        <input type="file" accept="image/*" placeholder="이미지 업로드">
+      </div>
+    </div>
+    <div class="FeedbackInsertText">
+      피드백 작성
+      <input type="text" placeholder="피드백 작성란">
+    </div>
+    <div class="FeedbackSubmit">
+      <input type="submit" value="작성하기">
+    </div>
+  </div>
+  <script type="text/javascript" src="/script/productScript.js"></script>
+    <!-- vscode 스크립트 경로 -->
+  <!-- header 생성 스크립트 -->
+  <script type="text/javascript" src="/static/script/createHeader.js"></script>
+
+  <footer>
+    footer
+  </footer>
+</body>
+</html>

@@ -20,13 +20,40 @@ public class ProductController {
 
 
 
-//    localhost:8080으로 접속 하면 뜨는 화면
-    // url로 접속은 됨 근데 api 받아오는 것이 현재 안되는 상황
-    @GetMapping("/")
-    public String itemList(Model model) {
-        return "product/productSelect";
+//    product 컨트롤러
+//    productMain 페이지로 이동하는 컨트롤러
+    @GetMapping("/productMain")
+    public String LinkToProductMain() {
+        return "/product/productMain";
     }
 
+//    특정 상품 페이지로 이동 하는 컨트롤러
+    @GetMapping("/productSelect")
+    public String LinkToProductSelect() {
+        return "/product/productSelect";
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    localhost:8080으로 접속 하면 뜨는 화면
+    // url로 접속은 됨 근데 api 받아오는 것이 현재 안되는 상황
+//    @GetMapping("/")
+//    public String itemList(Model model) {
+//        return "product/productSelect";
+//    }
+
+//    api controller
     // db에서 검색해서 json 형식으로 client 에게 보내주기 성공
     @GetMapping("/api")
     @ResponseBody

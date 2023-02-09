@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- CSS -->
+  <!-- spring 적용시 -->
+  <!-- <link rel="stylesheet" href="/style/productStyle.css"> -->
+  <!-- vscode 적용시 (최종본에서는 삭제 필요) -->
+  <link rel="stylesheet" href="/static/style/productStyle.css">
+  <title>TECHSUPP</title>
+</head>
+<body>
+  <!-- 헤더 -->
+  <header class="Header">헤더 생성은 스크립트로</header> 
+  <!-- 검색 정렬 -->
+  <div class="ContainerProductSort">컨테이너 생성은 스크립트로</div>
+  <!-- 제품 정보 -->
+  <article class="ProductContent">
+    <div class="ProductListPicture">
+      <h2>제품 사진</h2>
+    </div>
+    <div class="ProductListInformation">
+      <h2>제품 제목</h2>
+      <div class="ProductListInvestment-ProductListLimitDate">
+        <h3>개인 투자 금액</h3>
+        <h3>투자 마감일</h3>
+      </div>
+    </div>
+    <div class="ProductListPercentage-ProductListWish">
+      <h3>투자율</h3>
+      <h3>즐겨찾기</h3>
+    </div>
+  </article>
+  <!-- 투자 완료 상태 컨텐츠 -->
+  <div class="InvestCompleteNotice">
+    <h3>투자가 완료 되었습니다</h3>
+    <h3>진행 상황은 마이페이지에서 확인해주세요</h3>
+  </div>
+  <!-- 다른 페이지 이동 버튼 -->
+  <div class="ContainerGotoOtherPage">
+    
+    <input type="button" value="메인 페이지로 이동">
+  
+    <input type="button" value="상품 목록으로 이동">
+
+    <input type="button" value="마이페이지로 이동">
+  </div>
+  <!-- 스크립트 -->
+  <script type="text/javascript" src="/script/productScript.js"></script>
+
+  <!-- vscode 스크립트 경로 -->
+  <!-- header 생성 스크립트 -->
+  <script type="text/javascript" src="/static/script/createHeader.js"></script>
+  <!-- productSort 생성 스크립트 -->
+  <script type="text/javascript" src="/static/script/createContainerProductSort.js"></script>
+  <footer>
+    footer
+  </footer>
+</body>
+</html>

@@ -10,6 +10,8 @@ function getProducts() {
   .then(data => showProduct(data));
 }
 
+getProducts();
+
 
 // 함수명 수정 필요
 // innerhtml으로 받아온 json 넣는거 수정해야함
@@ -92,4 +94,10 @@ function showProduct(products) {
 
 getProducts();
 
+// 콘솔 창으로 가지고 온 값 확인하는 테스트 함수
 
+function getProducts() {
+  fetch("/api")
+  .then(reponse => reponse.json())
+  .then(data => console.log(data));
+}

@@ -53,14 +53,7 @@ public class ProductController {
 //        return "product/productSelect";
 //    }
 
-//    api controller
-    // db에서 검색해서 json 형식으로 client 에게 보내주기 성공
-    @GetMapping("/api")
-    @ResponseBody
-    public List<Product> apiSend() {
-        List<Product> products = productService.findProduct();
-        return products;
-    }
+
 
 
 

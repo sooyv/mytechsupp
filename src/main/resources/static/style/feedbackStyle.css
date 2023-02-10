@@ -66,7 +66,7 @@ body {
 .SortKeyword {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  /* justify-content: flex-start; */
   list-style-type: none;
 }
 

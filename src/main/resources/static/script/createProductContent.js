@@ -1,9 +1,24 @@
 // 메인 페이지에 html 태그를 생성하는 script
 const productList = document.querySelector('.ContainerProductList');
 
+
+// 구현해야하는 기능은 선택한 상품의 상세 정보 페이지로 이동하는것
+// 현재 구현된 것은 productSelect 링크로 가게 하는 것 까지만 구현
+function linkToSelectedProduct() {
+  const productSelected = '/productSelect/test/${api.id}';
+  window.location.href = productSelected;
+};
+
+// 선택한 클래스에 이벤트 리스너 전부 적용하는 함수
+function addEventToProductContent() {
+  const productContentAll = document.querySelectorAll('.ProductContent');
+  for(let i = 0; i < productContentAll.length; i++) {
+    productContentAll[i].addEventListener('click', linkToSelectedProduct);
+  }
+};
+
 function createProductList(api) {
   productList.innerHTML = ``;
-  console.log(api);
   for(let i = 0; i < 5; i++) {
     productList.innerHTML += `<article class="ProductContent">
     <div class="ProductListPicture">
@@ -22,6 +37,7 @@ function createProductList(api) {
     </div>
   </article>`
   }
+  addEventToProductContent();
 }
 
 // 이제 api를 요청해서 그거를 담아주는 걸 짜야함
@@ -30,13 +46,10 @@ function createProductList(api) {
 function createFiveProduct(value) {
   fetch(`/productMain/${value}`)
   .then(response => response.json())
-  .then(data => createProductList(data))
+  .then(data => createProductList(data));
 }
 
-
 createFiveProduct(0);
-
-
 
 // 콘솔 확인용
 // function getOneItemFromSpring() {

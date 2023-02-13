@@ -27,11 +27,14 @@ public class JsonController {
 
 //    일단은 5개 가져오는거 성공
 //    페이지에 따라서 보내주는 데이터 식별 필요
+//    null 값 식별해서 필요한 것만 보여주기 성공
     @GetMapping("/productMain/{productPageNumber}")
     @ResponseBody
-    public List<Product> productFiveSend(@PathVariable("productPageNumber") Long id) {
-        List<Product> fiveProduct = productService.findFiveProduct(id);
-        return fiveProduct;
+    public List<Product> productFiveSend(@PathVariable("productPageNumber") int pagingId) {
+        if (pagingId != 0) {
+            pagingId = pagingId * 5;
+        }
+        return productService.findFiveProduct(pagingId);
     }
 
 
@@ -42,6 +45,13 @@ public class JsonController {
         return productService.getNumberOfProduct();
     }
 
+
+//    상품 선택 후 가져오는 하나의 상품 정보
+    @GetMapping("/productSelect/test/{productNumber}")
+    @ResponseBody
+    public Product productOne(@PathVariable("productNumber") int productId) {
+        return productService.findOneProduct(productId);
+    }
 
 
 

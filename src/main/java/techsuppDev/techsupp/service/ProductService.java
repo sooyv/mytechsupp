@@ -16,27 +16,28 @@ public class ProductService {
 //    일단 하나만 검색해서 보내주기
 //    보내주기 성공
 //    나중에 매개 변수만 바꿔주면 로직 짜는 거는 어렵지 않을
-    public Product findOneProduct(Long productId) {
+    public Product findOneProduct(int productId) {
         return productRepository.findOne(productId);
     }
 
 //    findone 5번 돌려서 가져오는 걸로 해보자
-    public List<Product> findFiveProduct(Long productId) {
-        List<Product> fiveProduct = new ArrayList<Product>();
-        Long id = productId;
-//        페이징에서 1을 선택했을때랑 아닐때
-        if (id.equals(1)) {
-//            1일 경우
-            id = 1L;
-        } else {
-//            1이 아닐 경우
-            id = (id * 5) + 1;
-        }
-        Long idLength = id + 4;
-        for (; id <= idLength; id++) {
-            fiveProduct.add(findOneProduct(id));
-        }
-        return fiveProduct;
+    public List<Product> findFiveProduct(int pagingId) {
+//        List<Product> fiveProduct = new ArrayList<Product>();
+//        int id = productId;
+//
+////        페이징에서 1을 선택했을때랑 아닐때
+//        if (id == 1) {
+////            1일 경우
+//            id = 1;
+//        } else {
+////            1이 아닐 경우
+//            id = (id * 5) + 1;
+//        }
+//        int idLength = id + 4;
+//        for (; id <= idLength; id++) {
+//            fiveProduct.add(findOneProduct(id));
+//        }
+        return productRepository.findFiveProduct(pagingId);
     }
 //보통 컨트롤러에서 구현
 //    근데 그냥 되면 굳이 바꿀 필요는 없음

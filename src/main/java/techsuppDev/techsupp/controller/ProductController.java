@@ -4,10 +4,7 @@ import com.fasterxml.jackson.databind.util.JSONPObject;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import techsuppDev.techsupp.domain.Product;
 import techsuppDev.techsupp.service.ProductService;
 
@@ -28,8 +25,10 @@ public class ProductController {
     }
 
 //    특정 상품 페이지로 이동 하는 컨트롤러
-    @GetMapping("/productSelect")
-    public String LinkToProductSelect() {
+    @GetMapping("/productSelect/test/*")
+    public String LinkToProductSelect(@PathVariable("productNumber") int productId) {
+        productService.findOneProduct(productId);
+
         return "/product/productSelect";
     }
 

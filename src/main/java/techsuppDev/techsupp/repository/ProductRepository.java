@@ -18,15 +18,31 @@ public class ProductRepository {
 //    컨트롤러에서 해야줘야하나?
 //    일단 pk 는 id 로 설정해서 하나만 가져와 보자
 //    작동 잘 됨 ㅇㅇ
-    public Product findOne(Long id) {
+    public Product findOne(int id) {
         return em.find(Product.class, id);
     }
 
 //    페이징을 위한 function
 //    5개를 가져올 것임
-//    public List<Product> findFiveProduct(Long id) {
-//        return em.createQuery("select * from Product i", Product.class).getResultList();
-//    }
+//    offset = 페이징의 시작 점
+//    limit = 몇개를 가져올 것인지
+//    일단은 5개로 고정 해놓자
+//    jpa는 limit 구문이 안먹힘
+//    setFirstResult();
+//    setMaxResults();
+//    이거로 설정을 해줘야함
+//    product table 의 타입이 int가 아니어서 역정렬 했을때 이상하게 나왔음
+//    alter table product modify id int(10);
+//    이렇게 테이블의 데이터 타입을 변경 해주니까 잘 나옴
+    public List<Product> findFiveProduct(int pagingId) {
+        int limit = 5;
+
+        return em.createQuery(
+                "select i from Product i where investment is not Null order by id desc", Product.class)
+                .setFirstResult(pagingId)
+                .setMaxResults(limit)
+                .getResultList();
+    }
 
 
 //    모든 데이터 가져오는 것

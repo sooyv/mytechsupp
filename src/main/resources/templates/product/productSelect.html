@@ -6,9 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- CSS -->
   <!-- spring 적용시 -->
-  <link rel="stylesheet" href="/style/productStyle.css">
-  <!-- vscode 적용시 (최종본에서는 삭제 필요) -->
-  <link rel="stylesheet" href="/static/style/productStyle.css">
+  <link rel="stylesheet" href="/style/productStyle.css?ver=1">
   <title>TECHSUPP</title>
 </head>
 <body>
@@ -19,16 +17,12 @@
   <div class="ContainerProduct">상품 설명을 스크립트로</div>
   <!-- 스크립트 -->
   <!-- spring 경로 -->
-    <script type="text/javascript" src="/script/productMain.js"></script>
+    <script type="text/javascript" src="/script/productMain.js?ver=" + `Date()`></script>
   <!-- header 생성 스크립트 -->
-    <script type="text/javascript" src="/script/createHeader.js"></script>
+    <script type="text/javascript" src="/script/createHeader.js?ver=1"></script>
   <!-- productSort 생성 스크립트 -->
-    <script type="text/javascript" src="/script/createContainerProductSort.js"></script>
-
-    <!-- vscode 스크립트 경로 -->
-  <!-- header 생성 스크립트 -->
-  <script type="text/javascript" src="/static/script/createHeader.js"></script>
-  <!-- productSort 생성 스크립트 -->
-  <script type="text/javascript" src="/static/script/createContainerProductSort.js"></script>
+    <script type="text/javascript" src="/script/createContainerProductSort.js?ver=1"></script>
+    <!-- createContainerProduct 생성 스크립트 -->
+    <script type="text.javascript" src="/script/createContainerProduct.js?ver=1"></script>  
 </body>
 </html>

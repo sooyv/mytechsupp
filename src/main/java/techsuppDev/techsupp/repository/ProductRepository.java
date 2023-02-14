@@ -22,6 +22,8 @@ public class ProductRepository {
         return em.find(Product.class, id);
     }
 
+
+
 //    페이징을 위한 function
 //    5개를 가져올 것임
 //    offset = 페이징의 시작 점

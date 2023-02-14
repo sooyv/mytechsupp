@@ -25,10 +25,8 @@ public class ProductController {
     }
 
 //    특정 상품 페이지로 이동 하는 컨트롤러
-    @GetMapping("/productSelect/test/*")
-    public String LinkToProductSelect(@PathVariable("productNumber") int productId) {
-        productService.findOneProduct(productId);
-
+    @GetMapping("/productSelect/**")
+    public String LinkToProductSelect() {
         return "/product/productSelect";
     }
 

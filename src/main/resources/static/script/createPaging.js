@@ -29,7 +29,7 @@ function createPaging(numberOfdata) {
 
 
 function getNumbersOfProductToCreatePaging() {
-  fetch(`/productMain/paging`)
+  fetch(`/api/paging`)
   .then(response => response.json())
   .then(data => createPaging(data))
 }

@@ -59,18 +59,18 @@ body {
   justify-content: space-around;
   flex-direction: row;
   width: 800px;
-  height: 25px;
+  height: 40px;
   margin: 10px;
 }
 
-.SortKeyword {
+.SortByKeywordAndSearch {
   display: flex;
   flex-direction: row;
   /* justify-content: flex-start; */
   list-style-type: none;
 }
 
-.SortKeyword > * {
+.SortByKeywordAndSearch > * {
   margin-left: 20px;
   padding: 20px, 80px;
 }

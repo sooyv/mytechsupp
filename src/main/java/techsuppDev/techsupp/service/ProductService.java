@@ -16,7 +16,7 @@ public class ProductService {
 //    일단 하나만 검색해서 보내주기
 //    보내주기 성공
 //    나중에 매개 변수만 바꿔주면 로직 짜는 거는 어렵지 않을
-    public Product findOneProduct(int productId) {
+    public Object findOneProduct(Long productId) {
         return productRepository.findOne(productId);
     }
 
@@ -47,8 +47,15 @@ public class ProductService {
 
 //    db에 있는 상품 row 갯수 구하는 것
 //    페이징을 위해서 필요
-    public Object getNumberOfProduct() {
-        return productRepository.getRow();
+//    public Object getNumberOfProduct(int limitPageNumber) {
+//        return productRepository.getRow(limitPageNumber);
+//    }
+
+//    public Object getNumberOfProduct() {
+//        return productRepository.getRow();
+//    }
+    public Object getNumberOfProduct(int pagingNumber) {
+        return productRepository.JsonPagingCount(pagingNumber);
     }
 
 }

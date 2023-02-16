@@ -1,7 +1,7 @@
-const productOne = document.querySelector('.ContainerProduct');
+const SingleProduct = document.querySelector('.ContainerProduct');
 
-function productOneCreate(api) {
-  productOne.innerHTML = `
+function createSingleProductHtml(api) {
+  SingleProduct.innerHTML = `
   <div class="ContainerPictureInvestmentAmountInformation">
       <div>
         <div class="ProductPicture">
@@ -27,21 +27,22 @@ function productOneCreate(api) {
         <h3>${api.percent}투자율</h3>
       </div>
       <div class="ProductInvesting">
-        <h3>${api.investment} / 10 개인 투자 금액 결제페이지 이동</h3>
+        <h3>${api.investment}개인 투자 금액 결제페이지 이동</h3>
       </div>
     </div>
   `
 }
 
-function createProductOne() {
+function createSingleProduct() {
   const url = location.href;
   const urlParams = new URL(url).searchParams;
   const productNumber = urlParams.get('num');
   fetch(`/api/product/?num=${productNumber}`)
   .then(response => response.json())
-  .then(data => productOneCreate(data));
+  .then(data => createSingleProductHtml(data));
 }
-createProductOne();
+
+createSingleProduct();
 
 
 // // 콘솔에 찍는 용

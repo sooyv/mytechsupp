@@ -2,7 +2,7 @@ const feedbackSortSearch = document.querySelector('.ContainerFeedbackSort');
 
 function createFeedbackSortSearch() {
   feedbackSortSearch.innerHTML = `
-    <ul class="SortKeyword">
+    <ul class="SortByKeywordAndSearch">
       <li><button>제목</button></li>
       <li><button>조회수</button></li>
       <li><button>즐겨찾기 순</button></li>

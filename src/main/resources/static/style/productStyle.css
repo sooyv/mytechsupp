@@ -58,18 +58,18 @@ body {
   justify-content: space-around;
   flex-direction: row;
   width: 800px;
-  height: 25px;
+  height: 40px;
   margin: 10px;
 }
 
-.SortKeyword {
+.SortByKeywordAndSearch {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   list-style-type: none;
 }
 
-.SortKeyword > * {
+.SortByKeywordAndSearch > * {
   margin-left: 20px;
   padding: 20px, 80px;
 }
@@ -304,16 +304,15 @@ body {
 
 /* 다른 페이지 이동 버튼 컨테이너 */
 
-.ContainerGotoOtherPage {
+.PagingContainer {
   display: flex;
   justify-content: center;
   justify-content: space-evenly;
   border-style: solid;
   margin: 10px;
-  margin-left: 100px;
   height: 50px;
 }
 
-.ContainerGotoOtherPage > * {
+.PagingContainer > * {
   display: flex;
 }

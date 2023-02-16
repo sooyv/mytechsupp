@@ -8,13 +8,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/productMain")
-public class ProductController {
-    @GetMapping("/*")
-    public ModelAndView LinkToProductMain() {
-        ModelAndView productMain = new ModelAndView("/product/productMain");
-        return productMain;
+@RequestMapping("/productSelect")
+public class SpecificProductController {
+    @GetMapping("/**")
+    public ModelAndView LinkToSpecific() {
+        ModelAndView specific = new ModelAndView("/product/productSelect");
+        return specific;
     }
-
 }
-

@@ -3,10 +3,10 @@ package techsuppDev.techsupp.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import techsuppDev.techsupp.service.ProductService;
-import org.springframework.web.bind.annotation.RestController;
+
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 
 //@org.springframework.web.bind.annotation.RestController
@@ -18,21 +18,51 @@ public class ApiController {
     private final ProductService productService;
 
 //    productMain 에서 5개 보여주기
-    @RequestMapping("/products/{pageNumber}")
-    public ResponseEntity findFiveProduct(@PathVariable("pageNumber") int pageNumber) {
-        if (pageNumber != 0) {
-            pageNumber = pageNumber * 5;
+    @RequestMapping("/products/*")
+    public ResponseEntity findFiveProduct(
+            HttpServletRequest req
+            ) {
+        int orderNumber = Integer.parseInt(req.getParameter("order"));
+        String keyword = req.getParameter("keyword");
+        if (orderNumber != 0) {
+            orderNumber = orderNumber * 5;
         }
-        return ResponseEntity.ok().body(productService.findFiveProduct(pageNumber));
+
+        return ResponseEntity.ok().body(productService.findFiveProduct(orderNumber, keyword));
     }
 
 //    페이징을 위해서 product table 상품 갯수 가져오기
-    @RequestMapping("/paging/{pagingNumber}")
-    public ResponseEntity numberOfProductsSend(@PathVariable("pagingNumber") int pagingNumber) {
+    @RequestMapping(value = "/paging/*")
+    public ResponseEntity numberOfProductsSend(
+            HttpServletRequest req) {
+        int pagingNumber =  Integer.parseInt(req.getParameter("page"));
+        String keyword = req.getParameter("keyword");
+
         pagingNumber = pagingNumber * 50;
 
-        return ResponseEntity.ok().body((productService.getNumberOfProduct(pagingNumber)));
+        return ResponseEntity.ok().body((productService.getNumberOfProduct(pagingNumber, keyword)));
     }
+
+//    @RequestMapping("/paging/{pagingNumber}/{keyWord}")
+//    public ResponseEntity numberOfProductsSend(
+//            @PathVariable("pagingNumber") int pagingNumber,
+//            @PathVariable("keyWord") String keyWord) {
+//        pagingNumber = pagingNumber * 50;
+//
+//        if (keyWord.equals("undefined")) {
+//            System.out.println("============");
+//        } else {
+//            System.out.println("a;owrb;aeoirb;aoeirb");
+//        }
+//
+//        return ResponseEntity.ok().body((productService.getNumberOfProduct(pagingNumber)));
+//    }
+
+
+
+
+
+
 ////    상품 선택 후 가져오는 하나의 상품 정보
     @RequestMapping("/product")
     public ResponseEntity productOne(HttpServletRequest request) {

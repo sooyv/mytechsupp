@@ -21,23 +21,8 @@ public class ProductService {
     }
 
 //    findone 5번 돌려서 가져오는 걸로 해보자
-    public List<Product> findFiveProduct(int pagingId) {
-//        List<Product> fiveProduct = new ArrayList<Product>();
-//        int id = productId;
-//
-////        페이징에서 1을 선택했을때랑 아닐때
-//        if (id == 1) {
-////            1일 경우
-//            id = 1;
-//        } else {
-////            1이 아닐 경우
-//            id = (id * 5) + 1;
-//        }
-//        int idLength = id + 4;
-//        for (; id <= idLength; id++) {
-//            fiveProduct.add(findOneProduct(id));
-//        }
-        return productRepository.findFiveProduct(pagingId);
+    public List<Product> findFiveProduct(int orderNumber, String keyword) {
+        return productRepository.findFiveProduct(orderNumber, keyword);
     }
 //보통 컨트롤러에서 구현
 //    근데 그냥 되면 굳이 바꿀 필요는 없음
@@ -54,8 +39,8 @@ public class ProductService {
 //    public Object getNumberOfProduct() {
 //        return productRepository.getRow();
 //    }
-    public Object getNumberOfProduct(int pagingNumber) {
-        return productRepository.JsonPagingCount(pagingNumber);
+    public Object getNumberOfProduct(int pagingNumber, String keyword) {
+        return productRepository.JsonPagingCount(pagingNumber, keyword);
     }
 
 }

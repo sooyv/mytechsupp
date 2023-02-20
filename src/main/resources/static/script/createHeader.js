@@ -22,3 +22,6 @@ function createHeaderHtml() {
 }
 
 createHeaderHtml();
+
+// 변수로 사용하지 말고
+// url 값 그대로 사용하는 방식으로 변경

@@ -1,5 +1,6 @@
 package techsuppDev.techsupp.repository;
 
+import com.fasterxml.jackson.databind.deser.BasicDeserializerFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
@@ -25,14 +26,27 @@ public class ProductRepository {
 
 
 
-    public List<Product> findFiveProduct(int pagingId) {
+    public List<Product> findFiveProduct(int orderNumber, String keyword) {
+
         String sql = " " +
                 "select * from " +
-                "Product where investment is not Null " +
-                "order by id desc " +
+                "(select * from Product where investment is not Null order by id desc)notNull ";
+        String limitSql =
                 "limit " +
-                pagingId +
-                ", 5" ;
+                orderNumber +
+                ", 5;" ;
+
+        String keywordSql = "";
+
+        if (keyword.equals("null") || keyword.equals("")) {
+            sql = sql + limitSql;
+        } else {
+            keywordSql = "where product like '%" +
+                    keyword +
+                    "%' ";
+            sql = sql + keywordSql + limitSql;
+        }
+
         Query nativeQuery = em.createNativeQuery(sql, "ProductMapping");
         List<Product> fiveProduct = nativeQuery.getResultList();
         return fiveProduct;
@@ -49,26 +63,35 @@ public class ProductRepository {
     }
 
 
-    public Object JsonPagingCount(int pagingNumber) {
+    public Object JsonPagingCount(int pagingNumber, String keyword) {
         String sql = " " +
-                "select count(*) from " +
-                "(select * from Product where investment is not null limit " +
+                "select count(*) from ";
+        String noKeywordSql =
+                " (select * from Product where investment is not null limit " +
                 pagingNumber +
-                ", 50)tableCount;";
+                " , 50)noNullData;";
+
+        String keywordSql = "(select * from Product where investment is not null and product like '%" +
+                keyword +
+                "%' " +
+                "limit " +
+                pagingNumber +
+                ", 50)searchData;";
+
+        if (keyword.equals("null") || keyword.equals("")) {
+            sql = sql + noKeywordSql;
+        } else {
+            sql = sql + keywordSql;
+        }
+
+
+
+
         Query nativeQuery = em.createNativeQuery(sql);
         Object rowNum = nativeQuery.getSingleResult();
+        System.out.println(rowNum);
         return rowNum;
     }
-
-//    검색 기능
-    public List<Product> findByKeyword(String searchKeyword) {
-       return em.createQuery(
-               "select * from Product i where product is not Null like "
-                       + "%:"
-                       + searchKeyword
-                       + "\"").getResultList();
-    }
-
 }
 //    하나만 가져오는 것
 //    매개 변수에 넣을 것이 pk

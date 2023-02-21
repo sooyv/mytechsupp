@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!--<html lang="en">-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TECHSUPP 회원가입</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <link href="/style/signUp/signUp.css" rel="stylesheet">
+  <!--    <script src="../static/js/signUp"></script>-->
+  <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+</head>
+<body>
+<!--공통되는 header-->
+<div id="header"></div>
+<div class="text-center">
+  <h4 class="mb-3">회원가입</h4>
+  <div class="align-form">
+    <form id="signUpForm" action="/signUp" method="POST">
+      <div>
+        <!-- 이름 -->
+        <div id="username-box" class="form-group col-md-4">
+          <label for="userName">이름</label>
+          <input type="text" id="userName" class="form-control">
+        </div>
+        <!--이메일-->
+        <div id="email-box" class="form-group col-md-4">
+          <label for="email">이메일</label>
+          <div id="emailcheck">
+            <input type="email" id="email" class="form-control" aria-describedby="emailHelp" placeholder="email@example.com">
+            <button type="button" id="email-duplication" class="btn btn-info">메일인증</button>
+          </div>
+          <small id="emailHelp" class="form-text text-muted"></small>
+        </div>
+        <div id="emailcheck-box" class="form-group col-md-4">
+          <label for="emailCertification">이메일 인증번호</label>
+          <input type="text" class="form-control" id="emailCertification">
+          <small id="email-certification" class="form-text text-muted">인증번호가 일치하지 않습니다</small>
+        </div>
+        <!-- 비밀번호 -->
+        <div id="password-box" class="form-group col-md-4">
+          <label for="password">비밀번호</label>
+          <input id="password" type="password" class="form-control" placeholder="Password">
+        </div>
+        <!-- 비밀번호 확인 -->
+        <div id="checkpassword-box" class="form-group col-md-4">
+          <label for="checkPassword">비밀번호 확인</label>
+          <input type="password" id="checkPassword" class="form-control">
+          <small id="password-same" class="form-text text-muted">비밀번호가 일치하지 않습니다</small>
+        </div>
+        <!-- 전화번호 -->
+        <div id="phoneNum-box" class="form-group col-md-4">
+          <label for="userPhone">전화번호</label>
+          <input type="tel" id="userPhone" class="form-control" placeholder="010-1234-5678">
+        </div>
+
+        <div id="techsupp-naverBtn">
+          <button type="submit" value="회원가입" id="signUpbtn" class="btn btn-info"></a>회원가입</button>
+          <!-- 네이버로 시작하기 버튼 -->
+          <div id="naver_id_login"></div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="/script/header.js"></script>
+<script type="text/javascript">
+  	var naver_id_login = new naver_id_login("1Hsj4Agu95IlkAOjVncV", "http://localhost:8080/navercallback");
+  	var state = naver_id_login.getUniqState();
+  	naver_id_login.setButton("white", 4,40);
+  	naver_id_login.setDomain("http://localhost:8080/login");
+  	naver_id_login.setState(state);
+  	naver_id_login.setPopup();
+  	naver_id_login.init_naver_id_login();
+  </script>
+<script src="/script/signUp/signUp.js"></script>
+</body>
+</html>

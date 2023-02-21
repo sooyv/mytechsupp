@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#712cf9">
+  <title>TECHSUPP 로그인</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <link href="/style/login/login.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+  <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+</head>
+
+<body>
+<!--공통되는 header-->
+<div id="header"></div>
+<div class="text-center">
+  <main class="form-login w-100 m-auto">
+    <form>
+      <i class="bi-robot fs-1"></i>
+      <!-- <img class="mb-4" src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
+      <h1 class="h3 mb-3 fw-normal">로그인</h1>
+
+      <div class="form-floating">
+        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+        <label for="floatingInput">Email</label>
+      </div>
+      <div class="form-floating">
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+        <label for="floatingPassword">password</label>
+      </div>
+      <div>
+        <p class="forgotAccount">
+          <a class="#">로그인 정보를 잊으셨나요?</a>
+        </p>
+      </div>
+      <!--            <div class="checkbox mb-3">-->
+      <!--            <label>-->
+      <!--                <input type="checkbox" value="remember-me"> 이메일 기억-->
+      <!--            </label>-->
+      <!--            </div>-->
+      <button class="w-100 btn btn-lg btn-primary" type="submit">로그인</button>
+      <!-- 네이버로 시작하기 버튼 -->
+      <a href="http://localhost:8080/test">네이버로그인 test</a>
+
+
+      <div id="naver_id_login"></div>
+      <!-- 회원가입 페이지 이동 -->
+      <div class="bottom-message">
+        <p>
+          아직 계정이 없나요?
+          <a href="/signUp">회원가입</a>
+        </p>
+      </div>
+      <p class="mt-5 mb-3 text-muted">© 2023 TECHSUPP</p>
+    </form>
+  </main>
+</div>
+<script src="/script/header.js"></script>
+<script type="text/javascript">
+  	var naver_id_login = new naver_id_login("", "http://localhost:8080/navercallback");
+  	var state = naver_id_login.getUniqState();
+  	naver_id_login.setButton("white", 4, 40);
+  	naver_id_login.setDomain("http://localhost:8080");
+  	naver_id_login.setState(state);
+  	naver_id_login.setPopup();
+  	naver_id_login.init_naver_id_login();
+  </script>
+</body>
+</html>
+
+
+

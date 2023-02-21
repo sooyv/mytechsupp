@@ -2,6 +2,9 @@ package techsuppDev.techsupp.DTO;
 
 import lombok.*;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 
 @Getter
@@ -10,14 +13,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class NoticeDTO {
-    private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long noticeId;
     private String noticeWriter;
-    private String noticePass;
     private String noticeTitle;
     private String noticeContents;
     private int noticeHits;
-    private LocalDateTime noticeCreatedTime;
-    private LocalDateTime noticeUpdatedTime;
+    private LocalDateTime noticeregDate;
+    private LocalDateTime noticemodDate;
 
 
 }

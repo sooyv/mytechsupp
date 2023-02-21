@@ -1,0 +1,234 @@
+body {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  /* align-items: center; */
+  width: 700px;
+}
+
+/* 헤더 - 메뉴 스타일 */
+.Header {
+  width: 800px;
+  border-style: solid;
+  margin: 10px;
+}
+
+.Head {
+  display: flex;
+  /* width: 800px; */
+  height: 100px;
+  justify-content: space-between;
+}
+
+.Menu {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.NavigationBar {
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;  
+}
+
+.NavigationBar > * {
+  margin-left: 20px;
+}
+
+.UserControl {
+  display: flex;
+  flex-direction: flex-end;
+  list-style-type: none;
+  
+}
+
+.UserControl > * {
+  margin-left: 10px;
+}
+
+.MainPage {
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* 제품 정렬 - 제품 검색  */
+.ContainerFeedbackSort {
+  display: flex;
+  border-style: solid;
+  justify-content: space-around;
+  flex-direction: row;
+  width: 800px;
+  height: 40px;
+  margin: 10px;
+}
+
+.SortByKeywordAndSearch {
+  display: flex;
+  flex-direction: row;
+  /* justify-content: flex-start; */
+  list-style-type: none;
+}
+
+.SortByKeywordAndSearch > * {
+  margin-left: 20px;
+  padding: 20px, 80px;
+}
+
+.ProductSearch {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;  
+}
+
+/* 피드백 제품 스타일 */
+
+/* flex-basis 사용해서 배치 해보자 (기본 크기 설정하는 것)*/
+/* flex-shrink 사용해보자 (비율 설정하는 것 ) */
+/* flex-wrap 컨테이너를 벗어났을때 줄바꿈 해주는 것 */
+.FeedbackContent {
+  display: flex;
+  border-style: solid;
+  justify-content: space-around;
+  margin: 10px;
+  margin-left: 30px;
+  width: 750px;
+}
+
+.FeedbackContent > * {
+  display: flex;
+  border-style: solid;
+  margin: 4px;
+}
+
+.FeedbackListPicture {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 150px;
+}
+
+.FeebackListInformation {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.FeedbackListName-FeedbackListInformation {
+  display: flex;
+  flex-direction: row;
+
+}
+
+.FeedbackListName-FeedbackListInformation > * {
+  display: flex;
+  border-style: solid;
+  margin: 1px;
+}
+
+.FeedbackListScore-LimitDate-SuccesStatus {
+  display: flex;
+}
+
+.FeedbackListScore-LimitDate-SuccesStatus > * {
+  display: flex;
+  border-style: solid;
+  margin: 1px;
+}
+
+/* 페이징 */
+.PagingContainer {
+  display: flex;
+  justify-content: center;
+  width: 800px;
+  
+}
+
+.PagingList {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  float: left;
+  list-style-type: none;
+}
+
+.Page {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+}
+
+/* 나의 후기 작성하러 가기 버튼 */
+.FeedbackGotoWrite {
+  display: flex;
+  justify-content: center;
+}
+
+.FeedbackGotoWrite > * {
+  display: flex;
+  justify-content: center;
+  width: 500px;
+  height: 50px;
+}
+
+/* 작성된 후기 리스트 */
+.FeedbackWritenByUserList {
+  display: flex;
+  flex-direction: column;
+  border-style: solid;
+  margin: 5px;
+  margin-left: 50px;
+  width: 700px;
+}
+
+.FeedbackWritenByUser {
+  display: flex;
+}
+
+.FeedbackPictureByUser {
+  display: flex;
+  border-style: solid;
+  width: 100px;
+  margin: 1px;
+}
+
+.FeedbackScore-FeedbackUser {
+  display: flex;
+  border-style: solid;
+  justify-content: center;
+  flex-direction: column;
+  margin: 1px;
+}
+
+.FeedbackText {
+  display: flex;
+  border-style: solid;
+  flex-grow: 3;
+  margin: 1px;
+  width: 450px;
+}
+
+/* 피드백 작성 컨테이너 */
+
+.ContainerFeedBackWriteForm {
+    display: flex;
+    border-style: solid;
+    flex-direction: column;
+    
+}
+
+.FeedbackInsertScore-FeebackUploadImg {
+  display: flex;
+  border-style: solid;
+  flex-direction: column;
+  margin: 1px;
+}
+
+.FeedbackInsertText {
+  display: flex;
+  border-style: solid;
+  flex-direction: column;
+  margin: 1px;
+  height: 300px;
+}

@@ -1,0 +1,379 @@
+body {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 820px;
+  margin: 20px;
+}
+
+body > * {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  border: solid;
+  margin-left: 10px;
+}
+
+/* 헤더 - 메뉴 스타일 */
+.Header {
+  width: 800px;
+  border-style: solid;
+  margin: 10px;
+}
+
+.Head {
+  display: flex;
+  /* width: 800px; */
+  height: 100px;
+  justify-content: space-between;
+}
+
+.Menu {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.NavigationBar {
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;  
+}
+
+.NavigationBar > * {
+  margin-left: 20px;
+}
+
+.UserControl {
+  display: flex;
+  flex-direction: flex-end;
+  list-style-type: none;
+  
+}
+
+.UserControl > * {
+  margin-left: 10px;
+}
+
+.MainPage {
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* 제품 정렬 - 제품 검색  */
+.ContainerProductSort {
+  display: flex;
+  border-style: solid;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+  width: 800px;
+  height: 40px;
+  margin: 10px;
+}
+
+.SortByKeyword {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  list-style-type: none;
+}
+
+.SortByKeyword > * {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 20px;
+  padding: 20px, 80px;
+}
+
+.SearchByKeyword {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;  
+}
+
+.SearchByKeyword > * {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;  
+}
+
+/* 제품 스타일 */
+.ProductContent {
+  display: flex;
+  border-style: solid;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 780px;
+  height: 150px;
+  margin: 10px;
+}
+
+.ProductListPicture {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 150px;
+  height: 150px;
+  margin: 5px;
+
+}
+
+.ProductListInformation {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 300px;
+  height: 150px;
+}
+
+.ProductListInvestment-ProductListLimitDate {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ProductListPercentage-ProductListWish {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  margin: 10px;
+}
+
+
+/* 페이징 */
+.PagingContainer {
+  display: flex;
+  justify-content: center;
+  width: 800px;
+  
+}
+
+.PagingList {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  float: left;
+  list-style-type: none;
+}
+
+.Page {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+}
+
+/* 상품 선택 */
+
+.ContainerProduct {
+  display: flex;
+  /* border-style: solid; */
+  flex-direction: row;
+  margin-top: 20px;
+}
+
+  /* 사진, 목표투자액, 상품 정보 */
+.ContainerPictureInvestmentAmountInformation {
+  display: flex;
+  justify-content: center;
+  width: 560px;
+}
+
+.ProductPicture {
+  display: flex;
+  justify-content: center;
+  border-style: solid;
+  width: 400px;
+  height: 400px;
+}
+
+.ProductInvestmentAmount {
+  display: flex;
+  justify-content: center;
+  border-style: solid;
+  margin-top: 10px;
+  margin-left: 25px;
+  width: 350px;
+  height: 100px;
+}
+
+.ProductInformation {
+  display: flex;
+  justify-content: center;
+  border-style: solid;
+  margin-top: 10px;
+  margin-left: 20px;
+  width: 360px;
+  height: 400px;
+}
+
+  /* 제품명, 투자 마감일, 투자율, 개인투자금액(결제페이지 이동) */
+.ContainerNameLimitDatePrecentageInvesting {
+  display: flex;
+  justify-content: top;
+  flex-direction: column;
+  width: 280px;
+}
+
+.ProductNameWish {
+  display: flex;
+  flex-direction: column;
+  border-style: solid;
+  margin-top: 10px;
+  margin-left: 20px;
+  width: 240px;
+  height: 240px;
+}
+
+.ProductNameWish > span {
+  display: flex;
+  width: 240px;
+  height: 200px;
+}
+
+.ProductNameWish > button {
+  display: flex;
+  /* justify-content: right; */
+  width: 40px;
+  height: 40px;
+}
+
+.ProductLimitDate {
+  display: flex;
+  border-style: solid;
+  margin-top: 10px;
+  margin-left: 20px;
+  width: 240px;
+  height: 50px;
+}
+
+.ProductPercentage {
+  display: flex;
+  border-style: solid;
+  margin-top: 10px;
+  margin-left: 20px;
+  width: 240px;
+  height: 50px;
+}
+
+.ProductInvesting {
+  display: flex;
+  border-style: solid;
+  margin-top: 10px;
+  margin-left: 20px;
+  width: 240px;
+  height: 50px;
+}
+
+.ProductInvesting > * {
+  display: flex;
+  border-style: solid;
+  justify-content: space-between;
+  margin-top: 2px;
+  margin-left: 20px;
+  margin-right: 20px;
+  width: 206px;
+  height: 45px;
+}
+
+/* 결제 페이지 */
+
+/* 유저 입력란 */
+.ContainerUserInput {
+  display: flex;
+  border-style: solid;
+  flex-direction: column;
+  margin: 10px;
+  margin-left: 100px;
+}
+
+.ContainerUserInput > * {
+  display: flex;
+  border-style: solid;
+  margin: 30px;
+  width: 200px;
+  height: 30px;
+}
+
+/* 투자 확정 - 취소 컨테이너 */
+
+.ContainerConfirmCancel {
+  display: flex;
+  border-style: solid;
+  justify-content: center;
+  justify-content: space-evenly;
+  align-items: row;
+  flex-direction: row;
+  width: 300px;
+  height: 40px;
+  margin-left: 200px;
+}
+
+.ContainerConfirmCancel > * {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100px;
+
+}
+
+/* 결제 완료 안내 페이지 */
+
+.InvestCompleteNotice {
+  display: flex;
+  border-style: solid;
+  justify-content: center;
+  flex-direction: column;
+  margin: 10px;
+  margin-left: 100px;
+  height: 300px;
+}
+
+.InvestCompleteNotice > * {
+  display: flex;
+  justify-content: center;
+}
+
+/* 다른 페이지 이동 버튼 컨테이너 */
+
+.PagingContainer {
+  display: flex;
+  justify-content: center;
+  justify-content: space-evenly;
+  border-style: solid;
+  margin: 10px;
+  height: 50px;
+}
+
+.PagingContainer > * {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 카카오맵 */
+.KakaomapContainer {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  height: 70px;
+}
+
+.KakaomapContainer > * {
+  margin: 5px;
+}
+
+.zipcode {
+  display: flex;
+  flex-direction: row;
+}
+
+.roadDetailAddress {
+  display: flex;
+  flex-direction: column;
+}

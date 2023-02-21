@@ -11,8 +11,10 @@ spring:
   datasource:
     drive-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/techsupp
-    username: root
-    password:
+    username: techsupp
+    password: techsupp
+#    db 때문에 런이나 빌드 작동 안할 겁니다
+#  테스트 하고 싶으시면 기존에 설정하셨던 db id pw 로 수정해서 돌려주세요
   jpa:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect

@@ -2,7 +2,16 @@ body {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  width: 700px;
+  width: 820px;
+  margin: 20px;
+}
+
+body > * {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  border: solid;
+  margin-left: 10px;
 }
 
 /* 헤더 - 메뉴 스타일 */
@@ -97,7 +106,8 @@ body {
   display: flex;
   border-style: solid;
   justify-content: space-between;
-  width: 800px;
+  flex-direction: row;
+  width: 780px;
   height: 150px;
   margin: 10px;
 }
@@ -253,8 +263,19 @@ body {
   border-style: solid;
   margin-top: 10px;
   margin-left: 20px;
-  width: 150px;
+  width: 240px;
   height: 50px;
+}
+
+.ProductInvesting > * {
+  display: flex;
+  border-style: solid;
+  justify-content: space-between;
+  margin-top: 2px;
+  margin-left: 20px;
+  margin-right: 20px;
+  width: 206px;
+  height: 45px;
 }
 
 /* 결제 페이지 */
@@ -283,6 +304,8 @@ body {
   border-style: solid;
   justify-content: center;
   justify-content: space-evenly;
+  align-items: row;
+  flex-direction: row;
   width: 300px;
   height: 40px;
   margin-left: 200px;
@@ -291,6 +314,8 @@ body {
 .ContainerConfirmCancel > * {
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: row;
   margin-top: 10px;
   margin-bottom: 10px;
   width: 100px;
@@ -329,4 +354,26 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/* 카카오맵 */
+.KakaomapContainer {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  height: 70px;
+}
+
+.KakaomapContainer > * {
+  margin: 5px;
+}
+
+.zipcode {
+  display: flex;
+  flex-direction: row;
+}
+
+.roadDetailAddress {
+  display: flex;
+  flex-direction: column;
 }

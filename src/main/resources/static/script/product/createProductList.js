@@ -1,15 +1,7 @@
-// 메인 페이지에 html 태그를 생성하는 script
-// const productList = document.querySelector('.ContainerProductList');
-
-
-// 구현해야하는 기능은 선택한 상품의 상세 정보 페이지로 이동하는것
-// 현재 구현된 것은 productSelect 링크로 가게 하는 것 까지만 구현
 function linkToSelectedProduct(api) {
   let productSelected = `/productSelect/product/?num=${api}`;
   window.location.href = productSelected;
 };
-
-
 
 function createProductList(api) {
   productList.innerHTML = ``;
@@ -33,16 +25,7 @@ function createProductList(api) {
   }
 }
 
-
-
-// 이제 api를 요청해서 그거를 담아주는 걸 짜야함
-
-// 테스트
 function createFiveProduct(orderNumber, keyword) {
-  // const url = location.href;
-  // const urlParams = new URL(url).searchParams;
-  // const orderNumber = urlParams.get('order');
-  // const keyword = urlParams.get('keyword');
   fetch(`/api/products/product?page=${pageNumber}&order=${orderNumber}&keyword=${keyword}`)
   .then(response => response.json())
   .then(data => createProductList(data));

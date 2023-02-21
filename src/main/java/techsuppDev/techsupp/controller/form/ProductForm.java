@@ -1,4 +1,4 @@
-package techsuppDev.techsupp.controller;
+package techsuppDev.techsupp.controller.form;
 
 import lombok.*;
 

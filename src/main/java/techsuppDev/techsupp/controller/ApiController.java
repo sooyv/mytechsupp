@@ -5,11 +5,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import techsuppDev.techsupp.service.ProductService;
-
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 
-//@org.springframework.web.bind.annotation.RestController
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
@@ -42,26 +40,6 @@ public class ApiController {
 
         return ResponseEntity.ok().body((productService.getNumberOfProduct(pagingNumber, keyword)));
     }
-
-//    @RequestMapping("/paging/{pagingNumber}/{keyWord}")
-//    public ResponseEntity numberOfProductsSend(
-//            @PathVariable("pagingNumber") int pagingNumber,
-//            @PathVariable("keyWord") String keyWord) {
-//        pagingNumber = pagingNumber * 50;
-//
-//        if (keyWord.equals("undefined")) {
-//            System.out.println("============");
-//        } else {
-//            System.out.println("a;owrb;aeoirb;aoeirb");
-//        }
-//
-//        return ResponseEntity.ok().body((productService.getNumberOfProduct(pagingNumber)));
-//    }
-
-
-
-
-
 
 ////    상품 선택 후 가져오는 하나의 상품 정보
     @RequestMapping("/product")

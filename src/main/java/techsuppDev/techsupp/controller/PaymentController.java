@@ -8,11 +8,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/productSelect")
-public class SpecificProductController {
-    @GetMapping("/product")
-    public ModelAndView LinkToSpecific() {
-        ModelAndView specific = new ModelAndView("/product/productSelect");
-        return specific;
+@RequestMapping("/invest")
+public class PaymentController {
+    @GetMapping("/*")
+    public ModelAndView LinkToSpecificInvestment() {
+        ModelAndView investmentProduct = new ModelAndView("/product/productInvesting");
+        return investmentProduct;
     }
 }

@@ -1,4 +1,11 @@
-const SingleProduct = document.querySelector('.ContainerProduct');
+// const SingleProduct = document.querySelector('.ContainerProduct');
+// const productNumber = urlParams.get('num');
+
+
+function LinkToInvestingProduct(api) {
+  const investingURL = `/invest/?num=${api}`
+  window.location.href = investingURL;
+}
 
 function createSingleProductHtml(api) {
   SingleProduct.innerHTML = `
@@ -27,16 +34,13 @@ function createSingleProductHtml(api) {
         <h3>${api.percent}투자율</h3>
       </div>
       <div class="ProductInvesting">
-        <h3>${api.investment}개인 투자 금액 결제페이지 이동</h3>
+          <input type=button onclick="LinkToInvestingProduct(${api.id})" value=${api.investment}개인 투자 금액 결제페이지 이동>
       </div>
     </div>
   `
 }
 
 function createSingleProduct() {
-  const url = location.href;
-  const urlParams = new URL(url).searchParams;
-  const productNumber = urlParams.get('num');
   fetch(`/api/product/?num=${productNumber}`)
   .then(response => response.json())
   .then(data => createSingleProductHtml(data));

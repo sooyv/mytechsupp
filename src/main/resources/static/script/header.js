@@ -8,9 +8,9 @@ function createHead() {
       <ul class="nav me-auto">
         <!-- <li class="nav-item"><a href="#" class="nav-link link-dark px-2 active" aria-current="page">Home</a></li> -->
         <li class="nav-item"><a href="#" class="nav-link link-dark px-2">서비스 소개</a></li>
-        <li class="nav-item"><a href="#" class="nav-link link-dark px-2">펀딩</a></li>
+        <li class="nav-item"><a href="/productMain/product?page=0&order=0" class="nav-link link-dark px-2">펀딩</a></li>
         <li class="nav-item"><a href="#" class="nav-link link-dark px-2">고객센터</a></li>
-        <li class="nav-item"><a href="#" class="nav-link link-dark px-2">후기</a></li>
+        <li class="nav-item"><a href="/feedbackMain/?page=0" class="nav-link link-dark px-2">후기</a></li>
       </ul>
       <ul class="nav">
         <li class="nav-item"><a href="/login" class="nav-link link-dark px-2">로그인</a></li>

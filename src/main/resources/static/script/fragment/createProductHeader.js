@@ -22,9 +22,6 @@ function createProductHeaderHtml() {
         <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
         <span class="fs-4">TECHSUPP</span>
       </a>
-      <form class="col-12 col-lg-auto mb-3 mb-lg-0" role="search">
-        <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-      </form>
     </div>
   </div>`;
 }

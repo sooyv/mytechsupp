@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class WishList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long wishId;
-    Long userId;
-    Long productId;
+    private Long wishId;
+    private Long userId;
+    private Long productId;
 }

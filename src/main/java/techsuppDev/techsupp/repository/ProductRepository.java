@@ -16,15 +16,14 @@ public class ProductRepository {
 
     public Object findOne(Long id) {
         String sql = " " +
-                "select * from Product " +
-                "where id = "+
+                "select " +
+                "product_id, product_picture, product_investment, product_period, product_percent " +
+                "from Product where id = "+
                 id;
         Query nativeQuery = em.createNativeQuery(sql, "ProductMapping");
         Object singleProduct = nativeQuery.getSingleResult();
         return singleProduct;
     }
-
-
 
     public List<Product> findFiveProduct(int orderNumber, String keyword) {
 
@@ -83,9 +82,6 @@ public class ProductRepository {
         } else {
             sql = sql + keywordSql;
         }
-
-
-
 
         Query nativeQuery = em.createNativeQuery(sql);
         Object rowNum = nativeQuery.getSingleResult();

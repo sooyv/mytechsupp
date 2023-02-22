@@ -15,8 +15,8 @@ function createProductSortSearch() {
     <form action="http://localhost:8080/productMain/product?" method="get">
       <input type="hidden" name="page" value="0">
       <input type="hidden" name="order" value="0">
-      <input class="ProductSearch" type="text" placeholder="검색창" name="keyword">
-      <input class="ProductSendKeyWord" type="submit">
+      <input type="text" class="ProductSearch" placeholder="Search..." name="keyword">
+      <input type="submit" class="ProductSendKeyWord">
     </form>
   </div>
   `;

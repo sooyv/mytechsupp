@@ -32,15 +32,6 @@ import java.util.Date;
 )
 @Table(name = "Product")
 public class Product {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    Long ID;
-//    String picture;
-//    String product;
-//    String investment;
-//    String limitdate;
-//    String percent;
-//    String wish;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long productId;
@@ -48,9 +39,10 @@ public class Product {
     String productName;
     String productInformation;
     int productPrice;
-    String productPeriod;
+    Date productPeriod;
     int productPercent;
     int productStatus;
     Date productDate;
     int productCount;
+    int productInvestment;
 }

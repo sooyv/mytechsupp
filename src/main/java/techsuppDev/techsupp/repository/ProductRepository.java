@@ -2,7 +2,7 @@ package techsuppDev.techsupp.repository;
 
 import com.fasterxml.jackson.databind.deser.BasicDeserializerFactory;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
+
 import org.springframework.stereotype.Repository;
 import techsuppDev.techsupp.domain.Product;
 
@@ -14,10 +14,11 @@ import java.util.List;
 public class ProductRepository {
     private final EntityManager em;
 
+
     public Object findOne(Long id) {
         String sql = " " +
                 "select " +
-                "product_id, product_picture, product_investment, product_period, product_percent " +
+                " " +
                 "from Product where id = "+
                 id;
         Query nativeQuery = em.createNativeQuery(sql, "ProductMapping");
@@ -88,6 +89,11 @@ public class ProductRepository {
         System.out.println(rowNum);
         return rowNum;
     }
+
+    public void insertTestData() {
+
+    }
+
 }
 //    하나만 가져오는 것
 //    매개 변수에 넣을 것이 pk

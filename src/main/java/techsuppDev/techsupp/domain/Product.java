@@ -3,6 +3,7 @@ package techsuppDev.techsupp.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -24,9 +25,9 @@ import java.util.Date;
                         @ColumnResult(name = "information", type = String.class),
                         @ColumnResult(name = "totalPrice", type = int.class),
                         @ColumnResult(name = "investPrice", type = int.class),
-                        @ColumnResult(name = "period", type = String.class),
+                        @ColumnResult(name = "period", type = LocalDateTime.class),
                         @ColumnResult(name = "status", type = int.class),
-                        @ColumnResult(name = "createDate", type = Date.class),
+                        @ColumnResult(name = "createDate", type = LocalDateTime.class),
                         @ColumnResult(name = "clickCount", type = int.class),
                         @ColumnResult(name = "recruit", type = int.class),
                 })
@@ -42,9 +43,9 @@ public class Product {
     private int totalPrice;
     private int investPrice;
 //    개인 투자액 컬럼 추가
-    private Date period;
+    private LocalDateTime period;
     private int status;
-    private Date createDate;
+    private LocalDateTime createDate;
     private int clickCount;
     private int recruit;
 //    모집인원 컬럼 추가

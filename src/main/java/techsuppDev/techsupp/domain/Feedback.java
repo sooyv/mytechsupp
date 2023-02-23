@@ -16,11 +16,11 @@ import javax.persistence.Id;
 public class Feedback {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long feedbackId;
+    private Long d;
     private Long productId;
     private Long seqId;
-    private String feedbackText;
-    private int feedbackScore;
-    private int feedbackStatus;
+    private String Text;
+    private int Score;
+    private int Status;
 
 }

@@ -14,14 +14,14 @@ import java.util.Date;
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long paymentId;
-    Long productId;
-    String streetAddr;
-    String detailAddr;
-    String zipCode;
+    private Long paymentId;
+    private Long productId;
+    private String streetAddr;
+    private String detailAddr;
+    private String zipCode;
 
-    int paymentPrice;
-    Date paymentDate;
+    private int paymentPrice;
+    private Date paymentDate;
 
-    String paymentMethod;
+    private String paymentMethod;
 }

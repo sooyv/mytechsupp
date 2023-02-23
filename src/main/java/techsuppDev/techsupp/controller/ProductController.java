@@ -20,7 +20,5 @@ public class ProductController {
         ModelAndView productMain = new ModelAndView("/product/productMain");
         return productMain;
     }
-
-
 }
 

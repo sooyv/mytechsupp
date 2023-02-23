@@ -17,8 +17,18 @@ public class ProductController {
 
     @GetMapping("/*")
     public ModelAndView LinkToProductMain() {
+
         ModelAndView productMain = new ModelAndView("/product/productMain");
         return productMain;
     }
+
+    @GetMapping("/createtest")
+    public void createtestcon() {
+        productService.createtestdataproduct();
+        System.out.println("======");
+        System.out.println("controller");
+    }
+
+
 }
 

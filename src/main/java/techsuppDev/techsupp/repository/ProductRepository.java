@@ -7,7 +7,13 @@ import org.springframework.stereotype.Repository;
 import techsuppDev.techsupp.domain.Product;
 
 import javax.persistence.*;
+import java.lang.reflect.Array;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 @Repository
 @RequiredArgsConstructor
@@ -30,7 +36,7 @@ public class ProductRepository {
 
         String sql = " " +
                 "select * from " +
-                "(select * from Product where investment is not Null order by id desc)notNull ";
+                "(select * from Product where period is not Null order by id desc)notNull ";
         String limitSql =
                 "limit " +
                 orderNumber +
@@ -41,7 +47,7 @@ public class ProductRepository {
         if (keyword.equals("null") || keyword.equals("")) {
             sql = sql + limitSql;
         } else {
-            keywordSql = "where product like '%" +
+            keywordSql = "where product_name like '%" +
                     keyword +
                     "%' ";
             sql = sql + keywordSql + limitSql;
@@ -49,6 +55,7 @@ public class ProductRepository {
 
         Query nativeQuery = em.createNativeQuery(sql, "ProductMapping");
         List<Product> fiveProduct = nativeQuery.getResultList();
+
         return fiveProduct;
     }
 
@@ -67,11 +74,11 @@ public class ProductRepository {
         String sql = " " +
                 "select count(*) from ";
         String noKeywordSql =
-                " (select * from Product where investment is not null limit " +
+                " (select * from Product where period is not null limit " +
                 pagingNumber +
                 " , 50)noNullData;";
 
-        String keywordSql = "(select * from Product where investment is not null and product like '%" +
+        String keywordSql = "(select * from Product where period is not null and product_name like '%" +
                 keyword +
                 "%' " +
                 "limit " +
@@ -90,10 +97,137 @@ public class ProductRepository {
         return rowNum;
     }
 
-    public void insertTestData() {
 
+
+
+//    테스트 데이터 자동 생성
+    public Object insertTestData() {
+        System.out.println("===========");
+        System.out.println("repository");
+        String sql = " " +
+                "insert into product " +
+                "(seq_id, product_name, information, total_price, invest_price, period, product_status, create_date, click_count) values ";
+        String middleSql = "(";
+        String endSql = ")";
+        
+        String seqid = "imageFile";
+        String productName = "testProduct";
+        String information = "testInformation";
+        String totalPrice;
+        String investPrice;
+        String cast = "cast('";
+        String period;
+        String periodUnderbar = "-";
+        String periodEnd = " as datetime')";
+
+        String productStatus;
+        String createDate;
+        String createDateEnd = " as datetime')";
+        String clickCount;
+
+//        date random
+        Random random = new Random();
+
+        int randomTotalPrice = random.nextInt(999999) + 100000;
+        int randomInvestPrice = randomTotalPrice / 10;
+
+        int year, month, day, hour, minute, second, createYear, createMonth, createDay;
+        String sYear,sMonth,sDate,sDay;
+        year = (int) Math.random() * 20 + 2023;
+        month = (int) Math.random() * 2 + 11;
+        day = (int) Math.random() * 17 + 11;
+        hour = (int) Math.random() * 14 + 11;
+        minute = (int) Math.random() * 49 + 11;
+        second = (int) Math.random() * 49 + 11;
+        createYear = year - 1;
+        createMonth = month -1;
+        createDay = day - 1;
+
+
+//        status
+        String[] statusArr = {"investing", "investClose", "productManufacture", "productComplete", "delivering", "deliverd", "success", "fail"};
+        String statusInput = statusArr[random.nextInt(8) + 1 - 1].toString();
+
+        int clickCountRandom = random.nextInt(50);
+//
+//
+//
+//
+        int qwrandomTotalPrice = random.nextInt(999999) + 100000;
+        int qwrandomInvestPrice = randomTotalPrice / 10;
+
+        int qwyear, qwmonth, qwday, qwhour, qwminute, qwsecond, qwcreateYear, qwcreateMonth, qwcreateDay;
+        String qwsYear, qwsMonth, qwsDate,qwsDay;
+        qwyear = (int) Math.random() * 20 + 2023;
+        qwmonth = (int) Math.random() * 2 + 11;
+        qwday = (int) Math.random() * 17 + 11;
+        qwhour = (int) Math.random() * 14 + 11;
+        qwminute = (int) Math.random() * 49 + 11;
+        qwsecond = (int) Math.random() * 49 + 11;
+        qwcreateYear = qwyear - 1;
+        qwcreateMonth = qwmonth -1;
+        qwcreateDay = qwday - 1;
+
+
+//        status
+        String[] qwstatusArr = {"투자진행", "투자마감", "상품제조중", "상품제조완료", "제품배송중", "제품배송완료", "성공", "실패"};
+        String qwstatusInput = statusArr[random.nextInt(8) + 1 - 1].toString();
+
+        int qwclickCountRandom = random.nextInt(50);
+
+
+
+
+
+        String createRandomDataSql ="";
+//
+
+        for (int i = 1; i < 100; i++) {
+//            seqid = seqid + i + ", ";
+            seqid = i + ", ";
+            productName = "\"" + productName + i + "\", ";
+            information = "\"" + information + i + "\", ";
+            totalPrice = Integer.toString(qwrandomTotalPrice) + ", ";
+            investPrice = Integer.toString(qwrandomInvestPrice) + ", ";
+            period = Integer.toString(qwyear) + Integer.toString(qwmonth) +Integer.toString(qwday) + Integer.toString(qwhour) + Integer.toString(qwminute) + Integer.toString(qwsecond) + ", ";
+            productStatus = "\'" + qwstatusInput + "\'"  + ", ";
+            createDate = Integer.toString(qwcreateYear) + Integer.toString(qwcreateMonth) + Integer.toString(qwcreateDay) + Integer.toString(qwhour) + Integer.toString(qwminute) + Integer.toString(qwsecond) + ", ";
+            clickCount = Integer.toString(qwclickCountRandom);
+
+
+            createRandomDataSql += middleSql + seqid + productName + information + totalPrice + investPrice + period + productStatus + createDate + clickCount + endSql + ", ";
+            seqid = "";
+            productName = "testProduct";
+            information = "testInformation";
+            totalPrice = "";
+            investPrice = "";
+            period = "";
+            productStatus = "";
+            createDate = "";
+            clickCount = "";
+        }
+        for (int i = 100; i < 101; i++) {
+            seqid = i + ", ";
+            productName = "\"" + productName + i + "\", ";
+            information = "\"" + information + i + "\", ";
+            totalPrice = Integer.toString(qwrandomTotalPrice) + ", ";
+            investPrice = Integer.toString(qwrandomInvestPrice) + ", ";
+            period = Integer.toString(qwyear) + Integer.toString(qwmonth) +Integer.toString(qwday) + Integer.toString(qwhour) + Integer.toString(qwminute) + Integer.toString(qwsecond) + ", ";
+            productStatus = "\'" + qwstatusInput + "\'"  + ", ";
+            createDate = Integer.toString(qwcreateYear) + Integer.toString(qwcreateMonth) + Integer.toString(qwcreateDay) + Integer.toString(qwhour) + Integer.toString(qwminute) + Integer.toString(qwsecond) + ", ";
+            clickCount = Integer.toString(qwclickCountRandom);
+
+
+            createRandomDataSql += middleSql + seqid + productName + information + totalPrice + investPrice + period + productStatus + createDate + clickCount + endSql + ";";
+        }
+
+        String sc = sql + createRandomDataSql;
+        Query nativeQuery = em.createNativeQuery(sc);
+        System.out.println(nativeQuery);
+        System.out.println(sc);
+        return sc;
     }
-//test for commit with no brench
+
 
 }
 //    하나만 가져오는 것

@@ -8,18 +8,18 @@ function createProductList(api) {
   for(let i = 0; i < 5; i++) {
     productList.innerHTML += `<article class="ProductContent" onclick="linkToSelectedProduct(${api[i].id})">
     <div class="ProductListPicture">
-    <h2>${api[i].picture}제품 사진</h2>
+    <h2>${api[i].seqId}제품 사진</h2>
     </div>
     <div class="ProductListInformation">
-    <h2>${api[i].product}제품 제목</h2>
+    <h2>${api[i].productName}제품 제목</h2>
     <div class="ProductListInvestment-ProductListLimitDate">
-    <h3>${api[i].investment}개인 투자 금액</h3>
-    <h3>${api[i].limitdate}투자 마감일</h3>
+    <h3>${api[i].investPrice}개인 투자 금액</h3>
+    <h3>${api[i].period}투자 마감일</h3>
     </div>
     </div>
     <div class="ProductListPercentage-ProductListWish">
-    <h3>${api[i].percent}투자율</h3>
-    <h3>${api[i].wish}즐겨찾기</h3>
+    <h3>${api[i].totalPrice / api[i].investPrice}투자율</h3>
+    <h3>즐겨찾기</h3>
     </div>
     </article>`
   }

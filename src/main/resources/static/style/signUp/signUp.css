@@ -60,16 +60,31 @@
     #emailHelp {
         display: flex;
         justify-content: start;
+        color: #FA3E3E;
+        font-weight: bold;
+        font-size: 15px;
     }
 
     #password-same {
         display: flex;
         justify-content: start;
+        color: #FA3E3E;
+        font-weight: bold;
+        font-size: 15px;
+    }
+
+    #passwordHelp {
+        display: flex;
+        justify-content: start;
+        color: #FA3E3E;
+        font-weight: bold;
+        font-size: 15px;
     }
 
     #email-certification {
         display: flex;
         justify-content: start;
+
     }
 
     .align-form {

@@ -60,9 +60,12 @@ body {
 
 #more-product {
     display: flex;
-
+    justify-content: center;
 }
 
+#productList-btn {
+    width: 180px;
+}
 /* rtl:end:remove */
 
 /* RESPONSIVE CSS

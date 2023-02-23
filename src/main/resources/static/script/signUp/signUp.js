@@ -10,61 +10,83 @@ const userPhoneInput = document.getElementById("userPhone");
 
 $("#emailHelp").hide();
 $("#email-certification").hide();
-$("password-same").hide();
+$("#passwordHelp").hide();
+$("#password-same").hide();
 
 
-////var $email = $("#email");
+var $email = $("#email");
 // 아이디 정규식
-		$("#email").on("keyup", function(event) { // 키보드에서 손을 땠을 때 실행
-//	        alert("keyup 발생")
-			var regExp = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]+$/;
+$("#email").on("keyup", function(event) {
+    console.log("Email keyup 발생")
 
-			if (!regExp.test($("#email").val())) { // id 가 공백인 경우 체크
-//				idchk = false;
-				$("#emailHelp").html("<small id='emailHelp'>이메일 형식에 맞게 작성하세요</small>");
-				$("#emailHelp").show();
-				$("#emailHelp").css({
-					"color" : "#FA3E3E",
-					"font-weight" : "bold",
-					"font-size" : "15px"
-				})
-			} else { // 공백아니면 중복체크
-                $("#emailHelp").hide();
-				$.ajax({
-					type : "POST", // http 방식
-					url : "/login/checkEmail", // ajax 통신 url
-					data : { // ajax 내용 => 파라미터 : 값 이라고 생각해도 무방
-						"type" : "email",
-						"id" : $email.val()
-					},
-					success : function(data) {
-						if (data == 1) { // 1이면 중복
-							idchk = false;
-							$email.html("<small id='emailHelp'>이미 존재하는 아이디입니다</small>")
-							$("#emailHelp").css({
-								"color" : "#FA3E3E",
-								"font-weight" : "bold",
-								"font-size" : "15px"
+    var emailRegExp = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]+$/;
 
-							})
-							//console.log("중복아이디");
-						} else { // 아니면 중복아님
-							idchk = true;
-							$email.html("<small id='emailHelp'>사용가능한 아이디입니다</span>")
+    // email 형식 정규화
+    if (!emailRegExp.test($("#email").val())) {
+          $("#emailHelp").show();
 
-							$("#emailHelp").css({
-								"color" : "#0D6EFD",
-								"font-weight" : "bold",
-								"font-size" : "15px"
+    } else { // 공백아니면 중복체크
+        $("#emailHelp").hide();
+        $.ajax({
+            type : "POST", // http 방식
+            url : "/login/checkEmail", // ajax 통신 url
+            data : { // ajax 내용 => 파라미터 : 값 이라고 생각해도 무방
+                "type" : "email",
+                "id" : $email.val()
+            },
+            success : function(data) {
+                if (data == 1) { // 1이면 중복
+                    idchk = false;
+                    $email.html("<small id='emailHelp'>이미 존재하는 아이디입니다</small>")
+                    $("#emailHelp").css({
+                        "color" : "#FA3E3E",
+                        "font-weight" : "bold",
+                        "font-size" : "15px"
 
-							})
-							//console.log("중복아닌 아이디");
-						}
-					}
-				})
+                    })
+                    //console.log("중복아이디");
+                } else { // 아니면 중복아님
+                    idchk = true;
+                    $email.html("<small id='emailHelp'>사용가능한 아이디입니다</span>")
 
-			}
-		});
+                    $("#emailHelp").css({
+                        "color" : "#0D6EFD",
+                        "font-weight" : "bold",
+                        "font-size" : "15px"
+
+                    })
+                    //console.log("중복아닌 아이디");
+                }
+            }
+        })
+    }
+});
+
+// 비밀번호 형식 정규화(최소 8자, 영문 숫자 특수문자)
+$("#password").on("keyup", function(event) {
+    console.log("pw keyup 발생")
+
+    var pwRegExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
+
+    if (!pwRegExp.test($("#password").val())) {       // 비밀번호 정규화
+        $("#passwordHelp").show();
+    } else {
+        $("#passwordHelp").hide();
+    }
+});
+
+// password passwordcheck 일치 검사
+$("#checkPassword").on("keyup", function(event) {
+    console.log("pw 일치 검사")
+
+    if ($("#password").val() !== $("#checkPassword").val()) {
+        $("#password-same").show();
+    } else {
+        $("#password-same").hide();
+    }
+});
+
+
 
 
 form.addEventListener("submit", event => {
@@ -82,11 +104,7 @@ form.addEventListener("submit", event => {
     return;
   }
 
-// 비밀번호 일치 여부
-  if (password !== checkPassword) {
-    alert("비밀번호가 일치하지 않습니다.");
-    return;
-  }
+
 
   alert(`Sign-up successful!\nUsername: ${userName}\nEmail: ${email}\nPhone: ${userPhone}`);
 
@@ -101,7 +119,7 @@ $(document).ready(function () {
     console.log("ajax직전");
     $.ajax({
       type: 'POST',
-      url: "user/signUp",
+      url: "user/signup",
       data: {
         userName: userName,
         email: email,

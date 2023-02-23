@@ -37,13 +37,13 @@ public class UserController {
     }
 
     // 회원가입 창
-    @GetMapping("/signUp")
+    @GetMapping("/signup")
     public ModelAndView Signup() {
-        ModelAndView mav = new ModelAndView("/signUp/signUp");
+        ModelAndView mav = new ModelAndView("/signup/signup");
         return mav;
     }
 
-    @PostMapping("user/signUp")
+    @PostMapping("user/signup")
     public ResponseEntity<String> signUpUser(@RequestParam("userName") String userName,
                                              @RequestParam("email") String email,
                                              @RequestParam("password") String password,

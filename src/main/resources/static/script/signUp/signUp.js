@@ -119,7 +119,7 @@ $(document).ready(function () {
     console.log("ajax직전");
     $.ajax({
       type: 'POST',
-      url: "user/signUp",
+      url: "user/signup",
       data: {
         userName: userName,
         email: email,

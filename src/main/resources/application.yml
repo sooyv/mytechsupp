@@ -21,7 +21,7 @@ spring:
     show-sql: true
     hibernate:
       #      ddl-auto: update
-      ddl-auto: create
+      ddl-auto: update
         #      지금 일단은 이렇게 작성해줘서 서버를 킬때마다 table을 drop하고 새로 생성
         #      update 에서 create로 바꿈
         #   테스트 하기 위해서 바꿔준거임

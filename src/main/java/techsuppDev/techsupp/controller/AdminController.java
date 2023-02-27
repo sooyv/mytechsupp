@@ -26,5 +26,6 @@ public class AdminController {
     @GetMapping("/list")
     public void list(@ModelAttribute PageRequestDTO pageRequestDTO, Model model) {
         model.addAttribute("result", adminProductService.getList(pageRequestDTO));
+
     }
 }

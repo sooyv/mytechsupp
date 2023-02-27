@@ -42,7 +42,7 @@
         margin-top: 30px;
     }
 
-    #signUpbtn{
+    #signUpBtn{
         margin: 10px;
         width: 185px;
     }
@@ -60,9 +60,7 @@
     #emailHelp {
         display: flex;
         justify-content: start;
-        color: #FA3E3E;
-        font-weight: bold;
-        font-size: 15px;
+        margin-top: 3px;
     }
 
     #password-same {
@@ -91,4 +89,26 @@
         display: flex;
         flex-direction: block;
         justify-content: center;
+    }
+
+    .shake {
+        animation: shake 0.5s;
+    }
+
+    @keyframes shake {
+        10%, 90% {
+          transform: translate3d(-1px, 0, 0);
+        }
+
+        20%, 80% {
+          transform: translate3d(2px, 0, 0);
+        }
+
+        30%, 50%, 70% {
+          transform: translate3d(-4px, 0, 0);
+        }
+
+        40%, 60% {
+          transform: translate3d(4px, 0, 0);
+        }
     }

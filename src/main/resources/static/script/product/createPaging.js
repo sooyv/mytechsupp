@@ -53,6 +53,11 @@ function createPaging(numberOfdata) {
   let li = document.createElement("li");
     li.classList.add('Page');
 
+  
+
+  // 아예 버튼 없에는 식으로 로직 바꾸면 될듯
+  // 클 경우만 활성화 하는 식으로 
+
   let input = document.createElement("input");
     input.classList.add('PageButton');
     input.setAttribute('type', 'button');

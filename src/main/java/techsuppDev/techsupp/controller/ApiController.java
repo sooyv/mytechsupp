@@ -46,9 +46,6 @@ public class ApiController {
     public ResponseEntity productOne(HttpServletRequest request) {
         String productId = request.getParameter("num");
         Long value = Long.parseLong(productId);
-        System.out.println("controller");
-        System.out.println("===============");
-        System.out.println(productService.findOneProduct(value));
         return ResponseEntity.ok().body(productService.findOneProduct(value));
     }
 

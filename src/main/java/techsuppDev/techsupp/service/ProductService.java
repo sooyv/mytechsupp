@@ -1,6 +1,7 @@
 package techsuppDev.techsupp.service;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import techsuppDev.techsupp.domain.Product;
 import techsuppDev.techsupp.repository.ProductRepository;
@@ -8,10 +9,26 @@ import techsuppDev.techsupp.repository.ProductRepository;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.apache.coyote.http11.Constants.a;
+
 @Service
-@AllArgsConstructor
+//@AllArgsConstructor
+@RequiredArgsConstructor
 public class ProductService {
     public final ProductRepository productRepository;
+
+//    public class paging;
+//    {
+//            int allCount;
+//            int pageCount;
+//    };
+
+//    Object paging(Object allCount, Object pageCount) {
+//            this.allCount = allCount.getClass();
+//            this.pageCount = pageCount;
+//    };
+
+
 
 //    일단 하나만 검색해서 보내주기
 //    보내주기 성공
@@ -40,7 +57,8 @@ public class ProductService {
 //        return productRepository.getRow();
 //    }
     public Object getNumberOfProduct(int pagingNumber, String keyword) {
-        return productRepository.JsonPagingCount(pagingNumber, keyword);
+    return productRepository.ProductCount(pagingNumber, keyword);
+
     }
 
 

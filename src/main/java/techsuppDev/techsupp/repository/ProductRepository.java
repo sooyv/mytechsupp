@@ -70,32 +70,52 @@ public class ProductRepository {
     }
 
 
-    public Object JsonPagingCount(int pagingNumber, String keyword) {
-        String sql = " " +
-                "select count(*) from ";
-        String noKeywordSql =
-                " (select * from Product where period is not null limit " +
-                pagingNumber +
-                " , 50)noNullData;";
-
-        String keywordSql = "(select * from Product where period is not null and product_name like '%" +
-                keyword +
-                "%' " +
-                "limit " +
-                pagingNumber +
-                ", 50)searchData;";
-
-        if (keyword.equals("null") || keyword.equals("")) {
-            sql = sql + noKeywordSql;
-        } else {
-            sql = sql + keywordSql;
-        }
-
-        Query nativeQuery = em.createNativeQuery(sql);
-        Object rowNum = nativeQuery.getSingleResult();
-        System.out.println(rowNum);
-        return rowNum;
+//  count for paging(allrows & pagerows)  카운트 두개 하는 것
+public Object ProductCount(int pagingNumber, String keyword) {
+    String sql = "select ";
+    String resultSql;
+    String noKeywordSqlAllCount =
+            "(select  count(*) from Product where period is not null)as countAll, ";
+    String keywordSqlAllCount =
+            "(select  count(*) from Product where period is not null and product_name like '%" +
+            keyword +
+            "%)as countAll, ";
+    if (keyword.equals("null") || keyword.equals("")) {
+        resultSql = sql + noKeywordSqlAllCount;
+    } else {
+        resultSql = sql + keywordSqlAllCount;
     }
+
+    String noKeywordSql =
+            "(select count(*) from " +
+            "(select  * from Product where period is not null limit " +
+            pagingNumber +
+            " , 50)as noKeywordData)as pagecount;";
+
+    String keywordSql =
+            "(select count(*) from " +
+            "(select * from Product where period is not null and product_name like '%" +
+            keyword +
+            "%' " +
+            "limit " +
+            pagingNumber +
+            ", 50)as searchData)as pagecountkeyword;";
+
+    if (keyword.equals("null") || keyword.equals("")) {
+        resultSql += noKeywordSql;
+    } else {
+        resultSql += keywordSql;
+    }
+
+    Query nativeQuery = em.createNativeQuery(resultSql);
+    Object rowNum = nativeQuery.getSingleResult();
+    System.out.println("=======");
+    System.out.println("count");
+    System.out.println("al;soudfhbs;eoiub;agejrt");
+    System.out.println(resultSql);
+    System.out.println(rowNum);
+    return rowNum;
+}
 
 
 

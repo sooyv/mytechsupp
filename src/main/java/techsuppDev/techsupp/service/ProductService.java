@@ -43,4 +43,15 @@ public class ProductService {
         return productRepository.JsonPagingCount(pagingNumber, keyword);
     }
 
+
+
+
+//    테스트 데이터 자바로 생성 (100)개
+
+    public void createtestdataproduct() {
+        productRepository.insertTestData();
+        System.out.println("========");
+        System.out.println("service");
+    }
+
 }

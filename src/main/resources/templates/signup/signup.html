@@ -31,7 +31,7 @@
             <input type="email" id="email" class="form-control" aria-describedby="emailHelp" placeholder="email@example.com">
             <button type="button" id="email-duplication" class="btn btn-info">메일인증</button>
           </div>
-          <small id="emailHelp" class="form-text text-muted">이메일 형식에 맞게 작성하세요</small>
+          <small id="emailHelp"></small>
         </div>
         <div id="emailcheck-box" class="form-group col-md-4">
           <label for="emailCertification">이메일 인증번호</label>
@@ -42,13 +42,13 @@
         <div id="password-box" class="form-group col-md-4">
           <label for="password">비밀번호</label>
           <input id="password" type="password" class="form-control" placeholder="Password">
-          <small id="passwordHelp" class="form-text text-muted">비밀번호는 문자, 숫자, 특수문자가 포함된 8-20자로 작성해주세요</small>
+          <small id="passwordHelp">비밀번호는 문자, 숫자, 특수문자가 포함된 8-20자로 작성해주세요</small>
         </div>
         <!-- 비밀번호 확인 -->
         <div id="checkpassword-box" class="form-group col-md-4">
           <label for="checkPassword">비밀번호 확인</label>
           <input id="checkPassword" type="password" class="form-control">
-          <small id="password-same" class="form-text text-muted">비밀번호가 일치하지 않습니다</small>
+          <small id="password-same">비밀번호가 일치하지 않습니다</small>
         </div>
         <!-- 전화번호 -->
         <div id="phoneNum-box" class="form-group col-md-4">
@@ -57,7 +57,7 @@
         </div>
 
         <div id="techsupp-naverBtn">
-          <button type="submit" value="회원가입" id="signUpbtn" class="btn btn-info"></a>회원가입</button>
+          <button type="submit" value="회원가입" id="signUpBtn" class="btn btn-info"></a>회원가입</button>
           <!-- 네이버로 시작하기 버튼 -->
           <div id="naver_id_login"></div>
         </div>
@@ -65,7 +65,6 @@
     </form>
   </div>
 </div>
-
 <script src="/script/header.js"></script>
 <script type="text/javascript">
   	var naver_id_login = new naver_id_login("1Hsj4Agu95IlkAOjVncV", "http://localhost:8080/navercallback");

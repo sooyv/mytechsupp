@@ -37,13 +37,25 @@ public class UserController {
     }
 
     // 회원가입 창
-    @GetMapping("/signUp")
+    @GetMapping("/signup")
     public ModelAndView Signup() {
-        ModelAndView mav = new ModelAndView("/signUp/signUp");
+        ModelAndView mav = new ModelAndView("/signup/signup");
         return mav;
     }
 
-    @PostMapping("user/signUp")
+    // 회원가입 이메일 중복 검사
+    @PostMapping("/signup/checkid")
+    @ResponseBody
+    public int checkid(@RequestParam("id") String id, @RequestParam("type") String type) {
+        String result = userService.checkId(id, type);
+        if(result != null && result.equals("0")) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
+    @PostMapping("user/signup")
     public ResponseEntity<String> signUpUser(@RequestParam("userName") String userName,
                                              @RequestParam("email") String email,
                                              @RequestParam("password") String password,

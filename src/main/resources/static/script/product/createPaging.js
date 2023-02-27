@@ -11,10 +11,8 @@
 function createPaging(numberOfdata) {
   let urlStringPage = `/productMain/product?page=`;
   let urlStringOrder = `&order=`;
-  let pagingLimit = Math.ceil(numberOfdata / 5);
-  console.log("=======")
-  console.log(numberOfdata)
-  console.log(pagingLimit)
+  let pagingLimit = Math.ceil(numberOfdata[1] / 5);
+  
   let prevPage = pageNumber;
   (pageNumber - 1 < 0 ? prevPage = 0 : --prevPage);
   let prevPageLocation = urlStringPage + prevPage  + urlStringOrder + (prevPage * 10)
@@ -46,7 +44,8 @@ function createPaging(numberOfdata) {
     pagingList.appendChild(li);
   }
   let nextPage = +pageNumber;
-  (document.querySelectorAll('.Page').length == 11 ? ++nextPage : nextPage);
+  // (document.querySelectorAll('.Page').length == 11 && (numberOfdata[1] + 1) * 50 > numberOfdata[0] ? ++nextPage : nextPage);
+  ((nextPage + 1) * 50 < +numberOfdata[0] ? ++nextPage : nextPage);
 
   let nextPageLocation = urlStringPage + nextPage + urlStringOrder + (+nextPage * 10)
 

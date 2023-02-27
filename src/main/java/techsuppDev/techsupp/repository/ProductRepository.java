@@ -109,11 +109,6 @@ public Object ProductCount(int pagingNumber, String keyword) {
 
     Query nativeQuery = em.createNativeQuery(resultSql);
     Object rowNum = nativeQuery.getSingleResult();
-    System.out.println("=======");
-    System.out.println("count");
-    System.out.println("al;soudfhbs;eoiub;agejrt");
-    System.out.println(resultSql);
-    System.out.println(rowNum);
     return rowNum;
 }
 

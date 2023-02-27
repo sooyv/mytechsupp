@@ -13,7 +13,7 @@ public interface AdminProductService {
     default Product dtoToEntity(ProductDTO productDTO) {
         Product entity = Product.builder()
                 .id(productDTO.getId())
-                .name(productDTO.getName())
+                .name(productDTO.getProductName())
                 .totalPrice(productDTO.getTotalPrice())
                 .period(productDTO.getPeriod())
                 .information(productDTO.getInformation())
@@ -24,11 +24,11 @@ public interface AdminProductService {
     default ProductDTO entityToDto(Product entity) {
         ProductDTO dto = ProductDTO.builder()
                 .id(entity.getId())
-                .name(entity.getName())
+                .productName(entity.getName())
                 .totalPrice(entity.getTotalPrice())
                 .period(entity.getPeriod())
                 .information(entity.getInformation())
-                .status(entity.getStatus())
+                .productStatus(entity.getStatus())
                 .investPrice(entity.getInvestPrice())
                 .clickCount(entity.getClickCount()).build();
         return dto;

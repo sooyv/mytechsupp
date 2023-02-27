@@ -19,11 +19,11 @@ import java.time.LocalDate;
 public class ProductDTO {
     private Long id;
     private Long seqId;
-    private String name;
+    private String productName;
     private String information;
     private int totalPrice;
     private int investPrice;
     private LocalDate period;
-    private ProductStatus status;
+    private ProductStatus productStatus;
     private int clickCount;
 }

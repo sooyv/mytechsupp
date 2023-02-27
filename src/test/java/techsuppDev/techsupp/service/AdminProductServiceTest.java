@@ -23,7 +23,7 @@ public class AdminProductServiceTest {
     public void register() {
         IntStream.rangeClosed(1, 20).forEach(i -> {
             ProductDTO productDTO = ProductDTO.builder()
-                    .name("상품입니다.")
+                    .productName("상품입니다.")
                     .totalPrice(200000)
                     .period(LocalDate.now())
                     .information("안녕하세요.")

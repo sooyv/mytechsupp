@@ -3,7 +3,7 @@ package techsuppDev.techsupp.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import techsuppDev.techsupp.domain.User;
-import techsuppDev.techsupp.respository.UserRepository;
+import techsuppDev.techsupp.repository.UserRepository;
 
 import java.util.List;
 

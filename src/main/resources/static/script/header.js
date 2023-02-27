@@ -1,6 +1,5 @@
 const header = document.querySelector("#header");
 
-
 function createHead() {
     header.innerHTML =`
   <nav class="py-2 bg-light border-bottom">

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!--<html lang="en">-->
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"> </html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TECHSUPP </title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <link href="/style/mypage/editUser.css" rel="stylesheet">
+  <!--    <script src="../static/js/signUp"></script>-->
+  <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+</head>
+<body>
+<!--공통되는 header-->
+<div id="header"></div>
+<div class="text-center">
+  <h4 class="mb-3">회원정보수정</h4>
+  <div class="align-form">
+    <form id="editUserForm" action="/signUp" method="POST">
+      <div>
+        <!--이메일 블럭처리-->
+        <div id="email-box" class="form-group col-md-4">
+          <label for="email">이메일</label>
+          <div id="emailcheck">
+            <input type="email" id="email" class="form-control" aria-describedby="emailHelp" placeholder="email@example.com" th:value="${userInfo.userEmail}">
+          </div>
+          <small id="emailHelp" class="form-text text-muted"></small>
+        </div>
+        <!-- 이름 -->
+        <div id="name-box" class="form-group col-md-4">
+          <label for="userName">이름</label>
+          <input type="tel" id="userName" class="form-control" placeholder="아무개">
+        </div>
+        <!-- 전화번호 -->
+        <div id="phoneNum-box" class="form-group col-md-4">
+          <label for="userPhone">전화번호</label>
+          <input type="tel" id="userPhone" class="form-control" placeholder="010-1234-5678">
+        </div>
+        <!--수정, 취소-->
+        <div id="modify-cancel">
+          <div id="modify">
+            <button type="submit" value="수정" id="form-control" class="btn btn-info"></a>수정</button>
+          </div>
+
+          <div id="cancel">
+            <button type="submit" value="취소" id="signUpCancel" class="btn btn-light"></a>취소</button>
+          </div>
+
+        </div>
+<!--        <div id="modify">-->
+<!--          <button type="submit" value="수정" id="form-control" class="btn btn-info"></a>수정</button>-->
+<!--        </div>-->
+
+<!--        <div id="cancel">-->
+<!--          <button type="submit" value="취소" id="signUpCancel" class="btn btn-light"></a>취소</button>-->
+<!--        </div>-->
+
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="/script/header.js"></script>
+<!--<script type="text/javascript">-->
+<!--  	var naver_id_login = new naver_id_login("1Hsj4Agu95IlkAOjVncV", "http://localhost:8080/navercallback");-->
+<!--  	var state = naver_id_login.getUniqState();-->
+<!--  	naver_id_login.setButton("white", 4,40);-->
+<!--  	naver_id_login.setDomain("http://localhost:8080/login");-->
+<!--  	naver_id_login.setState(state);-->
+<!--  	naver_id_login.setPopup();-->
+<!--  	naver_id_login.init_naver_id_login();-->
+<!--  </script>-->
+<!--<script src="/script/signUp/signUp.js"></script>-->
+<script th:src="@{/script/mypage/editUser.js}"></script>
+</body>
+</html>

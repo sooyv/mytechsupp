@@ -1,5 +1,6 @@
 package techsuppDev.techsupp.domain;
 
+
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -9,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
+
 
 @MappedSuperclass // 테이블로 생성되지 않도록 해주는 어노테이션
 @EntityListeners(value = {AuditingEntityListener.class})
@@ -24,3 +26,4 @@ abstract class BaseEntity {
     @Column(name = "moddate")
     private LocalDateTime modDate;
 }
+

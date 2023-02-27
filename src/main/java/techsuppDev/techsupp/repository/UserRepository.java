@@ -1,4 +1,4 @@
-package techsuppDev.techsupp.respository;
+package techsuppDev.techsupp.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,4 +18,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     // email로 회원 찾기
     List<User> findByUserEmail(String userEmail);
 
+    // 회원 한명 조회
+    User getOne(Long userId);
 }

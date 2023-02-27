@@ -108,10 +108,7 @@ form.addEventListener("submit", event => {
     return;
   }
 
-
-
-  alert(`Sign-up successful!\nUsername: ${userName}\nEmail: ${email}\nPhone: ${userPhone}`);
-
+//  alert(`Sign-up successful!\nUsername: ${userName}\nEmail: ${email}\nPhone: ${userPhone}`);
 
 
 $(document).ready(function () {

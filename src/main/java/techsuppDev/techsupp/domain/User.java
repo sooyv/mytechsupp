@@ -32,6 +32,7 @@ public class User {
     @Column(nullable = false)
     private String userPhone;
 
+
 //    @Enumerated(EnumType.STRING)
 //    private SocalStatus status;
 
@@ -40,7 +41,7 @@ public class User {
     public User createUser(String userName, String userEmail, String userPassword, String userPhone) {
         User user = new User();
         user.userName = userName;
-//        user.setUserEmail(userEmail);?
+//        user.setUserEmail(userEmail);
         user.userEmail = userEmail;
         user.userPassword = userPassword;
         user.userPhone = userPhone;

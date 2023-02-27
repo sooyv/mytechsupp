@@ -10,11 +10,11 @@ spring:
       enabled: true
   datasource:
     drive-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://14.36.28.148:3311/techsupp
-    url: jdbc:mysql://localhost:3306/techsupp
+    url: jdbc:mysql://14.36.28.148:3311/techsupp
+#    url: jdbc:mysql://localhost:3306/techsupp
     username: root
-#    password: techsupp
-    password:
+    password: techsupp
+#    password:
 #    db 때문에 런이나 빌드 작동 안할 겁니다
 #  테스트 하고 싶으시면 기존에 설정하셨던 db id pw 로 수정해서 돌려주세요
   jpa:

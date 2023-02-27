@@ -21,7 +21,7 @@ public class ProductRepository {
     private final EntityManager em;
 
 
-    public Object findOne(Long id) {
+    public Object findOneProduct(Long id) {
         String sql = " " +
                 "select " +
                 " * " +
@@ -64,7 +64,7 @@ public class ProductRepository {
 
 //    모든 데이터 가져오는 것
 //    현재는 사용 x
-    public List<Product> findAll() {
+    public List<Product> findAllProduct() {
         return em.createQuery("select i from Product i", Product.class)
                 .getResultList();
     }
@@ -75,9 +75,9 @@ public Object ProductCount(int pagingNumber, String keyword) {
     String sql = "select ";
     String resultSql;
     String noKeywordSqlAllCount =
-            "(select  count(*) from Product where period is not null)as countAll, ";
+            "(select  count(*) from Product where product_status is not null)as countAll, ";
     String keywordSqlAllCount =
-            "(select  count(*) from Product where period is not null and product_name like '%" +
+            "(select  count(*) from Product where product_status is not null and product_name like '%" +
             keyword +
             "%)as countAll, ";
     if (keyword.equals("null") || keyword.equals("")) {
@@ -113,6 +113,36 @@ public Object ProductCount(int pagingNumber, String keyword) {
 }
 
 
+// 피드백 리스트로 보내주는 조건절
+    public List<Product> findFiveProductFeedback (int orderNumber, String keyword) {
+
+        String sql = " " +
+                "select * from " +
+                "(select * from product where product_status like '%success%' or product_status like '%fail%' order by id)successFail ";
+        String limitSql =
+                "limit " +
+                        orderNumber +
+                        ", 5;" ;
+
+        String keywordSql = "";
+
+        if (keyword.equals("null") || keyword.equals("")) {
+            sql = sql + limitSql;
+        } else {
+            keywordSql = "where product_name like '%" +
+                    keyword +
+                    "%' ";
+            sql = sql + keywordSql + limitSql;
+        }
+
+        Query nativeQuery = em.createNativeQuery(sql, "ProductMapping");
+        List<Product> fiveProduct = nativeQuery.getResultList();
+
+        return fiveProduct;
+
+
+
+    }
 
 
 

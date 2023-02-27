@@ -34,7 +34,7 @@ function createSingleProductHtml(api) {
         <h5>${Math.round(api.totalPrice / api.investPrice)}투자율</h5>
       </div>
       <div class="ProductInvesting">
-          <input type=button onclick="LinkToInvestingProduct(${api.id})" value=${api.investment}개인 투자 금액 결제페이지 이동>
+          <input type=button onclick="LinkToInvestingProduct(${api.id})" value=${api.investPrice}개인 투자 금액 결제페이지 이동>
       </div>
     </div>
   `

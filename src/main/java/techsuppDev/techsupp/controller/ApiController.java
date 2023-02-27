@@ -49,4 +49,22 @@ public class ApiController {
         return ResponseEntity.ok().body(productService.findOneProduct(value));
     }
 
+
+
+
+
+//    feedback api request
+    @RequestMapping("/feedbacks/*")
+    public ResponseEntity findFiveProductFeedback(
+            HttpServletRequest req
+    ) {
+        int orderNumber = Integer.parseInt(req.getParameter("order"));
+        String keyword = req.getParameter("keyword");
+        if (orderNumber != 0) {
+            orderNumber = orderNumber * 5;
+        }
+
+        return ResponseEntity.ok().body(productService.findFiveProductFeedback(orderNumber, keyword));
+    }
+
 }

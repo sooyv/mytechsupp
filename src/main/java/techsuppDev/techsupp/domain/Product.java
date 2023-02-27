@@ -38,7 +38,7 @@ public class Product extends BaseEntity{
     private Long id;
     private Long seqId;
     @Column(nullable = false)
-    private String name;
+    private String productName;
 
     @Column(length = 2000, nullable = false)
     private String information;
@@ -49,7 +49,7 @@ public class Product extends BaseEntity{
 //    개인 투자액 컬럼 추가
     private LocalDate period;
     @Enumerated(EnumType.STRING)
-    private ProductStatus status;
+    private ProductStatus productStatus;
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int clickCount;
 //    모집인원 컬럼 추가

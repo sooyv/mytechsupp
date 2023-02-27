@@ -22,7 +22,7 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     show-sql: true
     hibernate:
-       ddl-auto: none
+       ddl-auto: create
 #      ddl-auto: create
         #      지금 일단은 이렇게 작성해줘서 서버를 킬때마다 table을 drop하고 새로 생성
         #      update 에서 create로 바꿈

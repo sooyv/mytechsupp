@@ -16,15 +16,15 @@
   <tr>
     <th>noticeId</th>
     <th>title</th>
-    <th>title(||쓰지 않은 경우)</th>
+<!--    <th>title(||쓰지 않은 경우)</th>-->
     <th>writer</th>
-    <th>date</th>
+<!--    <th>date</th>-->
     <th>hits</th>
   </tr>
   <tr th:each="notice: ${noticeList}">
     <td th:text="${notice.noticeId}"></td>
     <td><a th:href="@{|/notice/${notice.noticeId}|}" th:text="${notice.noticeTitle}"></a></td>
-    <td><a th:href="@{/notice/${notice.noticeId}}" th:text="${notice.noticeTitle}"></a></td>
+<!--    <td><a th:href="@{/notice/${notice.noticeId}}" th:text="${notice.noticeTitle}"></a></td>-->
     <td th:text="${notice.noticeWriter}"></td>
 <!--    <td th:text="*{#temporals.format(notice.noticeregDate, 'yyyy-MM-dd HH:mm:ss')}"></td>-->
     <td th:text="${notice.noticeHits}"></td>

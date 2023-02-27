@@ -22,6 +22,7 @@ public class NoticeController {
 
     @GetMapping("")
     public String serviceMain() {
+
         return "service/service-main";
     }
 
@@ -46,7 +47,7 @@ public class NoticeController {
         return "service/list";
     }
 
-    @GetMapping("/list/{noticeId}")
+    @GetMapping("/{noticeId}")
     public String findById(@PathVariable Long noticeId, Model model) {
         /*
         해당 게시글의 조회수를 하나 올리고
@@ -54,18 +55,20 @@ public class NoticeController {
          */
         noticeService.updateHits(noticeId);
         NoticeDTO noticeDTO =noticeService.findById(noticeId);
+        System.out.println(noticeDTO.getNoticeTitle());
+
         model.addAttribute("notice", noticeDTO);
         return "service/detail";
     }
 
-    @GetMapping("/list/update/{noticeId}")
+    @GetMapping("update/{noticeId}")
     public String updateForm(@PathVariable Long noticeId, Model model) {
         NoticeDTO noticeDTO = noticeService.findById(noticeId);
-        model.addAttribute("noticeUpdaate", noticeDTO);
+        model.addAttribute("noticeUpdate", noticeDTO);
         return "service/update";
     }
 
-    @PostMapping("/list/update")
+    @PostMapping("/update")
     public String update(@ModelAttribute NoticeDTO noticeDTO, Model model) {
         NoticeDTO notice = noticeService.update(noticeDTO);
         model.addAttribute("notice", notice);

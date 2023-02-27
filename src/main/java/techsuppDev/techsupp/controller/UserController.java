@@ -4,17 +4,23 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.servlet.ModelAndView;
+import techsuppDev.techsupp.controller.form.UserForm;
 import techsuppDev.techsupp.domain.User;
 import techsuppDev.techsupp.service.UserService;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.io.*;
 import java.math.BigInteger;
+import java.net.BindException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -33,6 +39,7 @@ public class UserController {
     @GetMapping("/login")
     public ModelAndView login() {
         ModelAndView mav = new ModelAndView("/login/login");
+        mav.addObject("userForm",new UserForm());
         return mav;
     }
 
@@ -55,7 +62,8 @@ public class UserController {
         }
     }
 
-    @PostMapping("user/signup")
+    // 회원가입
+    @PostMapping("/user/signup")
     public ResponseEntity<String> signUpUser(@RequestParam("userName") String userName,
                                              @RequestParam("email") String email,
                                              @RequestParam("password") String password,
@@ -64,9 +72,6 @@ public class UserController {
         System.out.println(email);
         System.out.println(password);
         System.out.println(userPhone);
-
-
-        // password와 checkpassword 를 같이 가져와서 비교?
 
         User user = new User();
         user.setUserName(userName);
@@ -79,23 +84,33 @@ public class UserController {
         return new ResponseEntity<>("Successfully Registered", HttpStatus.OK);
     }
 
-    // 비밀번호 일치 검사
-//    @PostMapping("/signUp")
-//    public String signUpSave(UserCreateFrom userCreateFrom, BindingResult bindingResult) {
-//        if (bindingResult.hasErrors()) {
-//            System.out.println("로그인 실패");
-//            return "/signUp";
-//        }
-//        if (!userCreateFrom.getPassword1().equals(userCreateFrom.getPassword2())) {
-//            bindingResult.rejectValue("password2", "passwordInCorrect",
-//                    "2개의 패스워드가 일치하지 않습니다.");
-//            System.out.println("패스워드 문제");
-//            return "/singUp";
-//        }
-//        userService.createUser(userCreateFrom.getUserName(), userCreateFrom.getEmail(),
-//                userCreateFrom.getPassword1(), userCreateFrom.getUserPhone());
-//        return "/main";
-//    }
+
+    // 로그인 - thymeleaf 사용
+    @PostMapping("/user/login")
+    public ModelAndView login(@Valid @ModelAttribute UserForm userForm) {
+
+//        System.out.println(userForm.getEmail());
+//        System.out.println(userForm.getPassword());
+
+        String email = userForm.getEmail();
+        String password = userForm.getPassword();
+
+        User user = userService.login(email, password);
+
+        if (user != null && user.getUserEmail().equals(email)) {
+            System.out.println("로그인 완료");
+
+        } else {
+            throw new IllegalStateException("회원 정보가 없습니다");
+            
+        }
+
+        ModelAndView mav = new ModelAndView("redirect:/");
+        return mav;
+    }
+
+
+
 
 
 

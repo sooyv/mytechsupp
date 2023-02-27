@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,40 +18,31 @@
 <div id="header"></div>
 <div class="text-center">
   <main class="form-login w-100 m-auto">
-    <form>
+    <form action="user/login" th:object="${userForm}" method="post">
       <i class="bi-robot fs-1"></i>
-      <!-- <img class="mb-4" src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
       <h1 class="h3 mb-3 fw-normal">로그인</h1>
-
-      <div class="form-floating">
-        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-        <label for="floatingInput">Email</label>
-      </div>
-      <div class="form-floating">
-        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-        <label for="floatingPassword">password</label>
-      </div>
+        <div class="form-floating">
+          <input type="email" th:field="*{email}" class="form-control" id="email" placeholder="name@example.com">
+          <label th:for="email">Email</label>
+        </div>
+        <div class="form-floating">
+          <input type="password" th:field="*{password}" class="form-control" id="password" placeholder="Password">
+          <label th:for="password">password</label>
+        </div>
       <div>
         <p class="forgotAccount">
           <a class="#">로그인 정보를 잊으셨나요?</a>
         </p>
       </div>
-      <!--            <div class="checkbox mb-3">-->
-      <!--            <label>-->
-      <!--                <input type="checkbox" value="remember-me"> 이메일 기억-->
-      <!--            </label>-->
-      <!--            </div>-->
       <button class="w-100 btn btn-lg btn-primary" type="submit">로그인</button>
       <!-- 네이버로 시작하기 버튼 -->
       <a href="http://localhost:8080/test">네이버로그인 test</a>
-
-
       <div id="naver_id_login"></div>
       <!-- 회원가입 페이지 이동 -->
       <div class="bottom-message">
         <p>
           아직 계정이 없나요?
-          <a href="/signUp">회원가입</a>
+          <a th:href="@{/signup}">회원가입</a>
         </p>
       </div>
       <p class="mt-5 mb-3 text-muted">© 2023 TECHSUPP</p>

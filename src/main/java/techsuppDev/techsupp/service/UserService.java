@@ -1,13 +1,13 @@
 package techsuppDev.techsupp.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import techsuppDev.techsupp.domain.User;
-import techsuppDev.techsupp.respository.UserRepository;
+import techsuppDev.techsupp.repository.UserRepository;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Service
@@ -31,8 +31,7 @@ public class UserService {
         return user.getUserId();
     }
 
-
-    // 아이디 중복검증
+    // 이메일 중복 검증
     private void validateDuplicateUser(User user) {
         List<User> findUserEmail = userRepository.findByUserEmail(user.getUserEmail());
         if (!findUserEmail.isEmpty()) {
@@ -54,6 +53,34 @@ public class UserService {
     }
 
 
+    // 회원 전체 조회
+    public List<User> findUser() {
+        return userRepository.findAll();
+    }
+
+    // 회원 한명 조회
+    public User findOne(Long userId) {
+        return userRepository.getOne(userId);
+    }
+
+
+    public User getUserByEmail(String userEmail) {
+        List<User> users = userRepository.findByUserEmail(userEmail);
+        if (users != null) {
+            return users.get(0);
+        }
+        return null;
+    }
+
+
+    public User login(String email, String password) {
+        User user = getUserByEmail(email);
+        if (user != null && passwordEncoder.matches(password, user.getUserPassword())) {
+            return user;
+
+        }
+        return null;
+    }
 
 
 }

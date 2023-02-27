@@ -24,7 +24,7 @@ public class ProductRepository {
     public Object findOne(Long id) {
         String sql = " " +
                 "select " +
-                " " +
+                " * " +
                 "from Product where id = "+
                 id;
         Query nativeQuery = em.createNativeQuery(sql, "ProductMapping");
@@ -100,6 +100,47 @@ public class ProductRepository {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //    테스트 데이터 자동 생성
     public Object insertTestData() {
         System.out.println("===========");
@@ -109,7 +150,7 @@ public class ProductRepository {
                 "(seq_id, product_name, information, total_price, invest_price, period, product_status, create_date, click_count) values ";
         String middleSql = "(";
         String endSql = ")";
-        
+
         String seqid = "imageFile";
         String productName = "testProduct";
         String information = "testInformation";
@@ -132,15 +173,45 @@ public class ProductRepository {
         int randomInvestPrice = randomTotalPrice / 10;
 
         int year, month, day, hour, minute, second, createYear, createMonth, createDay;
-        String sYear,sMonth,sDate,sDay;
+        String sYear, sMonth, sDate, sDay;
         year = (int) Math.random() * 20 + 2023;
+        String[] stringYear = {"2023", "2024", "2025"};
+        String yearqw = stringYear[random.nextInt(2) + 1 - 1];
+        String yearInput = stringYear[random.nextInt(2) + 1 - 1].toString();
+
         month = (int) Math.random() * 2 + 11;
+        String[] stringMonth = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
+        String monthqw = stringMonth[random.nextInt(11) + 1 - 1];
+        String monthInput = stringMonth[random.nextInt(11) + 1 - 1].toString();
+
         day = (int) Math.random() * 17 + 11;
+        String[] stringDay = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10",
+                "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
+                "21", "22", "23", "24", "25", "26", "27", "28"};
+        String dayInput = stringDay[random.nextInt(27) + 1 - 1].toString();
         hour = (int) Math.random() * 14 + 11;
+        String[] stringHour = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10",
+                "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
+                "21", "22", "23", "24"};
+        String hourInput = stringHour[random.nextInt(23) + 1 - 1].toString();
         minute = (int) Math.random() * 49 + 11;
+        String[] stringMinute = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10",
+                "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
+                "21", "22", "23", "24", "25", "26", "27", "28", "29", "30",
+                "31", "32", "33", "34", "35", "36", "37", "38", "39", "40",
+                "41", "42", "43", "44", "45", "46", "47", "48", "49", "50",
+                "51", "52", "53", "54", "55", "56", "57", "58", "59"};
+        String minuteInput = stringMinute[random.nextInt(59) + 1 - 1].toString();
         second = (int) Math.random() * 49 + 11;
+        String[] stringSecond = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10",
+                "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
+                "21", "22", "23", "24", "25", "26", "27", "28", "29", "30",
+                "31", "32", "33", "34", "35", "36", "37", "38", "39", "40",
+                "41", "42", "43", "44", "45", "46", "47", "48", "49", "50",
+                "51", "52", "53", "54", "55", "56", "57", "58", "59"};
+        String secondInput = stringSecond[random.nextInt(59) + 1 - 1].toString();
         createYear = year - 1;
-        createMonth = month -1;
+        createMonth = month - 1;
         createDay = day - 1;
 
 
@@ -157,7 +228,7 @@ public class ProductRepository {
         int qwrandomInvestPrice = randomTotalPrice / 10;
 
         int qwyear, qwmonth, qwday, qwhour, qwminute, qwsecond, qwcreateYear, qwcreateMonth, qwcreateDay;
-        String qwsYear, qwsMonth, qwsDate,qwsDay;
+        String qwsYear, qwsMonth, qwsDate, qwsDay;
         qwyear = (int) Math.random() * 20 + 2023;
         qwmonth = (int) Math.random() * 2 + 11;
         qwday = (int) Math.random() * 17 + 11;
@@ -165,7 +236,7 @@ public class ProductRepository {
         qwminute = (int) Math.random() * 49 + 11;
         qwsecond = (int) Math.random() * 49 + 11;
         qwcreateYear = qwyear - 1;
-        qwcreateMonth = qwmonth -1;
+        qwcreateMonth = qwmonth - 1;
         qwcreateDay = qwday - 1;
 
 
@@ -176,26 +247,53 @@ public class ProductRepository {
         int qwclickCountRandom = random.nextInt(50);
 
 
-
-
-
-        String createRandomDataSql ="";
+        String createRandomDataSql = "";
 //
-
         for (int i = 1; i < 100; i++) {
-//            seqid = seqid + i + ", ";
             seqid = i + ", ";
             productName = "\"" + productName + i + "\", ";
             information = "\"" + information + i + "\", ";
-            totalPrice = Integer.toString(qwrandomTotalPrice) + ", ";
-            investPrice = Integer.toString(qwrandomInvestPrice) + ", ";
-            period = Integer.toString(qwyear) + Integer.toString(qwmonth) +Integer.toString(qwday) + Integer.toString(qwhour) + Integer.toString(qwminute) + Integer.toString(qwsecond) + ", ";
-            productStatus = "\'" + qwstatusInput + "\'"  + ", ";
-            createDate = Integer.toString(qwcreateYear) + Integer.toString(qwcreateMonth) + Integer.toString(qwcreateDay) + Integer.toString(qwhour) + Integer.toString(qwminute) + Integer.toString(qwsecond) + ", ";
+            totalPrice = Integer.toString(random.nextInt(999999) + 100000) + ", ";
+            investPrice = Integer.toString((random.nextInt(999999) + 100000) / 10) + ", ";
+
+            period = yearInput + monthInput + dayInput +
+                    hourInput + minuteInput + secondInput + ", ";
+            productStatus = "\'" + qwstatusInput + "\'" + ", ";
+            createDate = yearInput + monthInput + dayInput +
+                    hourInput + minuteInput + secondInput + ", ";
             clickCount = Integer.toString(qwclickCountRandom);
 
+            String aa = stringYear[random.nextInt(2) + 1 - 1].toString();
+            String as = stringMonth[random.nextInt(11) + 1 - 1].toString();
+            String ad = stringDay[random.nextInt(27) + 1 - 1].toString();
+            String af = stringHour[random.nextInt(23) + 1 - 1].toString();
+            String aq = stringMinute[random.nextInt(59) + 1 - 1].toString();
+            String aw = stringSecond[random.nextInt(59) + 1 - 1].toString();
 
-            createRandomDataSql += middleSql + seqid + productName + information + totalPrice + investPrice + period + productStatus + createDate + clickCount + endSql + ", ";
+
+
+
+
+
+            createRandomDataSql += middleSql + seqid + productName + information +
+                    totalPrice +
+                    investPrice +
+                    stringYear[random.nextInt(2) + 1 - 1].toString() +
+                    stringMonth[random.nextInt(11) + 1 - 1].toString() +
+                    stringDay[random.nextInt(27) + 1 - 1].toString() +
+                    stringHour[random.nextInt(23) + 1 - 1].toString() +
+                    stringMinute[random.nextInt(59) + 1 - 1].toString() +
+                    stringSecond[random.nextInt(59) + 1 - 1].toString() + ", " +
+                    "\'" + statusArr[random.nextInt(8) + 1 - 1].toString() + "\'" + ", " +
+                    stringYear[random.nextInt(2) + 1 - 1].toString() +
+                    stringMonth[random.nextInt(11) + 1 - 1].toString() +
+                    stringDay[random.nextInt(27) + 1 - 1].toString() +
+                    stringHour[random.nextInt(23) + 1 - 1].toString() +
+                    stringMinute[random.nextInt(59) + 1 - 1].toString() +
+                    stringSecond[random.nextInt(59) + 1 - 1].toString() + ", " +
+                    clickCount + endSql + ", ";
+
+
             seqid = "";
             productName = "testProduct";
             information = "testInformation";
@@ -205,31 +303,49 @@ public class ProductRepository {
             productStatus = "";
             createDate = "";
             clickCount = "";
+        };
+
+//        System.out.println(createRandomDataSql);
+            for (int i = 100; i < 101; i++) {
+                seqid = i + ", ";
+                productName = "\"" + productName + i + "\", ";
+                information = "\"" + information + i + "\", ";
+                totalPrice = Integer.toString(qwrandomTotalPrice) + ", ";
+                investPrice = Integer.toString(qwrandomInvestPrice) + ", ";
+
+                period = Integer.toString(qwyear) + Integer.toString(qwmonth) + Integer.toString(qwday) +
+                        Integer.toString(qwhour) + Integer.toString(qwminute) + Integer.toString(qwsecond) + ", ";
+                productStatus = "\'" + qwstatusInput + "\'" + ", ";
+                createDate = yearInput + monthInput + dayInput +
+                        hourInput + minuteInput + secondInput + ", ";
+                clickCount = Integer.toString(qwclickCountRandom);
+
+                createRandomDataSql += middleSql + seqid + productName + information + totalPrice + investPrice +
+                        stringYear[random.nextInt(2) + 1 - 1].toString() +
+                        stringMonth[random.nextInt(11) + 1 - 1].toString() +
+                        stringDay[random.nextInt(27) + 1 - 1].toString() +
+                        stringHour[random.nextInt(23) + 1 - 1].toString() +
+                        stringMinute[random.nextInt(59) + 1 - 1].toString() +
+                        stringSecond[random.nextInt(59) + 1 - 1].toString() + ", " +
+                        "\'" + statusArr[random.nextInt(8) + 1 - 1].toString() + "\'" + ", " +
+                        stringYear[random.nextInt(2) + 1 - 1].toString() +
+                        stringMonth[random.nextInt(11) + 1 - 1].toString() +
+                        stringDay[random.nextInt(27) + 1 - 1].toString() +
+                        stringHour[random.nextInt(23) + 1 - 1].toString() +
+                        stringMinute[random.nextInt(59) + 1 - 1].toString() +
+                        stringSecond[random.nextInt(59) + 1 - 1].toString() + ", " +
+                        clickCount + endSql + ";";
+
+            }
+        System.out.println("=========== asdfas;oijae;oribz;duobn;aoeijrtb;");
+            System.out.println(sql + createRandomDataSql);
+            return null;
         }
-        for (int i = 100; i < 101; i++) {
-            seqid = i + ", ";
-            productName = "\"" + productName + i + "\", ";
-            information = "\"" + information + i + "\", ";
-            totalPrice = Integer.toString(qwrandomTotalPrice) + ", ";
-            investPrice = Integer.toString(qwrandomInvestPrice) + ", ";
-            period = Integer.toString(qwyear) + Integer.toString(qwmonth) +Integer.toString(qwday) + Integer.toString(qwhour) + Integer.toString(qwminute) + Integer.toString(qwsecond) + ", ";
-            productStatus = "\'" + qwstatusInput + "\'"  + ", ";
-            createDate = Integer.toString(qwcreateYear) + Integer.toString(qwcreateMonth) + Integer.toString(qwcreateDay) + Integer.toString(qwhour) + Integer.toString(qwminute) + Integer.toString(qwsecond) + ", ";
-            clickCount = Integer.toString(qwclickCountRandom);
+};
 
 
-            createRandomDataSql += middleSql + seqid + productName + information + totalPrice + investPrice + period + productStatus + createDate + clickCount + endSql + ";";
-        }
 
-        String sc = sql + createRandomDataSql;
-        Query nativeQuery = em.createNativeQuery(sc);
-        System.out.println(nativeQuery);
-        System.out.println(sc);
-        return sc;
-    }
-
-
-}
+//}
 //    하나만 가져오는 것
 //    매개 변수에 넣을 것이 pk
 //    (이거를 검색 로직에 적용도 가능 할 것 같은데 어떤 매개변수가 들어오는지는

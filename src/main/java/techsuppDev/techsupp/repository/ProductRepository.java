@@ -139,11 +139,52 @@ public Object ProductCount(int pagingNumber, String keyword) {
         List<Product> fiveProduct = nativeQuery.getResultList();
 
         return fiveProduct;
-
-
-
     }
 
+
+    //  count for paging(allrows & pagerows)  카운트 두개 하는 것
+    public Object FeedbackCount(int pagingNumber, String keyword) {
+        String sql = "select ";
+        String resultSql;
+        String noKeywordSqlAllCount =
+                "(select  count(*) from Product " +
+                        "where product_status like '%success%' or product_status like '%fail%' order by id)successFailCountAll, ";
+        String keywordSqlAllCount =
+                "(select  count(*) from Product " +
+                        "where product_status like '%success%' or product_status like '%fail%' order by id)successFail and product_name like '%" +
+                        keyword +
+                        "%)as countAll, ";
+        if (keyword.equals("null") || keyword.equals("")) {
+            resultSql = sql + noKeywordSqlAllCount;
+        } else {
+            resultSql = sql + keywordSqlAllCount;
+        }
+
+        String noKeywordSql =
+                "(select count(*) from " +
+                        "(select  * from Product where period is not null limit " +
+                        pagingNumber +
+                        " , 50)as noKeywordData)as pagecount;";
+
+        String keywordSql =
+                "(select count(*) from " +
+                        "(select * from Product where period is not null and product_name like '%" +
+                        keyword +
+                        "%' " +
+                        "limit " +
+                        pagingNumber +
+                        ", 50)as searchData)as pagecountkeyword;";
+
+        if (keyword.equals("null") || keyword.equals("")) {
+            resultSql += noKeywordSql;
+        } else {
+            resultSql += keywordSql;
+        }
+
+        Query nativeQuery = em.createNativeQuery(resultSql);
+        Object rowNum = nativeQuery.getSingleResult();
+        return rowNum;
+    }
 
 
 

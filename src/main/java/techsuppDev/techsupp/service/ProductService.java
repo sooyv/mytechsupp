@@ -60,6 +60,11 @@ public class ProductService {
         return productRepository.findFiveProductFeedback(orderNumber, keyword);
     }
 
+//    feedback paging service
+
+    public Object getNumberOfFeedback(int pagingNumber, String keyword) {
+        return productRepository.FeedbackCount(pagingNumber, keyword);
+    }
 
 
 

@@ -30,7 +30,7 @@ public class ApiController {
     }
 
 //    페이징을 위해서 product table 상품 갯수 가져오기
-    @RequestMapping(value = "/paging/*")
+    @RequestMapping(value = "/productPaging/*")
     public ResponseEntity numberOfProductsSend(
             HttpServletRequest req) {
         int pagingNumber =  Integer.parseInt(req.getParameter("page"));
@@ -65,6 +65,17 @@ public class ApiController {
         }
 
         return ResponseEntity.ok().body(productService.findFiveProductFeedback(orderNumber, keyword));
+    }
+
+    @RequestMapping(value = "/feedbackPaging/*")
+    public ResponseEntity numberOfFeedbackPaging(
+            HttpServletRequest req) {
+        int pagingNumber =  Integer.parseInt(req.getParameter("page"));
+        String keyword = req.getParameter("keyword");
+
+        pagingNumber = pagingNumber * 50;
+
+        return ResponseEntity.ok().body((productService.getNumberOfFeedback(pagingNumber, keyword)));
     }
 
 }

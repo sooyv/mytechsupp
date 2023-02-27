@@ -1,0 +1,36 @@
+#entire_box{
+    display : flex;
+    flex-direction : row;
+}
+
+#sidebar_box{
+    padding-top : 150px;
+    padding-left : 130px;
+    width : 300px;
+    height : 800px;
+}
+
+#mypage_btn{
+    margin-bottom : 30px;
+    width : 200px;
+    height : 80px;
+    border : 2px solid red;
+}
+
+.btn_box{
+    margin-bottom : 30px;
+    width : 200px;
+    height : 80px;
+    border : 2px solid blue;
+}
+
+#big_invest_box{
+    padding-left : 250px;
+    padding-top : 100px;
+}
+.invest_box{
+    width : 800px;
+    height : 200px;
+    border : 2px solid green;
+    margin-bottom : 30px;
+}

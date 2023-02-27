@@ -20,12 +20,11 @@ public class QuestionDTO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long questionId;
     private Long userId;
-    private int SeqId;
     private String questionTitle;
     private String questionDetail;
     private String questionCategory;
-    private Date questionDate;
-    private int questionStatus;
+//    private Date questionDate;
+//    private int questionStatus;
     private String questionAnswer;
 
 

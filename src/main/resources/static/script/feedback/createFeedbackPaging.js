@@ -1,20 +1,8 @@
-// const paging = document.querySelector('.PagingContainer');
-// const page = document.querySelectorAll('.PageButton');
-
-// const url = location.href;
-// const urlParams = new URL(url).searchParams;
-// const pageNumber = urlParams.get('page');
-// const orderNumber = Math.ceil(urlParams.get('order'));
-// const urlStringKeyword = `&keyword=`;
-// const keyword = urlParams.get('keyword');
-
 function createPaging(numberOfdata) {
-  let urlStringPage = `/productMain/product?page=`;
+  let urlStringPage = `/feedbackMain/product?page=`;
   let urlStringOrder = `&order=`;
-  let pagingLimit = Math.ceil(numberOfdata / 5);
-  console.log("=======")
-  console.log(numberOfdata)
-  console.log(pagingLimit)
+  let pagingLimit = Math.ceil(numberOfdata[1] / 5);
+  
   let prevPage = pageNumber;
   (pageNumber - 1 < 0 ? prevPage = 0 : --prevPage);
   let prevPageLocation = urlStringPage + prevPage  + urlStringOrder + (prevPage * 10)
@@ -46,7 +34,7 @@ function createPaging(numberOfdata) {
     pagingList.appendChild(li);
   }
   let nextPage = +pageNumber;
-  (document.querySelectorAll('.Page').length == 11 ? ++nextPage : nextPage);
+  ((nextPage + 1) * 50 < +numberOfdata[0] ? ++nextPage : nextPage);
 
   let nextPageLocation = urlStringPage + nextPage + urlStringOrder + (+nextPage * 10)
 
@@ -76,13 +64,9 @@ function createPaging(numberOfdata) {
 }
 
 function getNumbersOfProductToCreatePaging(pageNumber, keyword) {  
-  fetch(`/api/paging/product?page=${pageNumber}&order=0&keyword=${keyword}`)
+  fetch(`/api/feedbackPaging/product?page=${pageNumber}&order=0&keyword=${keyword}`)
   .then(response => response.json())
   .then(data => createPaging(data))
 }
 
 getNumbersOfProductToCreatePaging(pageNumber, keyword)
-
-
-
-

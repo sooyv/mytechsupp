@@ -25,7 +25,7 @@
         </div>
     </header>
     <!-- Main page content-->
-    <form th:action="@{/admin/new}" th:method="post">
+    <form th:action="@{/admin/register}" th:method="post" enctype="multipart/form-data">
         <div class="container-xl px-4 mt-4">
             <div class="row">
                 <div class="col-xl-4">
@@ -38,7 +38,7 @@
                             <!-- Profile picture help block-->
                             <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
                             <!-- Profile picture upload button-->
-                            <button class="btn btn-primary" type="button">Upload new image</button>
+                            <button class="btn btn-primary" type="file" name="file">Upload new image</button>
                         </div>
                     </div>
                 </div>
@@ -49,20 +49,20 @@
                         <div class="card-body">
                             <form>
                                 <div class="mb-3">
-                                    <label class="small mb-1" th:for="name">상품명</label>
-                                    <input class="form-control" th:field="*{name}" type="text" placeholder="상품명을 입력해주세요.">
+                                    <label class="small mb-1">상품명</label>
+                                    <input class="form-control" name="productName" type="text" placeholder="상품명을 입력해주세요.">
                                 </div>
                                 <!-- Form Row-->
                                 <div class="row gx-3 mb-3">
                                     <!-- Form Group (first name)-->
                                     <div class="col-md-6">
-                                        <label class="small mb-1" th:for="total">목표 금액</label>
-                                        <input class="form-control" id="inputProductPrice" type="number" placeholder="가격을 입력해주세요." value="">
+                                        <label class="small mb-1">목표 금액</label>
+                                        <input class="form-control" name="totalPrice" type="number" placeholder="가격을 입력해주세요.">
                                     </div>
                                     <!-- Form Group (last name)-->
                                     <div class="col-md-6">
-                                        <label class="small mb-1" for="inputProductPeriod">마감 기한</label>
-                                        <input class="form-control" id="inputProductPeriod" type="date" placeholder="날짜를 입력해주세요." value="">
+                                        <label class="small mb-1">마감 기한</label>
+                                        <input class="form-control" name="period" type="date" placeholder="날짜를 입력해주세요.">
                                     </div>
                                 </div>
 

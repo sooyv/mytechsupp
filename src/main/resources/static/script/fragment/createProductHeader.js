@@ -12,7 +12,7 @@ function createProductHeaderHtml() {
       </ul>
       <ul class="nav">
         <li class="nav-item"><a href="/login" class="nav-link link-dark px-2">로그인</a></li>
-        <li class="nav-item"><a href="/signUp" class="nav-link link-dark px-2">회원가입</a></li>
+        <li class="nav-item"><a href="/signup" class="nav-link link-dark px-2">회원가입</a></li>
       </ul>
     </div>
   </nav>

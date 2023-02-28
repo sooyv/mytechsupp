@@ -8,9 +8,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/productSelect")
+@RequestMapping("/")
 public class SpecificProductController {
-    @GetMapping("/product")
+    @GetMapping("productSelect/product")
     public ModelAndView LinkToSpecific() {
         ModelAndView specific = new ModelAndView("/product/productSelect");
         return specific;

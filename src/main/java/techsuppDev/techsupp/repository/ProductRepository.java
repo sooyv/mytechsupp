@@ -17,14 +17,13 @@ import java.util.*;
 public class ProductRepository {
     private final EntityManager em;
 
-
     public Object findOneProduct(Long id) {
         String sql = " " +
                 "select " +
                 " * " +
                 "from Product where id = "+
                 id;
-        Query nativeQuery = em.createNativeQuery(sql, "ProductMapping");
+        Query nativeQuery = em.createNativeQuery(sql, Product.class);
         Object singleProduct = nativeQuery.getSingleResult();
         return singleProduct;
     }
@@ -199,9 +198,7 @@ public Object ProductCount(int pagingNumber, String keyword) {
         } else {
             resultSql += keywordSql;
         }
-        System.out.println("paginngasd");
-        System.out.println("============");
-        System.out.println(resultSql);
+
         Query nativeQuery = em.createNativeQuery(resultSql);
         Object rowNum = nativeQuery.getSingleResult();
         return rowNum;

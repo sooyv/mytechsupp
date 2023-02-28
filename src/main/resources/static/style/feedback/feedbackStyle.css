@@ -63,6 +63,35 @@ body {
   margin: 10px;
 }
 
+.SortByKeyword {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  list-style-type: none;
+}
+
+.SortByKeyword > * {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 20px;
+  padding: 20px, 80px;
+}
+
+.SearchByKeyword {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;  
+}
+
+.SearchByKeyword > * {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;  
+}
+
 .SortByKeywordAndSearch {
   display: flex;
   flex-direction: row;

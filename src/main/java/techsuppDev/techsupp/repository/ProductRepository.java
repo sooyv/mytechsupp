@@ -115,18 +115,24 @@ public Object ProductCount(int pagingNumber, String keyword) {
 
         String sql = " " +
                 "select * from " +
-                "(select * from product where product_status like '%SUCCESS%' or product_status like '%FAIL%' order by id)successFail ";
-        String limitSql =
+                "(select * from product " +
+                "where " +
+                "product_status like '%SUCCESS%' or " +
+                "product_status like '%FAIL%' order by id" +
+                ")successFail ";
+        String limitSql = "" +
                 "limit " +
-                        orderNumber +
-                        ", 5;" ;
+                orderNumber +
+                ", 5;" ;
 
         String keywordSql = "";
 
         if (keyword.equals("null") || keyword.equals("")) {
             sql = sql + limitSql;
         } else {
-            keywordSql = "where product_name like '%" +
+            keywordSql = "" +
+                    "where " +
+                    "product_name like '%" +
                     keyword +
                     "%' ";
             sql = sql + keywordSql + limitSql;
@@ -155,13 +161,15 @@ public Object ProductCount(int pagingNumber, String keyword) {
                 "(select * from Product " +
                 "where " +
                 "product_status like '%SUCCESS%' or " +
-                "product_status like '%FAIL%' and " +
-                "product_name like '%" + keyword + "%' " +
-                "order by id)as successFail), ";
+                "product_status like '%FAIL%' " +
+                "order by id)as successFail " +
+                "where product_name like '%" + keyword + "%' "
+                ;
+        String endSql = "),";
         if (keyword.equals("null") || keyword.equals("")) {
             resultSql = sql + noKeywordSqlAllCount;
         } else {
-            resultSql = sql + keywordSqlAllCount;
+            resultSql = sql + keywordSqlAllCount + endSql;
         }
 
         String noKeywordSql =
@@ -179,18 +187,21 @@ public Object ProductCount(int pagingNumber, String keyword) {
                 "(select * from Product " +
                 "where " +
                 "product_status like '%SUCCESS%' or " +
-                "product_status like '%FAIL%' and " +
-                "product_name like '%" + keyword + "%' " +
+                "product_status like '%FAIL%' " +
+                "order by id)as succesfailcount " +
+                "where product_name like '%" + keyword + "%' " +
                 "limit " +
                 pagingNumber +
-                ", 50)as searchData)as pagecountkeyword;";
+                ", 50)as searchData;";
 
         if (keyword.equals("null") || keyword.equals("")) {
             resultSql += noKeywordSql;
         } else {
             resultSql += keywordSql;
         }
-
+        System.out.println("paginngasd");
+        System.out.println("============");
+        System.out.println(resultSql);
         Query nativeQuery = em.createNativeQuery(resultSql);
         Object rowNum = nativeQuery.getSingleResult();
         return rowNum;

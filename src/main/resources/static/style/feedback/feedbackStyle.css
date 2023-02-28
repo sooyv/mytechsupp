@@ -63,6 +63,35 @@ body {
   margin: 10px;
 }
 
+.SortByKeyword {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  list-style-type: none;
+}
+
+.SortByKeyword > * {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 20px;
+  padding: 20px, 80px;
+}
+
+.SearchByKeyword {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;  
+}
+
+.SearchByKeyword > * {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;  
+}
+
 .SortByKeywordAndSearch {
   display: flex;
   flex-direction: row;
@@ -111,30 +140,28 @@ body {
 
 .FeebackListInformation {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-grow: inherit;
 }
 
 
 .FeedbackListName-FeedbackListInformation {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 
 }
 
 .FeedbackListName-FeedbackListInformation > * {
   display: flex;
   border-style: solid;
+  flex-direction: row;
   margin: 1px;
 }
 
-.FeedbackListScore-LimitDate-SuccesStatus {
-  display: flex;
-}
-
-.FeedbackListScore-LimitDate-SuccesStatus > * {
+.FeedbackInvestPrice-FeedbackPeriod-FeedbackProductStatus > * {
   display: flex;
   border-style: solid;
-  margin: 1px;
+  flex-direction: column;
 }
 
 /* 페이징 */

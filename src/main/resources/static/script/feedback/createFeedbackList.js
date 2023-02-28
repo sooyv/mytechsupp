@@ -5,32 +5,6 @@ function linkToSelectedFeedback(api) {
   window.location.href = feedbackSelected;
 };
 
-
-// function createFeedbackList() {
-//   feedbackList.innerHTML = '';
-
-//   for(let i = 0; i < 4; i++) {
-//     feedbackList.innerHTML += `
-//     <article class="FeedbackContent">
-//       <div class="FeedbackListPicture">
-//         <h2>제품 사진</h2>
-//       </div>
-//       <div class="FeebackListInformation">
-//         <div class="FeedbackListName-FeedbackListInformation">
-//           <h2>제품 제목</h2>
-//           <h3>제품 설명</h3>
-//         </div>
-//         <div class="FeedbackListScore-LimitDate-SuccesStatus">
-//           <h3>상품 점수</h3>
-//           <h3>투자 마감일</h3>
-//           <h3>투자성공여부</h3>
-//         </div>
-//       </div>
-//     </article>
-//     `;
-//   }
-// }
-
 function createFeedbackList(api) {
   feedbackList.innerHTML = ``;
   for(let i = 0; i < 5; i++) {
@@ -40,11 +14,11 @@ function createFeedbackList(api) {
        <h5>${api[i].seqId}피드백 사진</h5>
       </div>
       <div class="FeebackListInformation">
-        <div class="FeedbackName-FeedbackInformation>
+        <div class="FeedbackName-FeedbackInformation">
           <h5>${api[i].productName}피드백 제품 제목</h5>
           <h5>${api[i].information}피드백 제품 설명</h5>
         </div>
-        <div class="FeedbackListName-FeedbackListInformation">
+        <div class="FeedbackInvestPrice-FeedbackPeriod-FeedbackProductStatus">
           <h5>${api[i].investPrice}개인 투자 금액</h5>
           <h5>${api[i].period}투자 마감일</h5>
           <h5>${api[i].productStatus}투자성공/실패</h5>

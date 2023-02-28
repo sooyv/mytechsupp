@@ -2,7 +2,7 @@ function goMyPage() {
     location.href = "edituser";
 }
 function goMyInvest() {
-    location.href = "myInvest";
+    location.href = "myinvest";
 }
 function goMyFavorite() {
     location.href = "myFavorite";
@@ -12,4 +12,7 @@ function goMyPassword() {
 }
 function goMyCheckPassword() {
     location.href = "checkPassword";
+}
+function goMyEdit() {
+    location.href = "edituser";
 }

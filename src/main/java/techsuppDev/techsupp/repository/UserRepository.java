@@ -20,4 +20,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     // 회원 한명 조회
     User getOne(Long userId);
+
+
 }

@@ -39,7 +39,6 @@ $(document).ready(function () {
         password: password,
         checkPassword: checkPassword,
         userPhone : userPhone
-        address : userAddress
         },
       success: function (response) {
         console.log(response);

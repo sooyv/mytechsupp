@@ -30,7 +30,7 @@ function createFeedbackSingleHTML(api) {
       </div>
     </div>
   </article>
-  `
+  `;
 }
 
 function createSingleFeedback() {

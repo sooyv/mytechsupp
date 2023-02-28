@@ -15,4 +15,6 @@ public class PaymentController {
         ModelAndView investmentProduct = new ModelAndView("/product/productInvesting");
         return investmentProduct;
     }
+
+
 }

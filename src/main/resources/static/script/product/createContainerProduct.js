@@ -18,13 +18,13 @@ function createSingleProductHtml(api) {
           <h5>${api.totalPrice} 투자 목표액</h5>
         </div>
         <div class="ProductInformation">
-        <h5>${api.product_name}제품 제목 설명</h5>
+        <h5>${api.information}제품 제목 설명</h5>
         </div>
       </div>
     </div>
     <div class="ContainerNameLimitDatePrecentageInvesting">
       <div class="ProductNameWish">
-        <h5>${api.information}제품 상세 설명</h5>
+        <h5>${api.productName}제품 상세 설명</h5>
         <h5>즐겨찾기</h5>
       </div>
       <div class="ProductLimitDate">

@@ -10,16 +10,12 @@ import javax.persistence.*;
 import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @Repository
 @RequiredArgsConstructor
 public class ProductRepository {
     private final EntityManager em;
-
 
     public Object findOneProduct(Long id) {
         String sql = " " +
@@ -27,7 +23,7 @@ public class ProductRepository {
                 " * " +
                 "from Product where id = "+
                 id;
-        Query nativeQuery = em.createNativeQuery(sql, "ProductMapping");
+        Query nativeQuery = em.createNativeQuery(sql, Product.class);
         Object singleProduct = nativeQuery.getSingleResult();
         return singleProduct;
     }
@@ -53,9 +49,9 @@ public class ProductRepository {
             sql = sql + keywordSql + limitSql;
         }
 
-        Query nativeQuery = em.createNativeQuery(sql, "ProductMapping");
-        List<Product> fiveProduct = nativeQuery.getResultList();
+        Query nativeQuery = em.createNativeQuery(sql, Product.class);
 
+        List<Product> fiveProduct = nativeQuery.getResultList();
         return fiveProduct;
     }
 
@@ -79,7 +75,7 @@ public Object ProductCount(int pagingNumber, String keyword) {
     String keywordSqlAllCount =
             "(select  count(*) from Product where product_status is not null and product_name like '%" +
             keyword +
-            "%)as countAll, ";
+            "%')as countAll, ";
     if (keyword.equals("null") || keyword.equals("")) {
         resultSql = sql + noKeywordSqlAllCount;
     } else {
@@ -118,24 +114,30 @@ public Object ProductCount(int pagingNumber, String keyword) {
 
         String sql = " " +
                 "select * from " +
-                "(select * from product where product_status like '%success%' or product_status like '%fail%' order by id)successFail ";
-        String limitSql =
+                "(select * from product " +
+                "where " +
+                "product_status like '%SUCCESS%' or " +
+                "product_status like '%FAIL%' order by id" +
+                ")successFail ";
+        String limitSql = "" +
                 "limit " +
-                        orderNumber +
-                        ", 5;" ;
+                orderNumber +
+                ", 5;" ;
 
         String keywordSql = "";
 
         if (keyword.equals("null") || keyword.equals("")) {
             sql = sql + limitSql;
         } else {
-            keywordSql = "where product_name like '%" +
+            keywordSql = "" +
+                    "where " +
+                    "product_name like '%" +
                     keyword +
                     "%' ";
             sql = sql + keywordSql + limitSql;
         }
 
-        Query nativeQuery = em.createNativeQuery(sql, "ProductMapping");
+        Query nativeQuery = em.createNativeQuery(sql, Product.class);
         List<Product> fiveProduct = nativeQuery.getResultList();
 
         return fiveProduct;
@@ -147,33 +149,49 @@ public Object ProductCount(int pagingNumber, String keyword) {
         String sql = "select ";
         String resultSql;
         String noKeywordSqlAllCount =
-                "(select  count(*) from Product " +
-                        "where product_status like '%success%' or product_status like '%fail%' order by id)successFailCountAll, ";
+                "(select  count(*) from " +
+                "(select * from Product " +
+                "where " +
+                "product_status like '%SUCCESS%' or " +
+                "product_status like '%FAIL%' " +
+                "order by id)successFailCountAll), ";
         String keywordSqlAllCount =
-                "(select  count(*) from Product " +
-                        "where product_status like '%success%' or product_status like '%fail%' order by id)successFail and product_name like '%" +
-                        keyword +
-                        "%)as countAll, ";
+                "(select  count(*) from " +
+                "(select * from Product " +
+                "where " +
+                "product_status like '%SUCCESS%' or " +
+                "product_status like '%FAIL%' " +
+                "order by id)as successFail " +
+                "where product_name like '%" + keyword + "%' "
+                ;
+        String endSql = "),";
         if (keyword.equals("null") || keyword.equals("")) {
             resultSql = sql + noKeywordSqlAllCount;
         } else {
-            resultSql = sql + keywordSqlAllCount;
+            resultSql = sql + keywordSqlAllCount + endSql;
         }
 
         String noKeywordSql =
                 "(select count(*) from " +
-                        "(select  * from Product where period is not null limit " +
-                        pagingNumber +
-                        " , 50)as noKeywordData)as pagecount;";
+                "(select * from Product " +
+                "where " +
+                "product_status like '%SUCCESS%' or " +
+                "product_status like '%FAIL%' order by id " +
+                "limit " +
+                pagingNumber +
+                " , 50)as noKeywordData)as pagecount;";
 
         String keywordSql =
                 "(select count(*) from " +
-                        "(select * from Product where period is not null and product_name like '%" +
-                        keyword +
-                        "%' " +
-                        "limit " +
-                        pagingNumber +
-                        ", 50)as searchData)as pagecountkeyword;";
+                "(select * from Product " +
+                "where " +
+                "product_status like '%SUCCESS%' or " +
+                "product_status like '%FAIL%' " +
+                "order by id)as succesfailcount " +
+                "where product_name like '%" + keyword + "%' " +
+                "limit " +
+                pagingNumber +
+                ", 50)as searchData;";
 
         if (keyword.equals("null") || keyword.equals("")) {
             resultSql += noKeywordSql;
@@ -233,7 +251,7 @@ public Object ProductCount(int pagingNumber, String keyword) {
         System.out.println("repository");
         String sql = " " +
                 "insert into product " +
-                "(seq_id, product_name, information, total_price, invest_price, period, product_status, create_date, click_count) values ";
+                "(seq_id, product_name, information, total_price, invest_price, period, product_status, regdate, click_count) values ";
         String middleSql = "(";
         String endSql = ")";
 
@@ -302,8 +320,8 @@ public Object ProductCount(int pagingNumber, String keyword) {
 
 
 //        status
-        String[] statusArr = {"investing", "investClose", "productManufacture", "productComplete", "delivering", "deliverd", "success", "fail"};
-        String statusInput = statusArr[random.nextInt(8) + 1 - 1].toString();
+        String[] statusArr = {"SUCCESS", "FAIL", "PROGRESS", "CLOSING"};
+        String statusInput = statusArr[random.nextInt(4) + 1 - 1].toString();
 
         int clickCountRandom = random.nextInt(50);
 //
@@ -370,14 +388,14 @@ public Object ProductCount(int pagingNumber, String keyword) {
                     stringHour[random.nextInt(23) + 1 - 1].toString() +
                     stringMinute[random.nextInt(59) + 1 - 1].toString() +
                     stringSecond[random.nextInt(59) + 1 - 1].toString() + ", " +
-                    "\'" + statusArr[random.nextInt(8) + 1 - 1].toString() + "\'" + ", " +
+                    "\'" + statusArr[random.nextInt(3) + 1 - 1].toString() + "\'" + ", " +
                     stringYear[random.nextInt(2) + 1 - 1].toString() +
                     stringMonth[random.nextInt(11) + 1 - 1].toString() +
                     stringDay[random.nextInt(27) + 1 - 1].toString() +
                     stringHour[random.nextInt(23) + 1 - 1].toString() +
                     stringMinute[random.nextInt(59) + 1 - 1].toString() +
                     stringSecond[random.nextInt(59) + 1 - 1].toString() + ", " +
-                    clickCount + endSql + ", ";
+                    Integer.toString(random.nextInt(100) + 1) + endSql + ", ";
 
 
             seqid = "";
@@ -413,14 +431,14 @@ public Object ProductCount(int pagingNumber, String keyword) {
                         stringHour[random.nextInt(23) + 1 - 1].toString() +
                         stringMinute[random.nextInt(59) + 1 - 1].toString() +
                         stringSecond[random.nextInt(59) + 1 - 1].toString() + ", " +
-                        "\'" + statusArr[random.nextInt(8) + 1 - 1].toString() + "\'" + ", " +
+                        "\'" + statusArr[random.nextInt(3) + 1 - 1].toString() + "\'" + ", " +
                         stringYear[random.nextInt(2) + 1 - 1].toString() +
                         stringMonth[random.nextInt(11) + 1 - 1].toString() +
                         stringDay[random.nextInt(27) + 1 - 1].toString() +
                         stringHour[random.nextInt(23) + 1 - 1].toString() +
                         stringMinute[random.nextInt(59) + 1 - 1].toString() +
                         stringSecond[random.nextInt(59) + 1 - 1].toString() + ", " +
-                        clickCount + endSql + ";";
+                        Integer.toString(random.nextInt(100) + 1) + endSql + ";";
 
             }
         System.out.println("=========== asdfas;oijae;oribz;duobn;aoeijrtb;");

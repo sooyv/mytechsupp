@@ -53,13 +53,9 @@ public class ProductRepository {
             sql = sql + keywordSql + limitSql;
         }
 
-        Query nativeQuery = em.createNativeQuery(sql, "ProductMapping");
-        System.out.println("=============");
-        System.out.println(sql);
+        Query nativeQuery = em.createNativeQuery(sql, Product.class);
+
         List<Product> fiveProduct = nativeQuery.getResultList();
-        System.out.println("a;woubhnz;doirnb;ed");
-        System.out.println("=============");
-//        System.out.println(fiveProduct);
         System.out.println(fiveProduct.toString());
         return fiveProduct;
     }
@@ -153,10 +149,10 @@ public Object ProductCount(int pagingNumber, String keyword) {
         String resultSql;
         String noKeywordSqlAllCount =
                 "(select  count(*) from Product " +
-                        "where product_status like '%success%' or product_status like '%fail%' order by id)successFailCountAll, ";
+                        "where product_status like '%SUCCESS%' or product_status like '%FAIL%' order by id)successFailCountAll, ";
         String keywordSqlAllCount =
                 "(select  count(*) from Product " +
-                        "where product_status like '%success%' or product_status like '%fail%' order by id)successFail and product_name like '%" +
+                        "where product_status like '%SUCCESS%' or product_status like '%FAIL%' order by id)successFail and product_name like '%" +
                         keyword +
                         "%)as countAll, ";
         if (keyword.equals("null") || keyword.equals("")) {
@@ -307,8 +303,8 @@ public Object ProductCount(int pagingNumber, String keyword) {
 
 
 //        status
-        String[] statusArr = {"investing", "investClose", "productManufacture", "productComplete", "delivering", "delivered", "success", "fail"};
-        String statusInput = statusArr[random.nextInt(8) + 1 - 1].toString();
+        String[] statusArr = {"SUCCESS", "FAIL", "PROGRESS", "CLOSING"};
+        String statusInput = statusArr[random.nextInt(4) + 1 - 1].toString();
 
         int clickCountRandom = random.nextInt(50);
 //
@@ -375,7 +371,7 @@ public Object ProductCount(int pagingNumber, String keyword) {
                     stringHour[random.nextInt(23) + 1 - 1].toString() +
                     stringMinute[random.nextInt(59) + 1 - 1].toString() +
                     stringSecond[random.nextInt(59) + 1 - 1].toString() + ", " +
-                    "\'" + statusArr[random.nextInt(8) + 1 - 1].toString() + "\'" + ", " +
+                    "\'" + statusArr[random.nextInt(3) + 1 - 1].toString() + "\'" + ", " +
                     stringYear[random.nextInt(2) + 1 - 1].toString() +
                     stringMonth[random.nextInt(11) + 1 - 1].toString() +
                     stringDay[random.nextInt(27) + 1 - 1].toString() +
@@ -418,7 +414,7 @@ public Object ProductCount(int pagingNumber, String keyword) {
                         stringHour[random.nextInt(23) + 1 - 1].toString() +
                         stringMinute[random.nextInt(59) + 1 - 1].toString() +
                         stringSecond[random.nextInt(59) + 1 - 1].toString() + ", " +
-                        "\'" + statusArr[random.nextInt(8) + 1 - 1].toString() + "\'" + ", " +
+                        "\'" + statusArr[random.nextInt(3) + 1 - 1].toString() + "\'" + ", " +
                         stringYear[random.nextInt(2) + 1 - 1].toString() +
                         stringMonth[random.nextInt(11) + 1 - 1].toString() +
                         stringDay[random.nextInt(27) + 1 - 1].toString() +

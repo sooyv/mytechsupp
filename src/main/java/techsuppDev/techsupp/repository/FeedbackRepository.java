@@ -13,7 +13,7 @@ import java.util.List;
 public class FeedbackRepository {
     private final EntityManager em;
 
-//    한개 select
+
 
 
 

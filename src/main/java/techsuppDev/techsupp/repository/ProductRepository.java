@@ -54,8 +54,13 @@ public class ProductRepository {
         }
 
         Query nativeQuery = em.createNativeQuery(sql, "ProductMapping");
+        System.out.println("=============");
+        System.out.println(sql);
         List<Product> fiveProduct = nativeQuery.getResultList();
-
+        System.out.println("a;woubhnz;doirnb;ed");
+        System.out.println("=============");
+//        System.out.println(fiveProduct);
+        System.out.println(fiveProduct.toString());
         return fiveProduct;
     }
 
@@ -233,7 +238,7 @@ public Object ProductCount(int pagingNumber, String keyword) {
         System.out.println("repository");
         String sql = " " +
                 "insert into product " +
-                "(seq_id, product_name, information, total_price, invest_price, period, product_status, create_date, click_count) values ";
+                "(seq_id, product_name, information, total_price, invest_price, period, product_status, regdate, click_count) values ";
         String middleSql = "(";
         String endSql = ")";
 
@@ -302,7 +307,7 @@ public Object ProductCount(int pagingNumber, String keyword) {
 
 
 //        status
-        String[] statusArr = {"investing", "investClose", "productManufacture", "productComplete", "delivering", "deliverd", "success", "fail"};
+        String[] statusArr = {"investing", "investClose", "productManufacture", "productComplete", "delivering", "delivered", "success", "fail"};
         String statusInput = statusArr[random.nextInt(8) + 1 - 1].toString();
 
         int clickCountRandom = random.nextInt(50);
@@ -377,7 +382,7 @@ public Object ProductCount(int pagingNumber, String keyword) {
                     stringHour[random.nextInt(23) + 1 - 1].toString() +
                     stringMinute[random.nextInt(59) + 1 - 1].toString() +
                     stringSecond[random.nextInt(59) + 1 - 1].toString() + ", " +
-                    clickCount + endSql + ", ";
+                    Integer.toString(random.nextInt(100) + 1) + endSql + ", ";
 
 
             seqid = "";
@@ -420,7 +425,7 @@ public Object ProductCount(int pagingNumber, String keyword) {
                         stringHour[random.nextInt(23) + 1 - 1].toString() +
                         stringMinute[random.nextInt(59) + 1 - 1].toString() +
                         stringSecond[random.nextInt(59) + 1 - 1].toString() + ", " +
-                        clickCount + endSql + ";";
+                        Integer.toString(random.nextInt(100) + 1) + endSql + ";";
 
             }
         System.out.println("=========== asdfas;oijae;oribz;duobn;aoeijrtb;");

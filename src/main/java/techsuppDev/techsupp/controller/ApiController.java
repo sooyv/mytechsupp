@@ -26,6 +26,11 @@ public class ApiController {
             orderNumber = orderNumber * 5;
         }
 
+
+        System.out.println("==================");
+        System.out.println("controller");
+        System.out.println(productService.findFiveProduct(orderNumber, keyword).toString());
+
         return ResponseEntity.ok().body(productService.findFiveProduct(orderNumber, keyword));
     }
 

@@ -16,7 +16,7 @@ public class FeedbackController {
 
     @GetMapping("/*")
     public ModelAndView LinkToFeedbackMain() {
-        ModelAndView feedbackMain = new ModelAndView("/feedback/feedbackMain");
+        ModelAndView feedbackMain = new ModelAndView("/feedback/feedbackmain");
         return feedbackMain;
     }
 

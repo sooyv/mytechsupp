@@ -1,13 +1,3 @@
-// const paging = document.querySelector('.PagingContainer');
-// const page = document.querySelectorAll('.PageButton');
-
-// const url = location.href;
-// const urlParams = new URL(url).searchParams;
-// const pageNumber = urlParams.get('page');
-// const orderNumber = Math.ceil(urlParams.get('order'));
-// const urlStringKeyword = `&keyword=`;
-// const keyword = urlParams.get('keyword');
-
 function createPaging(numberOfdata) {
   let urlStringPage = `/productMain/product?page=`;
   let urlStringOrder = `&order=`;

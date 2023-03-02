@@ -4,8 +4,8 @@
 // 현재 구현된 것은 feedbackSelect 링크로 가게 하는 것까지만 구현
 
 // 피드백 작성 폼으로 넘어가는 것 (버튼에 들어가야함)
-function linkToFeedbackFrom(api) {
-  let feedbackForm = `/feedbackSelect/feedback/?num=${api}/form`;
+function linkToFeedbackWriteForm(api) {
+  let feedbackForm = `/feedbackSelect/feedback/form/?num=${api}`;
   window.location.href = feedbackForm;
 }
 
@@ -33,10 +33,18 @@ function createFeedbackSingleHTML(api) {
   `;
 }
 
+function createFeedbackWriteButton(api) {
+  writeFormButton.innerHTML = ``;
+  writeFormButton.innerHTML = `
+  <input type="button" onclick = "linkToFeedbackWriteForm(${api.id})" value="후기 작성하러 가기">
+  `;
+}
+
 function createSingleFeedback() {
   fetch(`/api/product/?num=${productNumber}`)
   .then(res => res.json())
-  .then(data => createFeedbackSingleHTML(data))
+  .then(data => (createFeedbackSingleHTML(data), createFeedbackWriteButton(data)))
+
 }
 
 createSingleFeedback();

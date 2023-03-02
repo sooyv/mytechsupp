@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <form id="FILE_FORM" method="post" enctype="multipart/form-data" action="">
+    <input type="file" id="FILE_TAG" name="FILE_TAG">
+    <input type="file" id="FILE_TAG2" name="FILE_TAG2">
+    <a class="ui-shadow ui-btn ui-corner-all" href="javascript:uploadFile();">전송</a>
+  </form>
+<script>
+  function uploadFile(){
+      var form = $('#FILE_FORM')[0];
+      var formData = new FormData(form);
+      formData.append("fileObj", $("#FILE_TAG")[0].files[0]);
+      formData.append("fileObj2", $("#FILE_TAG2")[0].files[0]);
+      console.log("==============")
+      console.log(formData);
+      console.log(formData.get("fileObj"));
+      console.log(formData.get("fileObj2"));
+      $.ajax({
+          url: '/test/image',
+                  processData: false,
+                  contentType: false,
+                  data: formData,
+                  type: 'POST',
+                  success: function(result){
+                    console.log("========")
+                    console.log(toSting(result));
+                      alert("업로드 성공!!");
+                  }
+          });
+  }
+
+</script>
+</body>
+</html>

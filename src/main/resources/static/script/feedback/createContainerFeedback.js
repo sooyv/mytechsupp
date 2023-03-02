@@ -34,10 +34,11 @@ function createFeedbackSingleHTML(api) {
 }
 
 function createFeedbackWriteButton(api) {
+  if (writeFormButton != null ) {
   writeFormButton.innerHTML = ``;
   writeFormButton.innerHTML = `
   <input type="button" onclick = "linkToFeedbackWriteForm(${api.id})" value="후기 작성하러 가기">
-  `;
+  `}
 }
 
 function createSingleFeedback() {

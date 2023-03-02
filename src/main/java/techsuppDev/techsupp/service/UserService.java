@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 import techsuppDev.techsupp.domain.User;
 import techsuppDev.techsupp.repository.UserRepository;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Service
@@ -77,12 +76,9 @@ public class UserService {
         User user = getUserByEmail(email);
         if (user != null && passwordEncoder.matches(password, user.getUserPassword())) {
             return user;
-
         }
-
         return null;
     }
-
 
 }
 

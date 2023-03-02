@@ -64,10 +64,8 @@ public class UserController {
 
     // 회원가입
     @PostMapping("/user/signup")
-    public ResponseEntity<String> signUpUser(@RequestParam("userName") String userName,
-                                             @RequestParam("email") String email,
-                                             @RequestParam("password") String password,
-                                             @RequestParam("userPhone") String userPhone) {
+    public ResponseEntity<String> signUpUser(@RequestParam("userName") String userName, @RequestParam("email") String email,
+                                             @RequestParam("password") String password, @RequestParam("userPhone") String userPhone) {
         System.out.println(userName);
         System.out.println(email);
         System.out.println(password);
@@ -81,28 +79,35 @@ public class UserController {
 
         userService.join(user);
 
+//        ModelAndView mav = new ModelAndView("redirect:/");
+//        return mav;
         return new ResponseEntity<>("Successfully Registered", HttpStatus.OK);
     }
 
 
-    // 로그인 - thymeleaf 사용
+    // 로그인
     @PostMapping("/user/login")
-    public ModelAndView login(@Valid @ModelAttribute UserForm userForm) {
+    public ModelAndView login(@Valid @ModelAttribute UserForm userForm, HttpSession session) {
+//    public ModelAndView login(@RequestParam String email, @RequestParam String password, HttpSession session) {
 
-//        System.out.println(userForm.getEmail());
-//        System.out.println(userForm.getPassword());
+//        System.out.println("이메일 :" + email);
+//        System.out.println("비밀번호 :" + password);
+        String formEmail = userForm.getEmail();
+        String formPassword = userForm.getPassword();
 
-        String email = userForm.getEmail();
-        String password = userForm.getPassword();
+        User user = userService.login(formEmail, formPassword);
 
-        User user = userService.login(email, password);
-
-        if (user != null && user.getUserEmail().equals(email)) {
-            System.out.println("로그인 완료");
+        if (user != null && user.getUserEmail().equals(formEmail)) {
+//            return new ResponseEntity<>("Sucessfully Login", HttpStatus.OK)
+            session.setAttribute("loginEmail", user.getUserEmail());
+            System.out.println(user.getUserName() + "로그인 완료");
 
         } else {
-            throw new IllegalStateException("회원 정보가 없습니다");
-            
+//            return new ResponseEntity<>("Login faild", HttpStatus.BAD_REQUEST)
+            System.out.println("존재하지 않는 회원정보");
+            ModelAndView mav = new ModelAndView("redirect:/login");
+            return mav;
+//            throw new IllegalStateException("회원 정보가 없습니다");
         }
 
         ModelAndView mav = new ModelAndView("redirect:/");

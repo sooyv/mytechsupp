@@ -50,7 +50,7 @@ public class MyPageController {
 
 //       User user = (User) session.getAttribute("user"); // 기존 로그인 db 확인
 
-        String email = "yon9981@naver.com"; //데이터베이스 JPA를 통해서 조회
+        String email = "moonbeom@gmail.com"; //데이터베이스 JPA를 통해서 조회
 //        myPageService.checkPassword(email);
         System.out.println(encoder.matches(checkPassword, myPageService.checkPassword(email)));
         if (encoder.matches(checkPassword, myPageService.checkPassword(email))) {

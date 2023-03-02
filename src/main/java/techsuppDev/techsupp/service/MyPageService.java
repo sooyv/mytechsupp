@@ -26,10 +26,11 @@ public class MyPageService {
         return null;
     }
 
+       // 비밀번호 확인
     public String checkPassword(String email) {
         return userService.getUserByEmail(email).getUserPassword();
     }
-
+        // 회원 업데이트
     public void update(User user) {
 //        List<User> users = userRepository.findByUserEmail(user.getUserEmail());
 //        String userPhone = user.getUserPhone();

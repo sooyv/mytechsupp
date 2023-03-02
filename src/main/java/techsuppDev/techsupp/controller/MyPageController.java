@@ -113,6 +113,10 @@ public class MyPageController {
     @GetMapping("/myfavorite")
     public ModelAndView favorite() {
         ModelAndView mav = new ModelAndView("/mypage/myFavorite");
+
+
+
+
         return mav;
     }
 

@@ -15,6 +15,9 @@ public class WishList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long wishId;
+//    @ManyToOne
     private Long userId;
+//    @ManyToOne
+//    @JoinColumn(name = "id")
     private Long productId;
 }

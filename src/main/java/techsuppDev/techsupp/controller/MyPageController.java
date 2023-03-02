@@ -38,25 +38,22 @@ public class MyPageController {
 
     // 비밀번호 확인 체크
     @PostMapping("/checkPassword")
-    public String checkPassword(@RequestParam String checkPassword, HttpSession session) throws Exception {
+    @ResponseBody
+    public boolean checkPassword(@RequestParam String checkPassword, HttpSession session) throws Exception {
+        System.out.println("testtt "+checkPassword);
+        boolean result = false;  // 리절트값 초기화
 
-        String result = null; // 리절트값 초기화
-
-
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder() {
-
-        }; // 패스워드 확인 위한 encoder 필드 선언
         //기존 디비user 조회
 
 //       User user = (User) session.getAttribute("user"); // 기존 로그인 db 확인
 
-        String email = "moonbeom@gmail.com"; //데이터베이스 JPA를 통해서 조회
+        String email = "tjansqja@naver.com"; //데이터베이스 JPA를 통해서 조회
 //        myPageService.checkPassword(email);
-        System.out.println(encoder.matches(checkPassword, myPageService.checkPassword(email)));
-        if (encoder.matches(checkPassword, myPageService.checkPassword(email))) {
-            result = "패스워드가 확인되었습니다.";
+
+        if (passwordEncoder.matches(checkPassword, myPageService.checkPassword(email))) {
+            result = true;
         } else {
-            result = "패스워드가 일치하지 않습니다.";
+            result = false;
         }//현재 비밀번호
 
         return result;
@@ -68,7 +65,7 @@ public class MyPageController {
     public String editUser(HttpSession session, Model model) {
 
 //        String myEmail = (String) session.getAttribute("userEmail");
-        String myEmail = "moonbeom@gmail.com";
+        String myEmail = "tjansqja@naver.com";
         User user = myPageService.getUserEmail(myEmail);
         model.addAttribute("userinfo", user);
 
@@ -101,7 +98,7 @@ public class MyPageController {
 
         myPageService.update(user);
 
-        return new ResponseEntity<>("Successfully Registered", HttpStatus.OK);
+        return new ResponseEntity<>("Successfully editUser", HttpStatus.OK);
     }
     @GetMapping("/mypage")
     public ModelAndView myPage() {

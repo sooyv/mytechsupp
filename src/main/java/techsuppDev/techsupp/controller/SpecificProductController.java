@@ -22,5 +22,11 @@ public class SpecificProductController {
         return specific;
     }
 
+    @GetMapping("feedbackSelect/feedback/form/*")
+    public ModelAndView LinkToFeedbackForm() {
+        ModelAndView specific = new ModelAndView("/feedback/feedbackwrite");
+        return specific;
+    }
+
 
 }

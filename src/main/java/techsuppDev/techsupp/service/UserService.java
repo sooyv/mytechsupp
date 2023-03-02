@@ -7,8 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 import techsuppDev.techsupp.domain.User;
 import techsuppDev.techsupp.repository.UserRepository;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +21,7 @@ public class UserService {
     public Long join(User user) {
         String userName = user.getUserName();
         String userEmail = user.getUserEmail();
-        // 사용자 비밀번호 암호화. (시큐리티 BCryptPasswordEncoder/ 빈등록 객체)
+        // 사용자 비밀번호 암호화.
         String userPassword = passwordEncoder.encode(user.getUserPassword());
 //        String userPassword = user.getUserPassword();
         String userPhone = user.getUserPhone();
@@ -33,7 +33,7 @@ public class UserService {
 
     // 이메일 중복 검증
     private void validateDuplicateUser(User user) {
-        List<User> findUserEmail = userRepository.findByUserEmail(user.getUserEmail());
+        Optional<User> findUserEmail = userRepository.findByUserEmail(user.getUserEmail());
         if (!findUserEmail.isEmpty()) {
             throw new IllegalStateException("이미 존재하는 회원입니다");
         }
@@ -42,13 +42,12 @@ public class UserService {
     // 이메일 중복 검증
     public String checkId(String email, String type) {
         if (type.equals("email")) {
-            List<User> users = userRepository.findByUserEmail(email);
+            Optional<User> users = userRepository.findByUserEmail(email);
             if(users.isEmpty()) {
                 return "0";
             }
             return "1";
         }
-
         return "0";
     }
 
@@ -65,9 +64,9 @@ public class UserService {
 
 
     public User getUserByEmail(String userEmail) {
-        List<User> users = userRepository.findByUserEmail(userEmail);
+        Optional<User> users = userRepository.findByUserEmail(userEmail);
         if (users != null) {
-            return users.get(0);
+            return users.get();
         }
         return null;
     }
@@ -77,12 +76,9 @@ public class UserService {
         User user = getUserByEmail(email);
         if (user != null && passwordEncoder.matches(password, user.getUserPassword())) {
             return user;
-
         }
-
         return null;
     }
-
 
 }
 

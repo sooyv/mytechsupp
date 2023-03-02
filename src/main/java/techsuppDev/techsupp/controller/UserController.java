@@ -13,10 +13,7 @@ import techsuppDev.techsupp.controller.form.UserForm;
 import techsuppDev.techsupp.domain.User;
 import techsuppDev.techsupp.service.UserService;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import javax.validation.Valid;
 import java.io.*;
 import java.math.BigInteger;
@@ -84,21 +81,17 @@ public class UserController {
         return new ResponseEntity<>("Successfully Registered", HttpStatus.OK);
     }
 
-
     // 로그인
     @PostMapping("/user/login")
     public ModelAndView login(@Valid @ModelAttribute UserForm userForm, HttpSession session) {
 //    public ModelAndView login(@RequestParam String email, @RequestParam String password, HttpSession session) {
 
-//        System.out.println("이메일 :" + email);
-//        System.out.println("비밀번호 :" + password);
         String formEmail = userForm.getEmail();
         String formPassword = userForm.getPassword();
 
         User user = userService.login(formEmail, formPassword);
 
         if (user != null && user.getUserEmail().equals(formEmail)) {
-//            return new ResponseEntity<>("Sucessfully Login", HttpStatus.OK)
             session.setAttribute("loginEmail", user.getUserEmail());
             System.out.println(user.getUserName() + "로그인 완료");
 
@@ -107,13 +100,19 @@ public class UserController {
             System.out.println("존재하지 않는 회원정보");
             ModelAndView mav = new ModelAndView("redirect:/login");
             return mav;
-//            throw new IllegalStateException("회원 정보가 없습니다");
         }
 
         ModelAndView mav = new ModelAndView("redirect:/");
         return mav;
     }
 
+    // 로그아웃
+    @PostMapping("/user/logout")
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.invalidate();
+        return "/";
+    }
 
 
 

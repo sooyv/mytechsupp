@@ -27,22 +27,27 @@ public class SecurityConfig {
 //    }
 
     @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return ((web) -> web.ignoring().antMatchers("/style/**", "/script/**", "/bootstrap/**"));
+    }
+
+    @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//
-        http.csrf().disable();
 
         http.authorizeRequests()
                 .antMatchers().authenticated()
                 .anyRequest().permitAll();
-//                .antMatchers("/").hasAnyRole("ADMIN", "USER")
+
 
         http.formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("user/login")
-//                .usernameParameter("email")
-//                .passwordParameter("password")
                 .defaultSuccessUrl("/")
                 .failureUrl("/login");
+
+        http.csrf().disable();
+
+
 
 //        http.logout()
 //                .
@@ -68,6 +73,7 @@ public class SecurityConfig {
 //        http.csrf().disable();
         return http.build();
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {

@@ -1,8 +1,6 @@
 const form = document.getElementById("editUserForm");
-const passwordInput = document.getElementById("password");
-const checkPasswordInput = document.getElementById("checkPassword");
 const userPhoneInput = document.getElementById("userPhone");
-const userAddressInput = document.getElementById("userAddress");
+
 
 
 // 비밀번호 일치 여부

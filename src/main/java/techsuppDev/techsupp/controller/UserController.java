@@ -13,10 +13,7 @@ import techsuppDev.techsupp.controller.form.UserForm;
 import techsuppDev.techsupp.domain.User;
 import techsuppDev.techsupp.service.UserService;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import javax.validation.Valid;
 import java.io.*;
 import java.math.BigInteger;
@@ -64,10 +61,8 @@ public class UserController {
 
     // 회원가입
     @PostMapping("/user/signup")
-    public ResponseEntity<String> signUpUser(@RequestParam("userName") String userName,
-                                             @RequestParam("email") String email,
-                                             @RequestParam("password") String password,
-                                             @RequestParam("userPhone") String userPhone) {
+    public ResponseEntity<String> signUpUser(@RequestParam("userName") String userName, @RequestParam("email") String email,
+                                             @RequestParam("password") String password, @RequestParam("userPhone") String userPhone) {
         System.out.println(userName);
         System.out.println(email);
         System.out.println(password);
@@ -81,34 +76,46 @@ public class UserController {
 
         userService.join(user);
 
+//        ModelAndView mav = new ModelAndView("redirect:/");
+//        return mav;
         return new ResponseEntity<>("Successfully Registered", HttpStatus.OK);
     }
 
+    // 로그인
+    @PostMapping("/user/login")                                         // HttpServletRequest
+    public ModelAndView login(@Valid @ModelAttribute UserForm userForm, HttpSession session) {
+//    public ModelAndView login(@RequestParam String email, @RequestParam String password, HttpSession session) {
 
-    // 로그인 - thymeleaf 사용
-    @PostMapping("/user/login")
-    public ModelAndView login(@Valid @ModelAttribute UserForm userForm) {
+        String formEmail = userForm.getEmail();
+        String formPassword = userForm.getPassword();
 
-//        System.out.println(userForm.getEmail());
-//        System.out.println(userForm.getPassword());
+        User user = userService.login(formEmail, formPassword);
 
-        String email = userForm.getEmail();
-        String password = userForm.getPassword();
+        if (user != null && user.getUserEmail().equals(formEmail)) {
+            session.setAttribute("loginUserName", user.getUserName());
 
-        User user = userService.login(email, password);
+//            HttpSession session = request.getSession(true);
+//            log.info(session.getId());
 
-        if (user != null && user.getUserEmail().equals(email)) {
-            System.out.println("로그인 완료");
+            System.out.println(user.getUserName() + " 로그인 완료");
 
         } else {
-            throw new IllegalStateException("회원 정보가 없습니다");
-            
+//            return new ResponseEntity<>("Login faild", HttpStatus.BAD_REQUEST)
+            System.out.println("존재하지 않는 회원정보");
+            ModelAndView mav = new ModelAndView("redirect:/login");
+            return mav;
         }
 
         ModelAndView mav = new ModelAndView("redirect:/");
         return mav;
     }
 
+    // 로그아웃
+    @PostMapping("/user/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();           // 세션 null 여부 검사
+        return "/";
+    }
 
 
 

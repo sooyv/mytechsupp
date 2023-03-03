@@ -10,6 +10,7 @@ import techsuppDev.techsupp.DTO.QuestionDTO;
 import techsuppDev.techsupp.service.NoticeService;
 import techsuppDev.techsupp.service.QuestionService;
 
+import java.io.IOException;
 import java.util.List;
 
 
@@ -33,7 +34,7 @@ public class NoticeController {
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute NoticeDTO noticeDTO) {
+    public String save(@ModelAttribute NoticeDTO noticeDTO) throws IOException {
 
         noticeService.save(noticeDTO);
         return "service/service-main";

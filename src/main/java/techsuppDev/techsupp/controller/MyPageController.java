@@ -49,7 +49,7 @@ public class MyPageController {
 
         String email = "tjansqja@naver.com"; //데이터베이스 JPA를 통해서 조회
 //        myPageService.checkPassword(email);
-//
+
 //        if (passwordEncoder.matches(checkPassword, myPageService.checkPassword(email))) {
 //            result = true;
 //        } else {

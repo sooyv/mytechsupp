@@ -68,11 +68,11 @@ public class MyPageController {
 
 //        String myEmail = (String) session.getAttribute("userEmail");
         String myEmail = "tjansqja@naver.com";
-//        User user = myPageService.getUserEmail(myEmail);
-//        model.addAttribute("userinfo", user);
+        User user = myPageService.getUserEmail(myEmail);
+        model.addAttribute("userinfo", user);
 
 
-// model.addAttribute("userInfo.userEmail", user)
+//        model.addAttribute("userInfo.userEmail", user);
         return "mypage/editUser";
     }
 
@@ -98,7 +98,7 @@ public class MyPageController {
             System.out.println(user.getUserName());
             System.out.println(user.getUserPhone());
 
-//        myPageService.update(user);
+        myPageService.update(user);
 
         return new ResponseEntity<>("Successfully editUser", HttpStatus.OK);
     }

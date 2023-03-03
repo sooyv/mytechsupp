@@ -80,10 +80,6 @@ public class MyPageService {
 //        Optional<User> user = userRepository.findByUserEmail(myEmail);
 //        return user.get();
 //    }
-    // 비밀번호 일치 확인
-//    public boolean checkPassword(Long UserId) {
-//
-//    }
 
     // 선택한 모든 투자제품 조회
 

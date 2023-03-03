@@ -89,18 +89,16 @@ public class ApiController {
 
 
     @RequestMapping(value = "/feedback/post", method = RequestMethod.POST)
-    public FeedbackImage postFeedback(
+    public void postFeedback(
             MultipartHttpServletRequest req
     ) throws IOException {
 
-//       radio value / text
         String a = req.getParameter("score");
         String b = req.getParameter("text");
 
-        MultipartFile files = req.getFile("static/file");
+        MultipartFile files = req.getFile("image");
 
-//        내일 이거 서버용 컴퓨터 경로로 넣어줘야함
-        String downPath = "/Users/mk/Desktop";
+        String downPath = "/Users/mk/Desktop/team project/techsupp/src/main/resources/static/file/feedback";
 
         File fileDir = new File(downPath);
 
@@ -111,9 +109,12 @@ public class ApiController {
         String saveFileName = "save222.png";
 
         File saveFile = new File(downPath, saveFileName);
-        files.transferTo(saveFile);
 
-        return null;
+        System.out.println(saveFile);
+        System.out.println(files);
+
+
+        files.transferTo(saveFile);
     }
 
 }

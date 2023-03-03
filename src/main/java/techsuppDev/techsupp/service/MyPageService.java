@@ -55,26 +55,35 @@ public class MyPageService {
         user1.setUserName(user.getUserName());
         userRepository.save(user1);
     }
+
+    ////
+    public List<WishList> findByUserWishList(Long userId) {
+        List<WishList> product = myPageRepository.findByUserId(userId);
+
+//        Optional<WishList> wishList1 = product;
+//
+//
+////         db에 있는 상품을 가져와서 product1에 집어 넣고 싶다.
+//        for (Product product1 : product)
+//            if ()
+//        }
+        return product;
     }
+}
+
+
+//
+//}
+
+//    }
+//    public User updateForm(String myEmail) {
+//        Optional<User> user = userRepository.findByUserEmail(myEmail);
+//        return user.get();
+//    }
     // 비밀번호 일치 확인
 //    public boolean checkPassword(Long UserId) {
-//
 //
 //    }
 
     // 선택한 모든 투자제품 조회
 
-//
-//    public List<WishList> findUserProduct(WishList wishList) {
-//        List<WishList> product = myPageRepository.findAll();
-//        System.out.println(product);
-//
-//
-//        // db에 있는 상품을 가져와서 product1에 집어 넣고 싶다.
-////        for(Product product1 : product) {
-////            if();
-////        }
-//
-//
-//
-//}

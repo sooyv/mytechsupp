@@ -8,4 +8,6 @@ import techsuppDev.techsupp.service.ProductImageService;
 @RequiredArgsConstructor
 public class ProductImageRepository {
 
+
+
 }

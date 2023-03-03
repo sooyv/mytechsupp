@@ -1,10 +1,24 @@
 package techsuppDev.techsupp.DTO;
 
+import lombok.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Getter
+@Setter
 public class ProductImageFileDTO {
 
 
     private String loadId;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
     private Long seqId;
 

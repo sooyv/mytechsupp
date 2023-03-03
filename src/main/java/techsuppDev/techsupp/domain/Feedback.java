@@ -21,6 +21,7 @@ public class Feedback {
     private Long seqId;
     private String feedbackText;
     private int score;
+//    1 ~ 10
     private int feedbackStatus;
 
 }

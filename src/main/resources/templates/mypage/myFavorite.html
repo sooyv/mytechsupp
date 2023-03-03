@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <html xmlns="http://www.w3.org/1999/xhtml"> </html>
 <head>
+<!-- 모델로 던저주는 데이터를 받아서 키로 꺼내서 블럭 추가 위치에 타임리프 문법 작성      -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>TECHSUPP </title>
@@ -32,6 +33,14 @@
                 <li class="w100">투자율</li>
                 <li class="w100">제품상태</li>
             </ul>
+
+<!--            <tr th:each="product : ${wishList}" th:object="${product}">-->
+<!--                <td th:text="*{프로퍼티1}">default value</td>-->
+<!--                <td th:text="*{아이템로퍼티2}">default value</td>-->
+<!--            </tr>-->
+
+
+
             <!-- 게시글 추가로 들어오는 위치 -->
         </div>
     <!-- 페이지 블럭 -->
@@ -39,6 +48,7 @@
         <button class="before_move" onclick="before()">이전</button>
         <div class="block">
             <!-- 블럭 추가로 들어오는 위치 -->
+
         </div>
         <button class="next_move" onclick="next()">다음</button>
     </div>
@@ -47,7 +57,8 @@
 </div>
 
 
-
+<!--<script th:inline="javascript"> var wishList = [[${wishList}]];-->
+<!--                                console.log(wishList); </script>-->
 <script src="/script/header.js"></script>
 <script src="/script/myFavorite.js"></script>
 </body>

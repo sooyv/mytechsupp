@@ -30,6 +30,8 @@ public class MyPageController {
     private final MyPageService myPageService;
     private final PasswordEncoder passwordEncoder;
 
+    private final UserService userService;
+
     //  회원수정하기 전 비밀번호 확인
     @GetMapping("/checkPassword")
     public String checkPwdView() {
@@ -48,7 +50,7 @@ public class MyPageController {
 //       User user = (User) session.getAttribute("user"); // 기존 로그인 db 확인
 
         String email = "tjansqja@naver.com"; //데이터베이스 JPA를 통해서 조회
-//        myPageService.checkPassword(email);
+        myPageService.checkPassword(email);
 
         if (passwordEncoder.matches(checkPassword, myPageService.checkPassword(email))) {
             result = true;
@@ -66,8 +68,8 @@ public class MyPageController {
 
 //        String myEmail = (String) session.getAttribute("userEmail");
         String myEmail = "tjansqja@naver.com";
-        User user = myPageService.getUserEmail(myEmail);
-        model.addAttribute("userinfo", user);
+//        User user = myPageService.getUserEmail(myEmail);
+//        model.addAttribute("userinfo", user);
 
 
 // model.addAttribute("userInfo.userEmail", user)
@@ -96,7 +98,7 @@ public class MyPageController {
             System.out.println(user.getUserName());
             System.out.println(user.getUserPhone());
 
-        myPageService.update(user);
+//        myPageService.update(user);
 
         return new ResponseEntity<>("Successfully editUser", HttpStatus.OK);
     }
@@ -114,11 +116,19 @@ public class MyPageController {
     public ModelAndView favorite() {
         ModelAndView mav = new ModelAndView("/mypage/myFavorite");
 
+        String email = "tjansqja@naver.com";
+        User user = userService.getUserByEmail(email);
 
+//        myPageService.findByUserWishList(user.getUserId());
 
+        mav.addObject("wishList", myPageService.findByUserWishList(user.getUserId()));
+        //model에 넘겨주고 뷰에 넘겨줌.
+        //타임리프로 랜더링을 해줌....
 
         return mav;
     }
+
+
 
 
 

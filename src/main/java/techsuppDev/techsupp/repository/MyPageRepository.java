@@ -15,8 +15,13 @@ public interface MyPageRepository extends JpaRepository<WishList, Long> {
     //JPA 선택된 즐겨찾기를 만들 Repository
 
     List<WishList> findAll();
+    List<WishList> findByUserId(Long userId);
 
 
+
+
+
+    //email로 조인할 수 잇는 쿼리를 JPA
 
 
 

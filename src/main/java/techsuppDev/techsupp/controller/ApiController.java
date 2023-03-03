@@ -2,20 +2,19 @@ package techsuppDev.techsupp.controller;
 
 
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import techsuppDev.techsupp.domain.Feedback;
 import techsuppDev.techsupp.domain.FeedbackImage;
-import techsuppDev.techsupp.domain.Product;
 import techsuppDev.techsupp.service.ProductService;
+
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.HashMap;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Base64;
 
 
 @RestController
@@ -30,15 +29,12 @@ public class ApiController {
     @RequestMapping(value = "/products/*", method = RequestMethod.GET)
     public ResponseEntity findFiveProduct(
             HttpServletRequest req
-            ) throws FileNotFoundException {
+            ) throws IOException {
         int orderNumber = Integer.parseInt(req.getParameter("order"));
         String keyword = req.getParameter("keyword");
         if (orderNumber != 0) {
             orderNumber = orderNumber * 5;
         }
-        InputStream imageStream = new FileInputStream("/Users/mk/Desktop/product_picture/product_1.png");
-
-
         return ResponseEntity.ok().body(productService.findFiveProduct(orderNumber, keyword));
     }
 
@@ -101,7 +97,7 @@ public class ApiController {
         String a = req.getParameter("score");
         String b = req.getParameter("text");
 
-        MultipartFile files = req.getFile("image");
+        MultipartFile files = req.getFile("static/file");
 
 //        내일 이거 서버용 컴퓨터 경로로 넣어줘야함
         String downPath = "/Users/mk/Desktop";
@@ -112,7 +108,7 @@ public class ApiController {
             fileDir.mkdir();
         }
 
-        String saveFileName = "save111.png";
+        String saveFileName = "save222.png";
 
         File saveFile = new File(downPath, saveFileName);
         files.transferTo(saveFile);

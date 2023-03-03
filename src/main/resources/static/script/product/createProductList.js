@@ -9,7 +9,8 @@ function createProductList(api) {
     productList.innerHTML += `
     <article class="ProductContent" onclick="linkToSelectedProduct(${api[i].id})">
       <div class="ProductListPicture">
-        <h5>${api[i].seqId}제품 사진</h5>
+        <h5>제품 사진</h5>
+        <img src="http://localhost:8080/file/product/product_${api[i].seqId}.png" style="max-width:50%; min-height:50px;"/>
       </div>
       <div class="ProductListInformation">
         <h5>${api[i].productName}제품 제목</h5>

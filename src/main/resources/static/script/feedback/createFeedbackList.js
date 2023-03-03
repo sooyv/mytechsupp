@@ -12,6 +12,9 @@ function createFeedbackList(api) {
     <article class="FeedbackContent" onclick="linkToSelectedFeedback(${api[i].id})">
       <div class="FeedbackListPicture">
        <h5>${api[i].seqId}피드백 사진</h5>
+
+       
+
       </div>
       <div class="FeebackListInformation">
         <div class="FeedbackName-FeedbackInformation">
@@ -29,8 +32,8 @@ function createFeedbackList(api) {
 }
 
 
-
-
+// /Users/mk/Desktop/product_picture/product_1
+/* <img src="/Users/mk/Desktop/product_picture/product_1"> */
 function createFiveFeedback(orderNumber, keyword) {
   fetch(`/api/feedbacks/product?page=${pageNumber}&order=${orderNumber}&keyword=${keyword}`)
   .then(response => response.json())

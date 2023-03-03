@@ -18,34 +18,36 @@
 <div class="text-center">
   <h4 class="mb-3">회원정보수정</h4>
   <div class="align-form">
-    <form id="editUserForm" action="/signUp" method="POST">
+    <form action="/edituser"  method="post">
       <div>
+
+<!--        th:value="${userInfo.userEmail} 세션값 가져올 때 -->
         <!--이메일 블럭처리-->
-        <div id="email-box" class="form-group col-md-4">
+        <div id="email-box" class="form-group col-md-4" name="myPageForm">
           <label for="email">이메일</label>
           <div id="emailcheck">
-            <input type="email" id="email" class="form-control" aria-describedby="emailHelp" placeholder="email@example.com" th:value="${userInfo.userEmail}">
+            <input type="email" name="userEmail" id="email" class="form-control" aria-describedby="emailHelp" placeholder="email@example.com" th:value="${userinfo.userEmail}">
           </div>
           <small id="emailHelp" class="form-text text-muted"></small>
         </div>
         <!-- 이름 -->
         <div id="name-box" class="form-group col-md-4">
           <label for="userName">이름</label>
-          <input type="tel" id="userName" class="form-control" placeholder="아무개">
+          <input type="name" id="userName" name="userName" th:value="${userinfo.userName}"  class="form-control"  placeholder="아무개">
         </div>
         <!-- 전화번호 -->
         <div id="phoneNum-box" class="form-group col-md-4">
           <label for="userPhone">전화번호</label>
-          <input type="tel" id="userPhone" class="form-control" placeholder="010-1234-5678">
+          <input type="tel" id="userPhone" name="userPhone" th:value="${userinfo.userPhone}" class="form-control" placeholder="010-1234-5678">
         </div>
         <!--수정, 취소-->
         <div id="modify-cancel">
           <div id="modify">
-            <button type="submit" value="수정" id="form-control" class="btn btn-info"></a>수정</button>
+            <button type="submit" value="수정" id="form-control"  class="btn btn-info"></a> 수정 </button>
           </div>
 
           <div id="cancel">
-            <button type="submit" value="취소" id="signUpCancel" class="btn btn-light"></a>취소</button>
+            <button type="button" value="취소" id="signUpCancel" onclick="goMyCheckPassword();" class="btn btn-light"></a> 취소 </button>
           </div>
 
         </div>
@@ -63,6 +65,7 @@
 </div>
 
 <script src="/script/header.js"></script>
+<script src="/script/mypage/myPage.js"></script>
 <!--<script type="text/javascript">-->
 <!--  	var naver_id_login = new naver_id_login("1Hsj4Agu95IlkAOjVncV", "http://localhost:8080/navercallback");-->
 <!--  	var state = naver_id_login.getUniqState();-->

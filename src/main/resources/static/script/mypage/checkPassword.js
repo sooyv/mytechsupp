@@ -13,15 +13,15 @@ $('#checkPassword').click(function(e) {
                 console.log(result);
                 if(result){
                     console.log("비밀번호 일치");
-                    window.location.href="editUser";
-                } else if(!result){
+                    window.location.href="edituser";
+                } else{
                     console.log("비밀번호 틀림");
                     // 비밀번호가 일치하지 않으면
                     alert("비밀번호가 맞지 않습니다.");
                     window.location.reload();
                 }
             }).fail(function(error){
-                alert(JSON.stringify(error));
+                console.log(JSON.stringify(error));
             })
         }
     });

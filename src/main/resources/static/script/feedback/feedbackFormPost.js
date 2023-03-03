@@ -9,11 +9,6 @@ function testFormInput () {
   formData.append("image", $(image)[0].files[0]);
   formData.append("text", $(text)[0]);
 
-  console.log(formData.get("score"));
-  console.log(formData.get("image"));
-  console.log(formData.get("text"));
-  console.log("============")
-  console.log(formData);
   $.ajax({
     url: "/api/feedback/post",
     processData: false,
@@ -21,7 +16,6 @@ function testFormInput () {
     data: formData,
     type: 'POST',
     success: function(result){
-      console.log("========")
       console.log(result);
         alert("업로드 성공!!");
     }

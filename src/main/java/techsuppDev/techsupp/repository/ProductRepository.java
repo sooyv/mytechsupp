@@ -32,7 +32,8 @@ public class ProductRepository {
 
         String sql = " " +
                 "select * from " +
-                "(select * from Product where period is not Null order by id desc)notNull ";
+                "(select * from Product " +
+                "where period is not Null order by id desc)notNull ";
         String limitSql =
                 "limit " +
                 orderNumber +
@@ -71,11 +72,14 @@ public Object ProductCount(int pagingNumber, String keyword) {
     String sql = "select ";
     String resultSql;
     String noKeywordSqlAllCount =
-            "(select  count(*) from Product where product_status is not null)as countAll, ";
+            "(select  count(*) from Product " +
+            "where product_status is not null)as countAll, ";
+
     String keywordSqlAllCount =
-            "(select  count(*) from Product where product_status is not null and product_name like '%" +
-            keyword +
-            "%')as countAll, ";
+            "(select  count(*) from Product " +
+            "where product_status is not null " +
+            "and product_name like '%" + keyword + "%')as countAll, ";
+
     if (keyword.equals("null") || keyword.equals("")) {
         resultSql = sql + noKeywordSqlAllCount;
     } else {
@@ -84,18 +88,16 @@ public Object ProductCount(int pagingNumber, String keyword) {
 
     String noKeywordSql =
             "(select count(*) from " +
-            "(select  * from Product where period is not null limit " +
-            pagingNumber +
-            " , 50)as noKeywordData)as pagecount;";
+            "(select  * from Product " +
+            "where period is not null " +
+            "limit " + pagingNumber + " , 50)as noKeywordData)as pagecount;";
 
     String keywordSql =
             "(select count(*) from " +
-            "(select * from Product where period is not null and product_name like '%" +
-            keyword +
-            "%' " +
-            "limit " +
-            pagingNumber +
-            ", 50)as searchData)as pagecountkeyword;";
+            "(select * from Product " +
+            "where period is not null and " +
+            "product_name like '%" + keyword + "%' " +
+            "limit " + pagingNumber + ", 50)as searchData)as pagecountkeyword;";
 
     if (keyword.equals("null") || keyword.equals("")) {
         resultSql += noKeywordSql;
@@ -112,17 +114,14 @@ public Object ProductCount(int pagingNumber, String keyword) {
 // 피드백 리스트로 보내주는 조건절
     public List<Product> findFiveProductFeedback (int orderNumber, String keyword) {
 
-        String sql = " " +
+        String sql = "" +
                 "select * from " +
                 "(select * from product " +
-                "where " +
-                "product_status like '%SUCCESS%' or " +
-                "product_status like '%FAIL%' order by id" +
-                ")successFail ";
+                "where product_status like '%SUCCESS%' " +
+                "or product_status like '%FAIL%' " +
+                "order by id)successFail ";
         String limitSql = "" +
-                "limit " +
-                orderNumber +
-                ", 5;" ;
+                "limit " + orderNumber + ", 5;" ;
 
         String keywordSql = "";
 
@@ -130,10 +129,7 @@ public Object ProductCount(int pagingNumber, String keyword) {
             sql = sql + limitSql;
         } else {
             keywordSql = "" +
-                    "where " +
-                    "product_name like '%" +
-                    keyword +
-                    "%' ";
+                    "where " + "product_name like '%" + keyword + "%' ";
             sql = sql + keywordSql + limitSql;
         }
 
@@ -177,9 +173,7 @@ public Object ProductCount(int pagingNumber, String keyword) {
                 "where " +
                 "product_status like '%SUCCESS%' or " +
                 "product_status like '%FAIL%' order by id " +
-                "limit " +
-                pagingNumber +
-                " , 50)as noKeywordData)as pagecount;";
+                "limit " + pagingNumber + " , 50)as noKeywordData)as pagecount;";
 
         String keywordSql =
                 "(select count(*) from " +
@@ -189,9 +183,7 @@ public Object ProductCount(int pagingNumber, String keyword) {
                 "product_status like '%FAIL%' " +
                 "order by id)as succesfailcount " +
                 "where product_name like '%" + keyword + "%' " +
-                "limit " +
-                pagingNumber +
-                ", 50)as searchData;";
+                "limit " + pagingNumber + ", 50)as searchData;";
 
         if (keyword.equals("null") || keyword.equals("")) {
             resultSql += noKeywordSql;
@@ -255,7 +247,7 @@ public Object ProductCount(int pagingNumber, String keyword) {
         String middleSql = "(";
         String endSql = ")";
 
-        String seqid = "imageFile";
+        String seqid = "product_";
         String productName = "testProduct";
         String information = "testInformation";
         String totalPrice;
@@ -344,9 +336,9 @@ public Object ProductCount(int pagingNumber, String keyword) {
         qwcreateDay = qwday - 1;
 
 
-//        status
-        String[] qwstatusArr = {"투자진행", "투자마감", "상품제조중", "상품제조완료", "제품배송중", "제품배송완료", "성공", "실패"};
-        String qwstatusInput = statusArr[random.nextInt(8) + 1 - 1].toString();
+////        status
+//        String[] qwstatusArr = {"투자진행", "투자마감", "상품제조중", "상품제조완료", "제품배송중", "제품배송완료", "성공", "실패"};
+//        String qwstatusInput = statusArr[random.nextInt(7) + 1 - 1].toString();
 
         int qwclickCountRandom = random.nextInt(50);
 
@@ -362,7 +354,7 @@ public Object ProductCount(int pagingNumber, String keyword) {
 
             period = yearInput + monthInput + dayInput +
                     hourInput + minuteInput + secondInput + ", ";
-            productStatus = "\'" + qwstatusInput + "\'" + ", ";
+            productStatus = "\'" + statusInput + "\'" + ", ";
             createDate = yearInput + monthInput + dayInput +
                     hourInput + minuteInput + secondInput + ", ";
             clickCount = Integer.toString(qwclickCountRandom);
@@ -419,7 +411,7 @@ public Object ProductCount(int pagingNumber, String keyword) {
 
                 period = Integer.toString(qwyear) + Integer.toString(qwmonth) + Integer.toString(qwday) +
                         Integer.toString(qwhour) + Integer.toString(qwminute) + Integer.toString(qwsecond) + ", ";
-                productStatus = "\'" + qwstatusInput + "\'" + ", ";
+                productStatus = "\'" + statusInput + "\'" + ", ";
                 createDate = yearInput + monthInput + dayInput +
                         hourInput + minuteInput + secondInput + ", ";
                 clickCount = Integer.toString(qwclickCountRandom);
@@ -441,7 +433,6 @@ public Object ProductCount(int pagingNumber, String keyword) {
                         Integer.toString(random.nextInt(100) + 1) + endSql + ";";
 
             }
-        System.out.println("=========== asdfas;oijae;oribz;duobn;aoeijrtb;");
             System.out.println(sql + createRandomDataSql);
             return null;
         }

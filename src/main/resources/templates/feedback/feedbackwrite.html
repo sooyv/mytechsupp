@@ -24,7 +24,13 @@
       <div class="FeedbackInsertScore-FeebackUploadImg">
         <div class="FeedbackInsertScoreByUser">
           점수
-          <input class = "FeedbackScore" type="number" name="score" placeholder="점수 입력">
+          <div class ="FeedbackScoreRadio">
+            <input name="score" type="radio" value="1" placeholder="1">
+            <input name="score" type="radio" value="2" placeholder="2">
+            <input name="score" type="radio" value="3" placeholder="3">
+            <input name="score" type="radio" value="4" placeholder="4">
+            <input name="score" type="radio" value="5" placeholder="5">
+          </div>
         </div>
         <div class="FeedbackUploadImg">
           이미지 업로드
@@ -35,10 +41,7 @@
         피드백 작성
         <input class="FeedbackText" type="text" name="text" placeholder="피드백 작성란">
       </div>
-      <div class="FeedbackSubmit">
-        
-        <!-- <input type="button" onclick = testFormInput() value="작성하기"> -->
-      </div>
+      <div class="FeedbackSubmit">버튼 생성은 스크립트로</div>
     </form>
   </div>
 <!-- url data -->

@@ -4,8 +4,16 @@ package techsuppDev.techsupp.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import techsuppDev.techsupp.domain.Feedback;
+import techsuppDev.techsupp.domain.FeedbackImage;
 import techsuppDev.techsupp.service.ProductService;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.io.*;
+import java.util.HashMap;
+import java.util.List;
 
 
 @RestController
@@ -75,6 +83,34 @@ public class ApiController {
         pagingNumber = pagingNumber * 50;
 
         return ResponseEntity.ok().body((productService.getNumberOfFeedback(pagingNumber, keyword)));
+    }
+
+
+    @RequestMapping(value = "/feedback/post", method = RequestMethod.POST)
+    public FeedbackImage postFeedback(
+            MultipartHttpServletRequest req
+    ) throws IOException {
+
+        MultipartFile files = req.getFile("image");
+        System.out.println("=======");
+        System.out.println(files);
+        String downPath = "/Users/mk/Desktop";
+
+
+        File fileDir = new File(downPath);
+
+        if(!fileDir.exists()) {
+            fileDir.mkdir();
+        }
+
+        String saveFileName = "save111.png";
+
+        File saveFile = new File(downPath, saveFileName);
+        files.transferTo(saveFile);
+
+
+
+        return null;
     }
 
 }

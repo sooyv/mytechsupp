@@ -50,11 +50,11 @@ public class MyPageController {
         String email = "tjansqja@naver.com"; //데이터베이스 JPA를 통해서 조회
 //        myPageService.checkPassword(email);
 
-        if (passwordEncoder.matches(checkPassword, myPageService.checkPassword(email))) {
-            result = true;
-        } else {
-            result = false;
-        }//현재 비밀번호
+//        if (passwordEncoder.matches(checkPassword, myPageService.checkPassword(email))) {
+//            result = true;
+//        } else {
+//            result = false;
+//        }//현재 비밀번호
 
         return result;
     }
@@ -66,8 +66,8 @@ public class MyPageController {
 
 //        String myEmail = (String) session.getAttribute("userEmail");
         String myEmail = "tjansqja@naver.com";
-        User user = myPageService.getUserEmail(myEmail);
-        model.addAttribute("userinfo", user);
+//        User user = myPageService.getUserEmail(myEmail);
+//        model.addAttribute("userinfo", user);
 
 
 // model.addAttribute("userInfo.userEmail", user)
@@ -96,7 +96,7 @@ public class MyPageController {
             System.out.println(user.getUserName());
             System.out.println(user.getUserPhone());
 
-        myPageService.update(user);
+//        myPageService.update(user);
 
         return new ResponseEntity<>("Successfully editUser", HttpStatus.OK);
     }

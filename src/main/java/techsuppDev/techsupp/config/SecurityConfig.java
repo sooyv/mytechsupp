@@ -34,14 +34,21 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        http.authorizeRequests()
-                .antMatchers().authenticated()
-                .anyRequest().permitAll();
+        http.csrf().disable();
 
+        http.authorizeRequests()
+//                .antMatchers("/").authenticated()       // 스프링 시큐리티에 의해 로그인이 되면 접근가능
+//                .antMatchers("/user/**").authenticated()            // 스프링 시큐리티에 의해 로그인이 되면 접근가능
+//                .antMatchers("/checkPassword").authenticated()
+//                .antMatchers("/edituser").authenticated()
+//                .antMatchers("/admin/**").hasAnyRole("ROLE_ADMIN")       // ROLE_ADMIN 권한 유저 접근가능
+                .anyRequest().permitAll();
 
         http.formLogin()
                 .loginPage("/login")
-                .loginProcessingUrl("user/login")
+                .loginProcessingUrl("/user/login")
+                .usernameParameter("email")
+                .passwordParameter("password")
                 .defaultSuccessUrl("/")
                 .failureUrl("/login")
                 .and()
@@ -49,7 +56,7 @@ public class SecurityConfig {
                 .logoutUrl("/user/logout")
                 .logoutSuccessUrl("/");
 
-        http.csrf().disable();
+
 
 
 

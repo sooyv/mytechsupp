@@ -120,7 +120,7 @@ $(document).ready(function () {
     console.log("ajax직전");
     $.ajax({
       type: 'POST',
-      url: "user/signup",
+      url: "/user/signup",
       data: {
         userName: userName,
         email: email,
@@ -134,7 +134,7 @@ $(document).ready(function () {
       error: function (error) {
         $("#signUpBtn").addClass('shake');
             setTimeout(function() {
-                $("#signUpBtn").removeClass('shake'); // 0.5초 후 shake 클래스 제거
+                $("#signUpBtn").removeClass('shake'); // 0.8초 후 shake 클래스 제거
             }, 800);
         console.log(error);
       }

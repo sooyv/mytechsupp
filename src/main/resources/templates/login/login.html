@@ -18,25 +18,25 @@
 <div th:insert="/header :: header"></div>
 <div class="text-center">
   <main class="form-login w-100 m-auto">
-    <form action="user/login" th:object="${userForm}" method="post">
+    <form action="user/login" th:object="${userForm}" method="POST">
       <i class="bi-robot fs-1"></i>
       <h1 class="h3 mb-3 fw-normal">로그인</h1>
         <div class="form-floating">
-          <input type="email" th:field="*{email}" class="form-control" id="email" placeholder="name@example.com">
+          <input type="email" th:field="*{email}" name="email" class="form-control" id="email" placeholder="name@example.com">
           <label th:for="email">Email</label>
         </div>
         <div class="form-floating">
-          <input type="password" th:field="*{password}" class="form-control" id="password" placeholder="Password">
+          <input type="password" th:field="*{password}" name="password" class="form-control" id="password" placeholder="Password">
           <label th:for="password">password</label>
         </div>
       <div>
         <p class="forgotAccount">
-          <a class="#">로그인 정보를 잊으셨나요?</a>
+          <a th:href="@{/#}">로그인 정보를 잊으셨나요?</a>
         </p>
       </div>
       <button class="w-100 btn btn-lg btn-primary" type="submit">로그인</button>
       <!-- 네이버로 시작하기 버튼 -->
-      <a href="http://localhost:8080/test">네이버로그인 test</a>
+      <a href="http://localhost:8080/test">네이버 로그인 test</a>
       <div id="naver_id_login"></div>
       <!-- 회원가입 페이지 이동 -->
       <div class="bottom-message">

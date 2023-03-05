@@ -14,11 +14,11 @@ function createProductList(api) {
       <div class="ProductListInformation">
         <h5>${api[i].productName}제품 제목</h5>
         <div class="ProductListInvestment-ProductListLimitDate">
-          <h5>${api[i].investPrice}개인 투자 금액</h5>
+          <h5>₩ ${api[i].investPrice}개인 투자 금액</h5>
           <h5>${api[i].period}투자 마감일</h5>
         </div>
         <div class="ProductListPercentage-ProductListWish">
-          <h5>${Math.round(api[i].totalPrice / api[i].investPrice)}투자율</h5>
+          <h5>${Math.round(api[i].totalPrice / api[i].investPrice)}% 투자율</h5>
           <h5>즐겨찾기</h5>
         </div>
       </div>

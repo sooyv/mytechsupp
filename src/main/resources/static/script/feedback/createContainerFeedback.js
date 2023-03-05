@@ -17,6 +17,7 @@ function createFeedbackSingleHTML(api) {
   <article class="FeedbackContent">
     <div class="FeedbackListPicture">
       <h4>${api.seqId}제품 사진</h4>
+      <img src="http://localhost:8080/file/product/product_${api.seqId}.png" style="max-width:80%; min-height:100px;"/>
     </div>
     <div class="FeebackListInformation">
       <div class="FeedbackListName-FeedbackListInformation">

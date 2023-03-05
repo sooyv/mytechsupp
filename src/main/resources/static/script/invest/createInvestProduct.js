@@ -4,11 +4,12 @@ function createInvestingProduct(api) {
   investProductContent.innerHTML = `
   <div class="ProductListPicture">
     <h5>${api.seqId}제품 사진</h5>
+    <img src="http://localhost:8080/file/product/product_${api.seqId}.png" style="max-width:80%; min-height:100px;"/>
   </div>
   <div class="ProductListInformation">
     <h5>${api.productName}제품 제목</h5>
     <div class="ProductListInvestment-ProductListLimitDate">
-      <h5>${api.investPrice}개인 투자 금액</h5>
+      <h5>₩ ${api.investPrice}개인 투자 금액</h5>
       <h5>${api.period}투자 마감일</h5>
     </div>
   </div>

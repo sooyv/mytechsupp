@@ -12,7 +12,7 @@ function createFeedbackList(api) {
     <article class="FeedbackContent" onclick="linkToSelectedFeedback(${api[i].id})">
       <div class="FeedbackListPicture">
        <h5>${api[i].seqId}피드백 사진</h5>
-
+       <img src="http://localhost:8080/file/product/product_${api[i].seqId}.png" style="max-width:80%; min-height:100px;"/>
        
 
       </div>
@@ -22,7 +22,7 @@ function createFeedbackList(api) {
           <h5>${api[i].information}피드백 제품 설명</h5>
         </div>
         <div class="FeedbackInvestPrice-FeedbackPeriod-FeedbackProductStatus">
-          <h5>${api[i].investPrice}개인 투자 금액</h5>
+          <h5>₩ ${api[i].investPrice}개인 투자 금액</h5>
           <h5>${api[i].period}투자 마감일</h5>
           <h5>${api[i].productStatus}투자성공/실패</h5>
         </div>

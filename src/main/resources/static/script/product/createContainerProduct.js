@@ -13,9 +13,10 @@ function createSingleProductHtml(api) {
       <div>
         <div class="ProductPicture">
           <h2>${api.seqId}제품 사진</h2>
+          <img src="http://localhost:8080/file/product/product_${api.seqId}.png" style="max-width:80%; min-height:100px;"/>
         </div>
         <div class="ProductInvestmentAmount">
-          <h5>${api.totalPrice} 투자 목표액</h5>
+          <h5>₩ ${api.totalPrice} 투자 목표액</h5>
         </div>
         <div class="ProductInformation">
         <h5>${api.information}제품 제목 설명</h5>
@@ -34,7 +35,7 @@ function createSingleProductHtml(api) {
         <h5>${Math.round(api.totalPrice / api.investPrice)}투자율</h5>
       </div>
       <div class="ProductInvesting">
-          <input type=button onclick="LinkToInvestingProduct(${api.id})" value=${api.investPrice}개인 투자 금액 결제페이지 이동>
+          <input type=button onclick="LinkToInvestingProduct(${api.id})" value="₩ ${api.investPrice}개인 투자 금액 결제페이지 이동">
       </div>
     </div>
   `

@@ -2,6 +2,7 @@ package techsuppDev.techsupp.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import techsuppDev.techsupp.domain.Product;
 import techsuppDev.techsupp.domain.User;
 import techsuppDev.techsupp.domain.WishList;
 import techsuppDev.techsupp.repository.MyPageRepository;
@@ -54,14 +55,16 @@ public class MyPageService {
     }
 
     ////
-    public List<WishList> findByUserWishList(Long userId) { //제품 개체 대신 ArrayList를 반환해서 그렇다.. 여기서 제품 개체를 반환하는지 확인해야함.
+    public Optional<WishList> findByUserWishList(Long userId) { //제품 개체 대신 ArrayList를 반환해서 그렇다.. 여기서 제품 개체를 반환하는지 확인해야함.
 //        List<WishList> product = myPageRepository.findByUserId(userId);
 //        System.out.println("testttt"+product);
 //        product.get()
-        List<WishList> products = myPageRepository.findByUserId(userId);
+//        List<WishList> products = myPageRepository.findByUserId(userId);
 //        Product product1 = new Product();
 //        product1.setProductName(product.getProductName());
-        return products;
+//        WishList wishList = (WishList) myPageRepository.findByUserId(userId);
+          return myPageRepository.findByUserId(userId);
+
 //        Optional<WishList> wishList1 = product;
 //
 //

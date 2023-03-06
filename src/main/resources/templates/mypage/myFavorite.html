@@ -30,10 +30,10 @@
                 <li class="w70">게시글 번호</li>
                 <li class="w500">제품명</li>
                 <li class="w120">목표투자액</li>
-                <li class="w100">투자율</li>
+                <li class="w100">투자총액</li>
                 <li class="w100">제품상태</li>
             </ul>
-            <ul class="board_row" th:each="product : ${product}">
+            <ul class="board_row" th:if="${product != null}">
                 <li class="w70" th:text="${product.id}"></li>
                 <li class="w500" th:text="${product.productName}"></li>
                 <li class="w120" th:text="${product.investPrice}"></li>
@@ -62,9 +62,6 @@
 
 </div>
 
-
-<!--<script th:inline="javascript"> var wishList = [[${wishList}]];-->
-<!--                                console.log(wishList); </script>-->
 <script src="/script/header.js"></script>
 <script src="/script/myFavorite.js"></script>
 </body>

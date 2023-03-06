@@ -2,27 +2,20 @@ package techsuppDev.techsupp.controller;
 
 
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import techsuppDev.techsupp.controller.form.MyPageForm;
-import techsuppDev.techsupp.controller.form.UserForm;
-import techsuppDev.techsupp.domain.Product;
 import techsuppDev.techsupp.domain.User;
+import techsuppDev.techsupp.domain.WishList;
 import techsuppDev.techsupp.service.MyPageService;
-import techsuppDev.techsupp.service.UserService;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 @AllArgsConstructor
@@ -115,12 +108,19 @@ public class MyPageController {
 
     @GetMapping("/myfavorite")
     public ModelAndView favorite(Long userId) {
-        ModelAndView mav = new ModelAndView("/mypage/myFavorite");
-        mav.addObject("product", myPageService.findByUserWishList(userId));
+        ModelAndView mav = new ModelAndView("mypage/myFavorite");
+        Optional<WishList> product = myPageService.findByUserWishList(userId);
+        mav.addObject("product", product.orElse(null));
         System.out.println("test1213"+ mav);
         return mav;
     }
 
+    // 투자정보 페이지
 
+    @GetMapping("/myinvest")
+    public ModelAndView invest(){
+        ModelAndView mav = new ModelAndView("mypage/myInvest");
+        return mav;
+    }
 
 }

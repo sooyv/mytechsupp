@@ -11,7 +11,7 @@ block_print(front_block) : 블럭 출력하기 / 매개변수 : 가장 앞에 �
         //    총 게시글 수
         let totalPage = 1000;
         //  한 페이지 당 출력되는 게시글 갯수
-        let page_num = 6;
+        let page_num = 20;
         //   한번에 출력될 수 있는 최대 블록 수
         // ex ) [1][2][3][4][5] -> 블록
         let block_num = 10;
@@ -36,7 +36,7 @@ block_print(front_block) : 블럭 출력하기 / 매개변수 : 가장 앞에 �
                 notice_num : i,
                 title:"제품명"+i,
                 writer:"목표투자액"+i,
-                date_created:"2023-03-02",
+                date_created:"2023-03-06",
                 Lookkup_num : i,
                 like : i
             }
@@ -87,6 +87,7 @@ block_print(front_block) : 블럭 출력하기 / 매개변수 : 가장 앞에 �
 
         // 블럭 출력하기
         // 매개변수 : 가장 앞에 오는 블럭
+        // 여기 문제있음 루프에 대한 불안정성
         function block_print(front_block){
             /*
             1. 이전, 다음 블럭 속성 처리
@@ -136,7 +137,7 @@ block_print(front_block) : 블럭 출력하기 / 매개변수 : 가장 앞에 �
             }
 
         }
-
+        // 이전 또는 다음 버튼을 클릭 시 사용자 입력을 처리하는 코드가 없어서 게시판 기능이 제한됨. 문제    그 ... 이전 페이지로 이동을 어케하지
         function before(){
             block_print(current_block-block_num)
             console.log("이전");

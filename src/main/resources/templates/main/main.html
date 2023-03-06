@@ -12,7 +12,9 @@
 <!--공통되는 header-->
 <!--<div id="header"></div> javascript 파일에서 밑의 html 파일로 대체했습니다-->
 <div th:insert="/header :: header"></div>
-session 값 : <p th:text="${session.loginUserName}"></p>
+<p th:text="${session.userEmail}"></p>
+<!--<p>User Email: th:text="${sessionScope.userEmail}"</p>-->
+<!--<p th:text="${userEmail.getUserEmail()}">session 값 : </p>-->
 <main>
   <!-- Three columns of text below the carousel -->
   <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">

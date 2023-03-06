@@ -16,5 +16,8 @@ public class WishList {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long wishId;
     private Long userId;
-    private Long productId;
+//    private Long productId;
+    @ManyToOne(targetEntity = Product.class, fetch = FetchType.LAZY)
+    @JoinColumn( name = "product_id")
+    private Product product;
 }

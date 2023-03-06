@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -64,7 +66,8 @@ public class UserController {
     // 회원가입
     @PostMapping("/member/signup")
     public ResponseEntity<String> signUpUser(@RequestParam("userName") String userName, @RequestParam("email") String email,
-                                             @RequestParam("password") String password, @RequestParam("checkPassword") String checkPassword, @RequestParam("userPhone") String userPhone) {
+                                             @RequestParam("password") String password, @RequestParam("checkPassword") String checkPassword,
+                                             @RequestParam("userPhone") String userPhone) {
        if (!password.equals(checkPassword)) {
            return new ResponseEntity<>("Password and Confirm Password do not match", HttpStatus.BAD_REQUEST);
        }
@@ -116,6 +119,26 @@ public class UserController {
 //
 //        ModelAndView mav = new ModelAndView("redirect:/");
 //        return mav;
+//    }
+
+    // 세션
+//    @GetMapping("/member/login")
+//    public ModelAndView sessionTest(HttpServletRequest request) {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        HttpSession session = request.getSession();
+//        session.setAttribute("user", authentication.getName());
+//        String userEmail = (String) session.getAttribute("user");
+//        System.out.println("Current user: " + userEmail);
+//
+//        ModelAndView mav = new ModelAndView("/");
+//        mav.addObject("userEmail", userEmail);
+//        return mav;
+//    }
+
+//    @PostMapping("/member/login")
+//    public ResponseEntity<String> logintoken() {
+//
+//        return ResponseEntity.ok().body("token");
 //    }
 
     // 로그아웃

@@ -56,6 +56,4 @@ public class Product extends BaseEntity{
     @Column(name = "click_count", columnDefinition = "integer default 0", nullable = false)
     private int clickCount;
 
-
-
 }

@@ -3,7 +3,6 @@ package techsuppDev.techsupp.controller;
 import lombok.AllArgsConstructor;
 import net.minidev.json.annotate.JsonIgnore;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +16,7 @@ public class FeedbackImageController {
 
 
 //    reponse body 하면 json으로 그냥 보내줌
-    @RequestMapping("/image")
+    @RequestMapping("/static/file")
     @JsonIgnore
     @ResponseBody
     public ResponseEntity testajax(HttpServletRequest req) {

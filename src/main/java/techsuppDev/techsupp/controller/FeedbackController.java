@@ -21,12 +21,4 @@ public class FeedbackController {
     }
 
 
-
-//    업로드 테스트용
-    @GetMapping("/testimage")
-    public ModelAndView testimage() {
-        ModelAndView testimag = new ModelAndView("/feedback/feedbackuploadtest");
-        return testimag;
-    }
-
 }

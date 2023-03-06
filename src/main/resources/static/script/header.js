@@ -15,7 +15,7 @@ const header = document.getElementById("header");
       <ul class="nav me-auto">
         <li class="nav-item"><a href="#" class="nav-link link-dark px-2">서비스 소개</a></li>
         <li class="nav-item"><a href="/productMain/product?page=0&order=0" class="nav-link link-dark px-2">펀딩</a></li>
-        <li class="nav-item"><a href="#" class="nav-link link-dark px-2">고객센터</a></li>
+        <li class="nav-item"><a href="/notice" class="nav-link link-dark px-2">고객센터</a></li>
         <li class="nav-item"><a href="/feedbackMain/product?page=0&order=0" class="nav-link link-dark px-2">후기</a></li>
       </ul>
       <ul class="nav">

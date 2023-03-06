@@ -12,13 +12,13 @@ function createProductList(api) {
         <img src="http://localhost:8080/file/product/product_${api[i].seqId}.png" style="max-width:80%; min-height:100px;"/>
       </div>
       <div class="ProductListInformation">
-        <h5>${api[i].productName}제품 제목</h5>
+        <h5>제품 제목 ${api[i].productName}</h5>
         <div class="ProductListInvestment-ProductListLimitDate">
-          <h5>₩ ${api[i].investPrice}개인 투자 금액</h5>
-          <h5>${api[i].period}투자 마감일</h5>
+          <h5>개인 투자 금액 ₩ ${api[i].investPrice}</h5>
+          <h5>투자 마감일 ${api[i].period}</h5>
         </div>
         <div class="ProductListPercentage-ProductListWish">
-          <h5>${Math.round(api[i].totalPrice / api[i].investPrice)}% 투자율</h5>
+          <h5>투자율 ${Math.round(api[i].totalPrice / api[i].investPrice)}%</h5>
           <h5>즐겨찾기</h5>
         </div>
       </div>

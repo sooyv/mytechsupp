@@ -18,13 +18,13 @@ function createFeedbackList(api) {
       </div>
       <div class="FeebackListInformation">
         <div class="FeedbackName-FeedbackInformation">
-          <h5>${api[i].productName}피드백 제품 제목</h5>
-          <h5>${api[i].information}피드백 제품 설명</h5>
+          <h5>피드백 제품 제목${api[i].productName}</h5>
+          <h5>피드백 제품 설명${api[i].information}</h5>
         </div>
         <div class="FeedbackInvestPrice-FeedbackPeriod-FeedbackProductStatus">
-          <h5>₩ ${api[i].investPrice}개인 투자 금액</h5>
-          <h5>${api[i].period}투자 마감일</h5>
-          <h5>${api[i].productStatus}투자성공/실패</h5>
+          <h5>개인 투자 금액 ₩ ${api[i].investPrice}</h5>
+          <h5>투자 마감일${api[i].period}</h5>
+          <h5>투자성공/실패${api[i].productStatus}</h5>
         </div>
       </div>
     </article>`

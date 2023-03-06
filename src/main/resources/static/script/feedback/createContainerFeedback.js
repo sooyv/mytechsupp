@@ -16,18 +16,18 @@ function createFeedbackSingleHTML(api) {
   singleFeedback.innerHTML = `
   <article class="FeedbackContent">
     <div class="FeedbackListPicture">
-      <h4>${api.seqId}제품 사진</h4>
+      <h4>제품 사진 ${api.seqId}</h4>
       <img src="http://localhost:8080/file/product/product_${api.seqId}.png" style="max-width:80%; min-height:100px;"/>
     </div>
     <div class="FeebackListInformation">
       <div class="FeedbackListName-FeedbackListInformation">
-        <h5>${api.productName}제품 제목</h5>
-        <h5>${api.information}제품 설명</h5>
+        <h5>제품 제목 ${api.productName}</h5>
+        <h5>제품 설명 ${api.information}</h5>
       </div>
       <div class="FeedbackListScore-LimitDate-SuccesStatus">
         <h5>상품 점수 다른 테이블에서 가져와야함</h5>
-        <h5>${api.period}투자 마감일</h5>
-        <h5>${api.productStatus}투자성공여부</h5>
+        <h5>투자 마감일 ${api.period}</h5>
+        <h5>투자성공여부 ${api.productStatus}</h5>
       </div>
     </div>
   </article>

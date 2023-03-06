@@ -37,28 +37,30 @@ public class SecurityConfig {
         http.csrf().disable();
 
         http.authorizeRequests()
-//                .antMatchers("/").authenticated()       // 스프링 시큐리티에 의해 로그인이 되면 접근가능
-//                .antMatchers("/user/**").authenticated()            // 스프링 시큐리티에 의해 로그인이 되면 접근가능
-//                .antMatchers("/checkPassword").authenticated()
-//                .antMatchers("/edituser").authenticated()
-//                .antMatchers("/admin/**").hasAnyRole("ROLE_ADMIN")       // ROLE_ADMIN 권한 유저 접근가능
+//                .antMatchers("/").authenticated()
+                .antMatchers("/user/**").authenticated()            // 스프링 시큐리티에 의해 로그인이 되면 접근가능
+                .antMatchers("/checkPassword").authenticated()
+                .antMatchers("/edituser").authenticated()
+//                .antMatchers("/admin/**").authenticated()
+//                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/admin/**").hasRole("ADMIN")              // ROLE_ADMIN 권한 유저 접근가능
                 .anyRequest().permitAll();
+
+        http.exceptionHandling().accessDeniedPage("/access/denied");        // Access Denied Page
 
         http.formLogin()
                 .loginPage("/login")
-                .loginProcessingUrl("/user/login")
+                .loginProcessingUrl("/member/login")
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/")
                 .failureUrl("/login")
                 .and()
                 .logout()
-                .logoutUrl("/user/logout")
+                .logoutUrl("/member/logout")
                 .logoutSuccessUrl("/");
 
-
-
-
+        http.rememberMe();
 
 //        http.logout()
 //                .

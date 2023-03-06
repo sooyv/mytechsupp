@@ -62,12 +62,16 @@ public class UserController {
     }
 
     // 회원가입
-    @PostMapping("/user/signup")
+    @PostMapping("/member/signup")
     public ResponseEntity<String> signUpUser(@RequestParam("userName") String userName, @RequestParam("email") String email,
-                                             @RequestParam("password") String password, @RequestParam("userPhone") String userPhone) {
+                                             @RequestParam("password") String password, @RequestParam("checkPassword") String checkPassword, @RequestParam("userPhone") String userPhone) {
+       if (!password.equals(checkPassword)) {
+           return new ResponseEntity<>("Password and Confirm Password do not match", HttpStatus.BAD_REQUEST);
+       }
         System.out.println(userName);
         System.out.println(email);
         System.out.println(password);
+        System.out.println(checkPassword);
         System.out.println(userPhone);
 
         User user = new User();
@@ -75,7 +79,8 @@ public class UserController {
         user.setUserEmail(email);
         user.setUserPassword(password);
         user.setUserPhone(userPhone);
-//        user.setRole("ROLE_USER");          // 무조건 ROLE_USER이 set되도록
+        user.setRole("ROLE_USER");          // 무조건 role컬럼엔 ROLE_USER으로
+        log.info(userName);
 
         userService.join(user);
 
@@ -114,13 +119,19 @@ public class UserController {
 //    }
 
     // 로그아웃
-    @PostMapping("/user/logout")
+    @PostMapping("/member/logout")
     public String logout(HttpSession session) {
         session.invalidate();           // 세션 null 여부 검사
         return "/";
     }
 
 
+    // Access Denied Page
+    @GetMapping("access/denied")
+    public ModelAndView denied() {
+        ModelAndView mav = new ModelAndView("/accessdenied/denied");
+        return mav;
+    }
 
 
 

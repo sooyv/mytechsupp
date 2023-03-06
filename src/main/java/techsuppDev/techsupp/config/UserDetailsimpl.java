@@ -22,7 +22,7 @@ public class UserDetailsimpl implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
         return Collections.singleton(
-                new SimpleGrantedAuthority(user.getRole())
+                new SimpleGrantedAuthority(user.getRole())      // 로그인이 되면
         );
     }
 

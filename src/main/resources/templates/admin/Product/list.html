@@ -36,9 +36,8 @@
                        <tbody>
                        <tr th:each="dto : ${result.dtoList}">
                            <th scope="row">[[${dto.id}]]</th>
-                           <td>[[${dto.name}]]</td>
+                           <td>[[${dto.productName}]]</td>
                            <td>[[${dto.totalPrice}]]</td>
-                           <td>[[${dto.percent}]]</td>
                            <td>[[${dto.prodStatus}]]</td>
                        </tr>
                        </tbody>

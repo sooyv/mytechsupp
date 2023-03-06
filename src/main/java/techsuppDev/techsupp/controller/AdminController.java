@@ -18,14 +18,12 @@ public class AdminController {
 
     private final AdminProductService adminProductService;
 
-    @GetMapping("/")
-    public String index() {
-        return "redirect:/admin/Product/list";
-    }
 
     @GetMapping("/list")
-    public void list(@ModelAttribute PageRequestDTO pageRequestDTO, Model model) {
+    public String list(@ModelAttribute PageRequestDTO pageRequestDTO, Model model) {
         model.addAttribute("result", adminProductService.getList(pageRequestDTO));
+
+        return "admin/Product/list";
 
     }
 }

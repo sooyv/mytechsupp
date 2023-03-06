@@ -14,7 +14,7 @@
                             Add User
                         </h1>
                     </div>
-                    <div class="col-12 col-xl-auto mb-3">9
+                    <div class="col-12 col-xl-auto mb-3">
                         <a class="btn btn-sm btn-light text-primary" href="user-management-list.html">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left me-1"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
                             Back to Users List
@@ -25,7 +25,7 @@
         </div>
     </header>
     <!-- Main page content-->
-    <form th:action="@{/admin/register}" th:method="post" enctype="multipart/form-data">
+    <form role="form" th:method="post" enctype="multipart/form-data" th:object="${productForm}">
         <div class="container-xl px-4 mt-4">
             <div class="row">
                 <div class="col-xl-4">
@@ -50,25 +50,25 @@
                             <form>
                                 <div class="mb-3">
                                     <label class="small mb-1">상품명</label>
-                                    <input class="form-control" name="productName" type="text" placeholder="상품명을 입력해주세요.">
+                                    <input class="form-control" th:field="*{productName}" type="text" placeholder="상품명을 입력해주세요.">
                                 </div>
                                 <!-- Form Row-->
                                 <div class="row gx-3 mb-3">
                                     <!-- Form Group (first name)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1">목표 금액</label>
-                                        <input class="form-control" name="totalPrice" type="number" placeholder="가격을 입력해주세요.">
+                                        <input class="form-control" th:field="*{totalPrice}" type="number" placeholder="가격을 입력해주세요.">
                                     </div>
                                     <!-- Form Group (last name)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1">마감 기한</label>
-                                        <input class="form-control" name="period" type="date" placeholder="날짜를 입력해주세요.">
+                                        <input class="form-control" th:field="*{period}" type="date" placeholder="날짜를 입력해주세요.">
                                     </div>
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="small mb-1">상품 내용</label>
-                                    <div id="editor"></div>
+                                    <textarea class="form-control" rows="5" th:field="*{information}" id="content" placeholder="내용을 입력해 주세요"></textarea>
                                 </div>
 
                                 <!-- Form Group (email address)-->

@@ -6,6 +6,7 @@ import techsuppDev.techsupp.domain.User;
 import techsuppDev.techsupp.repository.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -19,9 +20,9 @@ public class MyPageService {
     private final UserService userService;
 
     public User getUserEmail(String myEmail) {
-        List<User> user = userRepository.findByUserEmail(myEmail);
-        if (user != null && user.size() !=0) {
-            return user.get(0);
+        Optional<User> user = userRepository.findByUserEmail(myEmail);
+        if (user != null) {
+            return user.get();
         }
         return null;
     }
@@ -39,7 +40,7 @@ public class MyPageService {
 //        user = users.get(0);
 //        user.setUserName(userName);
 //        user.setUserPhone(userPhone);
-        User user1 = userRepository.findByUserEmail(user.getUserEmail()).get(0);
+        User user1 = userRepository.findByUserEmail(user.getUserEmail()).get();
         user1.setUserPhone(user.getUserPhone());
         user1.setUserName(user.getUserName());
         userRepository.save(user1);

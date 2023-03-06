@@ -43,7 +43,10 @@
 <script src="/bootstrap/js/datatables-simple-demo.js"></script>
 <script>
     ClassicEditor
-        .create(document.querySelector('#editor'))
+        .create(document.querySelector('#content'))
+        .then(editor => {
+            console.log(editor);
+        })
         .catch(error => {
             console.error(error);
         });

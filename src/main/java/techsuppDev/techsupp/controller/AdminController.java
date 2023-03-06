@@ -6,13 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import techsuppDev.techsupp.DTO.PageRequestDTO;
 import techsuppDev.techsupp.DTO.ProductDTO;
 import techsuppDev.techsupp.service.AdminProductService;
-import techsuppDev.techsupp.service.ProductService;
 
+import java.io.File;
 import java.io.IOException;
 
 @Slf4j
@@ -35,7 +34,8 @@ public class AdminController {
     }
 
     @GetMapping("/register")
-    public String register() {
+    public String register(Model model) {
+        model.addAttribute("productForm", new ProductDTO());
         return "admin/Product/create";
     }
 
@@ -50,6 +50,9 @@ public class AdminController {
         if (!file.isEmpty()) {
             String filename = file.getOriginalFilename();
             log.info("file.getOriginalFilename = {}", filename);
+
+            String fullPath = "C:/Temp/Upload" + filename;
+            file.transferTo(new File(fullPath));
 
         }
 

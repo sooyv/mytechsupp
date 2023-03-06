@@ -43,7 +43,11 @@ public class SecurityConfig {
                 .loginPage("/login")
                 .loginProcessingUrl("user/login")
                 .defaultSuccessUrl("/")
-                .failureUrl("/login");
+                .failureUrl("/login")
+                .and()
+                .logout()
+                .logoutUrl("/user/logout")
+                .logoutSuccessUrl("/");
 
         http.csrf().disable();
 

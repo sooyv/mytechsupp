@@ -1,13 +1,21 @@
-const header = document.querySelector("#header");
+console.log("일단 header는 가져옴")
+const header = document.getElementById("header");
+//sessionUserName
+//function createHead() {
+//    if(sessionUserName!=null) {
+//        alert("aaaa");
+//    } else {
+//        alert("bbb");
+//    }
 
-function createHead() {
-    header.innerHTML =`
+  header.innerHTML =`
+  <script>console.log("html 됐음")</script>
   <nav class="py-2 bg-light border-bottom">
     <div class="container d-flex flex-wrap">
       <ul class="nav me-auto">
         <li class="nav-item"><a href="#" class="nav-link link-dark px-2">서비스 소개</a></li>
         <li class="nav-item"><a href="/productMain/product?page=0&order=0" class="nav-link link-dark px-2">펀딩</a></li>
-        <li class="nav-item"><a href="#" class="nav-link link-dark px-2">고객센터</a></li>
+        <li class="nav-item"><a href="/notice" class="nav-link link-dark px-2">고객센터</a></li>
         <li class="nav-item"><a href="/feedbackMain/product?page=0&order=0" class="nav-link link-dark px-2">후기</a></li>
       </ul>
       <ul class="nav">
@@ -17,7 +25,7 @@ function createHead() {
     </div>
   </nav>
   <div class="py-3 mb-4 border-bottom">
-    <div class="container d-flex flex-wrap justify-content-center">
+    <div class="container d-flex flex-wrap justify-content-center" >
       <a href="/" class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto text-dark text-decoration-none">
         <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
         <span class="fs-4">TECHSUPP</span>
@@ -32,7 +40,5 @@ function createHead() {
     </div>
   </div>`
 
+//};
 
-}
-
-createHead();

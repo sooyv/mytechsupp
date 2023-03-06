@@ -8,4 +8,6 @@ import techsuppDev.techsupp.service.ProductImageService;
 
 public interface ProductImageRepository extends JpaRepository<Image, Long> {
 
+
+
 }

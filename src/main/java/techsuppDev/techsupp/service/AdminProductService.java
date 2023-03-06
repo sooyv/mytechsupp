@@ -18,7 +18,6 @@ import java.util.function.Function;
 public class AdminProductService {
 
     private final AdminProductRepository adminProductRepository;
-
     public Long register(ProductDTO productDTO) {
         Product product = productDTO.dtoToEntity(productDTO);
         adminProductRepository.save(product);

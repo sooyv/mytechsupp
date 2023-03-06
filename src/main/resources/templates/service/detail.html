@@ -32,10 +32,10 @@
     <th>contents</th>
     <td th:text="${notice.noticeContents}"></td>
   </tr>
-<!--  <tr th:if="${notice.fileAttached == 1}">-->
-<!--    <th>image</th>-->
-<!--    <td><img th:src="@{|/upload/${notice.storedFileName}|}" alt=""></td>-->
-<!--  </tr>-->
+  <tr th:if="${notice.fileAttached == 1}">
+    <th>image</th>
+    <td><img th:src="@{|/upload/${notice.storedFileName}|}" alt=""></td>
+  </tr>
 </table>
 <button onclick="listReq()"><a href="/notice/list">공지목록</a></button>
 <button onclick="updateReq()"><a th:href="@{/notice/update/{noticeId}(noticeId=${notice.noticeId})}">수정</a></button>

@@ -82,7 +82,7 @@ public class UserController {
     }
 
     // 로그인
-    @PostMapping("/user/login")
+    @PostMapping("/user/login")                                         // HttpServletRequest
     public ModelAndView login(@Valid @ModelAttribute UserForm userForm, HttpSession session) {
 //    public ModelAndView login(@RequestParam String email, @RequestParam String password, HttpSession session) {
 
@@ -92,8 +92,12 @@ public class UserController {
         User user = userService.login(formEmail, formPassword);
 
         if (user != null && user.getUserEmail().equals(formEmail)) {
-            session.setAttribute("loginEmail", user.getUserEmail());
-            System.out.println(user.getUserName() + "로그인 완료");
+            session.setAttribute("loginUserName", user.getUserName());
+
+//            HttpSession session = request.getSession(true);
+//            log.info(session.getId());
+
+            System.out.println(user.getUserName() + " 로그인 완료");
 
         } else {
 //            return new ResponseEntity<>("Login faild", HttpStatus.BAD_REQUEST)
@@ -108,9 +112,8 @@ public class UserController {
 
     // 로그아웃
     @PostMapping("/user/logout")
-    public String logout(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        session.invalidate();
+    public String logout(HttpSession session) {
+        session.invalidate();           // 세션 null 여부 검사
         return "/";
     }
 

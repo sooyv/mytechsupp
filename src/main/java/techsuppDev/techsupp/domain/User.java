@@ -32,6 +32,8 @@ public class User {
     @Column(nullable = false)
     private String userPhone;
 
+//    @Enumerated(EnumType.STRING)
+//    private Role role;
 
 //    @Enumerated(EnumType.STRING)
 //    private SocalStatus status;
@@ -45,6 +47,7 @@ public class User {
         user.userEmail = userEmail;
         user.userPassword = userPassword;
         user.userPhone = userPhone;
+//        user.role = role;
         return user;
     }
 }

@@ -134,12 +134,12 @@ function block_print(front_block) {
 
         // 이전 또는 다음 버튼을 클릭 시 사용자 입력을 처리하는 코드가 없어서 게시판 기능이 제한됨. 문제    그 ... 이전 페이지로 이동을 어케하지
         function before(){
-            block_print(current_block-block_num)
+            block_print(current_block - block_num)
             console.log("이전");
         }
 
         function next(){
-            block_print(current_block+block_num)
+            block_print(current_block + block_num)
             console.log("다음");
 
         }

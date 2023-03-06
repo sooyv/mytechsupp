@@ -2,6 +2,7 @@ package techsuppDev.techsupp.controller;
 
 
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,7 +22,10 @@ import java.util.Optional;
 @AllArgsConstructor
 public class MyPageController {
 
+    @Autowired
     private final MyPageService myPageService;
+
+
     private final PasswordEncoder passwordEncoder;
 
     //  회원수정하기 전 비밀번호 확인
@@ -107,11 +111,11 @@ public class MyPageController {
 
 
     @GetMapping("/myfavorite")
-    public ModelAndView favorite(Long userId) {
+    public ModelAndView favorite(@RequestParam Long userId) {
         ModelAndView mav = new ModelAndView("mypage/myFavorite");
-        Optional<WishList> product = myPageService.findByUserWishList(userId);
-        mav.addObject("product", product.orElse(null));
-        System.out.println("test1213"+ mav);
+        Optional<WishList> product = myPageService.findByUserWishList(userId); // userId' 매개 변수를 제공하려면 'userId' 값을 쿼리 매개 변수로 추가하여 요청의 URL을 수정할 수 있습니다.
+        mav.addObject("product", product.orElse(null));     // userId에 입의값 넣으면 조회함 'userId' 값이 123이면 다음과 같이 URL을 수정할 수 있습니다:
+        System.out.println("test1213"+ mav); //http://localhost:8080/myfavorite?userId=123 이런식으로
         return mav;
     }
 

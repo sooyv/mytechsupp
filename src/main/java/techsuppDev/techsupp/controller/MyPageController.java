@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import techsuppDev.techsupp.controller.form.MyPageForm;
 import techsuppDev.techsupp.controller.form.UserForm;
+import techsuppDev.techsupp.domain.Product;
 import techsuppDev.techsupp.domain.User;
 import techsuppDev.techsupp.service.MyPageService;
 import techsuppDev.techsupp.service.UserService;
@@ -100,6 +101,8 @@ public class MyPageController {
 
         return new ResponseEntity<>("Successfully editUser", HttpStatus.OK);
     }
+
+    // myPage 홈페이지
     @GetMapping("/mypage")
     public ModelAndView myPage() {
         ModelAndView mav = new ModelAndView("/mypage/myPage");
@@ -107,12 +110,14 @@ public class MyPageController {
         return mav;
     }
 
-    // 즐겨찾기
+    // 즐겨찾기 홈페이지
 
 
     @GetMapping("/myfavorite")
-    public ModelAndView favorite() {
+    public ModelAndView favorite(Long userId) {
         ModelAndView mav = new ModelAndView("/mypage/myFavorite");
+        mav.addObject("product", myPageService.findByUserWishList(userId));
+        System.out.println("test1213"+ mav);
         return mav;
     }
 

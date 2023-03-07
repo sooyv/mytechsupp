@@ -15,6 +15,7 @@ import techsuppDev.techsupp.service.PaymentService;
 import techsuppDev.techsupp.service.ProductService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -28,6 +29,26 @@ public class ApiController {
 
     private final ProductService productService;
     private final PaymentService paymentService;
+
+
+//    로그인 여부 확인
+    @RequestMapping(value = "/loginCheck", method = RequestMethod.GET)
+    public ResponseEntity apiLogin(HttpServletRequest req) {
+        HttpSession loginSession = req.getSession();
+
+        JSONObject checkLogin = new JSONObject();
+        if(loginSession.getAttribute("userEmail") == null &&
+                loginSession.getAttribute("userName") == null) {
+            checkLogin.put("login", "fail");
+        } else {
+            checkLogin.put("login", "success");
+        }
+        System.out.println("======");
+        System.out.println(checkLogin.get("login"));
+        return ResponseEntity.ok().body(checkLogin);
+    }
+
+
 
 //    productMain 에서 5개 보여주기
 

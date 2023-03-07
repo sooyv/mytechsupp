@@ -20,6 +20,7 @@ import java.util.Optional;
 
 @Controller
 @AllArgsConstructor
+@RequestMapping(value = "/user")
 public class MyPageController {
 
     @Autowired

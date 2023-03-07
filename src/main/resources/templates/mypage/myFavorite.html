@@ -40,6 +40,10 @@
                 <li class="w100" th:text="${product.totalPrice}"></li>
                 <li class="w100" th:text="${product.productStatus}"></li>
             </ul>
+
+            <div th:if="${product == null}">
+                <p>즐겨찾기한 제품이 없습니다.</p>
+            </div>
 <!--            <tr th:each="product : ${wishList}" th:object="${product}">-->
 <!--                <td th:text="*{프로퍼티1}">default value</td>-->
 <!--                <td th:text="*{아이템로퍼티2}">default value</td>-->

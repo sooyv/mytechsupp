@@ -11,8 +11,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import techsuppDev.techsupp.controller.form.PaymentForm;
 import techsuppDev.techsupp.domain.Payment;
+import techsuppDev.techsupp.domain.User;
 import techsuppDev.techsupp.service.PaymentService;
 import techsuppDev.techsupp.service.ProductService;
+import techsuppDev.techsupp.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -29,6 +31,8 @@ public class ApiController {
 
     private final ProductService productService;
     private final PaymentService paymentService;
+
+    private final UserService userService;
 
 
 //    로그인 여부 확인
@@ -84,7 +88,18 @@ public class ApiController {
         return ResponseEntity.ok().body(productService.findOneProduct(value));
     }
 
+//    상품 투자를 위해 유저 정보를 검색 후 json으로 보내주는 것
+    @RequestMapping(value = "/userinformation", method = RequestMethod.GET)
+    public ResponseEntity getUserInformationForInvest(
+            HttpServletRequest req) {
+        HttpSession loginSession = req.getSession();
+        String userId = loginSession.getAttribute("userEmail").toString();
 
+        return ResponseEntity.ok().body(userService.getUserByEmail(userId));
+    }
+
+
+// 투자 폼 받아서 db에 저장
     @RequestMapping(value = "/invest/post/*", method = RequestMethod.POST)
     public ResponseEntity saveInvestLog(
             @RequestBody JSONObject object) {
@@ -107,10 +122,6 @@ public class ApiController {
         payment.setPaymentMethod(object.get("paymentMethod").toString());
 
         paymentService.savePay(payment);
-
-
-
-
 
         return null;
     }

@@ -1,12 +1,12 @@
 const investFrom = document.querySelector('.ContainerUserInput');
 
-function createInvestForm() {
+function InvestForm(api) {
   investFrom.innerHTML = `
   <form class="InvestForm" action="">
     아이디
-    <input type="email" class="User_email" placeholder="아이디" name="user_email">
+    <input type="email" class="User_email" placeholder="${api.userEmail}" name="user_email">
     휴대폰 번호
-    <input type="tel" class = "User_phone" placeholder="휴대폰 번호" name="user_phone">
+    <input type="tel" class = "User_phone" placeholder="${api.userPhone}" name="user_phone">
     <div class="KakaomapContainer">
       <div class="Address">
         주소
@@ -20,11 +20,16 @@ function createInvestForm() {
       <div class = "PaymentContainer">
         <input type="checkbox" name="payment" onclick="checkBox(this)" value = "card" placeholder="카드">
         <input type="checkbox" name="payment"  onclick="checkBox(this)" value = "cash" placeholder="현금">
-
-
       </div>
      </form>
   `
 }
 
+function createInvestForm() {
+  fetch(`/api/userinformation`)
+  .then(response => response.json())
+  .then(data => InvestForm(data))
+}
+
 createInvestForm();
+

@@ -73,5 +73,6 @@ function investRequest() {
     ),
   })
   .then((res) => res.json())
+  .then(alert("투자가 완료 되었습니다"))
   .then(LinkToInvestComplete());
 }

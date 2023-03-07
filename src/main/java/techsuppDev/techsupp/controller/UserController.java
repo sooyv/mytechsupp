@@ -2,15 +2,18 @@ package techsuppDev.techsupp.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.servlet.ModelAndView;
+import techsuppDev.techsupp.config.UserDetailsimpl;
 import techsuppDev.techsupp.controller.form.UserForm;
 import techsuppDev.techsupp.domain.User;
 import techsuppDev.techsupp.service.UserService;
@@ -27,7 +30,6 @@ import java.security.SecureRandom;
 
 import static techsuppDev.techsupp.domain.Role.ROLE_ADMIN;
 
-
 //@Controller
 @Slf4j
 @RequiredArgsConstructor
@@ -36,10 +38,31 @@ public class UserController {
 
     private final UserService userService;
 
+    @GetMapping("/member/loginSuccess")
+    public ModelAndView loginSuccess(HttpSession session, @AuthenticationPrincipal UserDetailsimpl userDetails){
+
+        if(userDetails != null) {
+            User user = userDetails.getUser();
+            System.out.println("----------------homeController------------------");
+            session.setAttribute("userEmail", user.getUserEmail());    // email 세션에 저장
+            session.setAttribute("userName", user.getUserName());      // name 세션에 저장
+            session.setAttribute("userPhone", user.getUserPhone());    // phone 세션에 저장
+            session.setAttribute("userRole", user.getRole());          // userRole 세션에 저장
+//            session.setAttribute("user", user);
+
+//            User sessionUser = (User) session.getAttribute("user");          // 세션을 가져올 때 로직
+//            System.out.println("세션에서 가져온 userName: " + sessionUser.getUserName());
+//            System.out.println("세션에서 가져온 userEmail: " + sessionUser.getUserEmail());
+        }
+
+            ModelAndView mav = new ModelAndView("redirect:/");
+            return mav;
+
+    }
+
     // 로그인 창
     @GetMapping("/login")
     public ModelAndView login() {
-
         ModelAndView mav = new ModelAndView("/login/login");
         mav.addObject("userForm",new UserForm());
         return mav;
@@ -94,7 +117,7 @@ public class UserController {
     }
 
     // 로그인
-//    @PostMapping("/user/login")                                         // HttpServletRequest
+//    @PostMapping("/member/login")                                         // HttpServletRequest
 //    public ModelAndView login(@Valid @ModelAttribute UserForm userForm, HttpSession session) {
 ////    public ModelAndView login(@RequestParam String email, @RequestParam String password, HttpSession session) {
 //
@@ -122,32 +145,12 @@ public class UserController {
 //        return mav;
 //    }
 
-    // 세션
-//    @GetMapping("/member/login")
-//    public ModelAndView sessionTest(HttpServletRequest request) {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        HttpSession session = request.getSession();
-//        session.setAttribute("user", authentication.getName());
-//        String userEmail = (String) session.getAttribute("user");
-//        System.out.println("Current user: " + userEmail);
-//
-//        ModelAndView mav = new ModelAndView("/");
-//        mav.addObject("userEmail", userEmail);
-//        return mav;
+////     로그아웃
+//    @PostMapping("/member/logout")
+//    public String logout(HttpSession session) {
+//        session.invalidate();           // 세션 null 여부 검사
+//        return "/";
 //    }
-
-//    @PostMapping("/member/login")
-//    public ResponseEntity<String> logintoken() {
-//
-//        return ResponseEntity.ok().body("token");
-//    }
-
-    // 로그아웃
-    @PostMapping("/member/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();           // 세션 null 여부 검사
-        return "/";
-    }
 
 
     // Access Denied Page

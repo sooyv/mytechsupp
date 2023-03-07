@@ -30,5 +30,5 @@ xhr.onreadystatechange = function() {
     }
   }
 };
-xhr.open('GET', `/myfavorite?userId=${123}`);
+xhr.open('GET', `/myfavorite?userId=${userId}`);
 xhr.send();

@@ -47,10 +47,11 @@ public class MyPageService {
         userRepository.save(user1);
     }
 
-//    //// 로그인한 회원의 즐겨찾기 목록
-//    public Optional<WishList> findByUserWishList(String email) {
-////          return myPageRepository.findByUserEmail(email);
-//
-//
-//    }
+    //// 로그인한 회원의 즐겨찾기 목록
+    public Optional<WishList> findByUserId(Long userId) {
+          return myPageRepository.findByUserId(userId);
+
+
+    }
+
 }

@@ -20,30 +20,22 @@ public class HomeController {
     @GetMapping("/")
     public String main(HttpSession session, @AuthenticationPrincipal UserDetailsimpl userDetails) {
 
+//        User user = userDetails.getUser(); 왜 null?
+
         if(userDetails != null) {
             System.out.println("----------------homeController------------------");
             session.setAttribute("userEmail", userDetails.getUser().getUserEmail());    // email 세션에 저장
             session.setAttribute("userName", userDetails.getUser().getUserName());      // name 세션에 저장
             session.setAttribute("userPhone", userDetails.getUser().getUserPhone());    // phone 세션에 저장
             session.setAttribute("userRole", userDetails.getUser().getRole());          // userRole 세션에 저장
-
-//            System.out.println("userDetails 확인: " + userDetails.getUsername());
-//            System.out.println("test : " + userDetails.getUsername());
-//            System.out.println("homeController role: " + userDetails.getAuthorities());
         }
         return "main/main";
     }
 
+    // 세션 -> 로그인페이지. 자동으로 메인페이지로 : logout 시에는 로그인으로 갈 수 있도록
+
 //    @GetMapping("/")
 //    public String main() {
 //        return "/main/main";
-//    }
-
-//    @GetMapping("/check?session")
-//    public ResponseEntity<String> checkSession(@AuthenticationPrincipal UserDetailsimpl userDetailsimpl) {
-//        if (userDetailsimpl == null) {
-//            return ResponseEntity.badRequest().build();
-//        }
-//        return ResponseEntity.ok().build();
 //    }
 }

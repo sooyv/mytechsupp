@@ -39,6 +39,7 @@ public class UserController {
     // 로그인 창
     @GetMapping("/login")
     public ModelAndView login() {
+
         ModelAndView mav = new ModelAndView("/login/login");
         mav.addObject("userForm",new UserForm());
         return mav;

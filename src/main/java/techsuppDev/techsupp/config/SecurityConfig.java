@@ -39,16 +39,15 @@ public class SecurityConfig {
         http.csrf().disable();
 
         http.authorizeRequests()
-//                .antMatchers("/user/**").authenticated()            // 스프링 시큐리티에 의해 로그인이 되면 접근가능
-                .antMatchers("/checkPassword").authenticated()
-//                .antMatchers("/mypage").authenticated()
-                .antMatchers("/edituser").authenticated()
+                .antMatchers("/user/**").authenticated()
+                .antMatchers("/invest/**").authenticated()
+                .antMatchers("/feedbackSelect/feedback/form/**").authenticated()
 //                .antMatchers("/admin/**").authenticated()
 //                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/admin/**").hasRole("ADMIN")              // ROLE_ADMIN 권한 유저 접근가능
                 .anyRequest().permitAll();
 
-        http.exceptionHandling().accessDeniedPage("/access/denied");        // Access Denied Page
+        http.exceptionHandling().accessDeniedPage("/access/denied");
 
         http.formLogin()
                 .loginPage("/login")
@@ -58,7 +57,7 @@ public class SecurityConfig {
                 .defaultSuccessUrl("/")
                 .failureUrl("/login")
                 .and()
-                .logout()
+            .logout()
                 .logoutUrl("/member/logout")
                 .logoutSuccessUrl("/");
 

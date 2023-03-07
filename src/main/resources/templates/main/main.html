@@ -10,11 +10,9 @@
 </head>
 <body>
 <!--공통되는 header-->
-<!--<div id="header"></div> javascript 파일에서 밑의 html 파일로 대체했습니다-->
 <div th:insert="/header :: header"></div>
 <p th:text="${session.userEmail}"></p>
 <p th:text="${session.userName}"></p>
-<!--<p th:text="${session.userName}"></p>-->
 <main>
   <!-- Three columns of text below the carousel -->
   <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">

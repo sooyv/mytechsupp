@@ -14,7 +14,7 @@
 </head>
 <body>
 <!--공통되는 header-->
-<div id="header"></div>
+<div th:insert="/header :: header"></div>
 <div class="text-center">
   <h4 class="mb-3">회원정보수정</h4>
   <div class="align-form">
@@ -64,7 +64,7 @@
   </div>
 </div>
 
-<script src="/script/header.js"></script>
+<div th:insert="/header :: header"></div>
 <script src="/script/mypage/myPage.js"></script>
 <!--<script type="text/javascript">-->
 <!--  	var naver_id_login = new naver_id_login("1Hsj4Agu95IlkAOjVncV", "http://localhost:8080/navercallback");-->

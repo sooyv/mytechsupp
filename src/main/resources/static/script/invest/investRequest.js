@@ -1,3 +1,11 @@
+
+function LinkToInvestComplete() {
+  const investCompleteURL = `/invest/complete`
+  location.href = investCompleteURL;
+}
+
+
+
 function investRequest() {
   let form = document.querySelector('.InvestForm');
   let id = document.querySelector('.User_email');
@@ -16,7 +24,6 @@ function investRequest() {
       checkBoxValue = data.value;
     }
   });
-  
 
 
   let today = new Date();
@@ -46,7 +53,7 @@ function investRequest() {
   formDataPayment.append("paymentPrice", payment.value);
   formDataPayment.append("paymentMethod", checkBoxValue);
 
-  let a;
+  
 
   fetch(`/api/invest/post/${productNumber}`, {
     method: "POST",
@@ -65,5 +72,6 @@ function investRequest() {
      }
     ),
   })
-  .then((res) => res.json());
+  .then((res) => res.json())
+  .then(LinkToInvestComplete());
 }

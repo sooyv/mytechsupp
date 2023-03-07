@@ -15,4 +15,10 @@ public class PaymentController {
         ModelAndView investmentProduct = new ModelAndView("/product/productInvesting");
         return investmentProduct;
     }
+
+    @GetMapping("/complete")
+    public ModelAndView LinkToInvestComplete() {
+        ModelAndView investComplete = new ModelAndView("/product/productInvestComplete");
+        return investComplete;
+    }
 }

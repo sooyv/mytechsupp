@@ -5,23 +5,16 @@
 
 <div layout:fragment="content" class="content">
     <div class="container-fluid px-4">
-        <h1 class="mt-4">Tables</h1>
+        <h1 class="mt-4">Products<span>
+            <a th:href="@{/admin/register}">
+                <button type="button" class="btn btn-outline-primary">상품등록</button>
+            </a></span>
+        </h1>
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
             <li class="breadcrumb-item active">Tables</li>
         </ol>
         <div class="card mb-4">
-            <div class="card-body">
-                DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the
-                <a target="_blank" href="https://datatables.net/">official DataTables documentation</a>
-                .
-            </div>
-        </div>
-        <div class="card mb-4">
-            <div class="card-header">
-                <i class="fas fa-table me-1"></i>
-                DataTable Example
-            </div>
                <div class="card-body">
                    <table id="datatablesSimple">
                        <thead>
@@ -29,17 +22,22 @@
                            <th scope="col">상품번호</th>
                            <th scope="col">상품명</th>
                            <th scope="col">목표금액</th>
-                           <th scope="col">진행률</th>
                            <th scope="col">상태</th>
+                           <th></th>
                        </tr>
                        </thead>
                        <tbody>
                        <tr th:each="dto : ${result.dtoList}">
                            <th scope="row">[[${dto.id}]]</th>
-                           <td>[[${dto.name}]]</td>
+<<<<<<< HEAD
+                           <td>[[${dto.productName}]]</td>
                            <td>[[${dto.totalPrice}]]</td>
-                           <td>[[${dto.percent}]]</td>
                            <td>[[${dto.prodStatus}]]</td>
+=======
+                                <td>[[${dto.productName}]]></td>
+                                <td>[[${dto.totalPrice}]]</td>
+                                <td>[[${dto.productStatus}]]</td>
+>>>>>>> f411958c73057b3a6a5fb40a91671b249374e9cb
                        </tr>
                        </tbody>
                    </table>

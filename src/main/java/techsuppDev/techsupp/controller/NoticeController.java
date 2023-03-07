@@ -84,12 +84,25 @@ public class NoticeController {
     }
 
     @PostMapping("/question")
-    public String questionsave(@ModelAttribute QuestionDTO questionDTO) {
+    public String save(@ModelAttribute QuestionDTO questionDTO) {
 
         questionService.save(questionDTO);
-        return "service-main";
+        return "service/service-main";
     }
 
+    @GetMapping("/question-list")
+    public String findQuestionAll(Model model) {
+        List<QuestionDTO> questionDTOList = questionService.findAll();
+        model.addAttribute("questionList", questionDTOList);
+        return "question-list";
+    }
+
+//    @GetMapping("/{questionId}")
+//    public String findByQuestionId(@PathVariable Long questionId, Model model) {
+//
+//    }
+//
+//
 
 
 

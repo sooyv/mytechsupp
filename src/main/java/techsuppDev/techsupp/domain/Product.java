@@ -7,7 +7,9 @@ import org.springframework.data.annotation.LastModifiedDate;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @DiscriminatorValue("i")
@@ -55,7 +57,6 @@ public class Product extends BaseEntity{
     private ProductStatus productStatus;
     @Column(name = "click_count", columnDefinition = "integer default 0", nullable = false)
     private int clickCount;
-
 
 
 }

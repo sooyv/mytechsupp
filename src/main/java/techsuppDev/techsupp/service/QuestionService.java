@@ -7,6 +7,9 @@ import techsuppDev.techsupp.domain.QuestionEntity;
 import techsuppDev.techsupp.repository.NoticeRepository;
 import techsuppDev.techsupp.repository.QuestionRepository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class QuestionService {
@@ -16,5 +19,16 @@ public class QuestionService {
     public void save(QuestionDTO questionDTO) {
         QuestionEntity questionEntity = QuestionEntity.toSaveEntity(questionDTO);
         questionRepository.save(questionEntity);
+    }
+
+
+    public List<QuestionDTO> findAll() {
+        List<QuestionEntity> questionEntityList = questionRepository.findAll();
+        List<QuestionDTO> questionDTOList = new ArrayList<>();
+        for (QuestionEntity questionEntity: questionEntityList) {
+            questionDTOList.add(QuestionDTO.toquestionDTO(questionEntity));
+        }
+        return questionDTOList;
+
     }
 }

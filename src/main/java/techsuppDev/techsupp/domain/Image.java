@@ -16,9 +16,17 @@ public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long imageNum;
-    private String uuid;
-    private String imageName;
-    private String path;
+    private String imgName;
+    private String originImgName;
+    private String imgUrl;
+    private String repImg;
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id")
     private Product product;
+
+    public void updateProductImg(String imgName, String originImgName, String imgUrl) {
+        this.imgName = imgName;
+        this.originImgName = originImgName;
+        this.imgUrl = imgUrl;
+    }
 }

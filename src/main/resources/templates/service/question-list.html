@@ -17,13 +17,14 @@
     <th>questionId</th>
     <th>title</th>
     <th>writer</th>
+    <th>status</th>
     <!--    <th>date</th>-->
   </tr>
   <tr th:each="question: ${questionList}">
     <td th:text="${question.questionId}"></td>
-    <td><a th:href="@{|/notice/${question.questionId}|}" th:text="${question.questionTitle}"></a></td>
-    <!--    <td><a th:href="@{/notice/${notice.noticeId}}" th:text="${notice.noticeTitle}"></a></td>-->
+    <td><a th:href="@{|/notice/question-list/${question.questionId}|}" th:text="${question.questionTitle}"></a></td>
     <td th:text="${question.questionWriter}"></td>
+<!--    <td th:text="${question.questionStatus}"></td>-->
     <!--    <td th:text="*{#temporals.format(notice.noticeregDate, 'yyyy-MM-dd HH:mm:ss')}"></td>-->
   </tr>
 </table>

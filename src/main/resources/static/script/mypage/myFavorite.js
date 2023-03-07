@@ -11,7 +11,7 @@ block_print(front_block) : 블럭 출력하기 / 매개변수 : 가장 앞에 �
         //    총 게시글 수
         let totalPage = 1000;
         //  한 페이지 당 출력되는 게시글 갯수
-        let page_num = 6;
+        let page_num = 20;
         //   한번에 출력될 수 있는 최대 블록 수
         // ex ) [1][2][3][4][5] -> 블록
         let block_num = 10;
@@ -36,7 +36,7 @@ block_print(front_block) : 블럭 출력하기 / 매개변수 : 가장 앞에 �
                 notice_num : i,
                 title:"제품명"+i,
                 writer:"목표투자액"+i,
-                date_created:"2023-03-02",
+                date_created:"2023-03-06",
                 Lookkup_num : i,
                 like : i
             }
@@ -84,66 +84,62 @@ block_print(front_block) : 블럭 출력하기 / 매개변수 : 가장 앞에 �
             }
 
             }
+function block_print(front_block) {
+  /*
+    1. 이전, 다음 블럭 속성 처리
+    2. 기존 블럭 모두 삭제
+    3. 범위 안의 블럭 생성 및 추가
+  */
 
-        // 블럭 출력하기
-        // 매개변수 : 가장 앞에 오는 블럭
-        function block_print(front_block){
-            /*
-            1. 이전, 다음 블럭 속성 처리
-            2. 기존 블럭 모두 삭제
-            3. 범위 안의 블럭 생성 및 추가
-            */
-            current_block = front_block;
+  // 이전으로 갈 블럭이 없으면
+  if (front_block <= 1) {
+    document.querySelector(".before_move").style.visibility = "hidden";
+  } else {
+    document.querySelector(".before_move").style.visibility = "visible";
+  }
 
-            // 이전으로 갈 블럭이 없으면
-            if(front_block <= 1 ){
-                document.querySelector(".before_move").style.visibility = "hidden";
-            }
-            else{
-                document.querySelector(".before_move").style.visibility = "visible";
-            }
+  // 다음으로 갈 블럭이 없으면
+  if (front_block + block_num >= total_block) {
+    document.querySelector(".next_move").style.visibility = "hidden";
+  } else {
+    document.querySelector(".next_move").style.visibility = "visible";
+  }
 
-            // 다음으로 갈 블럭이 없으면
-            if(front_block+block_num >= total_block){
+  // 블럭을 추가할 공간
+  let block_box = document.querySelector(".block");
+  // 기존 블럭 모두 삭제
+  block_box.replaceChildren();
 
-                document.querySelector(".next_move").style.visibility = "hidden";
-            }
-            else{
-                document.querySelector(".next_move").style.visibility = "visible";
-            }
+  // 새로운 블럭 추가
+  for (let i = 1; i <= total_block; i++) {
+    if (i >= front_block && i < front_block + block_num) {
+      let block = document.createElement("span");
+      block.className = "block_num";
+      block.textContent = i;
 
-            // 블럭을 추가할 공간
-            let block_box = document.querySelector(".block");
-            // 기존 블럭 모두 삭제
-            block_box.replaceChildren();
+      if (i === current_block) {
+        block.classList.add("current");
+      }
 
-            console.log("remove");
+      block.addEventListener("click", function () {
+        current_block = i; // i를 사용해서 current_block 값을 저장
+        post_data_print(i);
+        block_print(Math.floor((i - 1) / block_num) * block_num + 1); // 수정된 부분: i를 사용해서 front_block 계산
+      });
 
+      block_box.appendChild(block);
+    }
+  }
+}
 
-            //front_block부터 total_block 또는 block_num까지 생성 및 추가
-            for(let i=front_block;i<=total_block && i< front_block+block_num ;i++){
-                console.log("add element");
-
-                // 버튼을 생성한다.
-                let button = document.createElement("button");
-                button.textContent = i;
-                // 버튼을 클릭하면 게시글이 변경되는 이벤트 추가
-                button.addEventListener("click",function(event){
-                    post_data_print(i)});
-                // 블럭에 추가한다.
-                block_box.appendChild(button);
-
-            }
-
-        }
-
+        // 이전 또는 다음 버튼을 클릭 시 사용자 입력을 처리하는 코드가 없어서 게시판 기능이 제한됨. 문제    그 ... 이전 페이지로 이동을 어케하지
         function before(){
-            block_print(current_block-block_num)
+            block_print(current_block - block_num)
             console.log("이전");
         }
 
         function next(){
-            block_print(current_block+block_num)
+            block_print(current_block + block_num)
             console.log("다음");
 
         }
@@ -156,4 +152,4 @@ block_print(front_block) : 블럭 출력하기 / 매개변수 : 가장 앞에 �
            // 블럭 출력하기
            block_print(1)
         }
-    </script>
+//    </script>

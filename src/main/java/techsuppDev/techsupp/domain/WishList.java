@@ -3,6 +3,10 @@ package techsuppDev.techsupp.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import techsuppDev.techsupp.domain.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -20,4 +24,7 @@ public class WishList {
     @ManyToOne(targetEntity = Product.class, fetch = FetchType.LAZY)
     @JoinColumn( name = "product_id")
     private Product product;
+
+
+
 }

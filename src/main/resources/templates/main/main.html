@@ -10,19 +10,16 @@
 </head>
 <body>
 <!--공통되는 header-->
-<!--<div id="header"></div> javascript 파일에서 밑의 html 파일로 대체했습니다-->
 <div th:insert="/header :: header"></div>
-session 값 : <p th:text="${session.loginUserName}"></p>
+<p th:text="${session.userEmail}"></p>
+<p th:text="${session.userName}"></p>
 <main>
   <!-- Three columns of text below the carousel -->
   <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
-      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-label="Slide 1"
-              aria-current="true"></button>
-      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"
-              class=""></button>
-      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"
-              class="">
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-label="Slide 1" aria-current="true"></button>
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2" class=""></button>
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3" class="">
       </button>
     </div>
     <div class="carousel-inner">
@@ -216,8 +213,7 @@ session 값 : <p th:text="${session.loginUserName}"></p>
       </div>
     </div>
     <hr class="featurette-divider">
-  </div><!-- /.container -->
-
+  </div>
   <!-- FOOTER -->
   <footer class="container">
     <p class="float-end"><a href="#">Back to top</a></p>

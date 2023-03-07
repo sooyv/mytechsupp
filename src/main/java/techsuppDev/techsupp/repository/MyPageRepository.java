@@ -2,6 +2,7 @@ package techsuppDev.techsupp.repository;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import techsuppDev.techsupp.domain.Product;
 import techsuppDev.techsupp.domain.User;
@@ -15,7 +16,9 @@ public interface MyPageRepository extends JpaRepository<WishList, Long> {
     //JPA 선택된 즐겨찾기를 만들 Repository
 
     List<WishList> findAll();
-    List<WishList> findByUserId(Long userId);
+    Optional<WishList> findByUserId(Long userId);
+
+
 
 
 

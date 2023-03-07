@@ -3,6 +3,7 @@ package techsuppDev.techsupp.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 @Data
 @NoArgsConstructor
@@ -21,7 +22,7 @@ public class Payment {
     private String zipCode;
 
     private int paymentPrice;
-    private Date paymentDate;
+    private LocalDateTime paymentDate;
 
     private String paymentMethod;
 }

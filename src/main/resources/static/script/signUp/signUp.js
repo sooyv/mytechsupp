@@ -91,8 +91,6 @@ $("#checkPassword").on("keyup", function(event) {
 });
 
 
-
-
 form.addEventListener("submit", event => {
   event.preventDefault();
 
@@ -116,11 +114,11 @@ $(document).ready(function () {
     const email = $("#email").val();
     const password = $("#password").val();
     const checkPassword = $("#checkPassword").val();
-    const PhoneNumber = $("#userPhone").val();
-    console.log("ajax직전");
+    const userPhone = $("#userPhone").val();
+    console.log("ajax 직전");
     $.ajax({
       type: 'POST',
-      url: "user/signup",
+      url: "/member/signup",
       data: {
         userName: userName,
         email: email,
@@ -134,7 +132,7 @@ $(document).ready(function () {
       error: function (error) {
         $("#signUpBtn").addClass('shake');
             setTimeout(function() {
-                $("#signUpBtn").removeClass('shake'); // 0.5초 후 shake 클래스 제거
+                $("#signUpBtn").removeClass('shake'); // 0.8초 후 shake 클래스 제거
             }, 800);
         console.log(error);
       }

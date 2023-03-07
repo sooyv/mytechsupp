@@ -2,19 +2,23 @@ package techsuppDev.techsupp.controller;
 
 
 import lombok.RequiredArgsConstructor;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import techsuppDev.techsupp.domain.FeedbackImage;
+import techsuppDev.techsupp.controller.form.PaymentForm;
+import techsuppDev.techsupp.domain.Payment;
+import techsuppDev.techsupp.service.PaymentService;
 import techsuppDev.techsupp.service.ProductService;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
-import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Base64;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 @RestController
@@ -23,6 +27,7 @@ import java.util.Base64;
 public class ApiController {
 
     private final ProductService productService;
+    private final PaymentService paymentService;
 
 //    productMain 에서 5개 보여주기
 
@@ -58,6 +63,36 @@ public class ApiController {
         return ResponseEntity.ok().body(productService.findOneProduct(value));
     }
 
+
+    @RequestMapping(value = "/invest/post/*", method = RequestMethod.POST)
+    public ResponseEntity saveInvestLog(
+            @RequestBody JSONObject object) {
+
+        PaymentForm payment = new PaymentForm();
+        Long productId = Long.parseLong(object.get("productId").toString());
+        payment.setProductId(productId);
+        payment.setStreetAddr(object.get("streetAddr").toString());
+        payment.setDetailAddr(object.get("detailAddr").toString());
+        payment.setZipCode(object.get("zipCode").toString());
+        payment.setPaymentPrice(Integer.parseInt(object.get("paymentPrice").toString()));
+
+        String YMD = Timestamp.valueOf(LocalDateTime.now()).toLocalDateTime().toString();
+
+        String[] array = YMD.split("T");
+        String dateTime = array[0] + " " + array[1];
+
+        payment.setPaymentDate(dateTime);
+
+        payment.setPaymentMethod(object.get("paymentMethod").toString());
+
+        paymentService.savePay(payment);
+
+
+
+
+
+        return null;
+    }
 
 
 

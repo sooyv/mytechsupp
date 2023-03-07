@@ -38,8 +38,8 @@ public class NoticeService {
                 // 내사진.jpg => 839798375892_내사진.jpg
                 4. 저장 경로 설정
                 5. 해당 경로에 파일 저장
-                6. notice_table에 해당 데이터 save 처리
-                7. notice_file_table에 해당 데이터 save 처리
+                6. notice에 해당 데이터 save 처리
+                7. notice_file에 해당 데이터 save 처리
              */
 
 //          for(MultipartFile noticeFile: noticeDTO.getNoticeFile()) {
@@ -90,8 +90,6 @@ public class NoticeService {
             return null;
         }
     }
-
-
 
     public NoticeDTO update(NoticeDTO noticeDTO) {
         NoticeEntity noticeEntity = NoticeEntity.toUpdateEntity(noticeDTO);

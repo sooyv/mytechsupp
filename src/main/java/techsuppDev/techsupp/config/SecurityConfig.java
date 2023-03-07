@@ -41,6 +41,7 @@ public class SecurityConfig {
         http.authorizeRequests()
 //                .antMatchers("/user/**").authenticated()            // 스프링 시큐리티에 의해 로그인이 되면 접근가능
                 .antMatchers("/checkPassword").authenticated()
+//                .antMatchers("/mypage").authenticated()
                 .antMatchers("/edituser").authenticated()
 //                .antMatchers("/admin/**").authenticated()
 //                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")

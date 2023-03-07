@@ -11,9 +11,10 @@
         <li class="nav-item"><a th:href="@{/feedbackMain/product?page=0&order=0}" class="nav-link link-dark px-2">후기</a></li>
       </ul>
       <ul class="nav">
-        <li class="nav-item"><a th:href="@{/login}" class="nav-link link-dark px-2">로그인</a></li>
-        <li class="nav-item"><a th:href="@{member/logout}" class="nav-link link-dark px-2">로그아웃</a></li>
-        <li class="nav-item"><a th:href="@{/signup}" class="nav-link link-dark px-2">회원가입</a></li>
+        <li class="nav-item"><a th:href="@{/login}" th:if="${session.userEmail == null}" class="nav-link link-dark px-2">로그인</a></li>
+        <li class="nav-item"><a th:href="@{/member/logout}" th:if="${session.userEmail != null}" class="nav-link link-dark px-2">로그아웃</a></li>
+        <li class="nav-item"><a th:href="@{/signup}" th:if="${session.userEmail == null}" class="nav-link link-dark px-2">회원가입</a></li>
+        <li class="nav-item"><a th:href="@{/mypage}" th:if="${session.userEmail != null}" class="nav-link link-dark px-2">마이페이지</a></li>
       </ul>
     </div>
   </nav>
@@ -33,5 +34,8 @@
     </div>
   </div>
 </div>
+<script>
+
+</script>
 </body>
 </html>

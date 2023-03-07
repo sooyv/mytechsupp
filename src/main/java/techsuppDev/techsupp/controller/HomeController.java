@@ -22,12 +22,14 @@ public class HomeController {
 
         if(userDetails != null) {
             System.out.println("----------------homeController------------------");
-            session.setAttribute("userEmail", userDetails.getUser().getUserEmail());
+            session.setAttribute("userEmail", userDetails.getUser().getUserEmail());    // email 세션에 저장
+            session.setAttribute("userName", userDetails.getUser().getUserName());      // name 세션에 저장
+            session.setAttribute("userPhone", userDetails.getUser().getUserPhone());    // phone 세션에 저장
+            session.setAttribute("userRole", userDetails.getUser().getRole());          // userRole 세션에 저장
 
-            System.out.println("udi 확인" + userDetails.getUsername());
-
-            System.out.println("test : " + userDetails.getUsername());
-            System.out.println("homeController role: " + userDetails.getAuthorities());
+//            System.out.println("userDetails 확인: " + userDetails.getUsername());
+//            System.out.println("test : " + userDetails.getUsername());
+//            System.out.println("homeController role: " + userDetails.getAuthorities());
         }
         return "main/main";
     }

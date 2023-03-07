@@ -152,4 +152,4 @@ function block_print(front_block) {
            // 블럭 출력하기
            block_print(1)
         }
-    </script>
+//    </script>

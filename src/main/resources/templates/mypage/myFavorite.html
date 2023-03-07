@@ -13,7 +13,7 @@
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
 <body>
-<div id="header"></div>
+<div th:insert="/header :: header"></div>
 <div id="entire_box">
     <div id = "sidebar_box">
         <div id="mypage_btn">마이페이지</div>
@@ -62,7 +62,7 @@
 
 </div>
 
-<script src="/script/header.js"></script>
-<script src="/script/myFavorite.js"></script>
+<div th:insert="/header :: header"></div>
+<script src="/script/mypage/myFavorite.js"></script>
 </body>
 </html>

@@ -13,7 +13,7 @@
 
 </head>
 <body>
-<div id="header"></div>
+<div th:insert="/header :: header"></div>
 <div id="entire_box">
     <div id = "sidebar_box">
         <div id="mypage_btn">마이페이지</div>
@@ -43,13 +43,13 @@
 </div>
 
 
-<script src="/script/header.js"></script>
+<div th:insert="/header :: header"></div>
 <script>
   $(document).ready(function() {
     getProducts(1);
   });
 </script>
-<script src="/script/myInvest.js"></script>
+<script src="/script/mypage/myInvest.js"></script>
 
 </body>
 </html>

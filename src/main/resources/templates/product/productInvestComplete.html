@@ -42,14 +42,18 @@
   <!-- 다른 페이지 이동 버튼 -->
   <div class="ContainerGotoOtherPage">
     
-    <input type="button" value="메인 페이지로 이동">
+    <input type="button" onclick="location.href=`/`" value="메인 페이지로 이동">
   
-    <input type="button" value="상품 목록으로 이동">
+    <input type="button" onclick="location.href=`/productMain/product?page=0&order=0`" value="상품 목록으로 이동">
 
-    <input type="button" value="마이페이지로 이동">
+    <input type="button" onclick="location.href=`/mypage`" value="마이페이지로 이동">
   </div>
-  <!-- 스크립트 -->
-  <script type="text/javascript" src="/script/product/productScript.js?ver=1"></script>
+  <!-- url data -->
+  <script type="text/javascript" src="/script/product/productMain.js?ver=1"></script>
+  <!-- header 생성 스크립트 -->
+  <script type="text/javascript" src="/script/fragment/createProductHeader.js?ver=1"></script>
+  <!-- createContainerProduct 생성 스크립트 -->
+  <script type="text/javascript" src="/script/invest/createInvestProduct.js?ver=1"></script>  
 
   <footer>
     footer

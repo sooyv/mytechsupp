@@ -84,7 +84,7 @@ public class NoticeController {
     }
 
     @PostMapping("/question")
-    public String save(@ModelAttribute QuestionDTO questionDTO) {
+    public String save(@ModelAttribute QuestionDTO questionDTO) throws IOException {
 
         questionService.save(questionDTO);
         return "service/service-main";
@@ -94,15 +94,34 @@ public class NoticeController {
     public String findQuestionAll(Model model) {
         List<QuestionDTO> questionDTOList = questionService.findAll();
         model.addAttribute("questionList", questionDTOList);
-        return "question-list";
+        return "service/question-list";
     }
 
-//    @GetMapping("/{questionId}")
-//    public String findByQuestionId(@PathVariable Long questionId, Model model) {
-//
-//    }
-//
-//
+    @GetMapping("/question-list/{questionId}")
+    public String questionfindById(@PathVariable Long questionId, Model model) {
+
+        QuestionDTO questionDTO = questionService.findById(questionId);
+        System.out.println(questionDTO.getQuestionTitle());
+
+        model.addAttribute("question", questionDTO);
+        return "service/question-detail";
+
+    }
+
+    @GetMapping("/question-update/{questionId}")
+    public String questionUpdateForm(@PathVariable Long questionId, Model model) {
+        QuestionDTO questionDTO = questionService.findById(questionId);
+        model.addAttribute("questionUpdate", questionDTO);
+        return "service/question-update";
+    }
+
+    @PostMapping("/question-update")
+    public String questionupdate(@ModelAttribute QuestionDTO questionDTO, Model model) {
+        QuestionDTO question = questionService.update(questionDTO);
+        model.addAttribute("question", question);
+        return "/service/question-detail";
+    }
+
 
 
 

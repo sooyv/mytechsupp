@@ -19,13 +19,13 @@ public class UserService {
 
     @Transactional
     public Long join(User user) {
-        String userName = user.getUserName();
-        String userEmail = user.getUserEmail();
+//        String userName = user.getUserName();
+//        String userEmail = user.getUserEmail();
         // 사용자 비밀번호 암호화.
-        String userPassword = passwordEncoder.encode(user.getUserPassword());
+        user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
 //        String userPassword = user.getUserPassword();
-        String userPhone = user.getUserPhone();
-        user = user.createUser(userName, userEmail, userPassword, userPhone);
+//        String userPhone = user.getUserPhone();
+//        user = user.createUser(userName, userEmail, userPassword, userPhone);
         validateDuplicateUser(user);        // 회원 중복 검증
         userRepository.save(user);
         return user.getUserId();

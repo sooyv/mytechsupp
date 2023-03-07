@@ -194,6 +194,8 @@ public Object ProductCount(int pagingNumber, String keyword) {
         Query nativeQuery = em.createNativeQuery(resultSql);
         Object rowNum = nativeQuery.getSingleResult();
         return rowNum;
+
+
     }
 
 

@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +25,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.security.SecureRandom;
 
+import static techsuppDev.techsupp.domain.Role.ROLE_ADMIN;
+
 
 //@Controller
 @Slf4j
@@ -35,6 +39,7 @@ public class UserController {
     // 로그인 창
     @GetMapping("/login")
     public ModelAndView login() {
+
         ModelAndView mav = new ModelAndView("/login/login");
         mav.addObject("userForm",new UserForm());
         return mav;
@@ -60,12 +65,17 @@ public class UserController {
     }
 
     // 회원가입
-    @PostMapping("/user/signup")
+    @PostMapping("/member/signup")
     public ResponseEntity<String> signUpUser(@RequestParam("userName") String userName, @RequestParam("email") String email,
-                                             @RequestParam("password") String password, @RequestParam("userPhone") String userPhone) {
+                                             @RequestParam("password") String password, @RequestParam("checkPassword") String checkPassword,
+                                             @RequestParam("userPhone") String userPhone) {
+       if (!password.equals(checkPassword)) {
+           return new ResponseEntity<>("Password and Confirm Password do not match", HttpStatus.BAD_REQUEST);
+       }
         System.out.println(userName);
         System.out.println(email);
         System.out.println(password);
+        System.out.println(checkPassword);
         System.out.println(userPhone);
 
         User user = new User();
@@ -73,6 +83,8 @@ public class UserController {
         user.setUserEmail(email);
         user.setUserPassword(password);
         user.setUserPhone(userPhone);
+        user.setRole("ROLE_USER");          // 무조건 role컬럼엔 ROLE_USER으로
+        log.info(userName);
 
         userService.join(user);
 
@@ -82,42 +94,68 @@ public class UserController {
     }
 
     // 로그인
-    @PostMapping("/user/login")                                         // HttpServletRequest
-    public ModelAndView login(@Valid @ModelAttribute UserForm userForm, HttpSession session) {
-//    public ModelAndView login(@RequestParam String email, @RequestParam String password, HttpSession session) {
+//    @PostMapping("/user/login")                                         // HttpServletRequest
+//    public ModelAndView login(@Valid @ModelAttribute UserForm userForm, HttpSession session) {
+////    public ModelAndView login(@RequestParam String email, @RequestParam String password, HttpSession session) {
+//
+//        String formEmail = userForm.getEmail();
+//        String formPassword = userForm.getPassword();
+//
+//        User user = userService.login(formEmail, formPassword);
+//
+//        if (user != null && user.getUserEmail().equals(formEmail)) {
+//            session.setAttribute("loginUserName", user.getUserName());
+//
+////            HttpSession session = request.getSession(true);
+////            log.info(session.getId());
+//
+//            System.out.println(user.getUserName() + " 로그인 완료");
+//
+//        } else {
+////            return new ResponseEntity<>("Login faild", HttpStatus.BAD_REQUEST)
+//            System.out.println("존재하지 않는 회원정보");
+//            ModelAndView mav = new ModelAndView("redirect:/login");
+//            return mav;
+//        }
+//
+//        ModelAndView mav = new ModelAndView("redirect:/");
+//        return mav;
+//    }
 
-        String formEmail = userForm.getEmail();
-        String formPassword = userForm.getPassword();
+    // 세션
+//    @GetMapping("/member/login")
+//    public ModelAndView sessionTest(HttpServletRequest request) {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        HttpSession session = request.getSession();
+//        session.setAttribute("user", authentication.getName());
+//        String userEmail = (String) session.getAttribute("user");
+//        System.out.println("Current user: " + userEmail);
+//
+//        ModelAndView mav = new ModelAndView("/");
+//        mav.addObject("userEmail", userEmail);
+//        return mav;
+//    }
 
-        User user = userService.login(formEmail, formPassword);
-
-        if (user != null && user.getUserEmail().equals(formEmail)) {
-            session.setAttribute("loginUserName", user.getUserName());
-
-//            HttpSession session = request.getSession(true);
-//            log.info(session.getId());
-
-            System.out.println(user.getUserName() + " 로그인 완료");
-
-        } else {
-//            return new ResponseEntity<>("Login faild", HttpStatus.BAD_REQUEST)
-            System.out.println("존재하지 않는 회원정보");
-            ModelAndView mav = new ModelAndView("redirect:/login");
-            return mav;
-        }
-
-        ModelAndView mav = new ModelAndView("redirect:/");
-        return mav;
-    }
+//    @PostMapping("/member/login")
+//    public ResponseEntity<String> logintoken() {
+//
+//        return ResponseEntity.ok().body("token");
+//    }
 
     // 로그아웃
-    @PostMapping("/user/logout")
+    @PostMapping("/member/logout")
     public String logout(HttpSession session) {
         session.invalidate();           // 세션 null 여부 검사
         return "/";
     }
 
 
+    // Access Denied Page
+    @GetMapping("access/denied")
+    public ModelAndView denied() {
+        ModelAndView mav = new ModelAndView("/accessdenied/denied");
+        return mav;
+    }
 
 
 

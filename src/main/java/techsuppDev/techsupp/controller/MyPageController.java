@@ -47,13 +47,13 @@ public class MyPageController {
 //       User user = (User) session.getAttribute("user"); // 기존 로그인 db 확인
 
         String email = "tjansqja@naver.com"; //데이터베이스 JPA를 통해서 조회
-//        myPageService.checkPassword(email);
+        myPageService.checkPassword(email);
 
-//        if (passwordEncoder.matches(checkPassword, myPageService.checkPassword(email))) {
-//            result = true;
-//        } else {
-//            result = false;
-//        }//현재 비밀번호
+        if (passwordEncoder.matches(checkPassword, myPageService.checkPassword(email))) {
+            result = true;
+        } else {
+            result = false;
+        }//현재 비밀번호
 
         return result;
     }
@@ -65,8 +65,8 @@ public class MyPageController {
 
 //        String myEmail = (String) session.getAttribute("userEmail");
         String myEmail = "tjansqja@naver.com";
-//        User user = myPageService.getUserEmail(myEmail);
-//        model.addAttribute("userinfo", user);
+        User user = myPageService.getUserEmail(myEmail);
+        model.addAttribute("userinfo", user);
 
 
 // model.addAttribute("userInfo.userEmail", user)
@@ -114,11 +114,18 @@ public class MyPageController {
     @GetMapping("/myfavorite")
     public ModelAndView favorite(@RequestParam Long userId) {
         ModelAndView mav = new ModelAndView("mypage/myFavorite");
-        Optional<WishList> product = myPageService.findByUserWishList(userId); // userId' 매개 변수를 제공하려면 'userId' 값을 쿼리 매개 변수로 추가하여 요청의 URL을 수정할 수 있습니다.
-        mav.addObject("product", product.orElse(null));     // userId에 입의값 넣으면 조회함 'userId' 값이 123이면 다음과 같이 URL을 수정할 수 있습니다:
-        System.out.println("test1213"+ mav); //http://localhost:8080/myfavorite?userId=123 이런식으로
+        Optional<WishList> product = myPageService.findByUserWishList(userId);
+        mav.addObject("product", product.orElse(null));
+        System.out.println("test1213"+ mav);
         return mav;
     }
+//@GetMapping("/myfavorite")
+//@ResponseBody
+//public WishList getFavorite(@RequestParam Long userId) {
+//    Optional<WishList> product = myPageService.findByUserWishList(userId);
+//    return product.orElse(null);
+//}
+
 
     // 투자정보 페이지
 

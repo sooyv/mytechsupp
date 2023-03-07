@@ -26,9 +26,9 @@ xhr.onreadystatechange = function() {
       }
     } else {
       // 요청이 실패했을 때 처리
-      console.error('AJAX 요청이 실패했습니다.');ㄹ
+      console.error('AJAX 요청이 실패했습니다.');
     }
   }
 };
-xhr.open('GET', `/myfavorite?userId=${userId}`);
+xhr.open('GET', `/myfavorite?userId=${123}`);
 xhr.send();

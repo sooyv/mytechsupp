@@ -15,6 +15,8 @@ import techsuppDev.techsupp.domain.User;
 import techsuppDev.techsupp.domain.WishList;
 import techsuppDev.techsupp.service.MyPageService;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
@@ -44,12 +46,12 @@ public class MyPageController {
 
         //기존 디비user 조회
 
-//       User user = (User) session.getAttribute("user"); // 기존 로그인 db 확인
+       User user = (User) session.getAttribute("user"); // 기존 로그인 db 확인
 
-        String email = "tjansqja@naver.com"; //데이터베이스 JPA를 통해서 조회
-        myPageService.checkPassword(email);
+//        String email = "tjansqja@naver.com"; //데이터베이스 JPA를 통해서 조회
+        myPageService.checkPassword(user.getUserEmail());
 
-        if (passwordEncoder.matches(checkPassword, myPageService.checkPassword(email))) {
+        if (passwordEncoder.matches(checkPassword, myPageService.checkPassword(user.getUserEmail()))) {
             result = true;
         } else {
             result = false;
@@ -63,8 +65,8 @@ public class MyPageController {
     @GetMapping("/edituser") // modelandview 모델을 뷰에 던져준다는 개념임.
     public String editUser(HttpSession session, Model model) {
 
-//        String myEmail = (String) session.getAttribute("userEmail");
-        String myEmail = "tjansqja@naver.com";
+        String myEmail = (String) session.getAttribute("userEmail");
+//        String myEmail = "tjansqja@naver.com";
         User user = myPageService.getUserEmail(myEmail);
         model.addAttribute("userinfo", user);
 
@@ -110,15 +112,28 @@ public class MyPageController {
 
     // 즐겨찾기 홈페이지
 
-
-    @GetMapping("/myfavorite")
-    public ModelAndView favorite(@RequestParam Long userId) {
-        ModelAndView mav = new ModelAndView("mypage/myFavorite");
-        Optional<WishList> product = myPageService.findByUserWishList(userId);
-        mav.addObject("product", product.orElse(null));
-        System.out.println("test1213"+ mav);
-        return mav;
-    }
+//
+//    @GetMapping("/myfavorite")
+//    public ModelAndView favorite(HttpSession session) {
+//        ModelAndView mav = new ModelAndView("mypage/myFavorite");
+//        String email = (String) session.getAttribute("userEmail");
+//
+//        Optional<WishList> product = myPageService.findByUserWishList(email);
+//        mav.addObject("product", product.orElse(null));
+//        System.out.println(product.get());
+//        System.out.println("test1213"+ mav);
+//        return mav;
+//    }
+//
+//    model(HttpServletRequest erdsas ) {
+//        HttpSession session = erdsas.getSession();
+//        // 여기서 이제 겟 어트리뷰트해서 아이디 값 해서 가져올 수 있다. key value
+//        // string userId = session getattribute(key).tostring()
+//        // userid에 email 값이 들어감.
+//
+//    }
+//
+    //
 //@GetMapping("/myfavorite")
 //@ResponseBody
 //public WishList getFavorite(@RequestParam Long userId) {

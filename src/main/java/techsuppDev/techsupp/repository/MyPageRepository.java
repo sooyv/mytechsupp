@@ -18,10 +18,11 @@ public interface MyPageRepository extends JpaRepository<WishList, Long> {
 
     List<WishList> findAll();
 //
-//    @Query("SELECT w FROM WishList w WHERE w.user.id = :userId")
+//    @Query("SELECT w FROM wish_list w WHERE w.user_id =: userId")
 //    Optional<WishList> findByUserId(@Param("userId") Long userId);
 
-        @Query("SELECT w FROM WishList w WHERE w.userId = ?1")
-        Optional<WishList> findByUserId(Long userId);
-    }
-
+//        @Query("SELECT w FROM wish_list w WHERE w.user_id = ?1")
+//    @Query("SELECT w FROM WishList w WHERE w.userEmail = :userEmail")
+//    Optional<WishList> findByUserEmail(@Param("userEmail") String userEmail);
+//    }
+}

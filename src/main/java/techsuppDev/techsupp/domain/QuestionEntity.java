@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@Table(name = "question_table")
+@Table(name = "question")
 public class QuestionEntity {
 
     @Id
@@ -20,15 +20,17 @@ public class QuestionEntity {
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
 //    private Long userId;
+    @Column(length = 20, nullable = false)
+    private String questionWriter;
+
+    @Column
+    private String questionCategory;
 
     @Column
     private String questionTitle;
 
     @Column(length = 500)
-    private String questionDetail;
-
-    @Column
-    private String questionCategory;
+    private String questionContents;
 
 //    @Column
 //    private QuestionStatus questionStatus;
@@ -38,8 +40,9 @@ public class QuestionEntity {
 
     public static QuestionEntity toSaveEntity(QuestionDTO questionDTO){
         QuestionEntity questionEntity = new QuestionEntity();
+        questionEntity.setQuestionWriter(questionDTO.getQuestionWriter());
         questionEntity.setQuestionTitle(questionDTO.getQuestionTitle());
-        questionEntity.setQuestionDetail(questionDTO.getQuestionDetail());
+        questionEntity.setQuestionContents(questionDTO.getQuestionContents());
         questionEntity.setQuestionCategory(questionDTO.getQuestionCategory());
         questionEntity.setQuestionAnswer(questionDTO.getQuestionAnswer());
 

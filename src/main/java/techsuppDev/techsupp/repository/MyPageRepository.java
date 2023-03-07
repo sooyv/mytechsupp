@@ -16,7 +16,6 @@ public interface MyPageRepository extends JpaRepository<WishList, Long> {
     //JPA 선택된 즐겨찾기를 만들 Repository
 
     List<WishList> findAll();
-
     Optional<WishList> findByUserId(Long userId);
 
 

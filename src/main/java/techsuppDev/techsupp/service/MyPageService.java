@@ -51,7 +51,9 @@ public class MyPageService {
     public Optional<WishList> findByUserId(Long userId) {
           return myPageRepository.findByUserId(userId);
 
-
     }
+
+    // 현재 진행중인 투자 목록
+
 
 }

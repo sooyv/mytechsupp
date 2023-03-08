@@ -65,20 +65,21 @@ public class UserController {
             return mav;
     }
 
-            public ResponseEntity getUserSessions(HttpServletRequest req) {
-            HttpSession loginSession = req.getSession();
-            String userEmail = loginSession.getAttribute("userEmail").toString();
-            String userName = (String) loginSession.getAttribute("userName");
-            String userPhone = (String) loginSession.getAttribute("userPhone");
-            String userRole = (String) loginSession.getAttribute("userRole");
-
-                System.out.println(userEmail);
-                System.out.println(userName);
-                System.out.println(userRole);
-                System.out.println(userPhone);
-
-            return ResponseEntity.ok().body(userService.getUserByEmail(userEmail));
-        }
+//    // 세션을 받아오기 확인
+//            public ResponseEntity getUserSessions(HttpServletRequest req) {
+//            HttpSession loginSession = req.getSession();
+//            String userEmail = loginSession.getAttribute("userEmail").toString();
+//            String userName = (String) loginSession.getAttribute("userName");
+//            String userPhone = (String) loginSession.getAttribute("userPhone");
+//            String userRole = (String) loginSession.getAttribute("userRole");
+//
+//                System.out.println(userEmail);
+//                System.out.println(userName);
+//                System.out.println(userRole);
+//                System.out.println(userPhone);
+//
+//            return ResponseEntity.ok().body(userService.getUserByEmail(userEmail));
+//        }
 
     // 로그인 창
     @GetMapping("/login")

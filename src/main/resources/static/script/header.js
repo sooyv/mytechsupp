@@ -1,7 +1,7 @@
 alert("header.js")
 
-  $('#logout-btn').click(function(event) {
-    event.preventDefault(); // 기본 이벤트 제거
+  $("#logout-btn").click(function(event) {
+//    event.preventDefault(); // 기본 이벤트 제거
     $.ajax({
       url: '/member/logout', // 로그아웃 URL
       type: 'POST',

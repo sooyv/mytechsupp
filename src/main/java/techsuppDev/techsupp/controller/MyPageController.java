@@ -3,6 +3,7 @@ package techsuppDev.techsupp.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import techsuppDev.techsupp.DTO.NoticeDTO;
 import techsuppDev.techsupp.controller.form.MyPageForm;
 import techsuppDev.techsupp.domain.Product;
 import techsuppDev.techsupp.domain.User;
@@ -115,51 +117,16 @@ public class MyPageController {
 
     // 즐겨찾기 홈페이지
 
-
     @GetMapping("/myfavorite")
-    public ModelAndView favorite(HttpSession session) {
-        ModelAndView mav = new ModelAndView("mypage/myFavorite");
-        Long userId = (Long) session.getAttribute("userId");
-        List<Long> productIdList = new ArrayList<>();
-        List<Product> productList = new ArrayList<>();
+    public String favorite(HttpSession session, Model model) {
+//        String userEmail = (String) session.getAttribute("userEmail"); //왜 세션값이 안받아지냐..... 계속
+        long userId = 3;
+        System.out.println("testtqerwq"+userId); //  테스트 결과 db값을 인젝션하면 조회 가능
 
-        // productIdList에 userId로 찜한 상품 ID 목록을 가져오는 로직
-        if (userId != null) {
-            List<WishList> wishList = myPageService.findByUserId(userId);
-            for (WishList wish : wishList) {
-                productIdList.add(wish.getProduct().getId());
-            }
-        }
-
-        // productIdList에 해당하는 Product 목록을 가져오는 로직
-        for (Long productId : productIdList) {
-            Product product = (Product) productRepository.findOneProduct(productId);
-            productList.add(product);
-        }
-
-        mav.addObject("product", productList);
-        System.out.println("product: " + productList);
-        return mav;
+        List<WishList> wishList = myPageService.findByUserId(userId);
+        model.addAttribute("wishList", wishList);
+        return "mypage/myFavorite";
     }
- //
-
-//    model(HttpServletRequest erdsas ) {
-//        HttpSession session = erdsas.getSession();
-//        // 여기서 이제 겟 어트리뷰트해서 아이디 값 해서 가져올 수 있다. key value
-//        // string userId = session getattribute(key).tostring()
-//        // userid에 email 값이 들어감.
-//
-//    }
-//
-    //
-//@GetMapping("/myfavorite")
-//@ResponseBody
-//public WishList getFavorite(@RequestParam Long userId) {
-//    Optional<WishList> product = myPageService.findByUserWishList(userId);
-//    return product.orElse(null);
-//}
-
-
     // 투자정보 페이지
 
     @GetMapping("/myinvest")

@@ -33,36 +33,29 @@
                 <li class="w100">투자총액</li>
                 <li class="w100">제품상태</li>
             </ul>
-            <ul class="board_row" th:each="p : ${product}">
-                <li class="w70" th:text="${p.id}"></li>
-                <li class="w500" th:text="${p.productName}"></li>
-                <li class="w120" th:text="${p.investPrice}"></li>
-                <li class="w100" th:text="${p.totalPrice}"></li>
-                <li class="w100" th:text="${p.productStatus}"></li>
+            <ul class="board_row" th:each="w : ${wishList}">
+                <li class="w70" th:text="${w.product.id}"></li>
+                <li class="w500" th:text="${w.product.productName}"></li>
+                <li class="w120" th:text="${w.product.investPrice}"></li>
+                <li class="w100" th:text="${w.product.totalPrice}"></li>
+                <li class="w100" th:text="${w.product.productStatus}"></li>
             </ul>
-
-            <div th:if="${product == null}">
+            <div th:if="${wishList == null}">
                 <p>즐겨찾기한 제품이 없습니다.</p>
             </div>
-<!--            <tr th:each="product : ${wishList}" th:object="${product}">-->
-<!--                <td th:text="*{프로퍼티1}">default value</td>-->
-<!--                <td th:text="*{아이템로퍼티2}">default value</td>-->
-<!--            </tr>-->
 
-
-
-            <!-- 게시글 추가로 들어오는 위치 -->
+            <!-- 제품 목록을 보여줄 div 요소 -->
+            <div id="productList"></div>
         </div>
         <!-- 페이지 블럭 -->
         <div class="pagination">
-            <button class="before_move" onclick="moveToBlock(currentBlock - 1)">이전</button>
+            <button class="before_move" onclick="prevBlock()">이전</button>
             <div class="block">
                 <!-- 블럭 추가로 들어오는 위치 -->
             </div>
-            <button class="next_move" onclick="moveToBlock(currentBlock + 1)">다음</button>
+            <button class="next_move" onclick="nextBlock()">다음</button>
         </div>
-</div>
-
+    </div>
 </div>
 
 <script src="/script/mypage/myFavorite.js"></script>

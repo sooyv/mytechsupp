@@ -48,9 +48,15 @@ public class MyPageService {
     }
 
     //// 로그인한 회원의 즐겨찾기 목록
-    public List<WishList> findByUserId(Long userId) {
-          return myPageRepository.findByUserId(userId);
 
+    public List<WishList> findByUserId(Long userId) {
+        List<WishList> wishList = myPageRepository.findByUserId(userId);
+        return wishList;
+    }
+
+    public List<Product> findByProductId(Long productId) {
+        List<Product> productList = myPageRepository.findByProductId(productId);
+        return productList;
     }
 
     // 현재 진행중인 투자 목록

@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<!--  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
+</head>
 <body>
 <div th:fragment="header">
   <nav class="py-2 bg-light border-bottom">
@@ -12,7 +17,7 @@
       </ul>
       <ul class="nav">
         <li class="nav-item"><a th:href="@{/login}" th:if="${session.userEmail == null}" class="nav-link link-dark px-2">로그인</a></li>
-        <li class="nav-item"><a th:href="@{/member/logout}" th:if="${session.userEmail != null}" class="nav-link link-dark px-2">로그아웃</a></li>
+        <li class="nav-item"><a th:href="@{/member/logout}" th:if="${session.userEmail != null}" class="nav-link link-dark px-2" id="logout-btn">로그아웃</a></li>
         <li class="nav-item"><a th:href="@{/signup}" th:if="${session.userEmail == null}" class="nav-link link-dark px-2">회원가입</a></li>
         <li class="nav-item"><a th:href="@{user/mypage}" th:if="${session.userEmail != null}" class="nav-link link-dark px-2">마이페이지</a></li>
       </ul>
@@ -34,5 +39,6 @@
     </div>
   </div>
 </div>
+<script th:src="@{/script/header.js}"></script>
 </body>
 </html>

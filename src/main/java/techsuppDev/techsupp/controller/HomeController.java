@@ -15,6 +15,7 @@ import techsuppDev.techsupp.config.UserDetailsimpl;
 import techsuppDev.techsupp.controller.form.UserForm;
 import techsuppDev.techsupp.domain.User;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -22,6 +23,10 @@ public class HomeController {
 
     @GetMapping("/")
     public String main() {
+//        if (request.getAttribute("userName") == null) {
+//            System.out.println("dkkdkdkd" + request.getAttribute("userEmail"));
+//            return "login/login";
+//        }
         return "/main/main";
     }
 }

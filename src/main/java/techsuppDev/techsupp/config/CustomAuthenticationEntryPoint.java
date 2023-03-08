@@ -1,6 +1,7 @@
 package techsuppDev.techsupp.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -16,7 +17,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession();
         System.out.println("session입ㄴ다: " + session);
 
         if (session != null) {          // 세션이 있는 경우

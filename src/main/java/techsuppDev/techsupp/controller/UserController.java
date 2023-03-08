@@ -28,8 +28,6 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.security.SecureRandom;
 
-import static techsuppDev.techsupp.domain.Role.ROLE_ADMIN;
-
 //@Controller
 @Slf4j
 @RequiredArgsConstructor
@@ -43,22 +41,44 @@ public class UserController {
 
         if(userDetails != null) {
             User user = userDetails.getUser();
-            System.out.println("----------------homeController------------------");
+//            System.out.println("----------------homeController------------------");
             session.setAttribute("userEmail", user.getUserEmail());    // email 세션에 저장
             session.setAttribute("userName", user.getUserName());      // name 세션에 저장
             session.setAttribute("userPhone", user.getUserPhone());    // phone 세션에 저장
             session.setAttribute("userRole", user.getRole());          // userRole 세션에 저장
 //            session.setAttribute("user", user);
 
-//            User sessionUser = (User) session.getAttribute("user");          // 세션을 가져올 때 로직
-//            System.out.println("세션에서 가져온 userName: " + sessionUser.getUserName());
-//            System.out.println("세션에서 가져온 userEmail: " + sessionUser.getUserEmail());
+              // 세션을 가져올 때 로직 HttpServletRequest request
+//            HttpSession loginSession = request.getSession();
+//            String userEmail = loginSession.getAttribute("userEmail").toString();
+//            String userName = (String) loginSession.getAttribute("userName");
+//            String userPhone = (String) loginSession.getAttribute("userPhone");
+//            String userRole = (String) loginSession.getAttribute("userRole");
+//
+//            System.out.println("----------------user 정보 print----------------");
+//            System.out.println("이메일: " + userEmail);
+//            System.out.println("이름:" + userName);
+//            System.out.println("권한:" + userRole);
+//            System.out.println("핸드폰: " + userPhone);
         }
-
             ModelAndView mav = new ModelAndView("redirect:/");
             return mav;
-
     }
+
+            public ResponseEntity getUserSessions(HttpServletRequest req) {
+            HttpSession loginSession = req.getSession();
+            String userEmail = loginSession.getAttribute("userEmail").toString();
+            String userName = (String) loginSession.getAttribute("userName");
+            String userPhone = (String) loginSession.getAttribute("userPhone");
+            String userRole = (String) loginSession.getAttribute("userRole");
+
+                System.out.println(userEmail);
+                System.out.println(userName);
+                System.out.println(userRole);
+                System.out.println(userPhone);
+
+            return ResponseEntity.ok().body(userService.getUserByEmail(userEmail));
+        }
 
     // 로그인 창
     @GetMapping("/login")

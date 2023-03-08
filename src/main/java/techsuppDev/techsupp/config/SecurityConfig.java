@@ -24,9 +24,6 @@ import javax.servlet.http.HttpSession;
 public class SecurityConfig {
 
     @Autowired
-    private UserDetailsimplService userDetailsimplService;
-
-    @Autowired
     private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 
     @Bean
@@ -60,16 +57,16 @@ public class SecurityConfig {
                 .and()
             .logout()
                 .logoutUrl("/member/logout")
-                .logoutSuccessUrl("/")
-                .and()
-            .exceptionHandling()
-                .authenticationEntryPoint(customAuthenticationEntryPoint);
+                .logoutSuccessUrl("/");
+//                .and()
+//            .exceptionHandling()
+//                .authenticationEntryPoint(customAuthenticationEntryPoint);
 
         // 세션
         http.sessionManagement()
-//                .invalidSessionUrl("?")
+                .sessionFixation().migrateSession()
                 .maximumSessions(1) // 최대 세션 수
-                .maxSessionsPreventsLogin(true)
+//                .maxSessionsPreventsLogin(true)
                 .expiredUrl("/");
 
         return http.build();

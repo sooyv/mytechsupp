@@ -103,7 +103,8 @@ public class ApiController {
     @RequestMapping(value = "/invest/post/*", method = RequestMethod.POST)
     public ResponseEntity saveInvestLog(
             @RequestBody JSONObject object) {
-
+        System.out.println("==========");
+        System.out.println(object);
         PaymentForm payment = new PaymentForm();
         Long productId = Long.parseLong(object.get("productId").toString());
         payment.setProductId(productId);

@@ -23,7 +23,7 @@ public interface MyPageRepository extends JpaRepository<WishList, Long> {
 
 //        @Query("SELECT w FROM wish_list w WHERE w.user_id = ?1")
     @Query("SELECT w FROM WishList w WHERE w.userId = :userId")
-    Optional<WishList> findByUserId(@Param("userId") Long userId);
+    List<WishList> findByUserId(@Param("userId") Long userId);
     }
 
 

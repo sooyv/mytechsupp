@@ -1,34 +1,66 @@
-// 세션값에서 사용자 ID 가져오기
 const userId = sessionStorage.getItem('userId');
 
-// AJAX 요청 보내기
-const xhr = new XMLHttpRequest();
-xhr.onreadystatechange = function() {
-  if (xhr.readyState === XMLHttpRequest.DONE) {
-    if (xhr.status === 200) {
-      // 요청이 성공했을 때 결과 처리
-      const product = JSON.parse(xhr.responseText);
-      if (product) {
-        // 프로덕트가 존재하는 경우
-        const productRow = `
-          <ul class="board_row">
-            <li class="w70">${product.id}</li>
-            <li class="w500">${product.productName}</li>
-            <li class="w120">${product.investPrice}</li>
-            <li class="w100">${product.totalPrice}</li>
-            <li class="w100">${product.productStatus}</li>
-          </ul>
-        `;
-        document.querySelector('.product_list').innerHTML = productRow;
-      } else {
-        // 프로덕트가 존재하지 않는 경우
-        document.querySelector('.no_product').style.display = 'block';
-      }
-    } else {
-      // 요청이 실패했을 때 처리
-      console.error('AJAX 요청이 실패했습니다.');
-    }
+let currentBlock = 1; // 현재 보여지는 페이지 블록 (기본값 1)
+const blockPerPage = 5; // 한 화면에 보여질 페이지 블록의 개수
+const productPerPage = 10; // 한 페이지에 보여질 제품의 개수
+const totalPage = Math.ceil(product.length / productPerPage); // 전체 페이지 수
+const totalBlock = Math.ceil(totalPage / blockPerPage); // 전체 페이지 블록 수
+
+// 다음 페이지 블록 보여주는 함수
+function nextBlock() {
+  currentBlock++; // 현재 페이지 블록을 1 증가시킴
+
+  if (currentBlock > totalBlock) {
+    currentBlock = totalBlock;
   }
-};
-xhr.open('GET', `/myfavorite?userId=${userId}`);
-xhr.send();
+
+  renderProducts(); // 제품 목록을 다시 렌더링함
+}
+
+// 이전 페이지 블록 보여주는 함수
+function prevBlock() {
+  currentBlock--; // 현재 페이지 블록을 1 감소시킴
+
+  if (currentBlock < 1) {
+    currentBlock = 1;
+  }
+
+  renderProducts(); // 제품 목록을 다시 렌더링함
+}
+
+// 제품 목록 렌더링 함수 (현재 보여질 페이지 블록에 해당하는 제품들만 보여짐)
+function renderProducts() {
+  const start = (currentBlock - 1) * blockPerPage * productPerPage; // 시작 인덱스
+  const end = start + productPerPage * blockPerPage; // 끝 인덱스
+
+  // 제품 목록을 보여줄 div 요소를 찾음 여기 수정해야함
+  const productList = document.getElementById('productList');
+
+  // 이전에 있던 제품 목록을 모두 지움
+
+
+  // 현재 페이지 블록에 해당하는 제품들을 보여줌
+  for (let i = start; i < end && i < product.length; i++) {
+    const item = product[i];
+
+    // 제품 정보를 보여줄 요소들을 생성함
+    const productItem = document.createElement('div');
+    const productImg = document.createElement('img');
+    const productName = document.createElement('h3');
+    const productPrice = document.createElement('span');
+
+    // 제품 정보를 요소들에 적용함
+    productImg.src = item.imgUrl;
+    productName.textContent = item.name;
+    productPrice.textContent = item.price;
+
+    // 제품 정보 요소들을 제품 목록 요소에 추가함
+    productItem.appendChild(productImg);
+    productItem.appendChild(productName);
+    productItem.appendChild(productPrice);
+    productList.appendChild(productItem);
+  }
+}
+
+// 페이지 로드 시 제품 목록을 렌더링함
+//renderProducts();

@@ -11,11 +11,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import techsuppDev.techsupp.controller.form.MyPageForm;
+import techsuppDev.techsupp.domain.Product;
 import techsuppDev.techsupp.domain.User;
 import techsuppDev.techsupp.domain.WishList;
+import techsuppDev.techsupp.repository.ProductRepository;
 import techsuppDev.techsupp.service.MyPageService;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -28,6 +32,7 @@ public class MyPageController {
 
 
     private final PasswordEncoder passwordEncoder;
+    private ProductRepository productRepository;
 
     //  회원수정하기 전 비밀번호 확인
     @GetMapping("/checkPassword")
@@ -114,25 +119,29 @@ public class MyPageController {
     @GetMapping("/myfavorite")
     public ModelAndView favorite(HttpSession session) {
         ModelAndView mav = new ModelAndView("mypage/myFavorite");
-        Long userId = (Long) session.getAttribute("userEmail");
+        Long userId = (Long) session.getAttribute("userId");
+        List<Long> productIdList = new ArrayList<>();
+        List<Product> productList = new ArrayList<>();
 
+        // productIdList에 userId로 찜한 상품 ID 목록을 가져오는 로직
         if (userId != null) {
-            Optional<WishList> product = myPageService.findByUserId(userId);
-            if (product.isPresent()) {
-                mav.addObject("product", product.get());
-                System.out.println(product.get());
-            } else {
-                mav.addObject("product", new WishList());
+            List<WishList> wishList = myPageService.findByUserId(userId);
+            for (WishList wish : wishList) {
+                productIdList.add(wish.getProduct().getId());
             }
-        } else {
-            mav.addObject("product", null);
         }
 
-        System.out.println("test1213" + mav);
+        // productIdList에 해당하는 Product 목록을 가져오는 로직
+        for (Long productId : productIdList) {
+            Product product = (Product) productRepository.findOneProduct(productId);
+            productList.add(product);
+        }
+
+        mav.addObject("product", productList);
+        System.out.println("product: " + productList);
         return mav;
     }
-
-
+ //
 
 //    model(HttpServletRequest erdsas ) {
 //        HttpSession session = erdsas.getSession();

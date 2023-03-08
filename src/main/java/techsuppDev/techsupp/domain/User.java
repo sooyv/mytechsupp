@@ -32,8 +32,6 @@ public class User {
     @Column(nullable = false)
     private String userPhone;
 
-//    @Enumerated(EnumType.STRING)
-//    @Column(columnDefinition = "VARCHAR(50) DEFAULT 'ROLE_USER'")
     private String role;        //ROLE_USER, ROLE_ADMIN
 
 //    @Enumerated(EnumType.STRING)

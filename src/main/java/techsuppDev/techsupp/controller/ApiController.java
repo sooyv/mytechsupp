@@ -13,6 +13,7 @@ import techsuppDev.techsupp.DTO.Paylog;
 import techsuppDev.techsupp.controller.form.PaymentForm;
 import techsuppDev.techsupp.domain.PaylogStatus;
 import techsuppDev.techsupp.domain.Payment;
+import techsuppDev.techsupp.domain.Product;
 import techsuppDev.techsupp.domain.User;
 import techsuppDev.techsupp.service.PaymentService;
 import techsuppDev.techsupp.service.ProductService;
@@ -85,7 +86,31 @@ public class ApiController {
     public ResponseEntity productOne(HttpServletRequest request) {
         String productId = request.getParameter("num");
         Long value = Long.parseLong(productId);
-        return ResponseEntity.ok().body(productService.findOneProduct(value));
+
+        HttpSession loginSession = request.getSession();
+        String userEmail =  loginSession.getAttribute("userEmail").toString();
+
+        JSONObject jsonData = new JSONObject();
+
+//        Paylog paylog = (Paylog) paymentService.checkPaylogHistory(userEmail);
+
+        Product productInformaion = (Product) productService.findOneProduct(value);
+
+        if(paymentService.checkPaylogHistory(userEmail).equals("log exist")) {
+            jsonData.put("paylog", "log exist");
+        } else {
+            jsonData.put("paylog", "log does not exist");
+        }
+
+        jsonData.put("seqId",productInformaion.getSeqId());
+        jsonData.put("totalPrice",productInformaion.getTotalPrice());
+        jsonData.put("information",productInformaion.getInformation());
+        jsonData.put("productName",productInformaion.getProductName());
+        jsonData.put("period",productInformaion.getPeriod());
+        jsonData.put("investPrice",productInformaion.getInvestPrice());
+        jsonData.put("id",productInformaion.getId());
+
+        return ResponseEntity.ok().body(jsonData);
     }
 
 //    상품 투자를 위해 유저 정보를 검색 후 json으로 보내주는 것
@@ -120,7 +145,7 @@ public class ApiController {
 
         payment.setPaymentMethod(object.get("paymentMethod").toString());
 
-        paymentService.savePay(payment);
+        paymentService.savePayment(payment);
 
 //        paylog
 

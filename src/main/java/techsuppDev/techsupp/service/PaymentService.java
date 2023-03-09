@@ -15,15 +15,28 @@ public class PaymentService {
 
     public final PayLogRepository payLogRepository;
 
-    public void savePay(PaymentForm payment) {
+//    payment table에 데이터 입력
+    public void savePayment(PaymentForm payment) {
         paymentRepository.savePayment(payment);
     }
 
+//    payment table에 데이터 입력 된 것 검증 후 paylog에 사용할 데이터 return
     public Object getSinglePayment(String productId) {
         return paymentRepository.getPaymentId(productId);
     }
 
+//    paylog table에 데이터 입력
     public void savePaylog(Paylog paylog) {
         payLogRepository.savePaylog(paylog);
     }
+
+//    과거 paylog가 존재하는지 확인하는 것
+    public String checkPaylogHistory(String userEmail) {
+        if (payLogRepository.checkPaylog(userEmail).equals(null)) {
+            return "log does not exist";
+        } else {
+            return "log exist";
+        }
+    }
+
 }

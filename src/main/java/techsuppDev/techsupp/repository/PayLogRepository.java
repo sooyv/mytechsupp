@@ -14,6 +14,7 @@ import javax.persistence.Query;
 public class PayLogRepository {
     private final EntityManager em;
 
+//    결제 정보 저장
     @Transactional
     @Modifying
     public void savePaylog(Paylog paylog) {
@@ -27,5 +28,16 @@ public class PayLogRepository {
 
         Query navtiveQuery = em.createNativeQuery(sql, Paylog.class);
         navtiveQuery.executeUpdate();
+    }
+//    로그인한 고객의 결제 정보 있는지 판별
+
+    public Object checkPaylog(String userEmail) {
+        String sql = "" +
+                "select * from paylog " +
+                "where " +
+                "user_email = '" +
+                userEmail + "';";
+        Query nativeQuery = em.createNativeQuery(sql, Paylog.class);
+        return nativeQuery;
     }
 }

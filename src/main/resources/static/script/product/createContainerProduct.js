@@ -2,9 +2,13 @@
 // const productNumber = urlParams.get('num');
 
 
-function LinkToInvestingProduct(api) {
-  const investingURL = `/invest/?num=${api}`
+function LinkToInvestingProduct(id , paylog) {
+  if(paylog == "log exist") {
+   return alert("이미 투자한 상품 입니다.")
+  } else {
+  const investingURL = `/invest/?num=${id}`
   window.location.href = investingURL;
+  }
 }
 
 function createSingleProductHtml(api) {
@@ -35,7 +39,7 @@ function createSingleProductHtml(api) {
         <h5>투자율 ${Math.round(api.totalPrice / api.investPrice)} % </h5>
       </div>
       <div class="ProductInvesting">
-          <input type=button onclick="LinkToInvestingProduct(${api.id})" value="${api.investPrice}원 개인 투자 금액 결제페이지 이동">
+          <input type=button onclick="LinkToInvestingProduct(${api.id}, '${api.paylog}')" value="${api.investPrice}원 개인 투자 금액 결제페이지 이동">
       </div>
     </div>
   `

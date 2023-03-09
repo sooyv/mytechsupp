@@ -6,7 +6,7 @@ function LinkToInvestComplete() {
 
 // form 검증
 function checkEmptyKey(obj) {
-  let messageObject = {
+  const messageObject = {
     productId : "제품 코드",
     detailAddr: "상세 주소",
     paymentDate: "결제 날짜",
@@ -15,19 +15,40 @@ function checkEmptyKey(obj) {
     paymentPrice: "결제 금액",
     paymentMethod: "결제 수단"
   };
-  let alertMessage = "";
+
+  console.log("#######",obj.get("paymentDate"))
+  const validPattern = /([^가-힣a-zA-Z0-9\s\:\-])/i; 
+
+  let emptyAlertMessage = "";
+  let invalidAlertMessage = "";
   let objKeys = Object.keys(messageObject);
 
   objKeys.forEach(key => {
     if(obj.get(key) === "") {
-      alertMessage += messageObject[key] + "\n";
-    }}
+      emptyAlertMessage += messageObject[key] + "\n";
+        }  else if (validPattern.test(obj.get(key))) {
+          invalidAlertMessage += messageObject[key] + "\n";
+        }
+      }
     )
   
+
+  
+  
+  let alertMessage = ""
+  if (emptyAlertMessage != "") {
+    alertMessage += "주문 정보를 입력해 주세요 \n\n" + emptyAlertMessage + "\n";
+  }
+
+  if (invalidAlertMessage != "") {
+    alertMessage += "유효하지 않은 입력값이 존재합니다 \n\n" + invalidAlertMessage;
+  }
+
   if (alertMessage != "") {
-    alert("주문 정보를 입력해 주세요 \n\n" + alertMessage);
+    alert(alertMessage)
     return false;
   }
+
 }
 
 

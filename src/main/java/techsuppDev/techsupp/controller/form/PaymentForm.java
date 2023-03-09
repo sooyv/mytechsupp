@@ -12,7 +12,6 @@ public class PaymentForm {
     private String streetAddr;
     private String detailAddr;
     private String zipCode;
-
     private int paymentPrice;
     private String paymentDate;
 

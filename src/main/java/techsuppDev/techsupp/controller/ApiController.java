@@ -9,7 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import techsuppDev.techsupp.DTO.Paylog;
 import techsuppDev.techsupp.controller.form.PaymentForm;
+import techsuppDev.techsupp.domain.PaylogStatus;
 import techsuppDev.techsupp.domain.Payment;
 import techsuppDev.techsupp.domain.User;
 import techsuppDev.techsupp.service.PaymentService;
@@ -19,6 +21,7 @@ import techsuppDev.techsupp.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.*;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -31,7 +34,6 @@ public class ApiController {
 
     private final ProductService productService;
     private final PaymentService paymentService;
-
     private final UserService userService;
 
 
@@ -47,8 +49,6 @@ public class ApiController {
         } else {
             checkLogin.put("login", "success");
         }
-        System.out.println("======");
-        System.out.println(checkLogin.get("login"));
         return ResponseEntity.ok().body(checkLogin);
     }
 
@@ -101,9 +101,8 @@ public class ApiController {
 
 // 투자 폼 받아서 db에 저장
     @RequestMapping(value = "/invest/post/*", method = RequestMethod.POST)
-    public ResponseEntity saveInvestLog(
+    public void saveInvestLog(
             @RequestBody JSONObject object) {
-
         PaymentForm payment = new PaymentForm();
         Long productId = Long.parseLong(object.get("productId").toString());
         payment.setProductId(productId);
@@ -123,7 +122,18 @@ public class ApiController {
 
         paymentService.savePay(payment);
 
-        return null;
+//        paylog
+
+        Payment savedPayment = (Payment) paymentService.getSinglePayment(object.get("productId").toString());
+
+        Paylog insertPaylog = new Paylog();
+        String userEmail = object.get("userId").toString();
+        String userId = userService.getUserByEmail(userEmail).getUserEmail();
+        insertPaylog.setUserEmail(userId);
+        insertPaylog.setPaymentId(savedPayment.getPaymentId());
+        insertPaylog.setPaylogStatus(PaylogStatus.PAY);
+
+        paymentService.savePaylog(insertPaylog);
     }
 
 

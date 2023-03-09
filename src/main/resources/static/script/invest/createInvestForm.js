@@ -4,14 +4,14 @@ function InvestForm(api) {
   investFrom.innerHTML = `
   <form class="InvestForm" action="">
     아이디
-    <input type="email" class="User_email" placeholder="${api.userEmail}" name="user_email">
+    <input type="email" class="User_email" value="${api.userEmail}" name="user_email">
     휴대폰 번호
-    <input type="tel" class = "User_phone" placeholder="${api.userPhone}" name="user_phone">
+    <input type="tel" class = "User_phone" value="${api.userPhone}" name="user_phone">
     <div class="KakaomapContainer">
       <div class="Address">
         주소
         <input type="text" id="sample4_postcode" placeholder="우편번호" name="zip_code">
-        <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
+        <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">        
       </div>
       <div class="RoadDetailAddress">
         <input type="text" id="sample4_roadAddress" placeholder="도로명주소" name="street_addr">

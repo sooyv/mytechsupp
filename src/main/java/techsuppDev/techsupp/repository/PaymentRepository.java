@@ -23,16 +23,29 @@ public class PaymentRepository {
         String sql = " " +
             "insert payment(" +
             "detail_addr, payment_date, payment_method, payment_price, product_id, street_addr, zip_code) " +
-            "values(" +
-            payment.getDetailAddr() + ", '" +
+            "values('" +
+            payment.getDetailAddr() + "', '" +
             payment.getPaymentDate() + "', '" +
             payment.getPaymentMethod() + "', " +
             payment.getPaymentPrice() + ", " +
             payment.getProductId() + ", '" +
-            payment.getStreetAddr() + "', " +
-            payment.getZipCode() + ")";
+            payment.getStreetAddr() + "', '" +
+            payment.getZipCode() + "')";
 
         Query nativeQuery = em.createNativeQuery(sql, Payment.class);
         nativeQuery.executeUpdate();
     }
+
+//    Payment에 데이터 입력 후 입력 된 데이터 가져와서 Paylog 에 사용할 데이터 가져오는 함
+    public Object getPaymentId(String productId) {
+        String sql = "" +
+                "select * from payment " +
+                "where product_id = " +
+                productId + ";";
+
+        Query nativeQuery = em.createNativeQuery(sql, Payment.class);
+        Object singlePayment = nativeQuery.getSingleResult();
+        return singlePayment;
+    }
+
 }

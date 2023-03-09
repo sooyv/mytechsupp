@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:object-fit="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,10 +7,11 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
   <link href="/style/main/main.css" rel="stylesheet">
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <!--공통되는 header-->
-<div th:insert="/header :: header"></div>
+<div th:replace="/header :: header"></div>
 <p th:text="${session.userEmail}"></p>
 <p th:text="${session.userName}"></p>
 <main>
@@ -19,8 +20,7 @@
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-label="Slide 1" aria-current="true"></button>
       <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2" class=""></button>
-      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3" class="">
-      </button>
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3" class=""></button>
     </div>
     <div class="carousel-inner">
       <div class="carousel-item active">
@@ -30,7 +30,7 @@
         </svg>
         <div class="container">
           <div class="carousel-caption text-start">
-            <h1>Example headline.</h1>
+            <h1>TECHSUPP 상품</h1>
             <p>이미지를 삽입</p>
             <p><a class="btn btn-lg btn-primary" href="#">Comming Soon</a></p>
           </div>
@@ -179,7 +179,7 @@
       </div>
     </div>
     <div id="more-product">
-      <button type="button" id="productList-btn" class="btn btn-outline-dark">상품 더보기</button>
+      <div class="text-center"><a id="productList-btn" class="btn btn-outline-dark mt-auto" th:href="@{/productMain/product?page=0&order=0}">상품 더보기</a></div>
     </div>
     <!-- 새로운 상품 페이지 / 서비스 소개 페이지 -->
     <hr class="featurette-divider">
@@ -223,10 +223,5 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous"></script>
-<!--<script src="/script/header.js"></script>-->
-<!--<script th:inline="javascript">-->
-<!--  createHead([[${session.loginUserName}]]);-->
-<!-- createHead()-->
-<!--</script>-->
 </body>
 </html>

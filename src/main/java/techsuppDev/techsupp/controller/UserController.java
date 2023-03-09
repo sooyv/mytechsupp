@@ -2,15 +2,18 @@ package techsuppDev.techsupp.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.servlet.ModelAndView;
+import techsuppDev.techsupp.config.UserDetailsimpl;
 import techsuppDev.techsupp.controller.form.UserForm;
 import techsuppDev.techsupp.domain.User;
 import techsuppDev.techsupp.service.UserService;
@@ -25,9 +28,6 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.security.SecureRandom;
 
-import static techsuppDev.techsupp.domain.Role.ROLE_ADMIN;
-
-
 //@Controller
 @Slf4j
 @RequiredArgsConstructor
@@ -36,13 +36,22 @@ public class UserController {
 
     private final UserService userService;
 
+
     // 로그인 창
     @GetMapping("/login")
-    public ModelAndView login() {
+    public ModelAndView login(HttpServletRequest request) {
 
-        ModelAndView mav = new ModelAndView("/login/login");
-        mav.addObject("userForm",new UserForm());
-        return mav;
+        HttpSession session = request.getSession();
+        String userName = (String) session.getAttribute("userName");
+
+        if (userName != null) {    // 세션이 있으면 "redirect:/" 로그인 페이지 접근 차단
+            ModelAndView mav = new ModelAndView("redirect:/");
+            return mav;
+        } else {                  // 세션이 없으면 로그인 페이지 접근 가능
+            ModelAndView mav = new ModelAndView("/login/login");
+            mav.addObject("userForm",new UserForm());
+            return mav;
+        }
     }
 
     // 회원가입 창
@@ -93,8 +102,9 @@ public class UserController {
         return new ResponseEntity<>("Successfully Registered", HttpStatus.OK);
     }
 
-    // 로그인
-//    @PostMapping("/user/login")                                         // HttpServletRequest
+    // 로그인과 로그아웃의 url spring Security에 의해서 관리
+//    로그인
+//    @PostMapping("/member/login")                                         // HttpServletRequest
 //    public ModelAndView login(@Valid @ModelAttribute UserForm userForm, HttpSession session) {
 ////    public ModelAndView login(@RequestParam String email, @RequestParam String password, HttpSession session) {
 //
@@ -122,33 +132,46 @@ public class UserController {
 //        return mav;
 //    }
 
+//    로그아웃
+//    @PostMapping("/member/logout")
+//    public String logout(HttpSession session) {
+//        session.invalidate();           // 세션 null 여부 검사
+//        return "/";
+//    }
+
     // 세션
-//    @GetMapping("/member/login")
-//    public ModelAndView sessionTest(HttpServletRequest request) {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        HttpSession session = request.getSession();
-//        session.setAttribute("user", authentication.getName());
-//        String userEmail = (String) session.getAttribute("user");
-//        System.out.println("Current user: " + userEmail);
-//
-//        ModelAndView mav = new ModelAndView("/");
-//        mav.addObject("userEmail", userEmail);
-//        return mav;
-//    }
+    @GetMapping("/member/loginsuccess")
+    public ModelAndView loginSuccess(HttpSession session, @AuthenticationPrincipal UserDetailsimpl userDetails){
 
-//    @PostMapping("/member/login")
-//    public ResponseEntity<String> logintoken() {
-//
-//        return ResponseEntity.ok().body("token");
-//    }
+        if(userDetails != null) {
+            User user = userDetails.getUser();
+//            System.out.println("----------------homeController------------------");
+            session.setAttribute("userEmail", user.getUserEmail());    // email 세션에 저장
+            session.setAttribute("userName", user.getUserName());      // name 세션에 저장
+            session.setAttribute("userPhone", user.getUserPhone());    // phone 세션에 저장
+            session.setAttribute("userRole", user.getRole());          // userRole 세션에 저장
+//            session.setAttribute("user", user);
 
-    // 로그아웃
-    @PostMapping("/member/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();           // 세션 null 여부 검사
-        return "/";
+        }
+        ModelAndView mav = new ModelAndView("redirect:/");
+        return mav;
     }
 
+//    // 세션의 user 정보를 받아오기 확인
+//            public ResponseEntity getUserSessions(HttpServletRequest req) {
+//            HttpSession loginSession = req.getSession();
+//            String userEmail = loginSession.getAttribute("userEmail").toString();
+//            String userName = (String) loginSession.getAttribute("userName");
+//            String userPhone = (String) loginSession.getAttribute("userPhone");
+//            String userRole = (String) loginSession.getAttribute("userRole");
+//
+//                System.out.println(userEmail);
+//                System.out.println(userName);
+//                System.out.println(userRole);
+//                System.out.println(userPhone);
+//
+//            return ResponseEntity.ok().body(userService.getUserByEmail(userEmail));
+//        }
 
     // Access Denied Page
     @GetMapping("access/denied")
@@ -157,6 +180,12 @@ public class UserController {
         return mav;
     }
 
+    // 아이디 비밀번호 찾기 page
+    @GetMapping("/find/member")
+    public ModelAndView findMember() {
+        ModelAndView mav = new ModelAndView("/login/finduser");
+        return mav;
+    }
 
 
     // --------- 네이버 로그인 test -------------------------------------------------------------------------

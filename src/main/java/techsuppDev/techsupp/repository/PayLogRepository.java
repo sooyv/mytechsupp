@@ -37,7 +37,17 @@ public class PayLogRepository {
                 "where " +
                 "user_email = '" +
                 userEmail + "';";
-        Query nativeQuery = em.createNativeQuery(sql, Paylog.class);
-        return nativeQuery;
+//        Query nativeQuery = em.createNativeQuery(sql, Paylog.class);
+        try {
+            Query nativeQuery = em.createNativeQuery(sql, Paylog.class);
+            return nativeQuery;
+        } catch (Exception e) {
+            System.out.println("checkpaylog : 검색되지 않음");
+            Object result = null;
+            System.out.println("반환갑:  null ");
+            return result;
+        }
+
+
     }
 }

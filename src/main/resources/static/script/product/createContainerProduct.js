@@ -3,7 +3,7 @@
 
 
 function LinkToInvestingProduct(id , paylog) {
-  if(paylog == "log exist") {
+  if(paylog == "n") {
    return alert("이미 투자한 상품 입니다.")
   } else {
   const investingURL = `/invest/?num=${id}`

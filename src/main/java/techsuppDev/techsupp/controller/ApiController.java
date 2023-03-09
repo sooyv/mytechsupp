@@ -88,27 +88,37 @@ public class ApiController {
         Long value = Long.parseLong(productId);
 
         HttpSession loginSession = request.getSession();
-        String userEmail =  loginSession.getAttribute("userEmail").toString();
+        String userEmail = "";
+
+        if(loginSession.getAttribute("userEmail") != null) {
+            System.out.println("controller: userEmail != null");
+            userEmail = loginSession.getAttribute("userEmail").toString();
+
+        } else {
+            System.out.println("controller: userEmail == null ");
+        }
 
         JSONObject jsonData = new JSONObject();
 
-//        Paylog paylog = (Paylog) paymentService.checkPaylogHistory(userEmail);
+        Product productInformation = (Product) productService.findOneProduct(value);
 
-        Product productInformaion = (Product) productService.findOneProduct(value);
-
-        if(paymentService.checkPaylogHistory(userEmail).equals("log exist")) {
-            jsonData.put("paylog", "log exist");
+        if (userEmail == null || userEmail == "") {
+            jsonData.put("paylog", "y");
         } else {
-            jsonData.put("paylog", "log does not exist");
+            if(paymentService.checkPaylogHistory(userEmail).equals("log exist")) {
+                jsonData.put("paylog", "n");
+            } else {
+                jsonData.put("paylog", "y");
+            }
         }
 
-        jsonData.put("seqId",productInformaion.getSeqId());
-        jsonData.put("totalPrice",productInformaion.getTotalPrice());
-        jsonData.put("information",productInformaion.getInformation());
-        jsonData.put("productName",productInformaion.getProductName());
-        jsonData.put("period",productInformaion.getPeriod());
-        jsonData.put("investPrice",productInformaion.getInvestPrice());
-        jsonData.put("id",productInformaion.getId());
+        jsonData.put("seqId",productInformation.getSeqId());
+        jsonData.put("totalPrice",productInformation.getTotalPrice());
+        jsonData.put("information",productInformation.getInformation());
+        jsonData.put("productName",productInformation.getProductName());
+        jsonData.put("period",productInformation.getPeriod());
+        jsonData.put("investPrice",productInformation.getInvestPrice());
+        jsonData.put("id",productInformation.getId());
 
         return ResponseEntity.ok().body(jsonData);
     }

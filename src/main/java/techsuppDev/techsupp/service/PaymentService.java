@@ -8,6 +8,8 @@ import techsuppDev.techsupp.domain.Payment;
 import techsuppDev.techsupp.repository.PayLogRepository;
 import techsuppDev.techsupp.repository.PaymentRepository;
 
+import java.util.Objects;
+
 @Service
 @RequiredArgsConstructor
 public class PaymentService {
@@ -32,9 +34,12 @@ public class PaymentService {
 
 //    과거 paylog가 존재하는지 확인하는 것
     public String checkPaylogHistory(String userEmail) {
-        if (payLogRepository.checkPaylog(userEmail).equals(null)) {
+        System.out.println("checkpayloghistroahir");
+        if (payLogRepository.checkPaylog(userEmail) == null) {
+            System.out.println("null 일때 나오는 메세지");
             return "log does not exist";
         } else {
+            System.out.println("null 이 아닐때 나오는 메세지");
             return "log exist";
         }
     }

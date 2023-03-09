@@ -30,9 +30,9 @@
         </svg>
         <div class="container">
           <div class="carousel-caption text-start">
-            <h1>TECHSUPP 상품</h1>
+            <h1>TECHSUPP의 상품을 소개해요</h1>
             <p>이미지를 삽입</p>
-            <p><a class="btn btn-lg btn-primary" href="#">Comming Soon</a></p>
+            <p><a class="btn btn-lg btn-primary" href="#">TECHSUPP 상품 보기</a></p>
           </div>
         </div>
       </div>
@@ -43,9 +43,9 @@
         </svg>
         <div class="container">
           <div class="carousel-caption">
-            <h1>Another example headline.</h1>
+            <h1>TECHSUPP Funding에 대해 알아보세요</h1>
             <p>이미지를 삽입</p>
-            <p><a class="btn btn-lg btn-primary" href="#">Comming Soon</a></p>
+            <p><a class="btn btn-lg btn-primary" href="#">서비스 소개</a></p>
           </div>
         </div>
       </div>
@@ -56,9 +56,9 @@
         </svg>
         <div class="container">
           <div class="carousel-caption text-end">
-            <h1>One more headline.</h1>
+            <h1>문의 사항이 있으신가요?</h1>
             <p>이미지를 삽입</p>
-            <p><a class="btn btn-lg btn-primary" href="#">Comming Soon</a></p>
+            <p><a class="btn btn-lg btn-primary" th:href="@{/notice/question-list}">문의 하기</a></p>
           </div>
         </div>
       </div>
@@ -73,108 +73,32 @@
     </button>
   </div>
   <div class="container marketing">
-    <!-- Three columns of text below the carousel -->
+    <!-- show product -->
     <div class="row-product">
       <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-4 row-cols-2 row-cols-md-3 row-cols-xl-5 justify-content-center">
-          <div class="col mb-5">
-            <div class="card h-100">
-              <!-- Product image-->
-              <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."/>
-              <!-- Product details-->
-              <div class="card-body p-4">
-                <div class="text-center">
-                  <!-- Product name-->
-                  <h5 class="fw-bolder">상품명1</h5>
-                  <!-- Product price-->
-                  상세설명
+          <!-- random 상품 표시 -->
+            <th:block th:each="product : ${products}">
+              <div class="col mb-5">
+                <div class="card h-100">
+                  <!-- Product image-->
+                  <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."/>
+                  <!-- Product details-->
+                  <div class="card-body p-4">
+                    <div class="text-center">
+                      <!-- Product name-->
+                      <h5 class="fw-bolder" th:text="${product.productName}"></h5>
+                      <!-- Product explain-->
+                      <p th:text="${product.information}"></p>
+                    </div>
+                  </div>
+                  <!-- Product actions-->
+                  <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:href="@{productSelect/product/?num=(num=${product.seqId})}">이 상품 보기</a></div>
+                  </div>
                 </div>
               </div>
-              <!-- Product actions-->
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View
-                  options</a></div>
-              </div>
-            </div>
-          </div>
-          <div class="col mb-5">
-            <div class="card h-100">
-              <!-- Product image-->
-              <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."/>
-              <!-- Product details-->
-              <div class="card-body p-4">
-                <div class="text-center">
-                  <!-- Product name-->
-                  <h5 class="fw-bolder">상품명2</h5>
-                  <!-- Product price-->
-                  상세설명
-                </div>
-              </div>
-              <!-- Product actions-->
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View
-                  options</a></div>
-              </div>
-            </div>
-          </div>
-          <div class="col mb-5">
-            <div class="card h-100">
-              <!-- Product image-->
-              <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."/>
-              <!-- Product details-->
-              <div class="card-body p-4">
-                <div class="text-center">
-                  <!-- Product name-->
-                  <h5 class="fw-bolder">상품명3</h5>
-                  <!-- Product price-->
-                  상세설명
-                </div>
-              </div>
-              <!-- Product actions-->
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View
-                  options</a></div>
-              </div>
-            </div>
-          </div>
-          <div class="col mb-5">
-            <div class="card h-100">
-              <!-- Product image-->
-              <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."/>
-              <!-- Product details-->
-              <div class="card-body p-4">
-                <div class="text-center">
-                  <!-- Product name-->
-                  <h5 class="fw-bolder">상품명4</h5>
-                  <!-- Product price-->
-                  상세설명
-                </div>
-              </div>
-              <!-- Product actions-->
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
-              </div>
-            </div>
-          </div>
-          <div class="col mb-5">
-            <div class="card h-100">
-              <!-- Product image-->
-              <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."/>
-              <!-- Product details-->
-              <div class="card-body p-4">
-                <div class="text-center">
-                  <!-- Product name-->
-                  <h5 class="fw-bolder">상품명5</h5>
-                  <!-- Product price-->
-                  상세설명
-                </div>
-              </div>
-              <!-- Product actions-->
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
-              </div>
-            </div>
-          </div>
+            </th:block>
         </div>
       </div>
     </div>

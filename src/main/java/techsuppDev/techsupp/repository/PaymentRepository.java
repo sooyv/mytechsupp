@@ -23,14 +23,14 @@ public class PaymentRepository {
         String sql = " " +
             "insert payment(" +
             "detail_addr, payment_date, payment_method, payment_price, product_id, street_addr, zip_code) " +
-            "values(" +
-            payment.getDetailAddr() + ", '" +
+            "values('" +
+            payment.getDetailAddr() + "', '" +
             payment.getPaymentDate() + "', '" +
             payment.getPaymentMethod() + "', " +
             payment.getPaymentPrice() + ", " +
             payment.getProductId() + ", '" +
-            payment.getStreetAddr() + "', " +
-            payment.getZipCode() + ")";
+            payment.getStreetAddr() + "', '" +
+            payment.getZipCode() + "')";
 
         Query nativeQuery = em.createNativeQuery(sql, Payment.class);
         nativeQuery.executeUpdate();

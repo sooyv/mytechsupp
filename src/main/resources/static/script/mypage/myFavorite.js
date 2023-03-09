@@ -2,15 +2,33 @@ const productList = document.querySelector(".notice_board ul.board_row:not(.titl
 const products = productList.getElementsByTagName("li");
 const pageSize = 10;
 let currentPage = 1;
-const totalPages = Math.ceil(products.length / pageSize);
+const totalPages = 50;
+
+function loadProducts() {
+  // 현재 페이지에 해당하는 상품 인덱스 계산
+  const startIndex = (currentPage - 1) * pageSize;
+  const endIndex = Math.min(startIndex + pageSize, products.length);
+
+  // 현재 페이지에 해당하는 상품들만 표시
+  for (let i = 0; i < products.length; i++) {
+    if (i >= startIndex && i < endIndex) {
+      products[i].style.display = "block";
+    } else {
+      products[i].style.display = "none";
+    }
+  }
+}
 
 function nextBlock() {
-  currentPage = Math.min(currentPage + 10, totalPages);
+  currentPage = currentPage === 1 ? 2 : Math.ceil(currentPage / 10) * 10 + 2;
+  currentPage = Math.min(currentPage, totalPages);
+  loadProducts();
   generatePageBlock();
 }
 
 function prevBlock() {
   currentPage = Math.max(currentPage - 10, 1);
+  loadProducts();
   generatePageBlock();
 }
 
@@ -25,6 +43,7 @@ function generatePageBlock() {
     beforeBtn.innerText = "이전";
     beforeBtn.addEventListener("click", () => {
       currentPage = startPage - 1;
+      loadProducts();
       generatePageBlock();
       history.pushState({}, '', `?page=${currentPage}`);
     });
@@ -39,6 +58,7 @@ function generatePageBlock() {
     }
     pageBtn.addEventListener("click", () => {
       currentPage = i;
+      loadProducts();
       generatePageBlock();
       history.pushState({}, '', `?page=${currentPage}`);
     });
@@ -50,6 +70,7 @@ function generatePageBlock() {
     nextBtn.innerText = "다음";
     nextBtn.addEventListener("click", () => {
       currentPage = endPage + 1;
+      loadProducts();
       generatePageBlock();
       history.pushState({}, '', `?page=${currentPage}`);
     });
@@ -64,5 +85,7 @@ if (pageParam !== null) {
   currentPage = parseInt(pageParam);
 }
 
+loadProducts();
 generatePageBlock();
 history.pushState({}, '', `?page=${currentPage}`); // 페이지 로드 시 쿼리스트링 추가
+

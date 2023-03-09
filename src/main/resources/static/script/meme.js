@@ -89,3 +89,91 @@ create table userfeedback (
 )
 
 
+
+// async 비동기 요청이 없는데 굳이 async 로 작성할 필요가 없음 코드 전면 수정
+
+async function sendPaymentData() {
+  
+  let formData = 0;
+  await investRequest().then(res => (formData = res));
+  console.log("investRequest 문제 없음")
+  // 여기까지는 문제 없음 데이터 잘 넘어감
+
+  let checkData = 0;
+  await checkEmptyKey(formData).then(res => checkData = res);
+  console.log("checkEmptyKey 문제 없음")
+  
+  let result = new FormData();
+  async function convertToFormData(obj) {
+    for (const key of obj.keys()) {
+      result.append(key, obj.get(key))
+    }
+    return JSON.stringify(result);
+  }
+
+  await convertToFormData(checkData).then(res => result = res);
+
+  // 여기까지 문제 없음
+
+  // body 에 빈 배열 들어감
+  let resolve = await fetch(`/api/invest/post/${productNumber}`, {method: "POST", headers: {'Content-Type': 'application/json'}, body: result })
+  .then((res) => res.json())
+  .then(alert("투자가 완료 되었습니다"));
+}
+
+//  const postForm = (body) => {
+//   return fetch(`/api/invest/post/${productNumber}`, {
+//     method: "POST",
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify(Object.fromEntries(new FormData(checkData))
+//     ),
+//   })
+//   .then((res) => res.json())
+//   .then(alert("투자가 완료 되었습니다"));
+//  }
+
+
+
+
+   let resolve = await fetch(`/api/invest/post/${productNumber}`, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(
+      {
+      checkData
+     }
+    ),
+  })
+  .then((res) => res.json())
+  .then(alert("투자가 완료 되었습니다"));
+
+}
+
+
+
+
+fetch(`/api/invest/post/${productNumber}`, {
+  method: "POST",
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(
+    {
+    productId: productNumber,
+    detailAddr: detailAddress.value,
+    paymentDate: currentDate,
+    streetAddr: roadAddress.value,
+    zipCode: zipCode.value,
+    paymentPrice: payment.value,
+    paymentMethod: checkBoxValue
+   }
+  ),
+})
+.then(LinkToInvestComplete())
+.then(checkEmptyKey())
+.then((res) => res.json())
+.then(alert("투자가 완료 되었습니다"));

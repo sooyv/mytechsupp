@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Repository
 public interface MyPageRepository extends JpaRepository<WishList, Long> {
-    //JPA 선택된 즐겨찾기를 만들 Repository
+
 
     List<WishList> findAll();
 
@@ -22,16 +22,4 @@ public interface MyPageRepository extends JpaRepository<WishList, Long> {
     List<WishList> findByUserId(@Param("userId") Long Id);
 
 
-    List<Product> findByProductId(Long productId);
-
 }
-
-
-//
-//    @Query("SELECT w FROM wish_list w WHERE w.user_id =: userId")
-//    Optional<WishList> findByUserId(@Param("userId") Long userId);
-
-//        @Query("SELECT w FROM wish_list w WHERE w.user_id = ?1")
-//    @Query("SELECT w.productId as productId FROM WishList w WHERE w.userId = :userId")
-//    List<WishList> findByUserId(@Param("userId") Long userId);
-//      List<WishList> findByUserId(Long userId);

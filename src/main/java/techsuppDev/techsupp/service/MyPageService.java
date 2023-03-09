@@ -54,10 +54,6 @@ public class MyPageService {
         return wishList;
     }
 
-    public List<Product> findByProductId(Long productId) {
-        List<Product> productList = myPageRepository.findByProductId(productId);
-        return productList;
-    }
 
     // 현재 진행중인 투자 목록
 

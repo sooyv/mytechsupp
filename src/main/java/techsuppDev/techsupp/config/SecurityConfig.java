@@ -2,6 +2,7 @@ package techsuppDev.techsupp.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.CustomAutowireConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,8 +24,6 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    @Autowired
-    private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
@@ -37,12 +36,14 @@ public class SecurityConfig {
         http.csrf().disable();
 
         http.authorizeRequests()
-                .antMatchers("/user/**").authenticated()            // 스프링 시큐리티에 의해 로그인이 되면 접근가능
+                .antMatchers("/login", "/member/login").permitAll()
+                .antMatchers("/user/**").authenticated()            // /스프링 시큐리티에 의해 로그인이 되면 접근가능
+                .antMatchers("/admin/**").authenticated()            // /스프링 시큐리티에 의해 로그인이 되면 접근가능
                 .antMatchers("/invest/**").authenticated()
                 .antMatchers("/feedbackSelect/feedback/form/**").authenticated()
                 .antMatchers("/admin/**").authenticated()
 //                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/admin/**").hasRole("ADMIN")              // ROLE_ADMIN 권한 유저 접근가능
+                .antMatchers("/admin/**").hasRole("ADMIN")          // ROLE_ADMIN 권한 유저 접근가능
                 .anyRequest().permitAll();
 
         http.exceptionHandling().accessDeniedPage("/access/denied");        // Access Denied Page
@@ -52,21 +53,19 @@ public class SecurityConfig {
                 .loginProcessingUrl("/member/login")
                 .usernameParameter("email")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/member/loginSuccess")
+                .defaultSuccessUrl("/member/loginsuccess")
                 .failureUrl("/login")
                 .and()
             .logout()
                 .logoutUrl("/member/logout")
-                .logoutSuccessUrl("/");
-//                .and()
-//            .exceptionHandling()
-//                .authenticationEntryPoint(customAuthenticationEntryPoint);
+                .logoutSuccessUrl("/")
+                .deleteCookies("JSESSIONID");       // 로그아웃 후 쿠키 삭제
 
         // 세션
         http.sessionManagement()
                 .sessionFixation().migrateSession()
                 .maximumSessions(1) // 최대 세션 수
-//                .maxSessionsPreventsLogin(true)
+                .maxSessionsPreventsLogin(true)
                 .expiredUrl("/");
 
         return http.build();

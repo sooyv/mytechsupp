@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="utf-8">
-  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script th:src="@{/script/header.js}"></script>
 </head>
 <body>
 <div th:fragment="header">
@@ -39,6 +38,6 @@
     </div>
   </div>
 </div>
-<script th:src="@{/script/header.js}"></script>
+
 </body>
 </html>

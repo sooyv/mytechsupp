@@ -36,57 +36,22 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("/member/loginSuccess")
-    public ModelAndView loginSuccess(HttpSession session, @AuthenticationPrincipal UserDetailsimpl userDetails){
-
-        if(userDetails != null) {
-            User user = userDetails.getUser();
-//            System.out.println("----------------homeController------------------");
-            session.setAttribute("userEmail", user.getUserEmail());    // email 세션에 저장
-            session.setAttribute("userName", user.getUserName());      // name 세션에 저장
-            session.setAttribute("userPhone", user.getUserPhone());    // phone 세션에 저장
-            session.setAttribute("userRole", user.getRole());          // userRole 세션에 저장
-//            session.setAttribute("user", user);
-
-              // 세션을 가져올 때 로직 HttpServletRequest request
-//            HttpSession loginSession = request.getSession();
-//            String userEmail = loginSession.getAttribute("userEmail").toString();
-//            String userName = (String) loginSession.getAttribute("userName");
-//            String userPhone = (String) loginSession.getAttribute("userPhone");
-//            String userRole = (String) loginSession.getAttribute("userRole");
-//
-//            System.out.println("----------------user 정보 print----------------");
-//            System.out.println("이메일: " + userEmail);
-//            System.out.println("이름:" + userName);
-//            System.out.println("권한:" + userRole);
-//            System.out.println("핸드폰: " + userPhone);
-        }
-            ModelAndView mav = new ModelAndView("redirect:/");
-            return mav;
-    }
-
-//    // 세션을 받아오기 확인
-//            public ResponseEntity getUserSessions(HttpServletRequest req) {
-//            HttpSession loginSession = req.getSession();
-//            String userEmail = loginSession.getAttribute("userEmail").toString();
-//            String userName = (String) loginSession.getAttribute("userName");
-//            String userPhone = (String) loginSession.getAttribute("userPhone");
-//            String userRole = (String) loginSession.getAttribute("userRole");
-//
-//                System.out.println(userEmail);
-//                System.out.println(userName);
-//                System.out.println(userRole);
-//                System.out.println(userPhone);
-//
-//            return ResponseEntity.ok().body(userService.getUserByEmail(userEmail));
-//        }
 
     // 로그인 창
     @GetMapping("/login")
-    public ModelAndView login() {
-        ModelAndView mav = new ModelAndView("/login/login");
-        mav.addObject("userForm",new UserForm());
-        return mav;
+    public ModelAndView login(HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        String userName = (String) session.getAttribute("userName");
+
+        if (userName != null) {    // 세션이 있으면 "redirect:/" 로그인 페이지 접근 차단
+            ModelAndView mav = new ModelAndView("redirect:/");
+            return mav;
+        } else {                  // 세션이 없으면 로그인 페이지 접근 가능
+            ModelAndView mav = new ModelAndView("/login/login");
+            mav.addObject("userForm",new UserForm());
+            return mav;
+        }
     }
 
     // 회원가입 창
@@ -137,7 +102,8 @@ public class UserController {
         return new ResponseEntity<>("Successfully Registered", HttpStatus.OK);
     }
 
-    // 로그인
+    // 로그인과 로그아웃의 url spring Security에 의해서 관리
+//    로그인
 //    @PostMapping("/member/login")                                         // HttpServletRequest
 //    public ModelAndView login(@Valid @ModelAttribute UserForm userForm, HttpSession session) {
 ////    public ModelAndView login(@RequestParam String email, @RequestParam String password, HttpSession session) {
@@ -166,13 +132,46 @@ public class UserController {
 //        return mav;
 //    }
 
-////     로그아웃
+//    로그아웃
 //    @PostMapping("/member/logout")
 //    public String logout(HttpSession session) {
 //        session.invalidate();           // 세션 null 여부 검사
 //        return "/";
 //    }
 
+    // 세션
+    @GetMapping("/member/loginsuccess")
+    public ModelAndView loginSuccess(HttpSession session, @AuthenticationPrincipal UserDetailsimpl userDetails){
+
+        if(userDetails != null) {
+            User user = userDetails.getUser();
+//            System.out.println("----------------homeController------------------");
+            session.setAttribute("userEmail", user.getUserEmail());    // email 세션에 저장
+            session.setAttribute("userName", user.getUserName());      // name 세션에 저장
+            session.setAttribute("userPhone", user.getUserPhone());    // phone 세션에 저장
+            session.setAttribute("userRole", user.getRole());          // userRole 세션에 저장
+//            session.setAttribute("user", user);
+
+        }
+        ModelAndView mav = new ModelAndView("redirect:/");
+        return mav;
+    }
+
+//    // 세션의 user 정보를 받아오기 확인
+//            public ResponseEntity getUserSessions(HttpServletRequest req) {
+//            HttpSession loginSession = req.getSession();
+//            String userEmail = loginSession.getAttribute("userEmail").toString();
+//            String userName = (String) loginSession.getAttribute("userName");
+//            String userPhone = (String) loginSession.getAttribute("userPhone");
+//            String userRole = (String) loginSession.getAttribute("userRole");
+//
+//                System.out.println(userEmail);
+//                System.out.println(userName);
+//                System.out.println(userRole);
+//                System.out.println(userPhone);
+//
+//            return ResponseEntity.ok().body(userService.getUserByEmail(userEmail));
+//        }
 
     // Access Denied Page
     @GetMapping("access/denied")
@@ -181,6 +180,12 @@ public class UserController {
         return mav;
     }
 
+    // 아이디 비밀번호 찾기 page
+    @GetMapping("/find/member")
+    public ModelAndView findMember() {
+        ModelAndView mav = new ModelAndView("/login/finduser");
+        return mav;
+    }
 
 
     // --------- 네이버 로그인 test -------------------------------------------------------------------------

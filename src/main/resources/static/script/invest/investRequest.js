@@ -21,7 +21,7 @@ function checkEmptyKey(obj) {
 
   let emptyAlertMessage = "";
   let invalidAlertMessage = "";
-  let objKeys = Object.keys(messageObject);
+  const objKeys = Object.keys(messageObject);
 
   objKeys.forEach(key => {
     if(obj.get(key) === "") {
@@ -31,10 +31,7 @@ function checkEmptyKey(obj) {
         }
       }
     )
-  
 
-  
-  
   let alertMessage = ""
   if (emptyAlertMessage != "") {
     alertMessage += "주문 정보를 입력해 주세요 \n\n" + emptyAlertMessage + "\n";

@@ -18,20 +18,20 @@ import java.util.List;
 @Entity
 @Builder
 @SqlResultSetMapping(
-        name = "ProductMapping",
-                columns = {
-                        @ColumnResult(name = "id", type = Long.class),
-                        @ColumnResult(name = "moddate", type = LocalDateTime.class),
-                        @ColumnResult(name = "regdate", type = LocalDateTime.class),
-                        @ColumnResult(name = "click_count", type = int.class),
-                        @ColumnResult(name = "information", type = String.class),
-                        @ColumnResult(name = "invest_price", type = Integer.class),
-                        @ColumnResult(name = "period", type = LocalDate.class),
-                        @ColumnResult(name = "product_name", type = String.class),
-                        @ColumnResult(name = "product_status", type = String.class),
-                        @ColumnResult(name = "seq_id", type = Long.class),
-                        @ColumnResult(name = "total_price", type = Integer.class)
-                })
+    name = "ProductMapping",
+    columns = {
+        @ColumnResult(name = "id", type = Long.class),
+        @ColumnResult(name = "moddate", type = LocalDateTime.class),
+        @ColumnResult(name = "regdate", type = LocalDateTime.class),
+        @ColumnResult(name = "click_count", type = int.class),
+        @ColumnResult(name = "information", type = String.class),
+        @ColumnResult(name = "invest_price", type = Integer.class),
+        @ColumnResult(name = "period", type = LocalDate.class),
+        @ColumnResult(name = "product_name", type = String.class),
+        @ColumnResult(name = "product_status", type = String.class),
+        @ColumnResult(name = "seq_id", type = Long.class),
+        @ColumnResult(name = "total_price", type = Integer.class)
+    })
 
 //)
 @Table(name = "Product")

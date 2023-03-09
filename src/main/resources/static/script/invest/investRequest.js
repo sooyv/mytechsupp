@@ -95,6 +95,8 @@ function investRequest() {
   formDataPayment.append("zipCode", zipCode.value);
   formDataPayment.append("paymentPrice", payment.value);
   formDataPayment.append("paymentMethod", checkBoxValue);
+  formDataPayment.append("userId", id.value);
+
 
   if (checkEmptyKey(formDataPayment) == false) {
     return false;
@@ -114,7 +116,8 @@ function investRequest() {
       streetAddr: roadAddress.value,
       zipCode: zipCode.value,
       paymentPrice: payment.value,
-      paymentMethod: checkBoxValue
+      paymentMethod: checkBoxValue,
+      userId: id.value
      }
     ),
   })

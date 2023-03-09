@@ -4,9 +4,9 @@ function InvestForm(api) {
   investFrom.innerHTML = `
   <form class="InvestForm" action="">
     아이디
-    <input type="email" class="User_email" placeholder="${api.userEmail}" name="user_email">
+    <input type="email" class="User_email" value="${api.userEmail}" name="user_email">
     휴대폰 번호
-    <input type="tel" class = "User_phone" placeholder="${api.userPhone}" name="user_phone">
+    <input type="tel" class = "User_phone" value="${api.userPhone}" name="user_phone">
     <div class="KakaomapContainer">
       <div class="Address">
         주소

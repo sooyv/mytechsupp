@@ -17,8 +17,8 @@
 <div id="entire_box">
     <div id = "sidebar_box">
         <div id="mypage_btn">마이페이지</div>
-        <div class="btn_box" th:onclick="|location.href='/myfavorite?userId=${session.userId}'|">즐겨찾기</div>
-        <div class="btn_box" th:onclick="|location.href='/myinvest?userId=${session.userId}'|">투자목록</div>
+        <div class="btn_box" th:onclick="|location.href='/user/myfavorite?userId=${session.userEmail}'|">즐겨찾기</div>
+        <div class="btn_box" th:onclick="|location.href='/user/myinvest?userId=${session.userEmail}'|">투자목록</div>
         <div class="btn btn-outline-primary" type="button" onclick="goMyCheckPassword()">회원정보수정</div>
         <div class="btn btn-outline-primary" type="button" onclick="goMyPassword()">비밀번호변경</div>
     </div>
@@ -28,26 +28,33 @@
             <div class="ing_box">나의 현재 진행중인 투자 상품</div>
             <div class="ing_box">상품</div>
             <div class="ing_box">상품</div>
-            <div class="pagination">페이징</div>
+
+            <div>
+                <ul class="pagination"></ul>
+            </div>
+            <button id="prevBtn">이전</button>
+            <button id="nextBtn">다음</button>
         </div>
 
         <div id="bottom_box">
             <div class="past_box">나의 과거 투자 이력</div>
             <div class="past_box">상품</div>
             <div class="past_box">상품</div>
-            <div class="pagination">페이징</div>
+
+            <div>
+                <ul class="pagination"></ul>
+            </div>
+
         </div>
     </div>
 </div>
 
 </div>
 
-
-<div th:insert="/header :: header"></div>
-<script>
-  $(document).ready(function() {
-    getProducts(1);
-  });
+<!--<script>-->
+<!--  $(document).ready(function() {-->
+<!--    getProducts(1);-->
+<!--  });-->
 </script>
 <script src="/script/mypage/myInvest.js"></script>
 

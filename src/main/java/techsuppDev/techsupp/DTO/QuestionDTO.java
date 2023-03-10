@@ -22,6 +22,7 @@ public class QuestionDTO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long questionId;
     private String questionWriter;
+    private String questionPass;
     private String questionCategory;
     private String questionTitle;
     private String questionContents;
@@ -40,6 +41,7 @@ public class QuestionDTO {
         QuestionDTO questionDTO = new QuestionDTO();
         questionDTO.setQuestionId(questionEntity.getQuestionId());
         questionDTO.setQuestionWriter(questionEntity.getQuestionWriter());
+        questionDTO.setQuestionPass(questionEntity.getQuestionPass());
         questionDTO.setQuestionCategory(questionEntity.getQuestionCategory());
         questionDTO.setQuestionTitle(questionEntity.getQuestionTitle());
         questionDTO.setQuestionContents(questionEntity.getQuestionContents());

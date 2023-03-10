@@ -89,4 +89,20 @@ public class QuestionService {
         questionRepository.save(questionEntity);
         return findById(questionDTO.getQuestionId());
     }
+
+    // 작성자 조회
+//    public QuestionDTO getQuestionId(Long questionId) {
+//        Optional<QuestionEntity> optionalQuestionEntity = questionRepository.findById(questionId);
+//        if (optionalQuestionEntity != null) {
+//            return quetionEntity.get();
+//        }
+//        return null;
+//    }
+//
+//    // 비밀번호 확인
+//    public String checkPass(Long questionId) {
+//        return getQuestionId(questionId).getQuestionPass();
+//    }
+
+
 }

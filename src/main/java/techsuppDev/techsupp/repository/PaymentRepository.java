@@ -52,10 +52,13 @@ public class PaymentRepository {
         return singlePayment;
     }
 
+
+//    product list 생성시 투자율 계산을 위한 투자 count value
     public ArrayList getFivePaymentCount(ArrayList<Long> fiveProductNumber) {
         String sql = "select ";
 
         for(int i = 0; i < fiveProductNumber.size(); i++) {
+
             if (i == fiveProductNumber.size() - 1) {
                 String lastSql = "(select count(*) from " +
                         "(select * from payment " +
@@ -74,21 +77,35 @@ public class PaymentRepository {
                 sql += firstSql;
             }
         }
-        System.out.println("뭐가 잘못된겨");
 
-        Query nativeQuery = em.createNativeQuery(sql, PaymentCountForm.class);
-        List result = nativeQuery.getResultList();
+        try {
+            Query nativeQuery = em.createNativeQuery(sql, PaymentCountForm.class);
+            List result = nativeQuery.getResultList();
+            PaymentCountForm dataFromDB = (PaymentCountForm) result.get(0);
 
-        PaymentCountForm dataFromDB = (PaymentCountForm) result.get(0);
+            ArrayList paymentCount = new ArrayList();
+            paymentCount.add(dataFromDB.getNum0());
+            paymentCount.add(dataFromDB.getNum1());
+            paymentCount.add(dataFromDB.getNum2());
+            paymentCount.add(dataFromDB.getNum3());
+            paymentCount.add(dataFromDB.getNum4());
+            return paymentCount;
+        } catch (Exception e) {
+            Query nativeQuery = em.createNativeQuery(sql, PaymentCountForm.class);
+            List result = nativeQuery.getResultList();
+            PaymentCountForm dataFromDB = (PaymentCountForm) result.get(0);
 
-        ArrayList paymentCount = new ArrayList();
-        paymentCount.add(dataFromDB.getNum0());
-        paymentCount.add(dataFromDB.getNum1());
-        paymentCount.add(dataFromDB.getNum2());
-        paymentCount.add(dataFromDB.getNum3());
-        paymentCount.add(dataFromDB.getNum4());
+            ArrayList paymentCount = new ArrayList();
+            paymentCount.add(dataFromDB.getNum0());
+            paymentCount.add(dataFromDB.getNum1());
+            paymentCount.add(dataFromDB.getNum2());
+            paymentCount.add(dataFromDB.getNum3());
+            paymentCount.add(dataFromDB.getNum4());
+            return paymentCount;
+        }
 
-        return paymentCount;
+
+
     }
 
 }

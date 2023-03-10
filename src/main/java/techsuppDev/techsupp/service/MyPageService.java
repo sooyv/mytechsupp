@@ -36,6 +36,7 @@ public class MyPageService {
 
     // 비밀번호 확인
     public String checkPassword(String email) {
+
         return userService.getUserByEmail(email).getUserPassword();
     }
 

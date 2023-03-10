@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--<html lang="en">-->
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,9 +11,10 @@
 </head>
 <
 <body>
-<div id="header"></div>
+<div th:insert="/header :: header"></div>
 <form action="/notice/question" method="post" enctype="multipart/form-data">
   writer: <input type="text" name="questionWriter"> <br>
+  pass: <input type="text" name="questionPass"> <br>
   category: <input type="text" name="questionCategory"> <br>
   title: <input type="text" name="questionTitle"> <br>
   contents: <textarea name="questionContents" cols="30" rows="10"></textarea><br>

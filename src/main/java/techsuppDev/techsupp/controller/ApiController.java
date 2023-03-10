@@ -13,6 +13,7 @@ import techsuppDev.techsupp.DTO.Paylog;
 import techsuppDev.techsupp.controller.form.PaymentForm;
 import techsuppDev.techsupp.domain.PaylogStatus;
 import techsuppDev.techsupp.domain.Payment;
+import techsuppDev.techsupp.domain.Product;
 import techsuppDev.techsupp.domain.User;
 import techsuppDev.techsupp.service.PaymentService;
 import techsuppDev.techsupp.service.ProductService;
@@ -84,8 +85,47 @@ public class ApiController {
     @RequestMapping(value = "/product", method = RequestMethod.GET)
     public ResponseEntity productOne(HttpServletRequest request) {
         String productId = request.getParameter("num");
-        Long value = Long.parseLong(productId);
-        return ResponseEntity.ok().body(productService.findOneProduct(value));
+        Long productValue = Long.parseLong(productId);
+
+        HttpSession loginSession = request.getSession();
+        String userEmail = "";
+
+        if(loginSession.getAttribute("userEmail") != null) {
+            System.out.println("controller: userEmail != null");
+            userEmail = loginSession.getAttribute("userEmail").toString();
+
+        } else {
+            System.out.println("controller: userEmail == null ");
+        }
+
+//        body에 담아줄 객체 생성
+        JSONObject jsonData = new JSONObject();
+
+//        선택한 상품 정보 가져오는 것
+        Product productInformation = (Product) productService.findOneProduct(productValue);
+
+
+
+        if (userEmail == null || userEmail == "") {
+            jsonData.put("paylog", "y");
+        } else {
+            if(paymentService.checkPaylogHistory(userEmail, productValue).equals("log exist")) {
+                jsonData.put("paylog", "n");
+            } else {
+                jsonData.put("paylog", "y");
+            }
+        }
+
+        jsonData.put("seqId",productInformation.getSeqId());
+        jsonData.put("totalPrice",productInformation.getTotalPrice());
+        jsonData.put("information",productInformation.getInformation());
+        jsonData.put("productName",productInformation.getProductName());
+        jsonData.put("period",productInformation.getPeriod());
+        jsonData.put("investPrice",productInformation.getInvestPrice());
+        jsonData.put("id",productInformation.getId());
+        jsonData.put("productStatus",productInformation.getProductStatus());
+
+        return ResponseEntity.ok().body(jsonData);
     }
 
 //    상품 투자를 위해 유저 정보를 검색 후 json으로 보내주는 것
@@ -120,7 +160,7 @@ public class ApiController {
 
         payment.setPaymentMethod(object.get("paymentMethod").toString());
 
-        paymentService.savePay(payment);
+        paymentService.savePayment(payment);
 
 //        paylog
 

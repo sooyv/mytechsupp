@@ -19,6 +19,7 @@ function loadProducts() {
   }
 }
 
+
 function nextBlock() {
   currentPage = currentPage === 1 ? 2 : Math.ceil(currentPage / 10) * 10 + 2;
   currentPage = Math.min(currentPage, totalPages);
@@ -54,7 +55,7 @@ function generatePageBlock() {
     pageBtn.className = "page_btn";
     pageBtn.innerText = i;
     if (i === currentPage) {
-      pageBtn.className += " active";
+      pageBtn.classList.add("active");
     }
     pageBtn.addEventListener("click", () => {
       currentPage = i;
@@ -84,8 +85,8 @@ const pageParam = urlParams.get('page');
 if (pageParam !== null) {
   currentPage = parseInt(pageParam);
 }
+window.addEventListener("load", loadProducts);
 
 loadProducts();
 generatePageBlock();
 history.pushState({}, '', `?page=${currentPage}`); // 페이지 로드 시 쿼리스트링 추가
-

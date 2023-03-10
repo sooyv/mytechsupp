@@ -8,6 +8,7 @@ import techsuppDev.techsupp.domain.Payment;
 import techsuppDev.techsupp.repository.PayLogRepository;
 import techsuppDev.techsupp.repository.PaymentRepository;
 
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -33,13 +34,16 @@ public class PaymentService {
     }
 
 //    과거 paylog가 존재하는지 확인하는 것
-    public String checkPaylogHistory(String userEmail) {
-        System.out.println("checkpayloghistroahir");
-        if (payLogRepository.checkPaylog(userEmail) == null) {
-            System.out.println("null 일때 나오는 메세지");
+//    사용: apiController
+    public String checkPaylogHistory(String userEmail, Long productId) {
+        System.out.println("checkpayloghistory : 작동 시작");
+        if (payLogRepository.checkPaymentPaylogJoin(userEmail, productId) == null) {
+            System.out.println("Service.checkpaylog : null 일때 나오는 메세지");
+            System.out.println("log does not exist");
             return "log does not exist";
         } else {
-            System.out.println("null 이 아닐때 나오는 메세지");
+            System.out.println("Service.checkpayplog : null 이 아닐때 나오는 메세지");
+            System.out.println("log exist");
             return "log exist";
         }
     }

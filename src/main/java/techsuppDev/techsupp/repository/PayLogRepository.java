@@ -1,13 +1,16 @@
 package techsuppDev.techsupp.repository;
 
+import ch.qos.logback.core.encoder.EchoEncoder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import techsuppDev.techsupp.DTO.Paylog;
+import techsuppDev.techsupp.controller.form.PayHistoryForm;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -29,25 +32,31 @@ public class PayLogRepository {
         Query navtiveQuery = em.createNativeQuery(sql, Paylog.class);
         navtiveQuery.executeUpdate();
     }
-//    로그인한 고객의 결제 정보 있는지 판별
 
-    public Object checkPaylog(String userEmail) {
+//    상품 선택 했을때 그 상품에 대한 결제 정보가 있는지 확인하기 위해서 join 한 것
+    public PayHistoryForm checkPaymentPaylogJoin(String userEmail, Long productId) {
         String sql = "" +
+                "select * from (" +
                 "select * from paylog " +
-                "where " +
-                "user_email = '" +
-                userEmail + "';";
-//        Query nativeQuery = em.createNativeQuery(sql, Paylog.class);
-        try {
-            Query nativeQuery = em.createNativeQuery(sql, Paylog.class);
-            return nativeQuery;
-        } catch (Exception e) {
-            System.out.println("checkpaylog : 검색되지 않음");
-            Object result = null;
-            System.out.println("반환갑:  null ");
-            return result;
-        }
+                "where user_email = '" + userEmail + "') as userpay " +
+                "inner join payment " +
+                "using (payment_id) " +
+                "where product_id = " +
+                productId + ";";
+//        Query nativeQuery = em.createNativeQuery(sql);
 
-
+            System.out.println("checkPayment-Paylog join : 검색 결과 조회중");
+            try {
+                Query nativeQuery = em.createNativeQuery(sql, PayHistoryForm.class);
+                PayHistoryForm result = (PayHistoryForm) nativeQuery.getSingleResult();
+                System.out.println();
+                System.out.println("result try: " + result.toString());
+                return result;
+            } catch (Exception e) {
+                System.out.println("checkPayment-Paylog join : 검색 결과가 존재하지 않음");
+                PayHistoryForm result = null;
+                System.out.println("result Exception : " + result);
+                return result;
+            }
     }
 }

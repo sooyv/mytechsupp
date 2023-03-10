@@ -85,7 +85,7 @@ public class ApiController {
     @RequestMapping(value = "/product", method = RequestMethod.GET)
     public ResponseEntity productOne(HttpServletRequest request) {
         String productId = request.getParameter("num");
-        Long value = Long.parseLong(productId);
+        Long productValue = Long.parseLong(productId);
 
         HttpSession loginSession = request.getSession();
         String userEmail = "";
@@ -98,14 +98,18 @@ public class ApiController {
             System.out.println("controller: userEmail == null ");
         }
 
+//        body에 담아줄 객체 생성
         JSONObject jsonData = new JSONObject();
 
-        Product productInformation = (Product) productService.findOneProduct(value);
+//        선택한 상품 정보 가져오는 것
+        Product productInformation = (Product) productService.findOneProduct(productValue);
+
+
 
         if (userEmail == null || userEmail == "") {
             jsonData.put("paylog", "y");
         } else {
-            if(paymentService.checkPaylogHistory(userEmail).equals("log exist")) {
+            if(paymentService.checkPaylogHistory(userEmail, productValue).equals("log exist")) {
                 jsonData.put("paylog", "n");
             } else {
                 jsonData.put("paylog", "y");
@@ -119,6 +123,7 @@ public class ApiController {
         jsonData.put("period",productInformation.getPeriod());
         jsonData.put("investPrice",productInformation.getInvestPrice());
         jsonData.put("id",productInformation.getId());
+        jsonData.put("productStatus",productInformation.getProductStatus());
 
         return ResponseEntity.ok().body(jsonData);
     }

@@ -48,4 +48,7 @@ public class PaymentRepository {
         return singlePayment;
     }
 
+
+//    select * from paylog inner join payment on paylog.payment_id = payment.payment_id;
+
 }

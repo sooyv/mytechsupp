@@ -18,11 +18,10 @@ function createProductList(api) {
           <h5>투자 마감일 ${api[i].period}</h5>
         </div>
         <div class="ProductListPercentage-ProductListWish">
-          <h5>투자율 ${Math.round(api[i].totalPrice / api[i].investPrice)}%</h5>
+          <h5>투자율 ${Math.round( (api[i].investPrice * api[i].paymentValue) / api[i].totalPrice * 100)}%</h5>
           <h5>즐겨찾기</h5>
         </div>
       </div>
-      
     </article>`
   }
 }

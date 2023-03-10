@@ -78,6 +78,9 @@ public class ProductService {
 
     public void createtestdataproduct() {
         productRepository.insertTestData();
+
+        productRepository.createinvesttestdata();
+
         System.out.println("========");
         System.out.println("service");
     }

@@ -3,11 +3,13 @@ package techsuppDev.techsupp.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import techsuppDev.techsupp.DTO.Paylog;
+import techsuppDev.techsupp.controller.form.PaymentCountForm;
 import techsuppDev.techsupp.controller.form.PaymentForm;
 import techsuppDev.techsupp.domain.Payment;
 import techsuppDev.techsupp.repository.PayLogRepository;
 import techsuppDev.techsupp.repository.PaymentRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -46,6 +48,10 @@ public class PaymentService {
             System.out.println("log exist");
             return "log exist";
         }
+    }
+
+    public ArrayList getFivePaymentNumber(ArrayList<Long> fiveProductNumber) {
+        return paymentRepository.getFivePaymentCount(fiveProductNumber);
     }
 
 }

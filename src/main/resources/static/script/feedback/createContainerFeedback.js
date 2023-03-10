@@ -4,10 +4,12 @@
 // 현재 구현된 것은 feedbackSelect 링크로 가게 하는 것까지만 구현
 
 // 피드백 작성 폼으로 넘어가는 것 (버튼에 들어가야함)
-function linkToFeedbackWriteForm(id, paylog) {
-  if (paylog == "n") {
+function linkToFeedbackWriteForm(id, paylog, status) {
+  if (paylog == "n" && status == "SUCCESS") {
   let feedbackForm = `/feedbackSelect/feedback/form/?num=${id}`;
   window.location.href = feedbackForm; 
+  } else if (status == "FAIL") {
+    alert("후기 작성이 불가능한 상품 입니다")
   } else {
     alert("후기 작성은 투자하신 상품만 가능합니다")
   }
@@ -42,7 +44,7 @@ function createFeedbackWriteButton(api) {
   if (writeFormButton != null ) {
   writeFormButton.innerHTML = ``;
   writeFormButton.innerHTML = `
-  <input type="button" onclick = "linkToFeedbackWriteForm(${api.id}, '${api.paylog}')" value="후기 작성하러 가기">
+  <input type="button" onclick = "linkToFeedbackWriteForm(${api.id}, '${api.paylog}', '${api.productStatus}')" value="후기 작성하러 가기">
   `}
 }
 

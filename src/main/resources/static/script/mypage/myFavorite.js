@@ -1,8 +1,16 @@
-const productList = document.querySelector(".notice_board ul.board_row:not(.title_row)");
-const products = productList.getElementsByTagName("li");
+//const productList = document.querySelector(".notice_board ul");
+//const productList = document.querySelectorAll(".notice_board ul.board_row:not(.title_row) li");
+const products = document.querySelectorAll('.board_row:not(.title_row)')
+//console.log(productList)
+//const products = Array.from(productList.querySelectorAll("ul.board_row"));
+
+
 const pageSize = 10;
 let currentPage = 1;
-const totalPages = 50;
+const totalProducts = products.length;
+const totalPages = Math.ceil(totalProducts / pageSize);
+
+console.log(totalProducts);
 
 function loadProducts() {
   // 현재 페이지에 해당하는 상품 인덱스 계산

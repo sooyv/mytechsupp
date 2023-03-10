@@ -51,35 +51,30 @@ public class MyPageService {
 
     //// 로그인한 회원의 즐겨찾기 목록
 
-    public List<WishList> findByUserId(Long userId) {
-        List<WishList> wishList = myPageRepository.findByUserId(userId);
+    public List<WishList> findByUserEmail(String userEmail) {
+        List<WishList> wishList = myPageRepository.findByUserEmail(userEmail);
         return wishList;
     }
 
-//
-//    // 현재 진행중인 투자 목록
+
+    // 현재 진행중인 투자 목록
 //
 //    // 결제 내역 조회
-//    public Payment getPaymentDetails(String paymentId) {
-//        return paymentRepository.getPaymentId(paymentId).orElse(null);
+//    public Paylog getPaylog(Long paylogId) {
+//        return payLogRepository.getPaylogId(paylogId);
 //    }
 //
 //    // 결제 취소
-//    public void cancelPayment(String paymentId) {
-//        Payment payment = paymentRepository.getPaymentId(paymentId).orElse(null);
-//        if (payment == null) {
-//            throw new IllegalArgumentException("Invalid Payment Id");
-//        }
+//    public void cancelPaylog(Long cancelPaylog) {
+//        Paylog paylog = (Paylog) payLogRepository.getPaylogId(cancelPaylog);
 //
-//        // 결제 상태 변경
-//        payment.setPaylogStatus(PaylogStatus.REFUND);
-//        paymentRepository.save(payment);
 //
-//        // 결제 로그 저장
-//        Paylog payLog = new Paylog();
-//        payLog.setPaymentId(paymentId);
-//        payLog.setPaylogStatus(PaylogStatus.REFUND);
-//        payLog.setUserEmail(payment.getUserEmail());
-//        payLogRepository.savePaylog(payLog);
+//    }
+//
+//    // 결제 상태 변경
+//    public void paylogUpdate(PaylogStatus paylogStatus) {
+//    PaylogStatus paylogStatus1 =
+//        paylogStatus.setPaylogStatus(PaylogStatus.REFUND);
+//    paymentRepository.save(paylogStatus);  // jpa형식으로 save하면 바로 나오는데
 //    }
 }

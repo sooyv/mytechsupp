@@ -52,6 +52,8 @@ public class PaymentRepository {
         return singlePayment;
     }
 
+//    single product 에 해당하는 payment count 필요함
+
 
 //    product list 생성시 투자율 계산을 위한 투자 count value
     public ArrayList getFivePaymentCount(ArrayList<Long> fiveProductNumber) {

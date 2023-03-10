@@ -122,7 +122,7 @@ public Object ProductCount(int pagingNumber, String keyword) {
                 "(select * from product " +
                 "where product_status like '%SUCCESS%' " +
                 "or product_status like '%FAIL%' " +
-                "order by id)successFail ";
+                "order by period)successFail ";
         String limitSql = "" +
                 "limit " + orderNumber + ", 5;" ;
 

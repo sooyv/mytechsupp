@@ -33,7 +33,10 @@ public class ProductRepository {
         String sql = " " +
                 "select * from " +
                 "(select * from Product " +
-                "where period is not Null order by id desc)notNull ";
+                "where " +
+                "period is not Null " +
+                "and product_status like 'PROGRESS' " +
+                "order by id desc)notNull ";
         String limitSql =
                 "limit " +
                 orderNumber +
@@ -73,11 +76,11 @@ public Object ProductCount(int pagingNumber, String keyword) {
     String resultSql;
     String noKeywordSqlAllCount =
             "(select  count(*) from Product " +
-            "where product_status is not null)as countAll, ";
+            "where product_status like 'PROGRESS')as countAll, ";
 
     String keywordSqlAllCount =
             "(select  count(*) from Product " +
-            "where product_status is not null " +
+            "where product_status like 'PROGRESS' " +
             "and product_name like '%" + keyword + "%')as countAll, ";
 
     if (keyword.equals("null") || keyword.equals("")) {
@@ -89,13 +92,13 @@ public Object ProductCount(int pagingNumber, String keyword) {
     String noKeywordSql =
             "(select count(*) from " +
             "(select  * from Product " +
-            "where period is not null " +
+            "where product_status like 'PROGRESS' " +
             "limit " + pagingNumber + " , 50)as noKeywordData)as pagecount;";
 
     String keywordSql =
             "(select count(*) from " +
             "(select * from Product " +
-            "where period is not null and " +
+            "where product_status like 'PROGRESS' and " +
             "product_name like '%" + keyword + "%' " +
             "limit " + pagingNumber + ", 50)as searchData)as pagecountkeyword;";
 
@@ -150,14 +153,14 @@ public Object ProductCount(int pagingNumber, String keyword) {
                 "where " +
                 "product_status like '%SUCCESS%' or " +
                 "product_status like '%FAIL%' " +
-                "order by id)successFailCountAll), ";
+                "order by period)successFailCountAll), ";
         String keywordSqlAllCount =
                 "(select  count(*) from " +
                 "(select * from Product " +
                 "where " +
                 "product_status like '%SUCCESS%' or " +
                 "product_status like '%FAIL%' " +
-                "order by id)as successFail " +
+                "order by period)as successFail " +
                 "where product_name like '%" + keyword + "%' "
                 ;
         String endSql = "),";
@@ -172,7 +175,7 @@ public Object ProductCount(int pagingNumber, String keyword) {
                 "(select * from Product " +
                 "where " +
                 "product_status like '%SUCCESS%' or " +
-                "product_status like '%FAIL%' order by id " +
+                "product_status like '%FAIL%' order by period " +
                 "limit " + pagingNumber + " , 50)as noKeywordData)as pagecount;";
 
         String keywordSql =
@@ -181,7 +184,7 @@ public Object ProductCount(int pagingNumber, String keyword) {
                 "where " +
                 "product_status like '%SUCCESS%' or " +
                 "product_status like '%FAIL%' " +
-                "order by id)as succesfailcount " +
+                "order by period)as succesfailcount " +
                 "where product_name like '%" + keyword + "%' " +
                 "limit " + pagingNumber + ", 50)as searchData;";
 

@@ -28,36 +28,51 @@
 
     h5 {
         margin-bottom: 10px;
-
     }
 
     hr {
         border: 1px solid black;
-        width: 400px;
+        width: auto;
     }
 
     #idpw-btn {
         display: flex;
+        margin-bottom: 15px;
     }
 
-    #findPw-radio {
-        margin: 5px;
+    .form-check {
+        margin-left: 15px;
     }
 
-    #findId-radio {
-        margin: 5px;
-    }
-
-    #idUsername-box {
-        width: 380px;
+    #username-box {
+        width: auto;
+        margin-top: 10px;
     }
 
     #phoneNum-box {
-        width: 380px;
+        width: auto;
+        margin-top: 10px;
     }
 
-    input {
-    margin: 5px;
+    #email-box {
+        width: auto;
+        margin-top: 10px;
+    }
+
+    #mailauthentication-box {
+        width: auto;
+        margin-top: 10px;
+    }
+
+    #authentication-btn {
+        margin-left: 10px;
+        width: 110px;q
+    }
+
+    #mail-authenticationNum {
+        display: flex;
+        flex-direction: row;
+        height: 38px;
     }
 
     #find-btn {

@@ -72,6 +72,7 @@ public class UserService {
     }
 
 
+    // 로그인
     public User login(String email, String password) {
         User user = getUserByEmail(email);
         if (user != null && passwordEncoder.matches(password, user.getUserPassword())) {
@@ -79,6 +80,12 @@ public class UserService {
         }
         return null;
     }
+
+    // user 이메일 찾기
+//    public String getFindId(String userName, String userPhone) {
+//        List<User> AllUser = userRepository.findAll();
+//
+//    }
 
 }
 

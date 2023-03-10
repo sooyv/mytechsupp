@@ -47,6 +47,7 @@ public class UserController {
         if (userName != null) {    // 세션이 있으면 "redirect:/" 로그인 페이지 접근 차단
             ModelAndView mav = new ModelAndView("redirect:/");
             return mav;
+
         } else {                  // 세션이 없으면 로그인 페이지 접근 가능
             ModelAndView mav = new ModelAndView("/login/login");
             mav.addObject("userForm",new UserForm());
@@ -182,10 +183,46 @@ public class UserController {
 
     // 아이디 비밀번호 찾기 page
     @GetMapping("/find/member")
-    public ModelAndView findMember() {
-        ModelAndView mav = new ModelAndView("/login/finduser");
-        return mav;
+    public ModelAndView findMember(HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        String userName = (String) session.getAttribute("userName");
+
+        if (userName != null) {    // 세션이 있으면 "redirect:/" 아이디, 비밀번호 찾기 페이지 접근 차단
+            ModelAndView mav = new ModelAndView("redirect:/");
+            return mav;
+
+        } else {                  // 세션이 없으면 아이디, 비밀번호 찾기 페이지 접근 가능
+            ModelAndView mav = new ModelAndView("/login/finduser");
+            return mav;
+        }
     }
+
+    // 아이디 찾기
+    @PostMapping("/find/member/id")
+    public ResponseEntity<String> findUserId(@RequestParam("userName") String userName, @RequestParam("userPhone") String userPhone) {
+
+        System.out.println(userName);
+        System.out.println(userPhone);
+
+        return new ResponseEntity<>("Successfully Registered Id", HttpStatus.OK);
+    }
+
+
+    // 비밀번호 찾기
+    @PostMapping("/find/member/pw")
+    public ResponseEntity<String> findUserPw(@RequestParam("userEmail") String userEmail,
+                                             @RequestParam("mailAuthentication") String mailAuthentication) {
+
+        System.out.println(userEmail);
+        System.out.println(mailAuthentication);
+
+        return new ResponseEntity<>("Successfully Registered Pw", HttpStatus.OK);
+    }
+
+
+
+
 
 
     // --------- 네이버 로그인 test -------------------------------------------------------------------------

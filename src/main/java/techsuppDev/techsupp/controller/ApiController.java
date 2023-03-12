@@ -2,6 +2,7 @@ package techsuppDev.techsupp.controller;
 
 
 import lombok.RequiredArgsConstructor;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import techsuppDev.techsupp.DTO.Paylog;
+import techsuppDev.techsupp.controller.form.PaymentCountForm;
 import techsuppDev.techsupp.controller.form.PaymentForm;
 import techsuppDev.techsupp.domain.PaylogStatus;
 import techsuppDev.techsupp.domain.Payment;
@@ -26,6 +28,8 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @RestController
@@ -66,7 +70,30 @@ public class ApiController {
         if (orderNumber != 0) {
             orderNumber = orderNumber * 5;
         }
-        return ResponseEntity.ok().body(productService.findFiveProduct(orderNumber, keyword));
+
+        List<Product> fiveProduct = productService.findFiveProduct(orderNumber, keyword);
+        ArrayList<Long> fiveProductNumber = new ArrayList<Long>();
+        for(int i = 0; i < fiveProduct.size(); i++) {
+            fiveProductNumber.add(fiveProduct.get(i).getId());
+        }
+
+        ArrayList paymentNumList = paymentService.getFivePaymentNumber(fiveProductNumber);
+
+        JSONArray form = new JSONArray();
+
+        for(int i = 0; i < fiveProduct.size(); i++) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("id", fiveProduct.get(i).getId());
+            jsonObject.put("seqId", fiveProduct.get(i).getSeqId());
+            jsonObject.put("productName", fiveProduct.get(i).getProductName());
+            jsonObject.put("investPrice", fiveProduct.get(i).getInvestPrice());
+            jsonObject.put("period", fiveProduct.get(i).getPeriod());
+            jsonObject.put("totalPrice", fiveProduct.get(i).getTotalPrice());
+            jsonObject.put("paymentValue", paymentNumList.get(i));
+            form.add(jsonObject);
+        }
+
+        return ResponseEntity.ok().body(form);
     }
 
 //    페이징을 위해서 product table 상품 갯수 가져오기

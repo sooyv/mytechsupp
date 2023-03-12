@@ -3,7 +3,9 @@ package techsuppDev.techsupp.repository;
 import com.fasterxml.jackson.databind.deser.BasicDeserializerFactory;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import techsuppDev.techsupp.domain.Product;
 
 import javax.persistence.*;
@@ -440,6 +442,22 @@ public Object ProductCount(int pagingNumber, String keyword) {
             }
             System.out.println(sql + createRandomDataSql);
             return null;
+        }
+
+
+        public void createinvesttestdata() {
+            String sql = "select invest_price from product;";
+
+            Query nativeQuery = em.createNativeQuery(sql);
+
+            ArrayList<Integer> asdf = (ArrayList<Integer>) nativeQuery.getResultList();
+            String eee = "";
+            for (Integer i : asdf) {
+                String fff = asdf.get(asdf.indexOf(i)).toString();
+                System.out.println(fff);
+                eee += fff + ", ";
+            }
+            System.out.println(eee);
         }
 };
 

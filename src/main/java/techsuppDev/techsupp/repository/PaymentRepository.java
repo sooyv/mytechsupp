@@ -4,11 +4,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import techsuppDev.techsupp.controller.form.PaymentCountForm;
 import techsuppDev.techsupp.controller.form.PaymentForm;
 import techsuppDev.techsupp.domain.Payment;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -48,7 +52,62 @@ public class PaymentRepository {
         return singlePayment;
     }
 
+//    single product 에 해당하는 payment count 필요함
 
-//    select * from paylog inner join payment on paylog.payment_id = payment.payment_id;
+
+//    product list 생성시 투자율 계산을 위한 투자 count value
+    public ArrayList getFivePaymentCount(ArrayList<Long> fiveProductNumber) {
+        String sql = "select ";
+
+        for(int i = 0; i < fiveProductNumber.size(); i++) {
+
+            if (i == fiveProductNumber.size() - 1) {
+                String lastSql = "(select count(*) from " +
+                        "(select * from payment " +
+                        "where product_id = " + fiveProductNumber.get(i) + ") as num" + i +
+                        ") as num" + i + "";
+                sql += lastSql;
+            } else if (i != 0) {
+                String countSql = "(select count(*) from " +
+                        "(select * from payment " +
+                        "where product_id = " + fiveProductNumber.get(i) + ") as num" + i +
+                        ") as num" + i + ", ";
+                sql += countSql;
+            } else {
+                String firstSql = "(select count(*) from " +
+                        "payment where product_id = " + fiveProductNumber.get(i) + ") as num0, ";
+                sql += firstSql;
+            }
+        }
+
+        try {
+            Query nativeQuery = em.createNativeQuery(sql, PaymentCountForm.class);
+            List result = nativeQuery.getResultList();
+            PaymentCountForm dataFromDB = (PaymentCountForm) result.get(0);
+
+            ArrayList paymentCount = new ArrayList();
+            paymentCount.add(dataFromDB.getNum0());
+            paymentCount.add(dataFromDB.getNum1());
+            paymentCount.add(dataFromDB.getNum2());
+            paymentCount.add(dataFromDB.getNum3());
+            paymentCount.add(dataFromDB.getNum4());
+            return paymentCount;
+        } catch (Exception e) {
+            Query nativeQuery = em.createNativeQuery(sql, PaymentCountForm.class);
+            List result = nativeQuery.getResultList();
+            PaymentCountForm dataFromDB = (PaymentCountForm) result.get(0);
+
+            ArrayList paymentCount = new ArrayList();
+            paymentCount.add(dataFromDB.getNum0());
+            paymentCount.add(dataFromDB.getNum1());
+            paymentCount.add(dataFromDB.getNum2());
+            paymentCount.add(dataFromDB.getNum3());
+            paymentCount.add(dataFromDB.getNum4());
+            return paymentCount;
+        }
+
+
+
+    }
 
 }

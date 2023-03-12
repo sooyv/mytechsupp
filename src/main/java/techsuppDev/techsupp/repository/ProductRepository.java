@@ -121,14 +121,26 @@ public Object ProductCount(int pagingNumber, String keyword) {
 
 
 // 피드백 리스트로 보내주는 조건절
-    public List<Product> findFiveProductFeedback (int orderNumber, String keyword) {
+    public List<ProductListForm> findFiveProductFeedback (int orderNumber, String keyword) {
+
+//        String sql = "" +
+//                "select * from " +
+//                "(select * from product " +
+//                "where product_status like '%SUCCESS%' " +
+//                "or product_status like '%FAIL%' " +
+//                "order by period)successFail ";
 
         String sql = "" +
-                "select * from " +
-                "(select * from product " +
-                "where product_status like '%SUCCESS%' " +
+                "select id, moddate, regdate, click_count, information, invest_price, period, product_name, product_status, seq_id, total_price, img_url from " +
+                "(select * from Product " +
+                "where " +
+                "product_status like '%SUCCESS%' " +
                 "or product_status like '%FAIL%' " +
-                "order by period)successFail ";
+                "order by id desc) as productdata " +
+                "inner join image " +
+                "using (id) " +
+                "where productdata.id = image.id ";
+
         String limitSql = "" +
                 "limit " + orderNumber + ", 5;" ;
 
@@ -138,12 +150,12 @@ public Object ProductCount(int pagingNumber, String keyword) {
             sql = sql + limitSql;
         } else {
             keywordSql = "" +
-                    "where " + "product_name like '%" + keyword + "%' ";
+                    "and product_name like '%" + keyword + "%' ";
             sql = sql + keywordSql + limitSql;
         }
 
-        Query nativeQuery = em.createNativeQuery(sql, Product.class);
-        List<Product> fiveProduct = nativeQuery.getResultList();
+        Query nativeQuery = em.createNativeQuery(sql, ProductListForm.class);
+        List<ProductListForm> fiveProduct = nativeQuery.getResultList();
 
         return fiveProduct;
     }

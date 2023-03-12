@@ -53,7 +53,7 @@ public class ProductService {
 
 
 //    feedback 으로 보내주는 service
-    public List<Product> findFiveProductFeedback(int orderNumber, String keyword) {
+    public List<ProductListForm> findFiveProductFeedback(int orderNumber, String keyword) {
         return productRepository.findFiveProductFeedback(orderNumber, keyword);
     }
 

@@ -20,6 +20,7 @@ import techsuppDev.techsupp.domain.User;
 import techsuppDev.techsupp.domain.WishList;
 import techsuppDev.techsupp.repository.ProductRepository;
 import techsuppDev.techsupp.service.MyPageService;
+import techsuppDev.techsupp.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -48,15 +49,17 @@ public class MyPageController {
     // 비밀번호 확인 체크
     @PostMapping("/checkPassword")
     @ResponseBody
-    public boolean checkPassword(@RequestParam String checkPassword, HttpServletRequest request) throws Exception {
+    public boolean checkPassword(@RequestParam(name = "checkPassword") String checkPassword, HttpServletRequest request) throws Exception {
 
-        System.out.println("testtt "+checkPassword);
+        System.out.println("testt1qt "+checkPassword);
         boolean result = false;  // 리절트값 초기화
 
         //기존 디비user 조회
         HttpSession session = request.getSession();
-       User user = (User) session.getAttribute("userEmail"); // 기존 로그인 db 확인
-
+        System.out.println("zzzz"+session); // 세션은 받아오는데 유저 이메일을 못받아오는듯? 세션의
+        String userEmail = (String) session.getAttribute("userEmail");
+        User user = myPageService.getUserEmail(userEmail); // 기존 로그인 db 확인
+        System.out.println("gfhhhg"+user);
 //        String email = "tjansqja@naver.com"; //데이터베이스 JPA를 통해서 조회
         myPageService.checkPassword(user.getUserEmail());
 
@@ -65,7 +68,6 @@ public class MyPageController {
         } else {
             result = false;
         }//현재 비밀번호
-
         return result;
     }
 

@@ -12,9 +12,7 @@ function createFeedbackList(api) {
     <article class="FeedbackContent" onclick="linkToSelectedFeedback(${api[i].id})">
       <div class="FeedbackListPicture">
        <h5>${api[i].seqId}피드백 사진</h5>
-       <img src="http://localhost:8080/file/product/product_${api[i].seqId}.png" style="max-width:80%; min-height:100px;"/>
-       
-
+       <img src="http://localhost:8080${api[i].imgUrl}" style="max-width:80%; min-height:100px;"/>
       </div>
       <div class="FeebackListInformation">
         <div class="FeedbackName-FeedbackInformation">

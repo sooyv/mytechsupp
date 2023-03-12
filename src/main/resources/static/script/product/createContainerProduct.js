@@ -17,7 +17,7 @@ function createSingleProductHtml(api) {
       <div>
         <div class="ProductPicture">
           <h2>제품 사진 ${api.seqId}</h2>
-          <img src="http://localhost:8080/file/product/product_${api.seqId}.png" style="max-width:80%; min-height:100px;"/>
+          <img src="http://localhost:8080${api.imgUrl}" style="max-width:80%; min-height:100px;"/>
         </div>
         <div class="ProductInvestmentAmount">
           <h5> 투자 목표액 ₩ ${api.totalPrice}</h5>

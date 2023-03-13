@@ -77,10 +77,13 @@ public class MyPageController {
     public String userUpdate(@ModelAttribute("userinfo") User user, HttpServletRequest request) {
         HttpSession session = request.getSession();
         String myEmail = (String) session.getAttribute("userEmail");
-        user.setUserEmail(myEmail); //이메일이 아니라 2개 이름과 폰번호를 받아와야한다.
+        user.setUserEmail(myEmail);
+        user.setUserName(user.getUserName());
+        user.setUserPhone(user.getUserPhone());
         myPageService.userUpdate(user);
         return "redirect:/mypage";
     }
+
     //비밀번호 변경페이지
     @GetMapping("/editpassword")
 

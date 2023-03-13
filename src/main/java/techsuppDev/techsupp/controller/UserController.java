@@ -27,6 +27,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.security.SecureRandom;
+import java.util.List;
 
 //@Controller
 @Slf4j
@@ -147,6 +148,7 @@ public class UserController {
         if(userDetails != null) {
             User user = userDetails.getUser();
 //            System.out.println("----------------homeController------------------");
+            session.setAttribute("userId", user.getUserId());          // userId 세션에 저장
             session.setAttribute("userEmail", user.getUserEmail());    // email 세션에 저장
             session.setAttribute("userName", user.getUserName());      // name 세션에 저장
             session.setAttribute("userPhone", user.getUserPhone());    // phone 세션에 저장
@@ -158,18 +160,20 @@ public class UserController {
         return mav;
     }
 
-//    // 세션의 user 정보를 받아오기 확인
+    // 세션의 user 정보를 받아오기 확인
 //            public ResponseEntity getUserSessions(HttpServletRequest req) {
 //            HttpSession loginSession = req.getSession();
 //            String userEmail = loginSession.getAttribute("userEmail").toString();
 //            String userName = (String) loginSession.getAttribute("userName");
 //            String userPhone = (String) loginSession.getAttribute("userPhone");
 //            String userRole = (String) loginSession.getAttribute("userRole");
+//            Long userId = (Long) loginSession.getAttribute("userId");
 //
 //                System.out.println(userEmail);
 //                System.out.println(userName);
 //                System.out.println(userRole);
 //                System.out.println(userPhone);
+//                System.out.println(userId);
 //
 //            return ResponseEntity.ok().body(userService.getUserByEmail(userEmail));
 //        }
@@ -200,12 +204,14 @@ public class UserController {
 
     // 아이디 찾기
     @PostMapping("/find/member/id")
-    public ResponseEntity<String> findUserId(@RequestParam("userName") String userName, @RequestParam("userPhone") String userPhone) {
+    public ResponseEntity<List<String>> findUserId(@RequestParam("userName") String userName, @RequestParam("userPhone") String userPhone) {
 
         System.out.println(userName);
         System.out.println(userPhone);
 
-        return new ResponseEntity<>("Successfully Registered Id", HttpStatus.OK);
+        List<String> userEmail = userService.findUserEmail(userName, userPhone);
+
+        return new ResponseEntity<>(userEmail, HttpStatus.OK);
     }
 
 

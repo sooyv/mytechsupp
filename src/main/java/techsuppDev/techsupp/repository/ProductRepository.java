@@ -16,14 +16,20 @@ import java.util.*;
 public class ProductRepository {
     private final EntityManager em;
 
-    public Object findOneProduct(Long id) {
+    public Object findOneProduct(Long productId, String userId) {
         String sql = " " +
-                "select id, moddate, regdate, click_count, information, invest_price, period, product_name, product_status, seq_id, total_price, img_url from " +
+                "select " +
+                "productdata.id, moddate, regdate, click_count, information, invest_price, period, product_name, product_status, seq_id, total_price, img_url, wish_id " +
+                "from " +
                 "(select * " +
-                "from Product where id = " + id + ") as productdata " +
-                "inner join image " +
-                "using (id) " +
-                "where productdata.id = image.id";
+                "from Product where id = " + productId + ") as productdata " +
+                "join image " +
+                "on productdata.id = image.id " +
+                "left outer join " +
+                "(select * from wish_list where user_id = '" +
+                userId + "') as mywish " +
+                "on mywish.product_id = productdata.id ";
+
 
 
         System.out.println("asdf: "+ sql);

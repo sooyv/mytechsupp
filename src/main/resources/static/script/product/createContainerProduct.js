@@ -11,6 +11,29 @@ function LinkToInvestingProduct(id , paylog) {
   }
 }
 
+function wish(wishId, id) {
+  if(wishId != 'null') { 
+    console.log("delete :" +id)
+  fetch(`http://localhost:8080/api/wish/delete/?num=${+id}`)
+  .then(response => response.json())
+  .then(data => {createSingleProduct(id) });
+  } else {
+    console.log("post: " +id)
+    fetch(`http://localhost:8080/api/wish/post/?num=${+id}`)
+  .then(response => response.json())
+  .then(data => {createSingleProduct(id) });
+  }
+}
+
+function wishCheck(wishId, id) {
+  if (wishId == "0") {
+    alert("로그인 후 추가 가능합니다")
+    window.location.href = "/login";
+  } else {
+    wish(wishId, id)
+  }
+}
+
 function createSingleProductHtml(api) {
   SingleProduct.innerHTML = `
   <div class="ContainerPictureInvestmentAmountInformation">
@@ -31,6 +54,7 @@ function createSingleProductHtml(api) {
       <div class="ProductNameWish">
         <h5>제품 상세 설명 ${api.productName}</h5>
         <h5>즐겨찾기</h5>
+        <input type=button onclick="wishCheck('${api.wishId}',  '${api.id}')" value="즐겨찾기">
       </div>
       <div class="ProductLimitDate">
        <h5>투자 마감일 ${api.period}</h5>
@@ -45,13 +69,13 @@ function createSingleProductHtml(api) {
   `
 }
 
-function createSingleProduct() {
-  fetch(`/api/product/?num=${productNumber}`)
+function createSingleProduct(productNumber) {
+  fetch(`http://localhost:8080/api/product/?num=${productNumber}`)
   .then(response => response.json())
   .then(data => createSingleProductHtml(data));
 }
 
-createSingleProduct();
+createSingleProduct(productNumber);
 
 
 // // 콘솔에 찍는 용

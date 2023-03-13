@@ -31,8 +31,8 @@ public class ProductService {
 //    일단 하나만 검색해서 보내주기
 //    보내주기 성공
 //    나중에 매개 변수만 바꿔주면 로직 짜는 거는 어렵지 않을
-    public Object findOneProduct(Long productId) {
-        return productRepository.findOneProduct(productId);
+    public Object findOneProduct(Long productId, String userId) {
+        return productRepository.findOneProduct(productId, userId);
     }
 
 //    five product (login 했을 경우)

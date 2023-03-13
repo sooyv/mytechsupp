@@ -151,11 +151,12 @@ public class ApiController {
 ////    상품 선택 후 가져오는 하나의 상품 정보
     @RequestMapping(value = "/product", method = RequestMethod.GET)
     public ResponseEntity productOne(HttpServletRequest request) {
-        String productId = request.getParameter("num");
-        Long productValue = Long.parseLong(productId);
+        String productValue = request.getParameter("num");
+        Long productId = Long.parseLong(productValue);
 
         HttpSession loginSession = request.getSession();
         String userEmail = "";
+        String userId = "";
 
         if(loginSession.getAttribute("userEmail") != null) {
             System.out.println("controller: userEmail != null");
@@ -165,18 +166,28 @@ public class ApiController {
             System.out.println("controller: userEmail == null ");
         }
 
+        ProductSingleForm productInformation = new ProductSingleForm();
+
+        if (loginSession.getAttribute("userId") != null) {
+            System.out.println("controller: userId != null" + loginSession.getAttribute("userId").toString());
+            userId = loginSession.getAttribute("userId").toString();
+        } else {
+            System.out.println("controller: userId = null");
+            userId = "0";
+        }
+
 //        body에 담아줄 객체 생성
         JSONObject jsonData = new JSONObject();
 
 //        선택한 상품 정보 가져오는 것
-        ProductSingleForm productInformation = (ProductSingleForm) productService.findOneProduct(productValue);
+        productInformation = (ProductSingleForm) productService.findOneProduct(productId, userId);
 
 
 
         if (userEmail == null || userEmail == "") {
             jsonData.put("paylog", "y");
         } else {
-            if(paymentService.checkPaylogHistory(userEmail, productValue).equals("log exist")) {
+            if(paymentService.checkPaylogHistory(userEmail, productId).equals("log exist")) {
                 jsonData.put("paylog", "n");
             } else {
                 jsonData.put("paylog", "y");
@@ -192,6 +203,7 @@ public class ApiController {
         jsonData.put("id",productInformation.getId());
         jsonData.put("productStatus",productInformation.getProductStatus());
         jsonData.put("imgUrl", productInformation.getImgUrl());
+        jsonData.put("wishId", productInformation.getWishId());
 
         return ResponseEntity.ok().body(jsonData);
     }

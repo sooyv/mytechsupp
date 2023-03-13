@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import techsuppDev.techsupp.domain.User;
 import techsuppDev.techsupp.repository.UserRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -71,7 +72,7 @@ public class UserService {
         return null;
     }
 
-
+    // 로그인
     public User login(String email, String password) {
         User user = getUserByEmail(email);
         if (user != null && passwordEncoder.matches(password, user.getUserPassword())) {
@@ -80,6 +81,21 @@ public class UserService {
         return null;
     }
 
+
+    // user 이메일 찾기
+    public List<String> findUserEmail(String userName, String userPhone) {
+        List<User> users = userRepository.findByUserNameAndUserPhone(userName, userPhone);
+        List<String> userEmail = new ArrayList<>();
+        for (User user : users) {
+            String email = user.getUserEmail();
+            userEmail.add(email);
+        }
+        if (users.size() <= 0) {
+            throw new IllegalStateException("User not found");
+        }
+
+        return userEmail;
+    }
 }
 
 

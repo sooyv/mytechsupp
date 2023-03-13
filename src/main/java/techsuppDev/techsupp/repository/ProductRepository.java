@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Repository;
 import techsuppDev.techsupp.controller.form.ProductListForm;
+import techsuppDev.techsupp.controller.form.ProductListNoWishForm;
 import techsuppDev.techsupp.controller.form.ProductSingleForm;
 import techsuppDev.techsupp.domain.Product;
 
@@ -31,17 +32,18 @@ public class ProductRepository {
         return singleProduct;
     }
 
-    public List<ProductListForm> findFiveProduct(int orderNumber, String keyword) {
+    public List<ProductListForm> findFiveProduct(int orderNumber, String keyword, String userId) {
         String sql = " " +
-                "select id, moddate, regdate, click_count, information, invest_price, period, product_name, product_status, seq_id, total_price, img_url from " +
+                "select " +
+                "productdata.id, moddate, regdate, click_count, information, invest_price, period, product_name, product_status, seq_id, total_price, img_url from " +
                 "(select * from Product " +
                 "where " +
                 "period is not Null " +
-                "and product_status like 'PROGRESS' order by id desc) as productdata " +
-                "inner join image " +
-                "using (id) " +
-                "where productdata.id = image.id ";
-
+                "and product_status like 'PROGRESS' order by id desc) as productdata, image, " +
+                "(select * from wish_list where user_id = '" +
+                userId + "') as mywish " +
+                "where productdata.id = image.id " +
+                "and mywish.product_id = productdata.id ";
 
         String limitSql =
                 "limit " +
@@ -59,9 +61,47 @@ public class ProductRepository {
             sql = sql + keywordSql + limitSql;
         }
 
+        System.out.println("sql: " + sql);
+
         Query nativeQuery = em.createNativeQuery(sql, ProductListForm.class);
 
         List<ProductListForm> fiveProduct = nativeQuery.getResultList();
+        return fiveProduct;
+    }
+
+    public List<ProductListNoWishForm> findFiveProductNoWish(int orderNumber, String keyword, String userId) {
+        String sql = " " +
+                "select " +
+                "productdata.id, moddate, regdate, click_count, information, invest_price, period, product_name, product_status, seq_id, total_price, img_url from " +
+                "(select * from Product " +
+                "where " +
+                "period is not Null " +
+                "and product_status like 'PROGRESS' order by id desc) as productdata " +
+                "inner join image " +
+                "using (id) " +
+                "where productdata.id = image.id ";
+
+        String limitSql =
+                "limit " +
+                        orderNumber +
+                        ", 5;" ;
+
+        String keywordSql = "";
+
+        if (keyword.equals("null") || keyword.equals("")) {
+            sql = sql + limitSql;
+        } else {
+            keywordSql = "and product_name like '%" +
+                    keyword +
+                    "%' ";
+            sql = sql + keywordSql + limitSql;
+        }
+
+        System.out.println("sql: " + sql);
+
+        Query nativeQuery = em.createNativeQuery(sql, ProductListNoWishForm.class);
+
+        List<ProductListNoWishForm> fiveProduct = nativeQuery.getResultList();
         return fiveProduct;
     }
 
@@ -122,14 +162,6 @@ public Object ProductCount(int pagingNumber, String keyword) {
 
 // 피드백 리스트로 보내주는 조건절
     public List<ProductListForm> findFiveProductFeedback (int orderNumber, String keyword) {
-
-//        String sql = "" +
-//                "select * from " +
-//                "(select * from product " +
-//                "where product_status like '%SUCCESS%' " +
-//                "or product_status like '%FAIL%' " +
-//                "order by period)successFail ";
-
         String sql = "" +
                 "select id, moddate, regdate, click_count, information, invest_price, period, product_name, product_status, seq_id, total_price, img_url from " +
                 "(select * from Product " +

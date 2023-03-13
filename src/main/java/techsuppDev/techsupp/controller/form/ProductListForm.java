@@ -30,7 +30,8 @@ import java.time.LocalDateTime;
         @ColumnResult(name = "product_status", type = String.class),
         @ColumnResult(name = "seq_id", type = Long.class),
         @ColumnResult(name = "total_price", type = Integer.class),
-        @ColumnResult(name = "img_url", type = String.class)
+        @ColumnResult(name = "img_url", type = String.class),
+        @ColumnResult(name = "wish_id", type = String.class)
         })
 public class ProductListForm {
         @Id
@@ -44,5 +45,6 @@ public class ProductListForm {
         private String productStatus;
         private int clickCount;
         private String imgUrl;
+        private String wishId;
     }
 

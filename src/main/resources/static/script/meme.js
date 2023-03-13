@@ -400,3 +400,46 @@ function usercreate() {
   console.log(result);
 }
 usercreate()
+
+
+function insertproductimaget() {
+  let imgname = "product_";
+  let imgtype = ".png";
+
+  let originimgname = "product_";
+
+  let imgurl = "/file/product/"
+
+  let repimg = "Y";
+
+  let id = 0;
+  let result = ""
+
+  for (let i = 1; i < 101; i++) {
+    let string = "";
+    string += "('" + imgname + i + imgtype + "', " +
+               "'" + originimgname + i + imgtype + "', " +
+               "'" + imgurl + imgname + i + imgtype + "', " +
+               "'" + repimg + "', " +
+               "" + i + "), ";
+    result += string;
+  }
+  console.log(result);
+}
+insertproductimaget();
+
+img_name
+product_00.png
+
+origin_img_name
+product_00.png
+
+img_url
+/file/product/product_00.png
+
+
+rep_img
+Y
+
+id
+1 ~ 100

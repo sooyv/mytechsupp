@@ -30,12 +30,10 @@ function createFeedbackList(api) {
 }
 
 
-// /Users/mk/Desktop/product_picture/product_1
-/* <img src="/Users/mk/Desktop/product_picture/product_1"> */
 function createFiveFeedback(orderNumber, keyword) {
   fetch(`/api/feedbacks/product?page=${pageNumber}&order=${orderNumber}&keyword=${keyword}`)
   .then(response => response.json())
-  .then(data => createFeedbackList(data))
+  .then(data => createFeedbackList(data), console.log(data))
 }
 createFiveFeedback(orderNumber, keyword);
 

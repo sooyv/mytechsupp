@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import techsuppDev.techsupp.DTO.Paylog;
 import techsuppDev.techsupp.controller.form.PaymentForm;
 import techsuppDev.techsupp.controller.form.ProductListForm;
+import techsuppDev.techsupp.controller.form.ProductListNoWishForm;
 import techsuppDev.techsupp.controller.form.ProductSingleForm;
 import techsuppDev.techsupp.domain.PaylogStatus;
 import techsuppDev.techsupp.domain.Payment;
@@ -19,6 +20,7 @@ import techsuppDev.techsupp.domain.Product;
 import techsuppDev.techsupp.service.PaymentService;
 import techsuppDev.techsupp.service.ProductService;
 import techsuppDev.techsupp.service.UserService;
+import techsuppDev.techsupp.service.WishService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -37,6 +39,7 @@ public class ApiController {
     private final ProductService productService;
     private final PaymentService paymentService;
     private final UserService userService;
+    private final WishService wishService;
 
 
 //    로그인 여부 확인
@@ -68,30 +71,69 @@ public class ApiController {
             orderNumber = orderNumber * 5;
         }
 
-        List<ProductListForm> fiveProduct = productService.findFiveProduct(orderNumber, keyword);
-        ArrayList<Long> fiveProductNumber = new ArrayList<Long>();
-        for(int i = 0; i < fiveProduct.size(); i++) {
-            fiveProductNumber.add(fiveProduct.get(i).getId());
+        HttpSession loginSesion = req.getSession();
+        String userId ="";
+        System.out.println("userId : " + loginSesion.getAttribute("userId"));
+
+        if (loginSesion.getAttribute("userId") != null) {
+            userId = loginSesion.getAttribute("userId").toString();
+
+            List<ProductListForm> fiveProduct = productService.findFiveProductOnLogin(orderNumber, keyword, userId);
+            ArrayList<Long> fiveProductNumber = new ArrayList<Long>();
+            for(int i = 0; i < fiveProduct.size(); i++) {
+                fiveProductNumber.add(fiveProduct.get(i).getId());
+            }
+
+            ArrayList paymentNumList = paymentService.getFivePaymentNumber(fiveProductNumber);
+
+            JSONArray form = new JSONArray();
+
+            for(int i = 0; i < fiveProduct.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("id", fiveProduct.get(i).getId());
+                jsonObject.put("seqId", fiveProduct.get(i).getSeqId());
+                jsonObject.put("productName", fiveProduct.get(i).getProductName());
+                jsonObject.put("investPrice", fiveProduct.get(i).getInvestPrice());
+                jsonObject.put("period", fiveProduct.get(i).getPeriod());
+                jsonObject.put("totalPrice", fiveProduct.get(i).getTotalPrice());
+                jsonObject.put("paymentValue", paymentNumList.get(i));
+                jsonObject.put("imgUrl", fiveProduct.get(i).getImgUrl());
+                jsonObject.put("wishId", fiveProduct.get(i).getWishId());
+                form.add(jsonObject);
+            }
+
+            return ResponseEntity.ok().body(form);
+
+        } else {
+            userId = "hasToLogin";
+
+            List<ProductListNoWishForm> fiveProduct = productService.findFiveProductOnNoLogin(orderNumber, keyword, userId);
+            ArrayList<Long> fiveProductNumber = new ArrayList<Long>();
+            for(int i = 0; i < fiveProduct.size(); i++) {
+                fiveProductNumber.add(fiveProduct.get(i).getId());
+            }
+
+            ArrayList paymentNumList = paymentService.getFivePaymentNumber(fiveProductNumber);
+
+            JSONArray form = new JSONArray();
+
+            for(int i = 0; i < fiveProduct.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("id", fiveProduct.get(i).getId());
+                jsonObject.put("seqId", fiveProduct.get(i).getSeqId());
+                jsonObject.put("productName", fiveProduct.get(i).getProductName());
+                jsonObject.put("investPrice", fiveProduct.get(i).getInvestPrice());
+                jsonObject.put("period", fiveProduct.get(i).getPeriod());
+                jsonObject.put("totalPrice", fiveProduct.get(i).getTotalPrice());
+                jsonObject.put("paymentValue", paymentNumList.get(i));
+                jsonObject.put("imgUrl", fiveProduct.get(i).getImgUrl());
+                jsonObject.put("wishId", "hasToLogin");
+                form.add(jsonObject);
+            }
+
+            return ResponseEntity.ok().body(form);
         }
 
-        ArrayList paymentNumList = paymentService.getFivePaymentNumber(fiveProductNumber);
-
-        JSONArray form = new JSONArray();
-
-        for(int i = 0; i < fiveProduct.size(); i++) {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("id", fiveProduct.get(i).getId());
-            jsonObject.put("seqId", fiveProduct.get(i).getSeqId());
-            jsonObject.put("productName", fiveProduct.get(i).getProductName());
-            jsonObject.put("investPrice", fiveProduct.get(i).getInvestPrice());
-            jsonObject.put("period", fiveProduct.get(i).getPeriod());
-            jsonObject.put("totalPrice", fiveProduct.get(i).getTotalPrice());
-            jsonObject.put("paymentValue", paymentNumList.get(i));
-            jsonObject.put("imgUrl", fiveProduct.get(i).getImgUrl());
-            form.add(jsonObject);
-        }
-
-        return ResponseEntity.ok().body(form);
     }
 
 //    페이징을 위해서 product table 상품 갯수 가져오기
@@ -153,6 +195,28 @@ public class ApiController {
 
         return ResponseEntity.ok().body(jsonData);
     }
+
+//    즐겨찾기
+    @RequestMapping(value = "/wish/*", method = RequestMethod.POST)
+    public ResponseEntity wish( HttpServletRequest req) {
+        String productNum = req.getParameter("num");
+        Long productId = Long.parseLong(productNum);
+
+        HttpSession loginSession = req.getSession();
+        String userId = "";
+
+        if(loginSession.getAttribute("userId") != null) {
+            System.out.println("controller: userId != null");
+            userId = loginSession.getAttribute("userId").toString();
+            String result = wishService.wishPost(userId, productId);
+        } else {
+            System.out.println("controller: userId == null ");
+        }
+//        여기 고쳐야함
+//        ===========
+        return null;
+    }
+
 
 //    상품 투자를 위해 유저 정보를 검색 후 json으로 보내주는 것
     @RequestMapping(value = "/userinformation", method = RequestMethod.GET)

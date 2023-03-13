@@ -3,6 +3,20 @@ function linkToSelectedProduct(api) {
   window.location.href = productSelected;
 };
 
+function wishCheck(data) {
+  if (data != "hasToLogin") {
+    alert("즐겨찾기에 추가되었습니다")
+  } else {
+    alert("즐겨찾기 취소")
+  }
+}
+
+function wish(idNum) {
+  fetch(`api/product/wish/?num=${idNum}`)
+  .then(response => response.json())
+  .then(data => wishCheck(data));
+}
+
 function createProductList(api) {
   productList.innerHTML = ``;
   for(let i = 0; i < 5; i++) {
@@ -19,6 +33,7 @@ function createProductList(api) {
         </div>
         <div class="ProductListPercentage-ProductListWish">
           <h5>투자율 ${Math.round( (api[i].investPrice * api[i].paymentValue) / api[i].totalPrice * 100)}%</h5>
+          <input type=button onclick = "wish(${api[i].wishId})" value="즐겨찾기">
           <h5>즐겨찾기</h5>
         </div>
       </div>

@@ -3,6 +3,7 @@ package techsuppDev.techsupp.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import techsuppDev.techsupp.controller.form.ProductListForm;
+import techsuppDev.techsupp.controller.form.ProductListNoWishForm;
 import techsuppDev.techsupp.domain.Product;
 import techsuppDev.techsupp.repository.ProductRepository;
 
@@ -34,10 +35,16 @@ public class ProductService {
         return productRepository.findOneProduct(productId);
     }
 
-//    findone 5번 돌려서 가져오는 걸로 해보자
-    public List<ProductListForm> findFiveProduct(int orderNumber, String keyword) {
-        return productRepository.findFiveProduct(orderNumber, keyword);
+//    five product (login 했을 경우)
+    public List<ProductListForm> findFiveProductOnLogin(int orderNumber, String keyword, String userId) {
+        return productRepository.findFiveProduct(orderNumber, keyword, userId);
     }
+//    five product (login 안했을 경우)
+    public List<ProductListNoWishForm> findFiveProductOnNoLogin(int orderNumber, String keyword, String userId) {
+        return productRepository.findFiveProductNoWish(orderNumber, keyword, userId);
+    }
+
+
 //보통 컨트롤러에서 구현
 //    근데 그냥 되면 굳이 바꿀 필요는 없음
     public List<Product> findAllProduct() {

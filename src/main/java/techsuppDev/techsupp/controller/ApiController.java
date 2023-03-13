@@ -105,7 +105,7 @@ public class ApiController {
             return ResponseEntity.ok().body(form);
 
         } else {
-            userId = "hasToLogin";
+            userId = "0";
 
             List<ProductListNoWishForm> fiveProduct = productService.findFiveProductOnNoLogin(orderNumber, keyword, userId);
             ArrayList<Long> fiveProductNumber = new ArrayList<Long>();
@@ -127,7 +127,7 @@ public class ApiController {
                 jsonObject.put("totalPrice", fiveProduct.get(i).getTotalPrice());
                 jsonObject.put("paymentValue", paymentNumList.get(i));
                 jsonObject.put("imgUrl", fiveProduct.get(i).getImgUrl());
-                jsonObject.put("wishId", "hasToLogin");
+                jsonObject.put("wishId", userId);
                 form.add(jsonObject);
             }
 
@@ -196,9 +196,9 @@ public class ApiController {
         return ResponseEntity.ok().body(jsonData);
     }
 
-//    즐겨찾기
-    @RequestMapping(value = "/wish/*", method = RequestMethod.POST)
-    public ResponseEntity wish( HttpServletRequest req) {
+//    즐겨찾기 post
+    @RequestMapping(value = "/wish/post/", method = RequestMethod.GET)
+    public ResponseEntity wishPost( HttpServletRequest req) {
         String productNum = req.getParameter("num");
         Long productId = Long.parseLong(productNum);
 
@@ -208,14 +208,45 @@ public class ApiController {
         if(loginSession.getAttribute("userId") != null) {
             System.out.println("controller: userId != null");
             userId = loginSession.getAttribute("userId").toString();
-            String result = wishService.wishPost(userId, productId);
+            wishService.wishPost(userId, productId);
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("status", "즐겨찾기에 추가 되었습니다.");
+            return ResponseEntity.ok().body(jsonObject);
         } else {
             System.out.println("controller: userId == null ");
+            String result = "서버연결에 실패 했습니다.";
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("status", result.toString());
+            return ResponseEntity.ok().body(jsonObject);
         }
-//        여기 고쳐야함
-//        ===========
-        return null;
     }
+//    즐겨찾기 delete
+@RequestMapping(value = "/wish/delete/", method = RequestMethod.GET)
+public ResponseEntity wishDelete( HttpServletRequest req) {
+    String productNum = req.getParameter("num");
+    Long productId = Long.parseLong(productNum);
+
+    HttpSession loginSession = req.getSession();
+    String userId = "";
+
+    if(loginSession.getAttribute("userId") != null) {
+        System.out.println("controller: userId != null");
+        userId = loginSession.getAttribute("userId").toString();
+        wishService.wishDelete(userId, productId);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("status", "즐겨찾기에서 삭제되었습니다.");
+        return ResponseEntity.ok().body(jsonObject);
+    } else {
+        System.out.println("controller: userId == null ");
+        String result = "서버연결에 실패 했습니다.";
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("status", result.toString());
+        return ResponseEntity.ok().body(jsonObject);
+    }
+}
+
+
+
 
 
 //    상품 투자를 위해 유저 정보를 검색 후 json으로 보내주는 것

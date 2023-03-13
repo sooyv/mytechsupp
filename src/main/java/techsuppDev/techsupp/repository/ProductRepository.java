@@ -35,15 +35,18 @@ public class ProductRepository {
     public List<ProductListForm> findFiveProduct(int orderNumber, String keyword, String userId) {
         String sql = " " +
                 "select " +
-                "productdata.id, moddate, regdate, click_count, information, invest_price, period, product_name, product_status, seq_id, total_price, img_url, wish_id from " +
+                "productdata.id, moddate, regdate, click_count, information, invest_price, period, product_name, product_status, seq_id, total_price, img_url, wish_id " +
+                "from " +
                 "(select * from Product " +
                 "where " +
                 "period is not Null " +
-                "and product_status like 'PROGRESS' order by id desc) as productdata, image, " +
+                "and product_status like 'PROGRESS' order by id desc) as productdata " +
+                "join image " +
+                "on productdata.id = image.id " +
+                "left outer join" +
                 "(select * from wish_list where user_id = '" +
                 userId + "') as mywish " +
-                "where productdata.id = image.id " +
-                "and mywish.product_id = productdata.id ";
+                "on mywish.product_id = productdata.id ";
 
         String limitSql =
                 "limit " +

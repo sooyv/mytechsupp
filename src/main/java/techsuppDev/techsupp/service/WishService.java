@@ -10,12 +10,12 @@ public class WishService {
     public final WishListRepository wishListRepository;
 
 
-    public String wishPost(String userId, Long productId){
-        return wishListRepository.wishInsert(userId, productId);
+    public void wishPost(String userId, Long productId){
+        wishListRepository.wishInsert(userId, productId);
 
     }
 
-    public String wishDelete(String userId, Long productId) {
-        return wishListRepository.wishDelete(userId, productId);
+    public void wishDelete(String userId, Long productId) {
+        wishListRepository.wishDelete(userId, productId);
     }
 }

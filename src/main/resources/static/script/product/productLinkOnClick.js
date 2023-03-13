@@ -1,4 +1,4 @@
-const productContentAll = document.querySelectorAll('.ProductContent');
+const productContentAll = document.querySelectorAll('.ProductPay');
 
 
 // 구현해야하는 기능은 선택한 상품의 상세 정보 페이지로 이동하는것
@@ -16,3 +16,4 @@ function addEventToProductContent() {
 }
 
 
+//  여기 현재 안씀 나중에 지우든지 해야함

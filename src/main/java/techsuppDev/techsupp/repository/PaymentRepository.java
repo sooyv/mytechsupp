@@ -105,9 +105,6 @@ public class PaymentRepository {
             paymentCount.add(dataFromDB.getNum4());
             return paymentCount;
         }
-
-
-
     }
 
 }

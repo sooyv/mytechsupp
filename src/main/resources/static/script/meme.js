@@ -443,3 +443,14 @@ Y
 
 id
 1 ~ 100
+
+
+function wishinsert() {
+  let userid = 22;
+  let result = ""
+  for (let i = 1; i < 101; i++) {
+    result += "(" + i + ", " + userid + "), "
+  }
+  console.log(result)
+}
+wishinsert();

@@ -35,7 +35,7 @@ public class ProductRepository {
     public List<ProductListForm> findFiveProduct(int orderNumber, String keyword, String userId) {
         String sql = " " +
                 "select " +
-                "productdata.id, moddate, regdate, click_count, information, invest_price, period, product_name, product_status, seq_id, total_price, img_url from " +
+                "productdata.id, moddate, regdate, click_count, information, invest_price, period, product_name, product_status, seq_id, total_price, img_url, wish_id from " +
                 "(select * from Product " +
                 "where " +
                 "period is not Null " +
@@ -62,11 +62,17 @@ public class ProductRepository {
         }
 
         System.out.println("sql: " + sql);
+        try {
+            Query nativeQuery = em.createNativeQuery(sql, ProductListForm.class);
 
-        Query nativeQuery = em.createNativeQuery(sql, ProductListForm.class);
+            List<ProductListForm> fiveProduct = nativeQuery.getResultList();
+            return fiveProduct;
+        } catch (Exception e) {
+            Query nativeQuery = em.createNativeQuery(sql, ProductListForm.class);
 
-        List<ProductListForm> fiveProduct = nativeQuery.getResultList();
-        return fiveProduct;
+            List<ProductListForm> fiveProduct = nativeQuery.getResultList();
+            return fiveProduct;
+        }
     }
 
     public List<ProductListNoWishForm> findFiveProductNoWish(int orderNumber, String keyword, String userId) {
@@ -98,11 +104,17 @@ public class ProductRepository {
         }
 
         System.out.println("sql: " + sql);
+        try{
+            Query nativeQuery = em.createNativeQuery(sql, ProductListNoWishForm.class);
 
-        Query nativeQuery = em.createNativeQuery(sql, ProductListNoWishForm.class);
+            List<ProductListNoWishForm> fiveProduct = nativeQuery.getResultList();
+            return fiveProduct;
+        } catch (Exception e) {
+            Query nativeQuery = em.createNativeQuery(sql, ProductListNoWishForm.class);
 
-        List<ProductListNoWishForm> fiveProduct = nativeQuery.getResultList();
-        return fiveProduct;
+            List<ProductListNoWishForm> fiveProduct = nativeQuery.getResultList();
+            return fiveProduct;
+        }
     }
 
 

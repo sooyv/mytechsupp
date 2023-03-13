@@ -27,6 +27,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.security.SecureRandom;
+import java.util.List;
 
 //@Controller
 @Slf4j
@@ -47,6 +48,7 @@ public class UserController {
         if (userName != null) {    // 세션이 있으면 "redirect:/" 로그인 페이지 접근 차단
             ModelAndView mav = new ModelAndView("redirect:/");
             return mav;
+
         } else {                  // 세션이 없으면 로그인 페이지 접근 가능
             ModelAndView mav = new ModelAndView("/login/login");
             mav.addObject("userForm",new UserForm());
@@ -146,6 +148,7 @@ public class UserController {
         if(userDetails != null) {
             User user = userDetails.getUser();
 //            System.out.println("----------------homeController------------------");
+            session.setAttribute("userId", user.getUserId());          // userId 세션에 저장
             session.setAttribute("userEmail", user.getUserEmail());    // email 세션에 저장
             session.setAttribute("userName", user.getUserName());      // name 세션에 저장
             session.setAttribute("userPhone", user.getUserPhone());    // phone 세션에 저장
@@ -157,18 +160,20 @@ public class UserController {
         return mav;
     }
 
-//    // 세션의 user 정보를 받아오기 확인
+    // 세션의 user 정보를 받아오기 확인
 //            public ResponseEntity getUserSessions(HttpServletRequest req) {
 //            HttpSession loginSession = req.getSession();
 //            String userEmail = loginSession.getAttribute("userEmail").toString();
 //            String userName = (String) loginSession.getAttribute("userName");
 //            String userPhone = (String) loginSession.getAttribute("userPhone");
 //            String userRole = (String) loginSession.getAttribute("userRole");
+//            Long userId = (Long) loginSession.getAttribute("userId");
 //
 //                System.out.println(userEmail);
 //                System.out.println(userName);
 //                System.out.println(userRole);
 //                System.out.println(userPhone);
+//                System.out.println(userId);
 //
 //            return ResponseEntity.ok().body(userService.getUserByEmail(userEmail));
 //        }
@@ -182,10 +187,48 @@ public class UserController {
 
     // 아이디 비밀번호 찾기 page
     @GetMapping("/find/member")
-    public ModelAndView findMember() {
-        ModelAndView mav = new ModelAndView("/login/finduser");
-        return mav;
+    public ModelAndView findMember(HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        String userName = (String) session.getAttribute("userName");
+
+        if (userName != null) {    // 세션이 있으면 "redirect:/" 아이디, 비밀번호 찾기 페이지 접근 차단
+            ModelAndView mav = new ModelAndView("redirect:/");
+            return mav;
+
+        } else {                  // 세션이 없으면 아이디, 비밀번호 찾기 페이지 접근 가능
+            ModelAndView mav = new ModelAndView("/login/finduser");
+            return mav;
+        }
     }
+
+    // 아이디 찾기
+    @PostMapping("/find/member/id")
+    public ResponseEntity<List<String>> findUserId(@RequestParam("userName") String userName, @RequestParam("userPhone") String userPhone) {
+
+        System.out.println(userName);
+        System.out.println(userPhone);
+
+        List<String> userEmail = userService.findUserEmail(userName, userPhone);
+
+        return new ResponseEntity<>(userEmail, HttpStatus.OK);
+    }
+
+
+    // 비밀번호 찾기
+    @PostMapping("/find/member/pw")
+    public ResponseEntity<String> findUserPw(@RequestParam("userEmail") String userEmail,
+                                             @RequestParam("mailAuthentication") String mailAuthentication) {
+
+        System.out.println(userEmail);
+        System.out.println(mailAuthentication);
+
+        return new ResponseEntity<>("Successfully Registered Pw", HttpStatus.OK);
+    }
+
+
+
+
 
 
     // --------- 네이버 로그인 test -------------------------------------------------------------------------

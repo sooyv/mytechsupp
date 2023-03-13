@@ -9,7 +9,7 @@ function createProductList(api) {
     productList.innerHTML += `
     <article class="ProductContent" onclick="linkToSelectedProduct(${api[i].id})">
       <div class="ProductListPicture">
-        <img src="http://localhost:8080/file/product/product_${api[i].seqId}.png" style="max-width:80%; min-height:100px;"/>
+        <img src="http://localhost:8080${api[i].imgUrl}" style="max-width:80%; min-height:100px;"/>
       </div>
       <div class="ProductListInformation">
         <h5>제품 제목 ${api[i].productName}</h5>
@@ -18,11 +18,10 @@ function createProductList(api) {
           <h5>투자 마감일 ${api[i].period}</h5>
         </div>
         <div class="ProductListPercentage-ProductListWish">
-          <h5>투자율 ${Math.round(api[i].totalPrice / api[i].investPrice)}%</h5>
+          <h5>투자율 ${Math.round( (api[i].investPrice * api[i].paymentValue) / api[i].totalPrice * 100)}%</h5>
           <h5>즐겨찾기</h5>
         </div>
       </div>
-      
     </article>`
   }
 }
@@ -30,7 +29,7 @@ function createProductList(api) {
 function createFiveProduct(orderNumber, keyword) {
   fetch(`/api/products/product?page=${pageNumber}&order=${orderNumber}&keyword=${keyword}`)
   .then(response => response.json())
-  .then(data => createProductList(data));
+  .then(data => (createProductList(data), console.log(data)));
 }
 createFiveProduct(orderNumber, keyword);
 

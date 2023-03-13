@@ -4,9 +4,15 @@
 // 현재 구현된 것은 feedbackSelect 링크로 가게 하는 것까지만 구현
 
 // 피드백 작성 폼으로 넘어가는 것 (버튼에 들어가야함)
-function linkToFeedbackWriteForm(api) {
-  let feedbackForm = `/feedbackSelect/feedback/form/?num=${api}`;
-  window.location.href = feedbackForm;
+function linkToFeedbackWriteForm(id, paylog, status) {
+  if (paylog == "n" && status == "SUCCESS") {
+  let feedbackForm = `/feedbackSelect/feedback/form/?num=${id}`;
+  window.location.href = feedbackForm; 
+  } else if (status == "FAIL") {
+    alert("후기 작성이 불가능한 상품 입니다")
+  } else {
+    alert("후기 작성은 투자하신 상품만 가능합니다")
+  }
 }
 
 // 선택된 제품 하나 생성하는 function
@@ -17,7 +23,7 @@ function createFeedbackSingleHTML(api) {
   <article class="FeedbackContent">
     <div class="FeedbackListPicture">
       <h4>제품 사진 ${api.seqId}</h4>
-      <img src="http://localhost:8080/file/product/product_${api.seqId}.png" style="max-width:80%; min-height:100px;"/>
+      <img src="http://localhost:8080${api.imgUrl}" style="max-width:80%; min-height:100px;"/>
     </div>
     <div class="FeebackListInformation">
       <div class="FeedbackListName-FeedbackListInformation">
@@ -38,7 +44,7 @@ function createFeedbackWriteButton(api) {
   if (writeFormButton != null ) {
   writeFormButton.innerHTML = ``;
   writeFormButton.innerHTML = `
-  <input type="button" onclick = "linkToFeedbackWriteForm(${api.id})" value="후기 작성하러 가기">
+  <input type="button" onclick = "linkToFeedbackWriteForm(${api.id}, '${api.paylog}', '${api.productStatus}')" value="후기 작성하러 가기">
   `}
 }
 

@@ -14,7 +14,6 @@ import java.net.URLEncoder;
 @Builder
 @AllArgsConstructor
 public class ProductImgDTO {
-
     private Long imageNum;
     private String imgName;
     private String originImgName;

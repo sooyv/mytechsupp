@@ -17,8 +17,8 @@
 <div id="entire_box">
     <div id = "sidebar_box">
         <div id="mypage_btn">마이페이지</div>
-        <div class="btn_box" th:onclick="|location.href='/myfavorite?userId=${session.userId}'|">즐겨찾기</div>
-        <div class="btn_box" th:onclick="|location.href='/myinvest?userId=${session.userId}'|">투자목록</div>
+        <div class="btn_box" th:onclick="location.href=/user/myfavorite">즐겨찾기</div>
+        <div class="btn_box" th:onclick="location.href=/user/myinvest">투자목록</div>
         <div class="btn btn-outline-primary" type="button" onclick="goMyCheckPassword()">회원정보수정</div>
         <div class="btn btn-outline-primary" type="button" onclick="goMyPassword()">비밀번호변경</div>
     </div>
@@ -33,40 +33,31 @@
                 <li class="w100">투자총액</li>
                 <li class="w100">제품상태</li>
             </ul>
-            <ul class="board_row" th:if="${product != null}">
-                <li class="w70" th:text="${product.id}"></li>
-                <li class="w500" th:text="${product.productName}"></li>
-                <li class="w120" th:text="${product.investPrice}"></li>
-                <li class="w100" th:text="${product.totalPrice}"></li>
-                <li class="w100" th:text="${product.productStatus}"></li>
+            <ul class="board_row" th:each="w : ${wishList}">
+                <li class="w70" th:text="${w.product.id}"></li>
+                <li class="w500" th:text="${w.product.productName}"></li>
+                <li class="w120" th:text="${w.product.investPrice}"></li>
+                <li class="w100" th:text="${w.product.totalPrice}"></li>
+                <li class="w100" th:text="${w.product.productStatus}"></li>
             </ul>
 
-            <div th:if="${product == null}">
+            <div th:if="${wishList == null}">
                 <p>즐겨찾기한 제품이 없습니다.</p>
             </div>
-<!--            <tr th:each="product : ${wishList}" th:object="${product}">-->
-<!--                <td th:text="*{프로퍼티1}">default value</td>-->
-<!--                <td th:text="*{아이템로퍼티2}">default value</td>-->
-<!--            </tr>-->
 
-
-
-            <!-- 게시글 추가로 들어오는 위치 -->
-        </div>
-    <!-- 페이지 블럭 -->
-    <div class="pagination">
-        <button class="before_move" onclick="before()">이전</button>
-        <div class="block">
-            <!-- 블럭 추가로 들어오는 위치 -->
 
         </div>
-        <button class="next_move" onclick="next()">다음</button>
+        <!-- 페이지 블럭 -->
+        <div class="pagination">
+            <button class="before_move" onclick="prevBlock()">이전</button>
+            <div class="block">
+                <!-- 블럭 추가로 들어오는 위치 -->
+            </div>
+            <button class="next_move" onclick="nextBlock()">다음</button>
+        </div>
     </div>
 </div>
 
-</div>
-
-<div th:insert="/header :: header"></div>
 <script src="/script/mypage/myFavorite.js"></script>
 </body>
 </html>

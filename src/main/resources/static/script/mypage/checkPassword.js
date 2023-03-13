@@ -6,14 +6,14 @@ $('#checkPassword').click(function(e) {
         } else{
             $.ajax({
                 type: 'POST',
-                url: '/checkPassword',
+                url: '/user/checkPassword',
                 data: {'checkPassword': checkPassword},
                 datatype: "text"
             }).done(function(result){
                 console.log(result);
                 if(result){
                     console.log("비밀번호 일치");
-                    window.location.href="edituser";
+                    window.location.href="/user/edituser";
                 } else{
                     console.log("비밀번호 틀림");
                     // 비밀번호가 일치하지 않으면

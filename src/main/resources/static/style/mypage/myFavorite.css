@@ -8,7 +8,6 @@ ul {
 
 .board_row {
   width: 1000px;
-  border-bottom: solid 1px gray;
   margin: 0 auto;
 }
 
@@ -17,6 +16,7 @@ li {
   border-bottom: solid 1px gray;
   float: left;
   text-align: center;
+
 }
 
 .title_row > li {
@@ -65,6 +65,23 @@ li {
   margin-top: 30px;
 }
 
+.pagination .block button {
+  font-size: 1.2rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: transparent;
+  color: #000;
+  cursor: pointer;
+}
+
+.pagination .block button:hover {
+  text-decoration: underline;
+}
+
+.pagination .block button.active {
+  font-weight: bold;
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -99,4 +116,3 @@ li {
   justify-content: center;
   align-items: center;
 }
-

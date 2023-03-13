@@ -5,9 +5,11 @@
   <title>question-detail</title>
   <!-- jquery cdn -->
   <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
 <body>
 <table>
+  <div th:insert="/header :: header"></div>
   <tr>
     <th>id</th>
     <td th:text="${question.questionId}"></td>
@@ -15,6 +17,9 @@
   <tr>
     <th>writer</th>
     <td th:text="${question.questionWriter}"></td>
+  </tr>
+  <th>pass</th>
+  <td th:text="${question.questionPass}"></td>
   </tr>
   <th>category</th>
   <td th:text="${question.questionCategory}"></td>

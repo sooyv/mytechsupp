@@ -1,15 +1,13 @@
 package techsuppDev.techsupp.repository;
 
-import com.fasterxml.jackson.databind.deser.BasicDeserializerFactory;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Repository;
+import techsuppDev.techsupp.controller.form.ProductListForm;
+import techsuppDev.techsupp.controller.form.ProductSingleForm;
 import techsuppDev.techsupp.domain.Product;
 
 import javax.persistence.*;
-import java.lang.reflect.Array;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Repository
@@ -19,21 +17,32 @@ public class ProductRepository {
 
     public Object findOneProduct(Long id) {
         String sql = " " +
-                "select " +
-                " * " +
-                "from Product where id = "+
-                id;
-        Query nativeQuery = em.createNativeQuery(sql, Product.class);
+                "select id, moddate, regdate, click_count, information, invest_price, period, product_name, product_status, seq_id, total_price, img_url from " +
+                "(select * " +
+                "from Product where id = " + id + ") as productdata " +
+                "inner join image " +
+                "using (id) " +
+                "where productdata.id = image.id";
+
+
+        System.out.println("asdf: "+ sql);
+        Query nativeQuery = em.createNativeQuery(sql, ProductSingleForm.class);
         Object singleProduct = nativeQuery.getSingleResult();
         return singleProduct;
     }
 
-    public List<Product> findFiveProduct(int orderNumber, String keyword) {
-
+    public List<ProductListForm> findFiveProduct(int orderNumber, String keyword) {
         String sql = " " +
-                "select * from " +
+                "select id, moddate, regdate, click_count, information, invest_price, period, product_name, product_status, seq_id, total_price, img_url from " +
                 "(select * from Product " +
-                "where period is not Null order by id desc)notNull ";
+                "where " +
+                "period is not Null " +
+                "and product_status like 'PROGRESS' order by id desc) as productdata " +
+                "inner join image " +
+                "using (id) " +
+                "where productdata.id = image.id ";
+
+
         String limitSql =
                 "limit " +
                 orderNumber +
@@ -44,15 +53,15 @@ public class ProductRepository {
         if (keyword.equals("null") || keyword.equals("")) {
             sql = sql + limitSql;
         } else {
-            keywordSql = "where product_name like '%" +
+            keywordSql = "and product_name like '%" +
                     keyword +
                     "%' ";
             sql = sql + keywordSql + limitSql;
         }
 
-        Query nativeQuery = em.createNativeQuery(sql, Product.class);
+        Query nativeQuery = em.createNativeQuery(sql, ProductListForm.class);
 
-        List<Product> fiveProduct = nativeQuery.getResultList();
+        List<ProductListForm> fiveProduct = nativeQuery.getResultList();
         return fiveProduct;
     }
 
@@ -73,11 +82,11 @@ public Object ProductCount(int pagingNumber, String keyword) {
     String resultSql;
     String noKeywordSqlAllCount =
             "(select  count(*) from Product " +
-            "where product_status is not null)as countAll, ";
+            "where product_status like 'PROGRESS')as countAll, ";
 
     String keywordSqlAllCount =
             "(select  count(*) from Product " +
-            "where product_status is not null " +
+            "where product_status like 'PROGRESS' " +
             "and product_name like '%" + keyword + "%')as countAll, ";
 
     if (keyword.equals("null") || keyword.equals("")) {
@@ -89,13 +98,13 @@ public Object ProductCount(int pagingNumber, String keyword) {
     String noKeywordSql =
             "(select count(*) from " +
             "(select  * from Product " +
-            "where period is not null " +
+            "where product_status like 'PROGRESS' " +
             "limit " + pagingNumber + " , 50)as noKeywordData)as pagecount;";
 
     String keywordSql =
             "(select count(*) from " +
             "(select * from Product " +
-            "where period is not null and " +
+            "where product_status like 'PROGRESS' and " +
             "product_name like '%" + keyword + "%' " +
             "limit " + pagingNumber + ", 50)as searchData)as pagecountkeyword;";
 
@@ -112,14 +121,26 @@ public Object ProductCount(int pagingNumber, String keyword) {
 
 
 // 피드백 리스트로 보내주는 조건절
-    public List<Product> findFiveProductFeedback (int orderNumber, String keyword) {
+    public List<ProductListForm> findFiveProductFeedback (int orderNumber, String keyword) {
+
+//        String sql = "" +
+//                "select * from " +
+//                "(select * from product " +
+//                "where product_status like '%SUCCESS%' " +
+//                "or product_status like '%FAIL%' " +
+//                "order by period)successFail ";
 
         String sql = "" +
-                "select * from " +
-                "(select * from product " +
-                "where product_status like '%SUCCESS%' " +
+                "select id, moddate, regdate, click_count, information, invest_price, period, product_name, product_status, seq_id, total_price, img_url from " +
+                "(select * from Product " +
+                "where " +
+                "product_status like '%SUCCESS%' " +
                 "or product_status like '%FAIL%' " +
-                "order by id)successFail ";
+                "order by id desc) as productdata " +
+                "inner join image " +
+                "using (id) " +
+                "where productdata.id = image.id ";
+
         String limitSql = "" +
                 "limit " + orderNumber + ", 5;" ;
 
@@ -129,12 +150,12 @@ public Object ProductCount(int pagingNumber, String keyword) {
             sql = sql + limitSql;
         } else {
             keywordSql = "" +
-                    "where " + "product_name like '%" + keyword + "%' ";
+                    "and product_name like '%" + keyword + "%' ";
             sql = sql + keywordSql + limitSql;
         }
 
-        Query nativeQuery = em.createNativeQuery(sql, Product.class);
-        List<Product> fiveProduct = nativeQuery.getResultList();
+        Query nativeQuery = em.createNativeQuery(sql, ProductListForm.class);
+        List<ProductListForm> fiveProduct = nativeQuery.getResultList();
 
         return fiveProduct;
     }
@@ -150,14 +171,14 @@ public Object ProductCount(int pagingNumber, String keyword) {
                 "where " +
                 "product_status like '%SUCCESS%' or " +
                 "product_status like '%FAIL%' " +
-                "order by id)successFailCountAll), ";
+                "order by period)successFailCountAll), ";
         String keywordSqlAllCount =
                 "(select  count(*) from " +
                 "(select * from Product " +
                 "where " +
                 "product_status like '%SUCCESS%' or " +
                 "product_status like '%FAIL%' " +
-                "order by id)as successFail " +
+                "order by period)as successFail " +
                 "where product_name like '%" + keyword + "%' "
                 ;
         String endSql = "),";
@@ -172,7 +193,7 @@ public Object ProductCount(int pagingNumber, String keyword) {
                 "(select * from Product " +
                 "where " +
                 "product_status like '%SUCCESS%' or " +
-                "product_status like '%FAIL%' order by id " +
+                "product_status like '%FAIL%' order by period " +
                 "limit " + pagingNumber + " , 50)as noKeywordData)as pagecount;";
 
         String keywordSql =
@@ -181,7 +202,7 @@ public Object ProductCount(int pagingNumber, String keyword) {
                 "where " +
                 "product_status like '%SUCCESS%' or " +
                 "product_status like '%FAIL%' " +
-                "order by id)as succesfailcount " +
+                "order by period)as succesfailcount " +
                 "where product_name like '%" + keyword + "%' " +
                 "limit " + pagingNumber + ", 50)as searchData;";
 
@@ -437,6 +458,22 @@ public Object ProductCount(int pagingNumber, String keyword) {
             }
             System.out.println(sql + createRandomDataSql);
             return null;
+        }
+
+
+        public void createinvesttestdata() {
+            String sql = "select invest_price from product;";
+
+            Query nativeQuery = em.createNativeQuery(sql);
+
+            ArrayList<Integer> asdf = (ArrayList<Integer>) nativeQuery.getResultList();
+            String eee = "";
+            for (Integer i : asdf) {
+                String fff = asdf.get(asdf.indexOf(i)).toString();
+                System.out.println(fff);
+                eee += fff + ", ";
+            }
+            System.out.println(eee);
         }
 };
 

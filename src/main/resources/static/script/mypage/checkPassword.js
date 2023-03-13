@@ -1,3 +1,11 @@
+$('#password').keypress(function (event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    $('#checkPassword').click();
+  }
+});
+
+
 $('#checkPassword').click(function(e) {
         e.preventDefault();
         const checkPassword = $('#password').val();

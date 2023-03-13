@@ -1,4 +1,4 @@
-ul {
+.myfavorite_container ul {
   padding: 0;
   margin: 0;
   display: flex;
@@ -7,19 +7,22 @@ ul {
 }
 
 .board_row {
-  width: 1000px;
+  width: 100%;
+  max-width: 1000px;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
-li {
+.myfavorite_container li {
   list-style: none;
   border-bottom: solid 1px gray;
   float: left;
   text-align: center;
-
 }
 
 .title_row > li {
+  flex-basis: 0;
+  flex-grow: 1;
   height: 50px;
   line-height: 50px;
   background: rgb(233, 233, 233);
@@ -29,6 +32,8 @@ li {
 }
 
 .data_row > li {
+  flex-basis: 0;
+  flex-grow: 1;
   height: 40px;
   line-height: 40px;
   font-weight: lighter;
@@ -82,7 +87,9 @@ li {
   font-weight: bold;
 }
 
-.container {
+.myfavorite_container {
+  padding: 0;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -98,6 +105,7 @@ li {
   padding-left: 130px;
   width: 300px;
   height: 800px;
+  box-sizing: border-box;
 }
 
 #mypage_btn {
@@ -105,6 +113,7 @@ li {
   width: 200px;
   height: 80px;
   border: 2px solid red;
+  box-sizing: border-box;
 }
 
 .btn_box {
@@ -115,4 +124,5 @@ li {
   display: flex;
   justify-content: center;
   align-items: center;
+  box-sizing: border-box;
 }

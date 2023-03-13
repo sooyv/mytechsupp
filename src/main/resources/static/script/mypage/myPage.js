@@ -8,7 +8,7 @@ function goMyFavorite() {
     location.href = "myfavorite";
 }
 function goMyPassword() {
-    location.href = "editPassword";
+    location.href = "editpassword";
 }
 function goMyCheckPassword() {
     location.href = "checkPassword";

@@ -42,6 +42,7 @@ public class MyPageController {
     //  회원수정하기 전 비밀번호 확인
     @GetMapping("/checkPassword")
     public String checkPwdView() {
+
         return "mypage/checkPassword";
     }
 

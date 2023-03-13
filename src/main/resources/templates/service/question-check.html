@@ -1,70 +1,29 @@
 <!--<!DOCTYPE html>-->
-<!--&lt;!&ndash;<html lang="en">&ndash;&gt;-->
-<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<html xmlns:th="http://www.thymeleaf.org"-->
+<!--      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"-->
+<!--      layout:decorator="layout/default_layout">-->
+
 <!--<head>-->
-<!--  <meta charset="utf-8">-->
-<!--  <meta name="viewport" content="width=device-width, initial-scale=1">-->
-<!--  <title>question-check </title>-->
-<!--  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">-->
-<!--  <link href="/style/mypage/editUser.css" rel="stylesheet">-->
-<!--  &lt;!&ndash;    <script src="../static/js/signUp"></script>&ndash;&gt;-->
-<!--  <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>-->
-<!--  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>question-check</title>-->
 <!--</head>-->
 <!--<body>-->
-<!--&lt;!&ndash;공통되는 header&ndash;&gt;-->
 <!--<div th:insert="/header :: header"></div>-->
-
-<!--<div class="text-center">-->
-<!--  <h4 class="mb-3">비밀번호 확인</h4>-->
-<!--  <div class="align-form">-->
-<!--    <form id="editUserForm" method="POST">-->
-<!--      <div>-->
-<!--        <div class="card-body">-->
-<!--          <div class="text-start">-->
-<!--            &lt;!&ndash;            <input type="hidden" th:name="_csrf" th:value="${_csrf.token}"/>&ndash;&gt;-->
-<!--            <div class="input-group input-group-outline my-3">-->
-<!--              <label class="form-label">비밀번호 확인</label>-->
-<!--              <input type="password" id="password" name="password" class="form-control">-->
+<!--<div layout:fragment="content">-->
+<!--    <div>-->
+<!--        <form name="question-form" action="/notice/question-check" autocomplete="off" method="post">-->
+<!--            <div>-->
+<!--                <input type="hidden" name="questionId" th:value="${questionId}">-->
+<!--                <br />-->
+<!--                글을 작성할 때 입력했던 비밀번호를 적어주세요-->
+<!--                <input type="questionPass" id="questionPass" name="password" maxlength='6'  value="" placeholder="비밀번호">-->
+<!--                <input type="button" class="btn btn-outline-primary mr-7"onclick="checkPassword()" value="비밀번호 확인">-->
+<!--                <br />-->
+<!--                <a th:href="/notice/question-list"><input type="button" class="btn btn-outline-primary mr-2" value="취소"></input></a>-->
 <!--            </div>-->
-<!--          </div>-->
-<!--          &lt;!&ndash;          <div class="text-center">&ndash;&gt;-->
-<!--          &lt;!&ndash;            <button class="btn bg-gradient-primary w-100 my-4 mb-2" id="checkPwd"> 비밀번호 확인</button>&ndash;&gt;-->
-<!--          <div id="modify-cancel">-->
-<!--            <div id="checkPassword">-->
-<!--              <button type="button" value="확인" id="form-control" class="btn btn-info"></a> 확인 </button>-->
-<!--            </div>-->
-<!--            <div id="cancel">-->
-<!--              <button type="button" value="취소" id="signUpCancel" onclick="goMyPage();" class="btn btn-light"></a> 취소 </button>-->
-<!--            </div>-->
+<!--        </form>-->
 
-<!--          </div>-->
-<!--          &lt;!&ndash;        <div id="modify">&ndash;&gt;-->
-<!--          &lt;!&ndash;          <button type="submit" value="수정" id="form-control" class="btn btn-info"></a>수정</button>&ndash;&gt;-->
-<!--          &lt;!&ndash;        </div>&ndash;&gt;-->
-
-<!--          &lt;!&ndash;        <div id="cancel">&ndash;&gt;-->
-<!--          &lt;!&ndash;          <button type="submit" value="취소" id="signUpCancel" class="btn btn-light"></a>취소</button>&ndash;&gt;-->
-<!--          &lt;!&ndash;        </div>&ndash;&gt;-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </form>-->
-<!--  </div>-->
+<!--    </div>-->
 <!--</div>-->
-<!--<div th:insert="/header :: header"></div>-->
-
-<!--<script src="/script/mypage/checkPassword.js"></script>-->
-<!--<script src="/script/mypage/myPage.js"></script>-->
-<!--&lt;!&ndash;<script type="text/javascript">&ndash;&gt;-->
-<!--&lt;!&ndash;  	var naver_id_login = new naver_id_login("1Hsj4Agu95IlkAOjVncV", "http://localhost:8080/navercallback");&ndash;&gt;-->
-<!--&lt;!&ndash;  	var state = naver_id_login.getUniqState();&ndash;&gt;-->
-<!--&lt;!&ndash;  	naver_id_login.setButton("white", 4,40);&ndash;&gt;-->
-<!--&lt;!&ndash;  	naver_id_login.setDomain("http://localhost:8080/login");&ndash;&gt;-->
-<!--&lt;!&ndash;  	naver_id_login.setState(state);&ndash;&gt;-->
-<!--&lt;!&ndash;  	naver_id_login.setPopup();&ndash;&gt;-->
-<!--&lt;!&ndash;  	naver_id_login.init_naver_id_login();&ndash;&gt;-->
-<!--&lt;!&ndash;  </script>&ndash;&gt;-->
-<!--&lt;!&ndash;<script src="/script/signUp/signUp.js"></script>&ndash;&gt;-->
-<!--&lt;!&ndash;<script th:src="@{/script/mypage/editPassword.js}"></script>&ndash;&gt;-->
 <!--</body>-->
 <!--</html>-->

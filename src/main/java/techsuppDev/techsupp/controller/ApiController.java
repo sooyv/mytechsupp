@@ -4,19 +4,18 @@ package techsuppDev.techsupp.controller;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import techsuppDev.techsupp.DTO.Paylog;
-import techsuppDev.techsupp.controller.form.PaymentCountForm;
 import techsuppDev.techsupp.controller.form.PaymentForm;
+import techsuppDev.techsupp.controller.form.ProductListForm;
+import techsuppDev.techsupp.controller.form.ProductSingleForm;
 import techsuppDev.techsupp.domain.PaylogStatus;
 import techsuppDev.techsupp.domain.Payment;
 import techsuppDev.techsupp.domain.Product;
-import techsuppDev.techsupp.domain.User;
 import techsuppDev.techsupp.service.PaymentService;
 import techsuppDev.techsupp.service.ProductService;
 import techsuppDev.techsupp.service.UserService;
@@ -24,10 +23,8 @@ import techsuppDev.techsupp.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.*;
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,7 +68,7 @@ public class ApiController {
             orderNumber = orderNumber * 5;
         }
 
-        List<Product> fiveProduct = productService.findFiveProduct(orderNumber, keyword);
+        List<ProductListForm> fiveProduct = productService.findFiveProduct(orderNumber, keyword);
         ArrayList<Long> fiveProductNumber = new ArrayList<Long>();
         for(int i = 0; i < fiveProduct.size(); i++) {
             fiveProductNumber.add(fiveProduct.get(i).getId());
@@ -90,6 +87,7 @@ public class ApiController {
             jsonObject.put("period", fiveProduct.get(i).getPeriod());
             jsonObject.put("totalPrice", fiveProduct.get(i).getTotalPrice());
             jsonObject.put("paymentValue", paymentNumList.get(i));
+            jsonObject.put("imgUrl", fiveProduct.get(i).getImgUrl());
             form.add(jsonObject);
         }
 
@@ -129,7 +127,7 @@ public class ApiController {
         JSONObject jsonData = new JSONObject();
 
 //        선택한 상품 정보 가져오는 것
-        Product productInformation = (Product) productService.findOneProduct(productValue);
+        ProductSingleForm productInformation = (ProductSingleForm) productService.findOneProduct(productValue);
 
 
 
@@ -151,6 +149,7 @@ public class ApiController {
         jsonData.put("investPrice",productInformation.getInvestPrice());
         jsonData.put("id",productInformation.getId());
         jsonData.put("productStatus",productInformation.getProductStatus());
+        jsonData.put("imgUrl", productInformation.getImgUrl());
 
         return ResponseEntity.ok().body(jsonData);
     }

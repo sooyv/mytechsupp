@@ -1,15 +1,12 @@
 package techsuppDev.techsupp.service;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import techsuppDev.techsupp.controller.form.ProductListForm;
 import techsuppDev.techsupp.domain.Product;
 import techsuppDev.techsupp.repository.ProductRepository;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import static org.apache.coyote.http11.Constants.a;
 
 @Service
 //@AllArgsConstructor
@@ -38,7 +35,7 @@ public class ProductService {
     }
 
 //    findone 5번 돌려서 가져오는 걸로 해보자
-    public List<Product> findFiveProduct(int orderNumber, String keyword) {
+    public List<ProductListForm> findFiveProduct(int orderNumber, String keyword) {
         return productRepository.findFiveProduct(orderNumber, keyword);
     }
 //보통 컨트롤러에서 구현
@@ -56,7 +53,7 @@ public class ProductService {
 
 
 //    feedback 으로 보내주는 service
-    public List<Product> findFiveProductFeedback(int orderNumber, String keyword) {
+    public List<ProductListForm> findFiveProductFeedback(int orderNumber, String keyword) {
         return productRepository.findFiveProductFeedback(orderNumber, keyword);
     }
 

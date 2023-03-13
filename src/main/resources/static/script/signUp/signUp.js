@@ -108,7 +108,6 @@ form.addEventListener("submit", event => {
 
   alert(`Sign-up successful!\nUsername: ${userName}\nEmail: ${email}\nPhone: ${userPhone}`);
 
-
 $(document).ready(function () {
     const userName = $("#userName").val();
     const email = $("#email").val();

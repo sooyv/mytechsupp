@@ -91,6 +91,7 @@ public class NoticeService {
         }
     }
 
+
     public NoticeDTO update(NoticeDTO noticeDTO) {
         NoticeEntity noticeEntity = NoticeEntity.toUpdateEntity(noticeDTO);
         noticeRepository.save(noticeEntity);

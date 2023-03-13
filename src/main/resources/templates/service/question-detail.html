@@ -37,8 +37,9 @@
     <td th:text="${question.questionContents}"></td>
   </tr>
   <tr th:if="${question.fileAttached == 1}">
-    <th>image</th>
-    <td><img th:src="@{|/upload/${question.storedFileName}|}" alt=""></td>
+    <th>attached-file</th>
+    <td><a th:href="@{/notice/question-list/fileDownload/{questionId}(questionId=${question.questionId})}" th:text="${question.originalFileName}">파일이름1.png</a></td>
+<!--    <td><img th:src="@{|/upload/${question.storedFileName}|}" alt=""></td>-->
   </tr>
 </table>
 <button onclick="question-listReq()"><a href="/notice/question-list">문의사항</a></button>

@@ -47,7 +47,7 @@ public class QuestionService {
             MultipartFile questionFile = questionDTO.getQuestionFile(); // 1.
             String originalFilename = questionFile.getOriginalFilename(); // 2.
             String storedFileName = System.currentTimeMillis() + "_" + originalFilename; // 3.
-            String savePath = "C:/springboot_img/" + storedFileName; // C:/springboot_img/12987489712_내사진 notice랑 충돌확인 5.
+            String savePath = "C:/springboot_img/" + storedFileName; // C:/springboot_img/12987489712_내사진 notice랑 충돌확인
             questionFile.transferTo(new File(savePath)); // 5.
             QuestionEntity questionEntity = QuestionEntity.toSaveFileEntity(questionDTO);
             Long savedQuestionId = questionRepository.save(questionEntity).getQuestionId();

@@ -15,12 +15,12 @@ public class FeedbackRepository {
     public List<FeedbackSpecificListForm> findFeedbackList(Long productId) {
         String sql = "" +
                 "select " +
-                "feedback.id, img_url, feedback_status, feedback_text, product_id, score, user_email " +
+                "feedback.id, img_url, feedback_status, feedback_text, product_id, score, user_name " +
                 "from feedback " +
                 "inner join feedback_image " +
                 "on feedback.id = feedback_image.feedback_id " +
                 "left outer join " +
-                "(select user_email, userid from user inner join feedback " +
+                "(select user_name, userid from user inner join feedback " +
                 "on feedback.user_id = user.userid) as emailvalue " +
                 "on feedback.user_id = emailvalue.userid " +
                 "where feedback.product_id = " +

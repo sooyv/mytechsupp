@@ -109,9 +109,9 @@ body > * {
   /* justify-content: space-evenly; */
   justify-content: space-around;
   flex-direction: row;
-  width: 780px;
+  width: 800px;
   height: 150px;
-  margin: 10px;
+  margin: 1px;
 }
 
 .ProductListPicture {
@@ -223,6 +223,7 @@ body > * {
 .ProductNameWish {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   border-style: solid;
   margin-top: 10px;
   margin-left: 20px;
@@ -230,22 +231,24 @@ body > * {
   height: 240px;
 }
 
-.ProductNameWish > span {
+/* .ProductNameWish > span {
   display: flex;
   width: 240px;
   height: 200px;
-}
+} */
 
-.ProductNameWish > button {
+.ProductNameWish > input {
   display: flex;
-  /* justify-content: right; */
-  width: 40px;
+  justify-content: center;
+  margin-left: auto;
+  width: 100px;
   height: 40px;
 }
 
 .ProductLimitDate {
   display: flex;
   border-style: solid;
+  justify-content: center;
   margin-top: 10px;
   margin-left: 20px;
   width: 240px;
@@ -255,6 +258,7 @@ body > * {
 .ProductPercentage {
   display: flex;
   border-style: solid;
+  justify-content: center;
   margin-top: 10px;
   margin-left: 20px;
   width: 240px;
@@ -264,6 +268,7 @@ body > * {
 .ProductInvesting {
   display: flex;
   border-style: solid;
+  justify-content: center;
   margin-top: 10px;
   margin-left: 20px;
   width: 240px;
@@ -318,6 +323,12 @@ body > * {
 
 /* 투자 확정 - 취소 컨테이너 */
 
+.ProductName-ProductInvestment {
+  display: flex;
+  align-items: row;
+  justify-content: space-between;
+}
+
 .ContainerConfirmCancel {
   display: flex;
   border-style: solid;
@@ -335,10 +346,10 @@ body > * {
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  margin-top: 10px;
+  margin-top: 2px;
   margin-bottom: 10px;
   width: 100px;
-
+  height: 30px;
 }
 
 .PaymentRadio > * {
@@ -353,7 +364,6 @@ body > * {
   justify-content: center;
   flex-direction: column;
   margin: 10px;
-  margin-left: 100px;
   height: 300px;
 }
 
@@ -399,4 +409,18 @@ body > * {
 .roadDetailAddress {
   display: flex;
   flex-direction: column;
+}
+
+/* investComplete */
+
+.ContainerGotoOtherPage {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  height: 50px;
+  margin: 10px;
+}
+
+.ContainerGotoOtherPage > * {
+  margin: 10px;
 }

@@ -13,12 +13,11 @@ async function feedbackSpecificProductList(api, status) {
             <img src="http://localhost:8080${api[i].imgUrl}" style="max-width:80%; min-height:100px;"/>
             </div>
             <div class="FeedbackScore-FeedbackUser">
-              <h5>고객 아이디 ${api[i].userEmail}</h5>  
-              <h5 >고객 점수</h5>
-              <h5 class="Score"> ${api[i].score} </h5>
+              <h6>작성자:  ${api[i].userName}</h6>  
+              <h6 class="Score">score: ${api[i].score} </h6>
             </div>
             <div class="FeedbackText">
-              <h3>피드백 텍스트 ${api[i].feedbackText}</h3>
+              <h4>피드백 텍스트 : ${api[i].feedbackText}</h4>
             </div>
           </article>
           `
@@ -30,11 +29,11 @@ async function feedbackSpecificProductList(api, status) {
         <img src="http://localhost:8080/file/default/fail.png" style="max-width:80%; min-height:100px;"/>
         </div>
         <div class="FeedbackScore-FeedbackUser">
-          <h3>작성된 상품 후기가 없습니다.</h3>  
+          <h4>작성된 상품 후기가 없습니다.</h4>  
           
         </div>
         <div class="FeedbackText">
-          <h3>후기를 작성해 주세요</h3>
+          <h4>후기를 작성해 주세요</h4>
         </div>
       </article>
       `
@@ -46,10 +45,10 @@ async function feedbackSpecificProductList(api, status) {
         <img src="http://localhost:8080/file/default/investfail.png" style="max-width:80%; min-height:100px;"/>
         </div>
         <div class="FeedbackScore-FeedbackUser">
-          <h3>투자에 실패한 상품 입니다</h3>  
+          <h4>투자에 실패한 상품 입니다</h4>  
         </div>
         <div class="FeedbackText">
-          <h3>투자에 실패한 상품은 후기 작성이 불가능합니다</h3>
+          <h4>투자에 실패한 상품은 후기 작성이 불가능합니다</h4>
         </div>
       </article>
       `

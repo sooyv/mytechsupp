@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
     columns = {
             @ColumnResult(name = "id", type = Long.class),
         @ColumnResult(name = "product_id", type = Long.class),
-        @ColumnResult(name = "user_email", type = String.class),
+        @ColumnResult(name = "user_name", type = String.class),
         @ColumnResult(name = "img_url", type = String.class),
         @ColumnResult(name = "feedback_status", type = String.class),
         @ColumnResult(name = "feedback_text", type = String.class),
@@ -32,7 +32,7 @@ public class FeedbackSpecificListForm {
     @Id
     private Long id;
     private Long productId;
-    private String userEmail;
+    private String userName;
     private String imgUrl;
     private String feedbackStatus;
     private String feedbackText;

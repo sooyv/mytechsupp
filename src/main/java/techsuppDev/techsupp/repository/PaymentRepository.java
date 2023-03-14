@@ -41,14 +41,12 @@ public class PaymentRepository {
     }
 
 //    Payment에 데이터 입력 후 입력 된 데이터 가져와서 Paylog 에 사용할 데이터 가져오는 함
-    public Object getPaymentId(String productId) {
+    public Long getPaymentId() {
         String sql = "" +
-                "select * from payment " +
-                "where product_id = " +
-                productId + ";";
+                "select last_insert_id();";
 
-        Query nativeQuery = em.createNativeQuery(sql, Payment.class);
-        Object singlePayment = nativeQuery.getSingleResult();
+        Query nativeQuery = em.createNativeQuery(sql);
+        Long singlePayment = Long.parseLong(nativeQuery.getSingleResult().toString()) ;
         return singlePayment;
     }
 

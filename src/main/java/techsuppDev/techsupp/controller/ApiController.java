@@ -273,7 +273,7 @@ public ResponseEntity wishDelete( HttpServletRequest req) {
 // 투자 폼 받아서 db에 저장
     @RequestMapping(value = "/invest/post/*", method = RequestMethod.POST)
     public void saveInvestLog(
-            @RequestBody JSONObject object) {
+            @RequestBody JSONObject object, HttpServletRequest req) {
         PaymentForm payment = new PaymentForm();
         Long productId = Long.parseLong(object.get("productId").toString());
         payment.setProductId(productId);
@@ -295,13 +295,15 @@ public ResponseEntity wishDelete( HttpServletRequest req) {
 
 //        paylog
 
-        Payment savedPayment = (Payment) paymentService.getSinglePayment(object.get("productId").toString());
+        Long savedPayment = paymentService.getSinglePayment();
+
+        HttpSession loginSession = req.getSession();
+
 
         Paylog insertPaylog = new Paylog();
-        String userEmail = object.get("userId").toString();
-        String userId = userService.getUserByEmail(userEmail).getUserEmail();
-        insertPaylog.setUserEmail(userId);
-        insertPaylog.setPaymentId(savedPayment.getPaymentId());
+        String userEmail = loginSession.getAttribute("userEmail").toString();
+        insertPaylog.setUserEmail(userEmail);
+        insertPaylog.setPaymentId(savedPayment);
         insertPaylog.setPaylogStatus(PaylogStatus.PAY);
 
         paymentService.savePaylog(insertPaylog);

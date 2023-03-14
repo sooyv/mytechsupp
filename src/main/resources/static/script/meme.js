@@ -363,14 +363,12 @@ function rrrr() {
 
   for (let i = 0; i < 400; i++) {
     let userdata = user + i + emailform;
-    let payid = piddid[Math.floor(Math.random() * (piddid.length - 1))];
     let statata = paystat[Math.floor(Math.random() * (paystat.length - 1))];
-    result += start + "'" + userdata + "'" + ", " + payid + ", " + "'" +statata + "'" + end;
+    result += start + "'" + userdata + "'" + ", " + (i + 1 ) + ", " + "'" +statata + "'" + end;
     userdata = 0;
     payid = 0;
     statata = 0;
   }
-
   console.log(result);
 }
 rrrr()

@@ -30,12 +30,12 @@ function createFeedbackList(api) {
 }
 
 
-function createFiveFeedback(orderNumber, keyword) {
+function createFiveFeedback(pageNumber, orderNumber, keyword) {
   fetch(`/api/feedbacks/product?page=${pageNumber}&order=${orderNumber}&keyword=${keyword}`)
   .then(response => response.json())
-  .then(data => createFeedbackList(data), console.log(data))
+  .then(data => createFeedbackList(data))
 }
-createFiveFeedback(orderNumber, keyword);
+createFiveFeedback(pageNumber, orderNumber, keyword);
 
 
 // function createFiveProduct(orderNumber, keyword) {

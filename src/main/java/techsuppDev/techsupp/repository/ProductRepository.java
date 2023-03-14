@@ -3,6 +3,7 @@ package techsuppDev.techsupp.repository;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Repository;
+import techsuppDev.techsupp.controller.form.FeedbackProductListForm;
 import techsuppDev.techsupp.controller.form.ProductListForm;
 import techsuppDev.techsupp.controller.form.ProductListNoWishForm;
 import techsuppDev.techsupp.controller.form.ProductSingleForm;
@@ -182,19 +183,21 @@ public Object ProductCount(int pagingNumber, String keyword) {
 
 
 // 피드백 리스트로 보내주는 조건절
-    public List<ProductListForm> findFiveProductFeedback (int orderNumber, String keyword) {
+    public List<FeedbackProductListForm> findFiveProductFeedback (int orderNumber, String keyword) {
         String sql = "" +
-                "select id, moddate, regdate, click_count, information, invest_price, period, product_name, product_status, seq_id, total_price, img_url from " +
+                "select id, moddate, regdate, click_count, information, invest_price, period, product_name, product_status, seq_id, total_price, img_url " +
+                "from " +
                 "(select * from Product " +
                 "where " +
                 "product_status like '%SUCCESS%' " +
                 "or product_status like '%FAIL%' " +
-                "order by id desc) as productdata " +
+                "order by id) as productdata " +
                 "inner join image " +
                 "using (id) " +
                 "where productdata.id = image.id ";
 
         String limitSql = "" +
+                "order by period " +
                 "limit " + orderNumber + ", 5;" ;
 
         String keywordSql = "";
@@ -207,8 +210,9 @@ public Object ProductCount(int pagingNumber, String keyword) {
             sql = sql + keywordSql + limitSql;
         }
 
-        Query nativeQuery = em.createNativeQuery(sql, ProductListForm.class);
-        List<ProductListForm> fiveProduct = nativeQuery.getResultList();
+        System.out.println("feedback: " + sql);
+        Query nativeQuery = em.createNativeQuery(sql, FeedbackProductListForm.class);
+        List<FeedbackProductListForm> fiveProduct = nativeQuery.getResultList();
 
         return fiveProduct;
     }

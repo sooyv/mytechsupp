@@ -2,6 +2,7 @@ package techsuppDev.techsupp.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import techsuppDev.techsupp.controller.form.FeedbackProductListForm;
 import techsuppDev.techsupp.controller.form.ProductListForm;
 import techsuppDev.techsupp.controller.form.ProductListNoWishForm;
 import techsuppDev.techsupp.domain.Product;
@@ -10,23 +11,9 @@ import techsuppDev.techsupp.repository.ProductRepository;
 import java.util.List;
 
 @Service
-//@AllArgsConstructor
 @RequiredArgsConstructor
 public class ProductService {
     public final ProductRepository productRepository;
-
-//    public class paging;
-//    {
-//            int allCount;
-//            int pageCount;
-//    };
-
-//    Object paging(Object allCount, Object pageCount) {
-//            this.allCount = allCount.getClass();
-//            this.pageCount = pageCount;
-//    };
-
-
 
 //    일단 하나만 검색해서 보내주기
 //    보내주기 성공
@@ -60,7 +47,7 @@ public class ProductService {
 
 
 //    feedback 으로 보내주는 service
-    public List<ProductListForm> findFiveProductFeedback(int orderNumber, String keyword) {
+    public List<FeedbackProductListForm> findFiveProductFeedback(int orderNumber, String keyword) {
         return productRepository.findFiveProductFeedback(orderNumber, keyword);
     }
 

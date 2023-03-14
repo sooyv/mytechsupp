@@ -2,10 +2,7 @@ package techsuppDev.techsupp.domain;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
@@ -13,19 +10,26 @@ import javax.persistence.Id;
 @Entity
 @Getter
 @Setter
+@SqlResultSetMapping(
+    name = "feedbackImageMapping",
+    columns = {
+        @ColumnResult(name = "img_id", type = Long.class),
+        @ColumnResult(name = "img_name", type = String.class),
+        @ColumnResult(name = "origin_img_name", type = String.class),
+        @ColumnResult(name = "img_url", type = String.class),
+        @ColumnResult(name = "rep_img", type = Long.class),
+        @ColumnResult(name = "id", type = String.class),
+        @ColumnResult(name = "feedback_id", type = Long.class)
+    }
+)
 public class FeedbackImage {
-
-    private Long feedbackId;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String loadId;
-
-    private Long seqId;
-
-    private String imagePath;
-    private String imageName;
-
-    private Long imageSize;
-
-    private String imageType;
+    private Long imgId;
+    private String imgName;
+    private String originImgName;
+    private String imgUrl;
+    private String repImg;
+    private Long id;
+    private Long FeedbackId;
 }

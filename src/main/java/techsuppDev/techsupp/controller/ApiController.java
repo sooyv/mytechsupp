@@ -17,10 +17,7 @@ import techsuppDev.techsupp.controller.form.ProductSingleForm;
 import techsuppDev.techsupp.domain.PaylogStatus;
 import techsuppDev.techsupp.domain.Payment;
 import techsuppDev.techsupp.domain.Product;
-import techsuppDev.techsupp.service.PaymentService;
-import techsuppDev.techsupp.service.ProductService;
-import techsuppDev.techsupp.service.UserService;
-import techsuppDev.techsupp.service.WishService;
+import techsuppDev.techsupp.service.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -40,6 +37,7 @@ public class ApiController {
     private final PaymentService paymentService;
     private final UserService userService;
     private final WishService wishService;
+    private final FeedbackService feedbackService;
 
 
 //    로그인 여부 확인
@@ -335,6 +333,13 @@ public ResponseEntity wishDelete( HttpServletRequest req) {
         pagingNumber = pagingNumber * 50;
 
         return ResponseEntity.ok().body((productService.getNumberOfFeedback(pagingNumber, keyword)));
+    }
+
+    @RequestMapping(value = "/feedback/specificlist", method = RequestMethod.GET)
+    public ResponseEntity specificProductFeedback(
+            HttpServletRequest req) {
+        Long productId = Long.parseLong(req.getParameter("num"));
+        return ResponseEntity.ok().body(feedbackService.findSpecificFeedback(productId));
     }
 
 

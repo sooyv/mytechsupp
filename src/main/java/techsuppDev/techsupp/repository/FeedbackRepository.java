@@ -2,6 +2,8 @@ package techsuppDev.techsupp.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import techsuppDev.techsupp.controller.form.FeedbackSpecificListForm;
+import techsuppDev.techsupp.domain.Feedback;
 import techsuppDev.techsupp.domain.Product;
 
 import javax.persistence.EntityManager;
@@ -13,48 +15,17 @@ import java.util.List;
 public class FeedbackRepository {
     private final EntityManager em;
 
+    public List<FeedbackSpecificListForm> findFeedbackList(Long productId) {
+        String sql = "select img_url, feedback_status, feedback_text, product_id, score, user_id" +
+                "from " +
+                "feedback  inner join feedback_image" +
+                "on feedback.id = feedback_image.feedback_id" +
+                "where feedback.product_id = " +
+                productId + ";";
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    feedback test data create
-//    public Object insertTestdataFeedback() {
-//        String sql = " " +
-//                "insert into product " +
-//                "(product_id, seq_id, feedbackText, score, feedbackStatus) " +
-//                "values ";
-//        String middleSql = "(";
-//        String endSql = ")";
-//
-//        String feedbackText;
-//        String score;
-//        String feedbackStatus;
-//    }
+        Query nativeQuery = em.createNativeQuery(sql, FeedbackSpecificListForm.class);
+        List<FeedbackSpecificListForm> result = nativeQuery.getResultList();
+        return result;
+    }
 
 }

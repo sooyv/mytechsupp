@@ -454,3 +454,62 @@ function wishinsert() {
   console.log(result)
 }
 wishinsert();
+
+function createFeedback() {
+  let status = ["O", "X"];
+  let score = [1,2,3,4,5];
+  let text = "feedback test text";
+  let productId = [3,8,10,15,17,21,27,32,33,34,35,37,39,40,46,48,50,51,55,61,84,86,91,93,96,98,101];
+  let userId = "testpay";
+  let eamil = "@techsupp.com"
+  let result = "";
+
+  Math.floor(Math.random() * (status.length - 1))
+  Math.floor(Math.random() * (score.length - 1))
+  Math.floor(Math.random() * (productId.length - 1))
+  for (let i = 30; i < 430; i++) {
+    result += "('" + status[Math.floor(Math.random() * (status.length + 1 - 1))] + "', " + score[Math.floor(Math.random() * (score.length - 1))] + ", '" + text + i + "', " + productId[Math.floor(Math.random() * (productId.length - 1))] + ", " + i + "), "
+  }
+console.log(result)
+
+}
+createFeedback();
+
+27
+/file/default
+let productId = [3,8,10,15,17,21,27,32,33,34,35,37,39,40,46,48,50,51,55,61,84,86,91,93,96,98,101];
+let count = 
+[16, 16, 11, 19, 9, 15, 26, 13, 20, 12, 14, 11, 18, 18, 15, 15, 22, 12, 15, 10, 7, 20, 21, 13, 14, 18]
+function insertfeedbackimaget() {
+  let imgname = "default";
+  let imgtype = ".png";
+
+  let originimgname = "default_";
+
+  let imgurl = "/file/default"
+
+  let repimg = "Y";
+
+  
+  let result = ""
+  let id = 3;
+  let k = 1;
+  for(let j = 0; j < productId.length -1; j++ ) {
+    id = productId[j];
+    console.log(k)
+    for (let i = 0; i < count[j]; i++, k++) {
+      let string = "";
+      string += "('" + imgname + imgtype + "', " +
+                "'" + originimgname + i + imgtype + "', " +
+                "'" + imgurl + "/" +imgname + imgtype + "', " +
+                "'" + repimg + "', " +
+                "'" + id + "', ";
+      result += string;
+      result += "'" + k + "'), "
+    }
+  }
+  console.log(result);
+}
+insertfeedbackimaget();
+
+

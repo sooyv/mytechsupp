@@ -1,4 +1,4 @@
-#entire_box{
+/*#entire_box{
     display : flex;
     flex-direction : row;
 }
@@ -23,14 +23,19 @@
     height : 80px;
     border : 2px solid blue;
 }
-
+*/
 #big_invest_box{
-    padding-left : 250px;
+    padding-left : 477px;
     padding-top : 100px;
 }
 .invest_box{
     width : 800px;
     height : 200px;
-    border : 2px solid green;
+    border : 2px solid lightgrey;
     margin-bottom : 30px;
+    text-align: center; /* 글자 중앙 정렬 */
+    background-color: lightgrey; /* 박스 색상 변경 */
+    display: flex; /* 수직 중앙 정렬을 위한 Flexbox */
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-content: center;
 }

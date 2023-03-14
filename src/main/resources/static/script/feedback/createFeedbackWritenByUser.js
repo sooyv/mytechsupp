@@ -13,9 +13,9 @@ async function feedbackSpecificProductList(api, status) {
             <img src="http://localhost:8080${api[i].imgUrl}" style="max-width:80%; min-height:100px;"/>
             </div>
             <div class="FeedbackScore-FeedbackUser">
-              <h5>고객 아이디 ${api[i].userId}</h5>  
+              <h5>고객 아이디 ${api[i].userEmail}</h5>  
               <h5 >고객 점수</h5>
-              <h5 class="Score"> ${api[i].userId} </h5>
+              <h5 class="Score"> ${api[i].score} </h5>
             </div>
             <div class="FeedbackText">
               <h3>피드백 텍스트 ${api[i].feedbackText}</h3>
@@ -58,6 +58,7 @@ async function feedbackSpecificProductList(api, status) {
     console.log("fail to create list")
   } finally {
     console.log("create list complete")
+    averageScoreOfFeedback(api)
   }
 }
 
@@ -65,20 +66,20 @@ async function averageScoreOfFeedback(api) {
   try {
     let score = document.querySelectorAll('.Score');
     let statusForFunction = document.querySelector('.FeedbackStatus');
+    let averageScoreOfProduct = document.querySelector('.FeedbackScore');
     let totalScore = 0;
     if (statusForFunction == 'FAIL') {
-      score.textContent = "0";
+      averageScoreOfProduct.innerText = "상품 점수 : 0";
     } else {
       if (score.length != 0 ){
         for (let i = 0; i < api.length -1; i++) {
         totalScore += api[i].score;
         }
-        let AveageScore = Math.round(totalScore / api.length); 
-        score.textContent = `${AveageScore}
-        `;
-        console.log("#####" + AveageScore)
+        let AverageScore = Math.round(totalScore / api.length); 
+        averageScoreOfProduct.innerText = `상품 점수 : ${AverageScore}`;
+
       } else {
-        score.textContent = "0";
+        averageScoreOfProduct.innerText = "상품 점수 : 0";
       }
     }
     

@@ -15,11 +15,14 @@ public class FeedbackRepository {
     public List<FeedbackSpecificListForm> findFeedbackList(Long productId) {
         String sql = "" +
                 "select " +
-                "feedback.id, img_url, feedback_status, feedback_text, product_id, score, user_id " +
-                "from " +
-                "feedback " +
+                "feedback.id, img_url, feedback_status, feedback_text, product_id, score, user_email " +
+                "from feedback " +
                 "inner join feedback_image " +
                 "on feedback.id = feedback_image.feedback_id " +
+                "left outer join " +
+                "(select user_email, userid from user inner join feedback " +
+                "on feedback.user_id = user.userid) as emailvalue " +
+                "on feedback.user_id = emailvalue.userid " +
                 "where feedback.product_id = " +
                 productId + ";";
 
@@ -27,13 +30,6 @@ public class FeedbackRepository {
 
         Query nativeQuery = em.createNativeQuery(sql, FeedbackSpecificListForm.class);
         List<FeedbackSpecificListForm> result = nativeQuery.getResultList();
-
-        for(int i = 0; i < result.size() -1; i++) {
-            System.out.println("result array " + result.get(i).getScore());
-        }
-
-
-
         return result;
     }
 

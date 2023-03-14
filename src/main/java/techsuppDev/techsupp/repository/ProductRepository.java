@@ -51,8 +51,7 @@ public class ProductRepository {
                 "join image " +
                 "on productdata.id = image.id " +
                 "left outer join" +
-                "(select * from wish_list where user_id = '" +
-                userId + "') as mywish " +
+                "(select * from wish_list where user_id = '" + userId + "') as mywish " +
                 "on mywish.product_id = productdata.id ";
 
         String limitSql =

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.ColumnResult;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.SqlResultSetMapping;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -19,6 +20,7 @@ import java.time.LocalDateTime;
 @SqlResultSetMapping(
     name = "feedbackSpecificListMapping",
     columns = {
+            @ColumnResult(name = "id", type = Long.class),
         @ColumnResult(name = "product_id", type = Long.class),
         @ColumnResult(name = "user_id", type = Long.class),
         @ColumnResult(name = "img_url", type = String.class),
@@ -27,6 +29,8 @@ import java.time.LocalDateTime;
         @ColumnResult(name = "score", type = Integer.class),
     })
 public class FeedbackSpecificListForm {
+    @Id
+    private Long id;
     private Long productId;
     private Long userId;
     private String imgUrl;

@@ -1,11 +1,11 @@
-const form = document.getElementById("editPasswordForm");
+//const form = document.getElementById("editPasswordForm");
 const passwordInput = document.getElementById("password");
 const checkPasswordInput = document.getElementById("checkPassword");
 
 
 function validatePassword(){
 if(passwordInput.value !== checkPasswordInput.value) {
-checkPasswordInput.setCustomValidity("Passwords Don't Match");
+checkPasswordInput.setCustomValidity("비밀번호가 일치하지 않습니다.");
 } else {
 checkPasswordInput.setCustomValidity('');
 }
@@ -13,9 +13,9 @@ checkPasswordInput.setCustomValidity('');
 
 passwordInput.onchange = validatePassword;
 checkPasswordInput.onkeyup = validatePassword;
-
-form.addEventListener("submit", event => {
-event.preventDefault();
+//
+//form.addEventListener("submit", event => {
+//event.preventDefault();
 
 const password = passwordInput.value;
 const checkPassword = checkPasswordInput.value;
@@ -36,7 +36,7 @@ console.log(error);
 },
 });
 });
-});
+//});
 
 // 비밀번호 일치 여부
 function validatePassword(){

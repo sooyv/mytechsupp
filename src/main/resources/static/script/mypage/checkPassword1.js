@@ -1,12 +1,12 @@
 $('#password').keypress(function (event) {
   if (event.keyCode === 13) {
     event.preventDefault();
-    $('#checkPassword').click();
+    $('#checkPassword1').click();
   }
 });
 
 
-$('#checkPassword').click(function(e) {
+$('#checkPassword1').click(function(e) {
         e.preventDefault();
         const checkPassword = $('#password').val();
         if(!checkPassword || checkPassword.trim() === ""){
@@ -14,14 +14,14 @@ $('#checkPassword').click(function(e) {
         } else{
             $.ajax({
                 type: 'POST',
-                url: '/user/checkPassword',
-                data: {'checkPassword': checkPassword},
+                url: '/user/checkPassword1',
+                data: {'checkPassword1': checkPassword},
                 datatype: "text"
             }).done(function(result){
                 console.log(result);
                 if(result){
                     console.log("비밀번호 일치");
-                    window.location.href="/user/edituser";
+                    window.location.href="/user/editpassword";
                 } else{
                     console.log("비밀번호 틀림");
                     // 비밀번호가 일치하지 않으면

@@ -12,6 +12,7 @@ import techsuppDev.techsupp.controller.form.MyPageForm;
 import techsuppDev.techsupp.domain.User;
 import techsuppDev.techsupp.domain.WishList;
 import techsuppDev.techsupp.repository.ProductRepository;
+import techsuppDev.techsupp.repository.UserRepository;
 import techsuppDev.techsupp.service.MyPageService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -63,6 +64,43 @@ public class MyPageController {
     }
 
 
+    // 비밀번호 확인 두번 째
+
+    //  회원수정하기 전 비밀번호 확인
+    @GetMapping("/checkPassword1")
+    public String checkPwdView1() {
+
+        return "mypage/checkPassword1";
+    }
+
+    // 비밀번호 확인 체크
+    @PostMapping("/checkPassword1")
+    @ResponseBody
+    public boolean checkPassword1(@RequestParam(name = "checkPassword1") String checkPassword, HttpServletRequest request) throws Exception {
+
+        System.out.println("testt1qt "+checkPassword);
+        boolean result = false;  // 리절트값 초기화
+
+        //기존 디비user 조회
+        HttpSession session = request.getSession();
+        System.out.println("zzzz"+session); // 세션은 받아오는데 유저 이메일을 못받아오는듯? 세션의
+        String userEmail = (String) session.getAttribute("userEmail");
+        User user = myPageService.getUserEmail(userEmail); // 기존 로그인 db 확인
+        System.out.println("gfhhhg"+user);
+//        String email = "tjansqja@naver.com"; //데이터베이스 JPA를 통해서 조회
+        myPageService.checkPassword(user.getUserEmail());
+
+        if (passwordEncoder.matches(checkPassword, myPageService.checkPassword(user.getUserEmail()))) {
+            result = true;
+        } else {
+            result = false;
+        }//현재 비밀번호
+        return result;
+    }
+
+
+
+
     //    회원정보수정페이지
     @GetMapping("/edituser")
     public String editUser(HttpServletRequest request, Model model) {
@@ -74,15 +112,25 @@ public class MyPageController {
     }
 
     @PostMapping("/edituser")
-    public String userUpdate(@ModelAttribute("userinfo") User user, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        String myEmail = (String) session.getAttribute("userEmail");
-        user.setUserEmail(myEmail);
-        user.setUserName(user.getUserName());
-        user.setUserPhone(user.getUserPhone());
-        myPageService.userUpdate(user);
-        return "redirect:/mypage";
+    public String userUpdate(@ModelAttribute("userinfo") User user) {
+
+        System.out.println("tes22t"+user.getUserPhone());
+        System.out.println("tes22t"+user.getUserName());
+        System.out.println("tes22t"+user.getUserEmail());
+        System.out.println("tes22t"+user.getRole());
+        System.out.println("tes22t"+user.getUserPassword());
+
+        User user1 = myPageService.getUserEmail(user.getUserEmail());
+
+        user1.setUserName(user.getUserName());
+        user1.setUserPhone(user.getUserPhone());
+        myPageService.userUpdate(user1);
+        return "redirect:/user/mypage";
+
+
     }
+
+
 
     //비밀번호 변경페이지
     @GetMapping("/editpassword")

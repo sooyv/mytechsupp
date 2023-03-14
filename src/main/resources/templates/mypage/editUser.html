@@ -18,7 +18,7 @@
 <div class="text-center">
   <h4 class="mb-3">회원정보수정</h4>
   <div class="align-form">
-    <form action="/edituser"  method="post">
+    <form action="edituser"  method="post">
       <div>
 
 <!--        th:value="${userInfo.userEmail} 세션값 가져올 때 -->
@@ -26,7 +26,7 @@
         <div id="email-box" class="form-group col-md-4" name="myPageForm">
           <label for="email">이메일</label>
           <div id="emailcheck">
-            <input type="email" name="userEmailFromSession" id="email" class="form-control" aria-describedby="emailHelp" placeholder="email@example.com" th:value="${userinfo.userEmail}">
+            <input type="email" name="userEmail" id="email" class="form-control" aria-describedby="emailHelp" placeholder="email@example.com" th:value="${userinfo.userEmail}">
           </div>
           <small id="emailHelp" class="form-text text-muted"></small>
         </div>

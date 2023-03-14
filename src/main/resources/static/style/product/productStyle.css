@@ -286,17 +286,32 @@ body > * {
   border-style: solid;
   flex-direction: column;
   margin: 10px;
-  margin-left: 100px;
+  /* margin-left: 100px; */
+  align-items: flex-start;
+  justify-content: flex-start;
   height: 400px;
 }
 
 .ContainerUserInput > * {
   display: flex;
   border-style: solid;
-  margin: 30px;
+  flex-direction: column;
+  align-items: flex-start;
+  /* margin: 30px; */
+  /* margin: auto; */
+  margin-left: 10px;
+  margin-top: 40px;
   width: 200px;
   height: 30px;
 }
+
+.InvestForm {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  border: none;
+}
+
 
 /* 투자 확정 - 취소 컨테이너 */
 
@@ -321,6 +336,10 @@ body > * {
   margin-bottom: 10px;
   width: 100px;
 
+}
+
+.PaymentRadio > * {
+  margin: 8px;
 }
 
 /* 결제 완료 안내 페이지 */

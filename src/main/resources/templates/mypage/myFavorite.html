@@ -34,7 +34,8 @@
                 <li class="w100">제품상태</li>
             </ul>
             <ul class="board_row" th:each="w : ${wishList}">
-                <li class="w70" th:text="${w.product.id}"></li>
+                <li class="w70" th:text="${wStat.index + 1}"></li>
+                <!--                <li class="w70" th:text="${w.product.id}"></li>-->
                 <li class="w500" th:text="${w.product.productName}"></li>
                 <li class="w120" th:text="${w.product.investPrice}"></li>
                 <li class="w100" th:text="${w.product.totalPrice}"></li>

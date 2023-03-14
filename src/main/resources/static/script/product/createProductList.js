@@ -32,30 +32,53 @@ function wishCheck(wishId, id) {
   }
 }
 
-function createProductList(api) {
-  productList.innerHTML = ``;
-  for(let i = 0; i < 5; i++) {
-    productList.innerHTML += `
-    <article class="ProductContent">
-      <div class="ProductListPicture">
-        <img src="http://localhost:8080${api[i].imgUrl}" style="max-width:80%; min-height:100px;"/>
-      </div>
-      <div class="ProductListInformation">
-        <h5>제품 제목 ${api[i].productName}</h5>
-        <div class="ProductListInvestment-ProductListLimitDate">
-          <input class = "ProductPay" type=button onclick=linkToSelectedProduct(${api[i].id}) value="투자하기">
-          <h5>개인 투자 금액 ₩ ${api[i].investPrice}</h5>
-          <h5>투자 마감일 ${api[i].period}</h5>
-        </div>
-        <div class="ProductListPercentage-ProductListWish">
-          <h5>투자율 ${Math.round( (api[i].investPrice * api[i].paymentValue) / api[i].totalPrice * 100)}%</h5>
-          <input type=button onclick = "wishCheck('${api[i].wishId}' , '${api[i].id}' )" value="즐겨찾기">
-          <h5>즐겨찾기</h5>
-        </div>
-      </div>
-    </article>`
+function addLinkToDom(api) {
+  const picture = document.querySelectorAll('.ProductListPicture');
+  const name = document.querySelectorAll('.ProductName');
+  const period = document.querySelectorAll('.ProductPeriod');
+  const investPercent = document.querySelectorAll('.ProductInvestPercent');
+
+  for (let i = 0; i < api.length;  i++) {
+    picture[i].addEventListener("click", () => {linkToSelectedProduct(api[i].id)})
+    name[i].addEventListener("click",() => {linkToSelectedProduct(api[i].id)})
+    period[i].addEventListener("click", () => {linkToSelectedProduct(api[i].id)})
+    investPercent[i].addEventListener("click", () => {linkToSelectedProduct(api[i].id)})
   }
+} 
+
+
+
+
+async function createProductList(api) {
+  try {
+    productList.innerHTML = ``;
+    for(let i = 0; i < api.length; i++) {
+      productList.innerHTML += `
+      <article class="ProductContent">
+        <div class="ProductListPicture">
+          <img src="http://localhost:8080${api[i].imgUrl}" style="max-width:80%; min-height:100px;"/>
+        </div>
+        <div class="ProductListInformation">
+          <h5 class="ProductName">제품명 :  ${api[i].productName}</h5>
+          <div class="ProductListInvestment-ProductListLimitDate">
+            <h5 class="ProductPeriod">투자 마감일: ${api[i].period}</h5>  
+            <input class = "ProductPay" type=button onclick=linkToSelectedProduct(${api[i].id}) value="개인 투자 금액:  ₩ ${api[i].investPrice}">
+          </div>
+          <div class="ProductListPercentage-ProductListWish">
+            <h5 class="ProductInvestPercent">투자율: ${Math.round( (api[i].investPrice * api[i].paymentValue) / api[i].totalPrice * 100)}%</h5>
+            <input type=button onclick = "wishCheck('${api[i].wishId}' , '${api[i].id}' )" value="즐겨찾기">
+          </div>
+        </div>
+      </article>`
+    }
+  } catch {
+    console.log("fail to create Product list");
+  } finally {
+    addLinkToDom(api)
+  }
+  
 }
+
 
 function createFiveProduct(pageNumber, orderNumber, keyword) {
   fetch(`/api/products/product?page=${pageNumber}&order=${orderNumber}&keyword=${keyword}`)

@@ -105,7 +105,9 @@ body > * {
 .ProductContent {
   display: flex;
   border-style: solid;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  /* justify-content: space-evenly; */
+  justify-content: space-around;
   flex-direction: row;
   width: 780px;
   height: 150px;
@@ -126,19 +128,20 @@ body > * {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  width: 300px;
+  width: 550px;
   height: 150px;
+  margin: 10px;
 }
 
 .ProductListInvestment-ProductListLimitDate {
   display: flex;
   justify-content: space-between;
+  margin: 10px;
 }
 
 .ProductListPercentage-ProductListWish {
   display: flex;
   justify-content: space-between;
-  flex-direction: column;
   margin: 10px;
 }
 

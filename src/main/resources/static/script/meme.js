@@ -513,3 +513,24 @@ function insertfeedbackimaget() {
 insertfeedbackimaget();
 
 
+async function asdf () {
+  try {
+    console.log("start")
+  } catch {
+
+  } finally {
+    console.log("asdf end ")
+    zxcv()
+  }
+}
+
+async function zxcv() {
+  try{
+    console.log(" start end everything")
+  } catch {
+    console.log("fail zxcv")
+  } finally {
+    console.log("this is the final")
+  }
+  
+}

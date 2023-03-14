@@ -17,7 +17,8 @@ function linkToFeedbackWriteForm(id, paylog, status) {
 
 // 선택된 제품 하나 생성하는 function
 
-function createFeedbackSingleHTML(api) {
+async function createFeedbackSingleHTML(api) {
+  try {
   singleFeedback.innerHTML = ``;
   singleFeedback.innerHTML = `
   <article class="FeedbackContent">
@@ -31,13 +32,20 @@ function createFeedbackSingleHTML(api) {
         <h5>제품 설명 ${api.information}</h5>
       </div>
       <div class="FeedbackListScore-LimitDate-SuccesStatus">
-        <h5>상품 점수 다른 테이블에서 가져와야함</h5>
+        <h5 class = "FeedbackScore">상품 점수 다른 테이블에서 가져와야함</h5>
         <h5>투자 마감일 ${api.period}</h5>
-        <h5>투자성공여부 ${api.productStatus}</h5>
+        <h5>투자 성공 여부</h5>
+        <h5 class = "FeedbackStatus">${api.productStatus}</h5>
       </div>
     </div>
   </article>
-  `;
+  `;} catch {
+    console.log("create single html fail")
+  } finally {
+    const productStatus = document.querySelector('.FeedbackStatus');
+    console.log(productStatus);
+    createSpecificFeedbackList(productStatus);
+  }
 }
 
 function createFeedbackWriteButton(api) {
@@ -52,7 +60,7 @@ function createSingleFeedback() {
   fetch(`/api/product/?num=${productNumber}`)
   .then(res => res.json())
   .then(data => (createFeedbackSingleHTML(data), createFeedbackWriteButton(data)))
-
 }
 
-createSingleFeedback();
+
+

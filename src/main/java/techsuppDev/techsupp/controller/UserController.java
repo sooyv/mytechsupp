@@ -135,7 +135,7 @@ public class UserController {
         System.out.println("입력한 인증번호: " + emailAuth);
         System.out.println("세션에 저장한 인증번호: " + code);
 
-        if (authSession != null && code.equals(emailAuth)) {
+        if (code != null && code.equals(emailAuth)) {
             // 인증이 완료되었습니다.
             return 0;
         } else if (code == null) {      // 세션이 만료

@@ -137,12 +137,13 @@ form.addEventListener("submit", event => {
 
   const userName = usernameInput.value;
   const email = emailInput.value;
+  const emailAuth = emailAuthInput.value;
   const password = passwordInput.value;
   const checkPassword = checkPasswordInput.value;
   const userPhone = userPhoneInput.value;
 
 // 모든 항목 작성
-  if (!userName || !email || !password || !checkPassword || !userPhone) {
+  if (!userName || !email || !emailAuth || !password || !checkPassword || !userPhone) {
     alert("모든 항목을 작성해주세요.");
     return;
   }
@@ -170,6 +171,7 @@ $(document).ready(function () {
         },
       success: function (response) {
         console.log(response);
+        window.location.href="/";
       },
       error: function (error) {
         $("#signUpBtn").addClass('shake');

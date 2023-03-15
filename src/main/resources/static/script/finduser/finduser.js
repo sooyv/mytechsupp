@@ -116,4 +116,8 @@ formFindPw.addEventListener("submit", event => {
       });
   });
 
+// 비밀번호 재발급 후 main으로
+$("#goMain").on("click", function() {
+    window.location.href="/";
+});
 

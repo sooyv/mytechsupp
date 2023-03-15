@@ -58,7 +58,7 @@ function createSingleProductHtml(api) {
        <h5>투자 마감일 : ${api.period}</h5>
       </div>
       <div class="ProductPercentage">
-        <h5>현재 투자율 : ${Math.round(api.totalPrice / api.investPrice)} % </h5>
+        <h5>현재 투자율 : ${Math.round((api.investPrice * api.paymentCount) / api.totalPrice * 100)} % </h5>
       </div>
       <div class="ProductInvesting">
           <input type=button onclick="LinkToInvestingProduct(${api.id}, '${api.paylog}')" value=" ₩ ${api.investPrice} 투자하기">

@@ -8,7 +8,7 @@ function createInvestingProduct(api) {
   <div class="ProductListInformation">
     <div class="ProductName-ProductInvestment">
       <h5>제품명 : ${api.productName}</h5>
-      <h5>현재 투자율 : ${Math.round(api.totalPrice / api.investPrice)}%</h5>
+      <h5>현재 투자율 : ${Math.round((api.investPrice * api.paymentCount) / api.totalPrice * 100)}%</h5>
     </div>
     <div class="ProductListInvestment-ProductListLimitDate">
       <h5>개인 투자 금액 : ${api.investPrice}원 </h5>

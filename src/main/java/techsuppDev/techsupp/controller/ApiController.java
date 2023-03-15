@@ -192,6 +192,8 @@ public class ApiController {
             }
         }
 
+        long paymentCount = paymentService.getSinglePaymentCount(productId);
+
         jsonData.put("seqId",productInformation.getSeqId());
         jsonData.put("totalPrice",productInformation.getTotalPrice());
         jsonData.put("information",productInformation.getInformation());
@@ -202,6 +204,7 @@ public class ApiController {
         jsonData.put("productStatus",productInformation.getProductStatus());
         jsonData.put("imgUrl", productInformation.getImgUrl());
         jsonData.put("wishId", productInformation.getWishId());
+        jsonData.put("paymentCount", paymentCount);
 
         return ResponseEntity.ok().body(jsonData);
     }
@@ -295,7 +298,7 @@ public ResponseEntity wishDelete( HttpServletRequest req) {
 
 //        paylog
 
-        Long savedPayment = paymentService.getSinglePayment();
+        Long savedPayment = paymentService.getSinglePaymentId();
 
         HttpSession loginSession = req.getSession();
 

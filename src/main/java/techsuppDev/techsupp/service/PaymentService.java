@@ -26,8 +26,12 @@ public class PaymentService {
     }
 
 //    payment table에 데이터 입력 된 것 검증 후 paylog에 사용할 데이터 return
-    public Long getSinglePayment() {
+    public Long getSinglePaymentId() {
         return paymentRepository.getPaymentId();
+    }
+
+    public Long getSinglePaymentCount(Long productId) {
+        return paymentRepository.getSinglePaymentCount(productId);
     }
 
 //    paylog table에 데이터 입력

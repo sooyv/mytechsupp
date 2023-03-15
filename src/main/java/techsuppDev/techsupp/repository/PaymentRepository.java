@@ -51,6 +51,15 @@ public class PaymentRepository {
     }
 
 //    single product 에 해당하는 payment count 필요함
+    public Long getSinglePaymentCount(Long productId) {
+        String sql = "" +
+                "select " +
+                "(select count(*) from payment " +
+                "where product_id = " + productId + ") as count";
+        Query nativeQuery = em.createNativeQuery(sql);
+        Long paymentCount = Long.parseLong(nativeQuery.getSingleResult().toString());
+        return paymentCount;
+    }
 
 
 //    product list 생성시 투자율 계산을 위한 투자 count value

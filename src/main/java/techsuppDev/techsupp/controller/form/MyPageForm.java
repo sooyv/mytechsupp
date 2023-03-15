@@ -20,4 +20,6 @@ public class MyPageForm {
     @NotEmpty(message = "사용자 연락처는 필수항목입니다.")
     private String userPhone;
 
+    @NotEmpty(message = "사용자 비밀번호는 필수입력항목입니다.")
+    private String userPassword;
 }

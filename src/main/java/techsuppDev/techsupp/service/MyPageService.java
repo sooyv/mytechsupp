@@ -1,6 +1,7 @@
 package techsuppDev.techsupp.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import techsuppDev.techsupp.DTO.Paylog;
 import techsuppDev.techsupp.domain.*;
@@ -27,6 +28,7 @@ public class MyPageService {
 
     private final PaymentRepository paymentRepository;
 
+    private final PasswordEncoder passwordEncoder;
     // 이메일 조회
     public User getUserEmail(String myEmail) {
         Optional<User> user = userRepository.findByUserEmail(myEmail);
@@ -43,12 +45,22 @@ public class MyPageService {
     }
 
     // 회원 업데이트
-    public void update(User user) {
-        User user1 = userRepository.findByUserEmail(user.getUserEmail()).get();
-        user1.setUserPhone(user.getUserPhone());
-        user1.setUserName(user.getUserName());
-        userRepository.save(user1);
+    public void userUpdate(User user) {
+//        User user1 = userRepository.findByUserEmail(user.getUserEmail());
+//        user.setUserPhone(user.getUserPhone());
+//        user.setUserName(user.getUserName());
+        userRepository.save(user);
     }
+
+    // 비밀번호 업데이트
+
+    public void changePassword(User user) {
+//        User user1 = userRepository.findByUserEmail(user.getUserEmail()).get();
+//        user1.setUserPassword(user.getUserPassword());
+        user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
+        userRepository.save(user);
+    }
+
 
     //// 로그인한 회원의 즐겨찾기 목록
 

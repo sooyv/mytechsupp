@@ -98,3 +98,22 @@ window.addEventListener("load", loadProducts);
 loadProducts();
 generatePageBlock();
 history.pushState({}, '', `?page=${currentPage}`); // 페이지 로드 시 쿼리스트링 추가
+
+function goMyPage() {
+    location.href = "mypage";
+}
+function goMyInvest() {
+    location.href = "myinvest";
+}
+function goMyFavorite() {
+    location.href = "myfavorite";
+}
+function goMyPassword() {
+    location.href = "editpassword";
+}
+function goMyCheckPassword() {
+    location.href = "checkPassword";
+}
+function goMyEdit() {
+    location.href = "edituser";
+}

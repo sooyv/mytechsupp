@@ -98,8 +98,18 @@ if (pageParam !== null) {
   currentPage = 1;
   history.replaceState({}, '', '/user/myfavorite'); // 쿼리스트링을 추가하지 않고 경로만 변경
 }
+for (let i = 0; i < products.length; i++) {
+  products[i].addEventListener('click', () => {
+    const productId = products[i].querySelector('li:nth-child(1)').textContent;
+    const productUrl = `http://localhost:8080/productSelect/product/?&num=${productId}`;
+    location.href = productUrl;
+  });
+}
+
 
 window.addEventListener("load", loadProducts);
+
+
 
 loadProducts();
 generatePageBlock();

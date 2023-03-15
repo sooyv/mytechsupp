@@ -110,7 +110,7 @@ public class MyPageController {
         HttpSession session = request.getSession();
 
         if(session.getAttribute("checkPasswordOk") ==null){
-            return "redirect:/user/mypage";
+            return "redirect:/user/myfavorite";
         }
         String myEmail = (String) session.getAttribute("userEmail");
         User user = myPageService.getUserEmail(myEmail);
@@ -132,7 +132,7 @@ public class MyPageController {
         user1.setUserPhone(user.getUserPhone());
         myPageService.userUpdate(user1);
         session.removeAttribute("checkPasswordOk");
-        return "redirect:/user/mypage";
+        return "redirect:/user/myfavorite";
 
 
     }
@@ -144,7 +144,7 @@ public class MyPageController {
     public String editPassword(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
         if(session.getAttribute("checkPasswordOk") ==null){
-            return "redirect:/user/mypage";
+            return "redirect:/user/myfavorite";
         }
         String myEmail = (String) session.getAttribute("userEmail");
         User user = myPageService.getUserEmail(myEmail);
@@ -172,7 +172,7 @@ public class MyPageController {
         user.setUserPassword(password);
         myPageService.changePassword(user);
         session.removeAttribute("checkPasswordOk");
-        return "mypage/myPage";
+        return "redirect:/user/myfavorite";
     }
 
 
@@ -200,12 +200,12 @@ public class MyPageController {
         return "mypage/myFavorite";
     }
     // 투자정보 페이지
-
-    @GetMapping("/myinvest")
-    public ModelAndView invest(Long paymentId){
-        ModelAndView mav = new ModelAndView("mypage/myInvest");
-//        Paylog paylog = myPageService.findByUserId();
-        return mav;
-    }
+//
+//    @GetMapping("/myinvest")
+//    public ModelAndView invest(Long paymentId){
+//        ModelAndView mav = new ModelAndView("mypage/myInvest");
+////        Paylog paylog = myPageService.findByUserId();
+//        return mav;
+//    }
 
 }

@@ -40,8 +40,8 @@ public class QuestionEntity {
 //    @Column
 //    private int questionStatus;
 
-    @Column
-    private String questionAnswer;
+//    @Column
+//    private String questionAnswer;
 
     @Column
     private int fileAttached;
@@ -49,15 +49,18 @@ public class QuestionEntity {
     @OneToMany(mappedBy = "questionEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<QuestionFileEntity> questionFileEntityList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "questionEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<CommentEntity> commentEntityList = new ArrayList<>();
+
     public static QuestionEntity toSaveEntity(QuestionDTO questionDTO){
         QuestionEntity questionEntity = new QuestionEntity();
         questionEntity.setQuestionWriter(questionDTO.getQuestionWriter());
-        questionEntity.setQuestionPass(questionEntity.getQuestionPass());
+        questionEntity.setQuestionPass(questionDTO.getQuestionPass());
         questionEntity.setQuestionCategory(questionDTO.getQuestionCategory());
         questionEntity.setQuestionTitle(questionDTO.getQuestionTitle());
         questionEntity.setQuestionContents(questionDTO.getQuestionContents());
 //        questionEntity.setQuestionStatus(questionDTO.getQuestionStatus());
-        questionEntity.setQuestionAnswer(questionDTO.getQuestionAnswer());
+//        questionEntity.setQuestionAnswer(questionDTO.getQuestionAnswer());
         questionEntity.setFileAttached(0);
 
         return questionEntity;
@@ -68,12 +71,12 @@ public class QuestionEntity {
         QuestionEntity questionEntity = new QuestionEntity();
         questionEntity.setQuestionId(questionDTO.getQuestionId());
         questionEntity.setQuestionWriter(questionDTO.getQuestionWriter());
-        questionEntity.setQuestionPass(questionEntity.getQuestionPass());
+        questionEntity.setQuestionPass(questionDTO.getQuestionPass());
         questionEntity.setQuestionCategory(questionDTO.getQuestionCategory());
         questionEntity.setQuestionTitle(questionDTO.getQuestionTitle());
         questionEntity.setQuestionContents(questionDTO.getQuestionContents());
 //        questionEntity.setQuestionStatus(questionDTO.getQuestionStatus());
-        questionEntity.setQuestionAnswer(questionDTO.getQuestionAnswer());
+//        questionEntity.setQuestionAnswer(questionDTO.getQuestionAnswer());
 
         return questionEntity;
     }
@@ -81,12 +84,12 @@ public class QuestionEntity {
     public static QuestionEntity toSaveFileEntity(QuestionDTO questionDTO) {
         QuestionEntity questionEntity = new QuestionEntity();
         questionEntity.setQuestionWriter(questionDTO.getQuestionWriter());
-        questionEntity.setQuestionPass(questionEntity.getQuestionPass());
+        questionEntity.setQuestionPass(questionDTO.getQuestionPass());
         questionEntity.setQuestionCategory(questionDTO.getQuestionCategory());
         questionEntity.setQuestionTitle(questionDTO.getQuestionTitle());
         questionEntity.setQuestionContents(questionDTO.getQuestionContents());
 //        questionEntity.setQuestionStatus(questionDTO.getQuestionStatus());
-        questionEntity.setQuestionAnswer(questionDTO.getQuestionAnswer());
+//        questionEntity.setQuestionAnswer(questionDTO.getQuestionAnswer());
         questionEntity.setFileAttached(1);
 
         return questionEntity;

@@ -2,6 +2,10 @@ package techsuppDev.techsupp.service;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -91,10 +95,48 @@ public class NoticeService {
         }
     }
 
-
     public NoticeDTO update(NoticeDTO noticeDTO) {
         NoticeEntity noticeEntity = NoticeEntity.toUpdateEntity(noticeDTO);
         noticeRepository.save(noticeEntity);
         return findById(noticeDTO.getNoticeId());
     }
+
+    public Page<NoticeDTO> paging(Pageable pageable) {
+        int page = pageable.getPageNumber() - 1;
+        int pageLimit = 10; // 한 페이지에 보여줄 글 갯수
+        // 힌페이지당 3개씩 글을 보여주고 정렬 기준은 noticeId 기준으로 내림차순 정렬
+        // page 위치에 있는 값은 0 부터 시작
+        Page<NoticeEntity> noticeEntities =
+                noticeRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "noticeId")));
+        System.out.println("noticeEntities.getContent() = " + noticeEntities.getContent()); // 요청 페이지에 해당하는 글
+        System.out.println("noticeEntities.getTotalElements() = " + noticeEntities.getTotalElements()); // 전체 글갯수
+        System.out.println("noticeEntities.getNumber() = " + noticeEntities.getNumber()); // DB로 요청한 페이지 번호
+        System.out.println("noticeEntities.getTotalPages() = " + noticeEntities.getTotalPages()); // 전체 페이지 갯수
+        System.out.println("noticeEntities.getSize() = " + noticeEntities.getSize()); // 한 페이지에 보여지는 글 갯수
+        System.out.println("noticeEntities.hasPrevious() = " + noticeEntities.hasPrevious()); // 이전 페이지 존재 여부
+        System.out.println("noticeEntities.isFirst() = " + noticeEntities.isFirst()); // 첫 페이지 여부
+        System.out.println("noticeEntities.isLast() = " + noticeEntities.isLast()); // 마지막 페이지 여부
+
+        // 목록: noticeid, writer, title, hits,
+        Page<NoticeDTO> boardDTOS = noticeEntities.map(notice -> new NoticeDTO(notice.getNoticeId(),
+                notice.getNoticeWriter(), notice.getNoticeTitle(), notice.getNoticeHits()));
+        return boardDTOS;
+    }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -171,6 +171,7 @@ $(document).ready(function () {
         },
       success: function (response) {
         console.log(response);
+        window.location.href="/";
       },
       error: function (error) {
         $("#signUpBtn").addClass('shake');

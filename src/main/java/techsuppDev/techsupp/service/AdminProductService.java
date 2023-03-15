@@ -87,6 +87,7 @@ public class AdminProductService {
         adminProductRepository.delete(adminProductRepository.findById(id).get());
     }
 
+
     // 소영 main page - random product
     public List<Product> getRandomProduct() {
         List<Product> allProducts = adminProductRepository.findAll();

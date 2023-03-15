@@ -392,11 +392,6 @@ public ResponseEntity wishDelete( HttpServletRequest req) {
         feedbackImageForm.setId(productId);
         feedbackImageForm.setFeedbackId(feedbackInsertedId);
 
-        System.out.println("++++++++++++++++++++++++");
-        System.out.println(feedbackImageForm.getImgName().toString());
-        System.out.println(feedbackImageForm.getOriginImgName().toString());
-        System.out.println(feedbackImageForm.getImgName().toString());
-
         feedbackImageService.insertFeedbackImageInformation(feedbackImageForm);
 
 

@@ -10,6 +10,7 @@
 <form action="/notice/question-update" method="post" name="questionUpdateForm">
     noticeId: <input type="text" name="questionId" th:value="${questionUpdate.questionId}" readonly>
     writer: <input type="text" name="questionWriter" th:value="${questionUpdate.questionWriter}" readonly> <br>
+    pass: <input type="text" name="questionPass" th:value="${questionUpdate.questionPass}" readonly> <br>
     category: <input type="text" name="questionCategory" th:value="${questionUpdate.questionCategory}" readonly> <br>
     title: <input type="text" name="questionTitle" th:value="${questionUpdate.questionTitle}"> <br>
     contents: <textarea name="questionContents" cols="30" rows="10" th:text="${questionUpdate.questionContents}"></textarea> <br>

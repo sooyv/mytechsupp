@@ -41,7 +41,7 @@ function prevBlock() {
   generatePageBlock();
   history.pushState({}, '', `?page=${currentPage}`);
 }
-
+:
 
 function generatePageBlock() {
   const startPage = Math.floor((currentPage - 1) / 10) * 10 + 1;

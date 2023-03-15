@@ -14,7 +14,7 @@
 <div th:insert="/header :: header"></div>
 <form action="/notice/question" method="post" enctype="multipart/form-data">
   writer: <input type="text" name="questionWriter"> <br>
-  pass: <input type="text" name="questionPass"> <br>
+  pass: <input type="text" name="questionPass" placeholder="비밀번호는 필수사항입니다"> <br>
   category: <input type="text" name="questionCategory"> <br>
   title: <input type="text" name="questionTitle"> <br>
   contents: <textarea name="questionContents" cols="30" rows="10"></textarea><br>

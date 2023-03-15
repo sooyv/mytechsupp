@@ -9,7 +9,6 @@
 
     #signUpForm {
         display: flex;
-        flex-direction: block;
         justify-content: center;
         width: 500px;
     }
@@ -24,12 +23,27 @@
         flex-direction: row;
     }
 
+    #emailAuth-check {
+        display: flex;
+        flex-direction: row;
+    }
+
     #email {
         width: 350px;
         margin-right: 5px;
     }
 
     #emailSend {
+        width: auto;
+        margin-left: 5px;
+    }
+
+    #emailAuthNum {
+        width: 350px;
+        margin-right: 5px;
+    }
+
+    #mailCheckNum {
         width: auto;
         margin-left: 5px;
     }

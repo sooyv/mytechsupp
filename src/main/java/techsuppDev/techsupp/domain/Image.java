@@ -15,7 +15,8 @@ import javax.persistence.*;
 public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long imageNum;
+    @Column(name = "img_id")
+    private Long id;
     private String imgName;
     private String originImgName;
     private String imgUrl;

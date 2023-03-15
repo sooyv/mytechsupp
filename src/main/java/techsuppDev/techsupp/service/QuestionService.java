@@ -1,6 +1,10 @@
 package techsuppDev.techsupp.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,6 +35,7 @@ public class QuestionService {
         if (questionDTO.getQuestionFile().isEmpty()) {
             // 첨부 파일 없음.
             QuestionEntity questionEntity = QuestionEntity.toSaveEntity(questionDTO);
+//            System.out.println("questionPass:" + questionEntity.getQuestionPass() );
             questionRepository.save(questionEntity);
         } else {
             // 첨부 파일 있음.
@@ -47,7 +52,7 @@ public class QuestionService {
             MultipartFile questionFile = questionDTO.getQuestionFile(); // 1.
             String originalFilename = questionFile.getOriginalFilename(); // 2.
             String storedFileName = System.currentTimeMillis() + "_" + originalFilename; // 3.
-            String savePath = "C:/springboot_img/" + storedFileName; // C:/springboot_img/12987489712_내사진 notice랑 충돌확인 5.
+            String savePath = "C:/springboot_img/" + storedFileName; // C:/springboot_img/12987489712_내사진 notice랑 충돌확인
             questionFile.transferTo(new File(savePath)); // 5.
             QuestionEntity questionEntity = QuestionEntity.toSaveFileEntity(questionDTO);
             Long savedQuestionId = questionRepository.save(questionEntity).getQuestionId();
@@ -90,19 +95,25 @@ public class QuestionService {
         return findById(questionDTO.getQuestionId());
     }
 
-    // 작성자 조회
-//    public QuestionDTO getQuestionId(Long questionId) {
-//        Optional<QuestionEntity> optionalQuestionEntity = questionRepository.findById(questionId);
-//        if (optionalQuestionEntity != null) {
-//            return quetionEntity.get();
-//        }
-//        return null;
-//    }
-//
-//    // 비밀번호 확인
-//    public String checkPass(Long questionId) {
-//        return getQuestionId(questionId).getQuestionPass();
-//    }
+    public Page<QuestionDTO> paging(Pageable pageable) {
+        int page = pageable.getPageNumber() - 1;
+        int pageLimit = 10; // 한 페이지에 보여줄 글 갯수
+        // 힌페이지당 3개씩 글을 보여주고 정렬 기준은 noticeId 기준으로 내림차순 정렬
+        // page 위치에 있는 값은 0 부터 시작
+        Page<QuestionEntity> questionEntities =
+                questionRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "questionId")));
+        System.out.println("questionEntities.getContent() = " + questionEntities.getContent()); // 요청 페이지에 해당하는 글
+        System.out.println("questionEntities.getNumber() = " + questionEntities.getNumber()); // DB로 요청한 페이지 번호
+        System.out.println("questionEntities.getTotalPages() = " + questionEntities.getTotalPages()); // 전체 페이지 갯수
+        System.out.println("questionEntities.getSize() = " + questionEntities.getSize()); // 한 페이지에 보여지는 글 갯수
+        System.out.println("questionEntities.hasPrevious() = " + questionEntities.hasPrevious()); // 이전 페이지 존재 여부
+        System.out.println("questionEntities.isFirst() = " + questionEntities.isFirst()); // 첫 페이지 여부
+        System.out.println("questionEntities.isLast() = " + questionEntities.isLast()); // 마지막 페이지 여부
 
+        // 목록: noticeid, writer, title, status,
+        Page<QuestionDTO> questionDTOS = questionEntities.map(question -> new QuestionDTO(question.getQuestionId(),
+                question.getQuestionWriter(), question.getQuestionTitle()));
+        return questionDTOS;
+    }
 
 }

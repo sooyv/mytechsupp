@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
   <title>detail</title>
@@ -35,11 +36,14 @@
     <td th:text="${notice.noticeContents}"></td>
   </tr>
   <tr th:if="${notice.fileAttached == 1}">
-    <th>image</th>
-    <td><img th:src="@{|/upload/${notice.storedFileName}|}" alt=""></td>
+    <th>attached-file</th>
+<!--    <td><img th:src="@{|/upload/${notice.storedFileName}|}" alt=""></td>-->
+    <td><a th:href="@{/notice/fileDownload/{noticeId}(noticeId=${notice.noticeId})}" th:text="${notice.OriginalFileName}">파일이름1.png</a></td>
   </tr>
 </table>
-<button onclick="listReq()"><a href="/notice/list">공지사항</a></button>
+<!--<a th:href="@{/fileDownload/{noticeId}(noticeId=${notice.noticeId})}" th:text="${notice.originalFileName}">파일이름1.png</a>-->
+<!--<button onclick="listReq()"><a href="/notice/list">공지사항</a></button>-->
+<button onclick="pagingReq()"><a href="/notice/paging">공지사항</a></button>
 <button onclick="updateReq()"><a th:href="@{/notice/update/{noticeId}(noticeId=${notice.noticeId})}">수정</a></button>
 
 

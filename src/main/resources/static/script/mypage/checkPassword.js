@@ -1,3 +1,11 @@
+$('#password').keypress(function (event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    $('#checkPassword').click();
+  }
+});
+
+
 $('#checkPassword').click(function(e) {
         e.preventDefault();
         const checkPassword = $('#password').val();
@@ -19,9 +27,11 @@ $('#checkPassword').click(function(e) {
                     // 비밀번호가 일치하지 않으면
                     alert("비밀번호가 맞지 않습니다.");
                     window.location.reload();
-                }
+                };
             }).fail(function(error){
                 console.log(JSON.stringify(error));
             })
         }
     });
+
+

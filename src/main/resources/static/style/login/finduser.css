@@ -59,22 +59,6 @@
         margin-top: 20px;
     }
 
-    #mailauthentication-box {
-        width: auto;
-        margin-top: 20px;
-    }
-
-    #authentication-btn {
-        margin-left: 10px;
-        width: 110px;
-    }
-
-    #mail-authenticationNum {
-        display: flex;
-        flex-direction: row;
-        height: 38px;
-    }
-
     #findId-btn {
         width: 330px;
         margin-top: 20px;

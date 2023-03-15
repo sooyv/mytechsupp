@@ -12,19 +12,15 @@
 <div>
     <!--공통되는 header-->
     <div th:replace="/header :: header"></div>
-
     <!-- 이메일 찾기 modal -->
     <div class="modal" tabindex="-1">
         <div class="modal-dialog modal-dialog-center">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">회원님의 이메일은</h5>
+                    <h5 class="modal-title">이메일 찾기</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <!-- 찾아온 이메일 값 출력 -->
-
-                </div>
+                <div class="modal-body"><!-- 찾아온 이메일 값 출력 --></div>
                 <div class="modal-footer">
                     <button type="button" id="findPw" class="btn btn-secondary" data-bs-dismiss="modal">비밀번호 찾기</button>
                     <button type="button" id="findEmailModal-btn" class="btn btn-primary">확인</button>
@@ -32,7 +28,7 @@
             </div>
         </div>
     </div>
-
+    <!-- main -->
     <div class="form-center">
         <div class="main">
             <div class="findform">
@@ -76,22 +72,8 @@
                         <label for="userEmail">이메일</label>
                         <input type="email" id="userEmail" class="form-control" placeholder="가입 시 등록한 이메일을 입력하세요">
                     </div>
-                    <!-- 메일 인증 -->
-                    <div id="mailauthentication-box" class="form-group col-md-4">
-                        <label for="mail-authentication">임시 비밀번호</label>
-                        <div id="mail-authenticationNum">
-                            <input type="text" id="mail-authentication" class="form-control">
-                            <button type="submit" id="authentication-btn" class="btn btn-primary">메일인증</button>
-                        </div>
-                    </div>
-                    <button type="submit" id="findPw-btn" class="btn btn-primary">확인</button>
+                    <button type="submit" id="findPw-btn" class="btn btn-primary">비밀번호 발급</button>
                 </form>
-
-                <!-- 이메일 찾기 return -->
-                <div id="findUserEmail">
-                    <p id="userEmails">
-                    </p>
-                </div>
             </div>
         </div>
     </div>

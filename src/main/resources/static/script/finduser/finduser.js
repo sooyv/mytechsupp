@@ -10,14 +10,12 @@ $("#formFindPw").hide();
 // 라디오 버튼
 $(document).ready(function() {
     $("input[name='find']").change(function() {
-        // 초깃값 설정
 
         // 아이디 찾기
         if($("input[name='find']:checked").val() === 'id') {
             $("#formFindId").show();
             $("#formFindPw").hide();
             console.log("이메일 찾기");
-
 
         // 비밀번호 찾기
         } else if ($("input[name='find']:checked").val() === 'pw') {
@@ -27,7 +25,6 @@ $(document).ready(function() {
         }
     });
 });
-
 
 
 // 아이디 찾기
@@ -45,33 +42,38 @@ formFindId.addEventListener("submit", event => {
     }
 
     console.log("id 찾기 ajax 직전");
-        $.ajax({
-              type: 'POST',
-              url: "/find/member/id",
-              data: {
-                userName: userName,
-                userPhone : userPhone,
-               },
-              success: function (response) {
-                console.log(response);
+    $.ajax({
+          type: 'POST',
+          url: "/find/member/id",
+          data: {
+            userName: userName,
+            userPhone : userPhone,
+           },
+          success: function (response) {
+            console.log(response);
+            var findUserEmailModal = $(".modal-body");
+            if (response == "") {
+                findUserEmailModal.html('');
+                notFoundEmail = $("<p>").text("가입 정보가 없습니다.");
+                findUserEmailModal.append(notFoundEmail);
+                $(".modal").show();
+                console.log("find failed");
+            } else {
+                findUserEmailModal.html('');
                 // 찾은 이메일 for문으로 modal에 나타내기
-                var findUserEmailModal = $(".modal-body");
-                findUserEmailModal.empty();
                 for(let i = 0; i < response.length; i++) {
                     var userEmail = response[i];
                     var userEmails = $("<p>").text(userEmail);
                     findUserEmailModal.append(userEmails);
-                }
-              $(".modal").show();
-              },
-              error: function (error) {
-                alert("가입되지 않은 이메일입니다.");
-              }
-        });
+                };
+                $(".modal").show();
+                console.log("find success");
+            };
+          }
+    });
 });
 
 // X버튼 또는 확인버튼 누르면 modal close
-
 // class가 'btn-close'인 요소 클릭 시 모달 창 닫기
 $('.btn-close').click(function() {
   $('.modal').hide();
@@ -82,45 +84,36 @@ $('#findEmailModal-btn').click(function() {
   $('.modal').hide();
 });
 
+
 // modal의 비밀번호 찾기 버튼
 $('#findPw').click(function() {
     $('.modal').hide();
     var pwRadioButton = document.querySelector('input[name="find"][value="pw"]');
     pwRadioButton.checked = true;
-    $("#formFindId").hide();
-    $("#formFindPw").show();
+    $('#formFindId').hide();
+    $('#formFindPw').show();
 });
 
 
-//// 비밀번호 찾기
+// 비밀번호 찾기
 const formFindPw = document.getElementById("formFindPw");
+ const findPw = $("#findPw-btn").val();
 
 formFindPw.addEventListener("submit", event => {
   event.preventDefault();
 
-    const userEmail = $("#userEmail").val();
-    const mailAuthentication = $("#mail-authentication").val();
+  const userEmail = $("#userEmail").val();
 
-    if(!userEmail || !mailAuthentication) {
-        alert("모든 항목을 입력하세요");
-        return;
-    }
-
-    console.log("pw 찾기 ajax 직전");
-        $.ajax({
-              type: 'POST',
-              url: "/find/member/pw",
-              data: {
-                userEmail: userEmail,
-                mailAuthentication : mailAuthentication,
-               },
-              success: function (response) {
-                console.log(response);
-              },
-              error: function (error) {
-                alert("회원 정보가 없습니다.");
-              }
-        });
-});
+  $.ajax({
+            type: 'POST',
+            url: "/find/member/pw",
+            data: {
+              userEmail: userEmail,
+             },
+            success: function (response) {
+                alert(response);
+            }
+      });
+  });
 
 

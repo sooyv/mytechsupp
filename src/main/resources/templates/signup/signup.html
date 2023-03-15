@@ -28,14 +28,18 @@
           <label for="email">이메일</label>
           <div id="emailcheck">
             <input type="email" id="email" class="form-control" aria-describedby="emailHelp" placeholder="email@example.com">
-            <button type="button" id="emailSend" class="btn btn-primary">메일인증</button>
+            <button type="button" id="emailSend" class="btn btn-primary">메일 인증</button>
           </div>
           <small id="emailHelp"></small>
         </div>
+        <!--이메일 인증-->
         <div id="emailcheck-box" class="form-group col-md-4">
-          <label for="emailCertification">이메일 인증번호</label>
-          <input type="text" class="form-control" id="emailCertification">
-          <small id="email-certification" class="form-text text-muted"></small>
+          <label for="emailAuthNum">이메일 인증번호</label>
+          <div id="emailAuth-check">
+            <input type="text" class="form-control" id="emailAuthNum">
+<!--            <p>세션 시간 제한: <span th:text="${session.maxInactiveInterval}"></span></p>-->
+            <button type="button" id="mailCheckNum" class="btn btn-primary">인증 확인</button>
+          </div>
         </div>
         <!-- 비밀번호 -->
         <div id="password-box" class="form-group col-md-4">

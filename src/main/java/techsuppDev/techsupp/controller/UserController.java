@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import techsuppDev.techsupp.config.UserDetailsimpl;
 import techsuppDev.techsupp.controller.form.UserForm;
 import techsuppDev.techsupp.domain.User;
+import techsuppDev.techsupp.service.MailService;
 import techsuppDev.techsupp.service.UserService;
 
 import javax.servlet.http.*;
@@ -28,6 +29,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.security.SecureRandom;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 //@Controller
 @Slf4j
@@ -36,6 +38,7 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final MailService mailService;
 
 
     // 로그인 창
@@ -78,11 +81,17 @@ public class UserController {
     // 회원가입
     @PostMapping("/member/signup")
     public ResponseEntity<String> signUpUser(@RequestParam("userName") String userName, @RequestParam("email") String email,
-                                             @RequestParam("password") String password, @RequestParam("checkPassword") String checkPassword,
-                                             @RequestParam("userPhone") String userPhone) {
-       if (!password.equals(checkPassword)) {
+                                             @RequestParam("authNum") String authNum, @RequestParam("password") String password,
+                                             @RequestParam("checkPassword") String checkPassword, @RequestParam("userPhone") String userPhone,
+                                             HttpServletRequest request) {
+
+        HttpSession authSession = request.getSession();
+        String code = (String) authSession.getAttribute("authCode");
+
+       if (!password.equals(checkPassword) && !authNum.equals(code)) {
            return new ResponseEntity<>("Password and Confirm Password do not match", HttpStatus.BAD_REQUEST);
        }
+
         System.out.println(userName);
         System.out.println(email);
         System.out.println(password);
@@ -103,6 +112,41 @@ public class UserController {
 //        return mav;
         return new ResponseEntity<>("Successfully Registered", HttpStatus.OK);
     }
+
+    // 이메일 인증
+    @PostMapping("/signup/mailcheck")
+    @ResponseBody
+    public String mailCheck(@RequestParam String email, HttpSession session) throws Exception {
+        System.out.println("이메일 인증요청");
+        System.out.println("인증 이메일: " + email);
+        String code = mailService.sendMail(email);
+
+        session.setAttribute("authCode", code);
+        session.setMaxInactiveInterval(180);        // 3분 동안만 회원가입 가능
+        return code;
+    }
+
+    // 이메일 인증번호 확인
+    @PostMapping("/mail/check/auth")
+    public int mailAuthCheck(@RequestParam String emailAuth, HttpServletRequest request) {
+        HttpSession authSession = request.getSession();
+        String code = (String) authSession.getAttribute("authCode");
+
+        System.out.println("입력한 인증번호: " + emailAuth);
+        System.out.println("세션에 저장한 인증번호: " + code);
+
+        if (authSession != null && code.equals(emailAuth)) {
+            // 인증이 완료되었습니다.
+            return 0;
+        } else if (code == null) {      // 세션이 만료
+            // 세션이 만료되었습니다.
+            return 1;
+        } else {
+            // 인증 번호가 틀렸습니다.
+            return 2;
+        }
+    }
+
 
     // 로그인과 로그아웃의 url spring Security에 의해서 관리
 //    로그인
@@ -203,28 +247,35 @@ public class UserController {
     }
 
     // 아이디 찾기
+    @ResponseBody
     @PostMapping("/find/member/id")
-    public ResponseEntity<List<String>> findUserId(@RequestParam("userName") String userName, @RequestParam("userPhone") String userPhone) {
+    public List<String> findUserId(@RequestParam("userName") String userName, @RequestParam("userPhone") String userPhone) {
 
         System.out.println(userName);
         System.out.println(userPhone);
 
         List<String> userEmail = userService.findUserEmail(userName, userPhone);
-
-        return new ResponseEntity<>(userEmail, HttpStatus.OK);
+        return userEmail;
     }
 
 
-    // 비밀번호 찾기
+//    // 비밀번호 찾기
     @PostMapping("/find/member/pw")
-    public ResponseEntity<String> findUserPw(@RequestParam("userEmail") String userEmail,
-                                             @RequestParam("mailAuthentication") String mailAuthentication) {
+    public String findUserPw(@RequestParam("userEmail") String userEmail) throws Exception {
 
-        System.out.println(userEmail);
-        System.out.println(mailAuthentication);
+        try {
+            System.out.println(userEmail);
+            userService.updateUserPw(userEmail);
+            return "비밀번호 재설정 메일을 전송했습니다. 이메일을 확인해 주세요";
 
-        return new ResponseEntity<>("Successfully Registered Pw", HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return "등록되지 않은 이메일 주소입니다. 다시 입력해주세요.";
+
+        } catch (Exception e) {
+            return "비밀번호 재설정에 실패했습니다. 다시 시도해주세요.";
+        }
     }
+
 
 
 

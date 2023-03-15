@@ -22,11 +22,11 @@ public class ProductService {
         return productRepository.findOneProduct(productId, userId);
     }
 
-//    five product (login 했을 경우)
+    //    five product (login 했을 경우)
+//    five product (login 안했을 경우)
     public List<ProductListForm> findFiveProductOnLogin(int orderNumber, String keyword, String userId) {
         return productRepository.findFiveProduct(orderNumber, keyword, userId);
     }
-//    five product (login 안했을 경우)
     public List<ProductListNoWishForm> findFiveProductOnNoLogin(int orderNumber, String keyword, String userId) {
         return productRepository.findFiveProductNoWish(orderNumber, keyword, userId);
     }
@@ -56,6 +56,11 @@ public class ProductService {
     public Object getNumberOfFeedback(int pagingNumber, String keyword) {
         return productRepository.FeedbackCount(pagingNumber, keyword);
     }
+
+
+
+
+
 
 
 

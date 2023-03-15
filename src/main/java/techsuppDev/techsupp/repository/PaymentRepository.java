@@ -114,4 +114,20 @@ public class PaymentRepository {
         }
     }
 
+//    public List<AdminPaymentForm> getAllPayment () {
+//        String sql = "" +
+//                "select payment.payment_id, user_email, payment_method, payment_date, paylog_status, payment_price, product_name " +
+//                "from payment " +
+//                "inner join paylog " +
+//                "on paylog.payment_id = payment.payment_id " +
+//                "inner join product " +
+//                "on payment.product_id = product.id;";
+//
+//        Query nativeQuery = em.createNativeQuery(sql, AdminPaymentFrom.class);
+//        List<AdminPaymentForm> result = nativeQuery.getResultList();
+//        return result;
+//    }
+
+
+
 }

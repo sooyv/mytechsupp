@@ -14,9 +14,7 @@ import techsuppDev.techsupp.controller.form.PaymentForm;
 import techsuppDev.techsupp.controller.form.ProductListForm;
 import techsuppDev.techsupp.controller.form.ProductListNoWishForm;
 import techsuppDev.techsupp.controller.form.ProductSingleForm;
-import techsuppDev.techsupp.domain.PaylogStatus;
-import techsuppDev.techsupp.domain.Payment;
-import techsuppDev.techsupp.domain.Product;
+import techsuppDev.techsupp.domain.*;
 import techsuppDev.techsupp.service.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,6 +36,7 @@ public class ApiController {
     private final UserService userService;
     private final WishService wishService;
     private final FeedbackService feedbackService;
+    private final FeedbackImageService feedbackImageService;
 
 
 //    로그인 여부 확인
@@ -210,7 +209,7 @@ public class ApiController {
     }
 
 //    즐겨찾기 post
-    @RequestMapping(value = "/wish/post/", method = RequestMethod.GET)
+    @RequestMapping(value = "/wish/post/*", method = RequestMethod.GET)
     public ResponseEntity wishPost( HttpServletRequest req) {
         String productNum = req.getParameter("num");
         Long productId = Long.parseLong(productNum);
@@ -234,7 +233,7 @@ public class ApiController {
         }
     }
 //    즐겨찾기 delete
-@RequestMapping(value = "/wish/delete/", method = RequestMethod.GET)
+@RequestMapping(value = "/wish/delete/*", method = RequestMethod.GET)
 public ResponseEntity wishDelete( HttpServletRequest req) {
     String productNum = req.getParameter("num");
     Long productId = Long.parseLong(productNum);
@@ -350,11 +349,13 @@ public ResponseEntity wishDelete( HttpServletRequest req) {
 
     @RequestMapping(value = "/feedback/post", method = RequestMethod.POST)
     public void postFeedback(
-            MultipartHttpServletRequest req
+            MultipartHttpServletRequest req ,HttpSession session
     ) throws IOException {
 
-        String a = req.getParameter("score");
-        String b = req.getParameter("text");
+        int feedbackScore = Integer.parseInt(req.getParameter("score"));
+        String feedbackText = req.getParameter("text");
+        Long productId = Long.parseLong(req.getParameter("num"));
+        Long userId = Long.parseLong(session.getAttribute("userId").toString());
 
         MultipartFile files = req.getFile("image");
 
@@ -365,17 +366,56 @@ public ResponseEntity wishDelete( HttpServletRequest req) {
         if(!fileDir.exists()) {
             fileDir.mkdir();
         }
-
-
-        String saveFileName = "save222.png";
-
+        String originalFileName = files.getOriginalFilename();
+        String saveFileName = "feedback_" + System.currentTimeMillis() + "_" +originalFileName;
         File saveFile = new File(downPath, saveFileName);
-
-        System.out.println(saveFile);
-        System.out.println(files);
-
-
         files.transferTo(saveFile);
+
+
+        Feedback feedbackForm = new Feedback();
+        feedbackForm.setFeedbackStatus(FeedbackStatus.O);
+        feedbackForm.setFeedbackText(feedbackText);
+        feedbackForm.setProductId(productId);
+        feedbackForm.setScore(feedbackScore);
+        feedbackForm.setUserId(userId);
+
+        System.out.println(" complete");
+        feedbackService.insertFeedback(feedbackForm);
+
+        Long feedbackInsertedId = feedbackService.getInsertedFeedbackId();
+
+        FeedbackImage feedbackImageForm = new FeedbackImage();
+        feedbackImageForm.setImgName(originalFileName);
+        feedbackImageForm.setOriginImgName(saveFileName);
+        feedbackImageForm.setImgUrl("/file/feedback/" + saveFileName);
+        feedbackImageForm.setRepImg("Y");
+        feedbackImageForm.setId(productId);
+        feedbackImageForm.setFeedbackId(feedbackInsertedId);
+
+        System.out.println("++++++++++++++++++++++++");
+        System.out.println(feedbackImageForm.getImgName().toString());
+        System.out.println(feedbackImageForm.getOriginImgName().toString());
+        System.out.println(feedbackImageForm.getImgName().toString());
+
+        feedbackImageService.insertFeedbackImageInformation(feedbackImageForm);
+
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

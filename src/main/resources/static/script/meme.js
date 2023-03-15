@@ -627,3 +627,8 @@ function create(a, b) {
   create(new Date('2022.12.10'), new Date());
 
 
+
+
+  let a = document.querySelector('.FeedbackImage').value;
+
+  confirm("사진 파일이 없습니다. 사진 파일 없이 작성하시겠습니까?", "네", "아니오");

@@ -75,10 +75,10 @@ async function averageScoreOfFeedback(api) {
         totalScore += api[i].score;
         }
         let AverageScore = Math.round(totalScore / api.length); 
-        averageScoreOfProduct.innerText = `상품 점수 : ${AverageScore}`;
+        averageScoreOfProduct.innerText = `상품 평균 점수 : ${AverageScore}`;
 
       } else {
-        averageScoreOfProduct.innerText = "상품 점수 : 0";
+        averageScoreOfProduct.innerText = "상품 평균 점수 : 0";
       }
     }
     

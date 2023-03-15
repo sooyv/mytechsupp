@@ -9,7 +9,6 @@
 
     #signUpForm {
         display: flex;
-        flex-direction: block;
         justify-content: center;
         width: 500px;
     }

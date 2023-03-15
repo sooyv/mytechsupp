@@ -1,6 +1,7 @@
 package techsuppDev.techsupp.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,14 +10,17 @@ import techsuppDev.techsupp.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final MailService mailService;
 
     @Transactional
     public Long join(User user) {
@@ -91,11 +95,31 @@ public class UserService {
             userEmail.add(email);
         }
         if (users.size() <= 0) {
-            throw new IllegalStateException("User not found");
+//            throw new IllegalStateException("User not found");
+            userEmail = null;
+            log.info("user not found");
         }
 
         return userEmail;
     }
+
+    // user 비밀번호 재발급
+    public void updateUserPw(String email) throws Exception {
+        Optional<User> user = userRepository.findByUserEmail(email);
+        String userEmail = user.get().getUserEmail();
+        System.out.println("비밀번호 변경 대상 email: " + userEmail);
+
+        if (user.isPresent()) {        // 있는 경우
+            String code = mailService.sendPwMail(email);
+
+            user.get().setUserPassword(passwordEncoder.encode(code));
+            userRepository.save(user.get());
+
+        } else {
+            throw new NoSuchElementException("등록되지 않은 이메일입니다.");
+        }
+    }
+
 }
 
 

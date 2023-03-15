@@ -5,12 +5,16 @@ server:
 spring:
   servlet:
     multipart:
+      maxFileSize: 20MB
+      maxRequestSize: 100MB
 #      location: Users\\mk\\Desktop\\team project\\techsupp\\src\main\resources
   devtools:
     livereload:
       enabled: true
     restart:
       enabled: true
+  thymeleaf:
+    cache: false
   datasource:
     drive-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://14.36.28.148:3311/techsupp
@@ -39,8 +43,13 @@ logging.level:
   org.hibernate.SQL: debug
   org.hibernate.type: trace
 
+#imgLocation: /Users/rladn/IdeaProjects/techsupp/src/main/resources/static/file/product
+#uploadPath: classpath:/static/file/
+#productPath: /product
+#feedbackPath: /feedback
 
 
+#  C:\Users\rladn\IdeaProjects\techsupp\src\main\resources\static\file\product
 
 #spring.datasource.url=jdbc:mysql://localhost:3306/productmanager?autoReconnect=false
 #spring.datasource.username=root

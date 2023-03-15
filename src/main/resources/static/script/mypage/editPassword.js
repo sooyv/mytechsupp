@@ -53,3 +53,8 @@ passwordInput.onchange = validatePassword;
 checkPasswordInput.onkeyup = validatePassword;
 
 checkPasswordInput.addEventListener("keyup", validatePassword);
+
+
+function goMyCheckPassword1() {
+    location.href = "checkPassword1";
+}

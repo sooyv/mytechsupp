@@ -11,7 +11,7 @@
                     <div class="col-auto mb-3">
                         <h1 class="page-header-title">
                             <div class="page-header-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg></div>
-                            Add User
+                            ADD PRODUCT
                         </h1>
                     </div>
                     <div class="col-12 col-xl-auto mb-3">
@@ -26,20 +26,35 @@
     </header>
     <!-- Main page content-->
     <form role="form" th:method="post" enctype="multipart/form-data" th:object="${productForm}">
+
         <div class="container-xl px-4 mt-4">
             <div class="row">
                 <div class="col-xl-4">
                     <!-- Profile picture card-->
                     <div class="card mb-4 mb-xl-0">
-                        <div class="card-header">Profile Picture</div>
-                        <div class="card-body text-center">
+                        <div class="card-header">Picture</div>
+                            <div class="card-body text-center">
                             <!-- Profile picture image-->
-                            <img class="img-account-profile rounded-circle mb-2" src="assets/img/demo/user-placeholder.svg" alt="">
+                                <img id="product_image" src="" alt="" style="width:126px; height:165px;" >
                             <!-- Profile picture help block-->
-                            <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
+                            <div class="small font-italic text-muted mb-4">이미지를 첨부하세요.</div>
                             <!-- Profile picture upload button-->
-                            <button class="btn btn-primary" type="file" name="file">Upload new image</button>
-                        </div>
+                            </div>
+                    </div>
+                    <div class="img-upload">
+                        <label class="btn btn-primary" for="img-input">업로드</label>
+                        <script>
+                            function PreviewImage() {
+                                var preview = new FileReader();
+                                preview.onload = function (e) {
+                                    document.getElementById("product_image").src = e.target.result;
+                                };
+                                preview.readAsDataURL(document.getElementById("img-input").files[0]);
+                            };
+
+                        </script>
+                        <input accept=".jpg" onchange="PreviewImage()" id="img-input" type="file"
+                               name="productImgFile" style="display:none">
                     </div>
                 </div>
                 <div class="col-xl-8">
@@ -47,28 +62,32 @@
                     <div class="card mb-6">
                         <div class="card-header">Account Details</div>
                         <div class="card-body">
-                            <form>
                                 <div class="mb-3">
                                     <label class="small mb-1">상품명</label>
-                                    <input class="form-control" th:field="*{productName}" type="text" placeholder="상품명을 입력해주세요.">
+                                    <input class="form-control" name="productName" type="text" placeholder="상품명을 입력해주세요.">
                                 </div>
                                 <!-- Form Row-->
                                 <div class="row gx-3 mb-3">
                                     <!-- Form Group (first name)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1">목표 금액</label>
-                                        <input class="form-control" th:field="*{totalPrice}" type="number" placeholder="가격을 입력해주세요.">
+                                        <input class="form-control" name="totalPrice" type="number" placeholder="가격을 입력해주세요.">
                                     </div>
                                     <!-- Form Group (last name)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1">마감 기한</label>
-                                        <input class="form-control" th:field="*{period}" type="date" placeholder="날짜를 입력해주세요.">
+                                        <input class="form-control" name="period" type="date" placeholder="날짜를 입력해주세요.">
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="small mb-1">투자 금액</label>
+                                        <input class="form-control" name="investPrice" type="number" placeholder="가격을 입력해주세요.">
                                     </div>
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="small mb-1">상품 내용</label>
-                                    <textarea class="form-control" rows="5" th:field="*{information}" id="content" placeholder="내용을 입력해 주세요"></textarea>
+                                    <textarea class="form-control" rows="5" name="information" id="content" placeholder="내용을 입력해 주세요"></textarea>
                                 </div>
 
                                 <!-- Form Group (email address)-->
@@ -109,17 +128,15 @@
                                 <!--                                </select>-->
                                 <!--                            </div>-->
                                 <!-- Submit button-->
-                                <button class="btn btn-primary" type="button">등록</button>
-                            </form>
+                                <button class="btn btn-primary" type="submit">등록</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</form>
-<script>
-    
-</script>
+    </form>
+</div>
+
+
 
 </html>

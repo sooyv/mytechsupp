@@ -3,6 +3,7 @@ package techsuppDev.techsupp.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,6 +58,7 @@ public class MyPageController {
 
         if (passwordEncoder.matches(checkPassword, myPageService.checkPassword(user.getUserEmail()))) {
             result = true;
+            session.setAttribute("checkPasswordOk" , "OK");
         } else {
             result = false;
         }//현재 비밀번호
@@ -92,6 +94,7 @@ public class MyPageController {
 
         if (passwordEncoder.matches(checkPassword, myPageService.checkPassword(user.getUserEmail()))) {
             result = true;
+            session.setAttribute("checkPasswordOk" , "OK");
         } else {
             result = false;
         }//현재 비밀번호
@@ -105,6 +108,10 @@ public class MyPageController {
     @GetMapping("/edituser")
     public String editUser(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
+
+        if(session.getAttribute("checkPasswordOk") ==null){
+            return "redirect:/user/mypage";
+        }
         String myEmail = (String) session.getAttribute("userEmail");
         User user = myPageService.getUserEmail(myEmail);
         model.addAttribute("userinfo", user);
@@ -112,8 +119,7 @@ public class MyPageController {
     }
 
     @PostMapping("/edituser")
-    public String userUpdate(@ModelAttribute("userinfo") User user) {
-
+    public String userUpdate(@ModelAttribute("userinfo") User user,HttpSession session) {
         System.out.println("tes22t"+user.getUserPhone());
         System.out.println("tes22t"+user.getUserName());
         System.out.println("tes22t"+user.getUserEmail());
@@ -125,6 +131,7 @@ public class MyPageController {
         user1.setUserName(user.getUserName());
         user1.setUserPhone(user.getUserPhone());
         myPageService.userUpdate(user1);
+        session.removeAttribute("checkPasswordOk");
         return "redirect:/user/mypage";
 
 
@@ -134,9 +141,11 @@ public class MyPageController {
 
     //비밀번호 변경페이지
     @GetMapping("/editpassword")
-
     public String editPassword(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
+        if(session.getAttribute("checkPasswordOk") ==null){
+            return "redirect:/user/mypage";
+        }
         String myEmail = (String) session.getAttribute("userEmail");
         User user = myPageService.getUserEmail(myEmail);
         model.addAttribute("userinfo", user);
@@ -162,6 +171,7 @@ public class MyPageController {
         User user = myPageService.getUserEmail(myEmail);
         user.setUserPassword(password);
         myPageService.changePassword(user);
+        session.removeAttribute("checkPasswordOk");
         return "mypage/myPage";
     }
 

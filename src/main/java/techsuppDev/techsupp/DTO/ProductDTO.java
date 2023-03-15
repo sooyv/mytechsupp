@@ -1,9 +1,11 @@
 package techsuppDev.techsupp.DTO;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import techsuppDev.techsupp.domain.Product;
 import techsuppDev.techsupp.domain.ProductStatus;
 
@@ -12,6 +14,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Lob;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,9 +28,15 @@ public class ProductDTO {
     private String information;
     private int totalPrice;
     private int investPrice;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate period;
     private ProductStatus productStatus;
     private int clickCount;
+    @Builder.Default
+    private List<ProductImgDTO> productImgDTOList = new ArrayList<>();
+    @Builder.Default
+    private List<Long> productImgIds = new ArrayList<>();
+
 
     public Product dtoToEntity(ProductDTO productDTO) {
         Product entity = Product.builder()

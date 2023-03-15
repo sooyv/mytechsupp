@@ -10,11 +10,11 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 @Data
-@NoArgsConstructor
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
 public class ProductImgDTO {
-    private Long imageNum;
+    private Long id;
     private String imgName;
     private String originImgName;
     private String imgUrl;
@@ -22,6 +22,7 @@ public class ProductImgDTO {
 
     public Image dtoToEntity(ProductImgDTO dto) {
         Image entity = Image.builder()
+                .id(dto.id)
                 .imgName(dto.imgName)
                 .originImgName(dto.originImgName)
                 .imgUrl(dto.imgUrl)
@@ -30,8 +31,9 @@ public class ProductImgDTO {
         return entity;
     }
 
-    public ProductImgDTO entityToDto(Image entity) {
+    public static ProductImgDTO entityToDto(Image entity) {
         ProductImgDTO dto = ProductImgDTO.builder()
+                .id(entity.getId())
                 .imgName(entity.getImgName())
                 .originImgName(entity.getOriginImgName())
                 .imgUrl(entity.getImgUrl())
@@ -39,4 +41,5 @@ public class ProductImgDTO {
 
         return dto;
     }
+
 }

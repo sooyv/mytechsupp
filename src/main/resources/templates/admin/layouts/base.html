@@ -11,10 +11,10 @@
     <link href="/bootstrap/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/36.0.0/classic/ckeditor.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <style>
         .ck-content {
             height: 200px;
-
         }
     </style>
 </head>
@@ -43,7 +43,11 @@
 <script src="/bootstrap/js/datatables-simple-demo.js"></script>
 <script>
     ClassicEditor
-        .create(document.querySelector('#content'))
+        .create(document.querySelector('#content'), {
+            ckfinder: {
+                uploadUrl: '/admin/register'
+            }
+        })
         .then(editor => {
             console.log(editor);
         })

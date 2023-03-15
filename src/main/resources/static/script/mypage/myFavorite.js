@@ -33,12 +33,14 @@ function nextBlock() {
   currentPage = Math.min(currentPage, totalPages);
   loadProducts();
   generatePageBlock();
+  history.pushState({}, '', `?page=${currentPage}`);
 }
 
 function prevBlock() {
   currentPage = Math.max(currentPage - 10, 1);
   loadProducts();
   generatePageBlock();
+  history.pushState({}, '', `?page=${currentPage}`);
 }
 
 function generatePageBlock() {
@@ -92,12 +94,29 @@ const urlParams = new URLSearchParams(window.location.search);
 const pageParam = urlParams.get('page');
 if (pageParam !== null) {
   currentPage = parseInt(pageParam);
+} else if (window.location.pathname === "/myfavorite") { // myfavorite 페이지에 처음 진입한 경우 currentPage를 1로 설정
+  currentPage = 1;
+  history.replaceState({}, '', '/user/myfavorite'); // 쿼리스트링을 추가하지 않고 경로만 변경
 }
+for (let i = 0; i < products.length; i++) {
+  products[i].addEventListener('click', () => {
+    const productId = products[i].querySelector('li:nth-child(1)').textContent;
+    const productUrl = `http://localhost:8080/productSelect/product/?&num=${productId}`;
+    location.href = productUrl;
+  });
+}
+
+
 window.addEventListener("load", loadProducts);
+
+
 
 loadProducts();
 generatePageBlock();
-history.pushState({}, '', `?page=${currentPage}`); // 페이지 로드 시 쿼리스트링 추가
+if (currentPage !== 1) { // currentPage가 1일 때는 쿼리스트링을 추가하지 않음
+  history.pushState({}, '', `?page=${currentPage}`);
+}
+
 
 function goMyPage() {
     location.href = "mypage";
@@ -116,4 +135,8 @@ function goMyCheckPassword() {
 }
 function goMyEdit() {
     location.href = "edituser";
+}
+
+function goMyCheckPassword1() {
+    location.href = "checkPassword1";
 }

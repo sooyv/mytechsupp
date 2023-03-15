@@ -16,25 +16,26 @@
 <div th:insert="/header :: header"></div>
 <div id="entire_box">
     <div id = "sidebar_box">
-        <div id="mypage_btn">마이페이지</div>
-        <div class="btn_box" th:onclick="location.href=/user/myfavorite">즐겨찾기</div>
-        <div class="btn_box" th:onclick="location.href=/user/myinvest">투자목록</div>
-        <div class="btn btn-outline-primary" type="button" onclick="goMyCheckPassword()">회원정보수정</div>
-        <div class="btn btn-outline-primary" type="button" onclick="goMyCheckPassword1()">비밀번호변경</div>
+<!--        <div id="mypage_btn">마이페이지</div>-->
+        <div class="btn_box" type="button" onclick="location.href='/user/myfavorite'">즐겨찾기</div>
+        <!--        <div class="btn_box" th:onclick="location.href=/user/myinvest">투자목록</div>-->
+        <div class="btn_box" type="button" onclick="goMyCheckPassword()">회원정보수정</div>
+        <div class="btn_box" type="button" onclick="goMyCheckPassword1()">비밀번호변경</div>
     </div>
 
     <div class="myfavorite_container">
         <div class="notice_board">
-            <!-- title 열 -->
+            <!-- title 열 --> <h1 class="title_head"> 즐겨찾기 </h1>
             <ul class="board_row title_row">
-                <li class="w70">게시글 번호</li>
-                <li class="w500">제품명</li>
+                <li class="w70">번호</li>
+                <li class="w500 no-hover">제품명</li>
                 <li class="w120">목표투자액</li>
                 <li class="w100">투자총액</li>
                 <li class="w100">제품상태</li>
             </ul>
             <ul class="board_row" th:each="w : ${wishList}">
-                <li class="w70" th:text="${w.product.id}"></li>
+<!--                <li class="w70" th:text="${wStat.index + 1}"></li>-->
+                                <li class="w70" th:text="${w.product.id}"></li>
                 <li class="w500" th:text="${w.product.productName}"></li>
                 <li class="w120" th:text="${w.product.investPrice}"></li>
                 <li class="w100" th:text="${w.product.totalPrice}"></li>

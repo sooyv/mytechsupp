@@ -9,12 +9,13 @@
   <nav class="py-2 bg-light border-bottom">
     <div class="container d-flex flex-wrap">
       <ul class="nav me-auto">
-        <li class="nav-item"><a th:href="@{/notice/introduction-page}" class="nav-link link-dark px-2">서비스 소개</a></li>
+        <li class="nav-item"><a th:href="@{/admin/list}" class="nav-link link-dark px-2">서비스 소개</a></li>
         <li class="nav-item"><a th:href="@{/productMain/product?page=0&order=0}" class="nav-link link-dark px-2">펀딩</a></li>
         <li class="nav-item"><a th:href="@{/notice}" class="nav-link link-dark px-2">고객센터</a></li>
         <li class="nav-item"><a th:href="@{/feedbackMain/product?page=0&order=0}" class="nav-link link-dark px-2">후기</a></li>
       </ul>
       <ul class="nav">
+        <li class="nav-item"><a th:href="@{/admin/product/list}" th:if="${session.userRole == 'ROLE_ADMIN'}" class="nav-link link-dark px-2">관리자 페이지</a></li>
         <li class="nav-item"><a th:href="@{/login}" th:if="${session.userEmail == null}" class="nav-link link-dark px-2">로그인</a></li>
         <li class="nav-item"><a th:href="@{/member/logout}" th:if="${session.userEmail != null}" class="nav-link link-dark px-2" id="logout-btn">로그아웃</a></li>
         <li class="nav-item"><a th:href="@{/signup}" th:if="${session.userEmail == null}" class="nav-link link-dark px-2">회원가입</a></li>

@@ -6,8 +6,10 @@ import org.springframework.stereotype.Repository;
 import techsuppDev.techsupp.domain.Image;
 import techsuppDev.techsupp.service.ProductImageService;
 
-public interface ProductImageRepository extends JpaRepository<Image, Long> {
+import java.util.List;
 
+public interface ProductImageRepository extends JpaRepository<Image, Long> {
+    List<Image> findByProductIdOrderByIdAsc(Long id);
 
 
 }

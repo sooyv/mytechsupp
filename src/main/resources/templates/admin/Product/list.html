@@ -6,7 +6,7 @@
 <div layout:fragment="content" class="content">
     <div class="container-fluid px-4">
         <h1 class="mt-4">Products<span>
-            <a th:href="@{/admin/register}">
+            <a th:href="@{/admin/product/register}">
                 <button type="button" class="btn btn-outline-primary">상품등록</button>
             </a></span>
         </h1>
@@ -16,18 +16,30 @@
         </ol>
         <div class="card mb-4">
                <div class="card-body">
-                   <table id="datatablesSimple">
+                   <table class="table" id="result">
                        <thead>
                        <tr>
-                           <th scope="col">상품번호</th>
-                           <th scope="col">상품명</th>
-                           <th scope="col">목표금액</th>
-                           <th scope="col">상태</th>
-                           <th></th>
+                           <th>상품번호</th>
+                           <th>상품명</th>
+                           <th>목표금액</th>
+                           <th>상태</th>
+                           <th>수 정</th>
+                           <th>삭 제</th>
                        </tr>
                        </thead>
                        <tbody>
                        <tr th:each="dto : ${result.dtoList}">
+<<<<<<< HEAD
+                           <td th:text="${dto.id}"></td>
+<!--                           <td>-->
+<!--                               <img th:src="@{'/images/' + ${productImgDTO.imgUrl}}" style="height: 2em">-->
+<!--                           </td>-->
+                           <td th:text="${dto.productName}"></td>
+                           <td th:text="${dto.totalPrice}"></td>
+                           <td th:text="${dto.productStatus}"></td>
+                           <td><a th:href="@{'/admin/product/edit/' + ${dto.id}}">수정</a></td>
+                           <td><a class="deleteConfirm" th:href="@{'/admin/product/delete/' + ${dto.id}}">삭제</a></td>
+=======
                            <th scope="row">[[${dto.id}]]</th>
 <<<<<<< HEAD
                            <td>[[${dto.productName}]]</td>
@@ -38,6 +50,7 @@
                                 <td>[[${dto.totalPrice}]]</td>
                                 <td>[[${dto.productStatus}]]</td>
 >>>>>>> f411958c73057b3a6a5fb40a91671b249374e9cb
+>>>>>>> 484508decfe6ee0c9beb018b855fecfeb1335606
                        </tr>
                        </tbody>
                    </table>
@@ -45,18 +58,18 @@
                        <!--현재 페이지 여부를 체크해 'active'라는 이름의 클래스가 출력되도록 작성-->
                     <li class="page-item" th:if="${result.prev}">
                         <!--이전(previous)의 경우 PageResultDTO의 start 값에서 1적은 값으로 지정-->
-                        <a class="page-link" th:href="@{/admin/list(page= ${result.start -1})}" tabindex="-1">Previous</a>
+                        <a class="page-link" th:href="@{/admin/product/list(page= ${result.start -1})}" tabindex="-1">Previous</a>
                     </li>
 
                     <li th:class=" 'page-item' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">
-                        <a class="page-link" th:href="@{/admin/list(page = ${page})}">
+                        <a class="page-link" th:href="@{/admin/product/list(page = ${page})}">
                             [[${page}]]
                         </a>
                     </li>
                     <!--현재 페이지 여부를 체크해 'active'라는 이름의 클래스가 출력되도록 작성-->
                     <li class="page-item" th:if="${result.next}">
                         <!--다음(next)의 경우 PageResultDTO의 end 값에서 1큰 값으로 지정-->
-                        <a class="page-link" th:href="@{/admin/list(page = ${result.end +1})}">Next</a>
+                        <a class="page-link" th:href="@{/admin/product/list(page = ${result.end +1})}">Next</a>
                     </li>
                 </ul>
             </div>

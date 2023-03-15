@@ -20,6 +20,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-evenly;
 }
 
 
@@ -105,30 +106,47 @@
 }
 
 #sidebar_box {
-  /*padding-top: 150px;*/
-
   padding-left: 130px;
   width: 300px;
   height: 800px;
   box-sizing: border-box;
+  margin: auto;
 }
 
 #mypage_btn {
   margin-bottom: 30px;
   width: 200px;
   height: 80px;
- /* border: 2px solid red; */
   box-sizing: border-box;
 }
 
 .btn_box {
   margin-bottom: 30px;
-/*  width: 200px;
-  height: 80px; */
-  /*border: 2px solid blue;*/
   display: flex;
-  /*justify-content: center; */
   align-items: center;
   box-sizing: border-box;
 }
+.btn_box:hover{
+  box-shadow: 4px 12px 30px 6px rgba(0,0,0,.7);
+  transform: scale(1.05);
+}
 
+.btn_box:active{
+  box-shadow: 4px 12px 30px 6px rgba(0,0,0,.9);
+  transform: scale(0.95);
+}
+
+/* 일반적인 화면 크기에서 myfavorite_container와 sidebar_box의 규격 조정 */
+@media screen and (max-width: 1000px) {
+  .myfavorite_container {
+    width: 90%;
+    max-width: 500px;
+  }
+
+  #sidebar_box {
+    width: 90%;
+    max-width: 500px;
+    padding-left: 0;
+    margin-top: 30px;
+  }
+}

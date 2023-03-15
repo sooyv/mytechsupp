@@ -27,21 +27,21 @@ function loadProducts() {
   }
 }
 
-
 function nextBlock() {
-  currentPage = currentPage === 1 ? 2 : Math.ceil(currentPage / 10) * 10 + 2;
-  currentPage = Math.min(currentPage, totalPages);
+  currentPage = Math.min(currentPage + 1, totalPages);
+  currentPage = currentPage < 1 ? 1 : currentPage;
   loadProducts();
   generatePageBlock();
   history.pushState({}, '', `?page=${currentPage}`);
 }
 
 function prevBlock() {
-  currentPage = Math.max(currentPage - 10, 1);
+  currentPage = Math.max(currentPage - 1, 1);
   loadProducts();
   generatePageBlock();
   history.pushState({}, '', `?page=${currentPage}`);
 }
+
 
 function generatePageBlock() {
   const startPage = Math.floor((currentPage - 1) / 10) * 10 + 1;

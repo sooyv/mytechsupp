@@ -46,7 +46,7 @@ public class Product extends BaseEntity{
     private String information;
     @Column(name = "total_price", nullable = false)
     private int totalPrice;
-    @Column(name = "invest_price", nullable = false)
+    @Column(name = "invest_price")
     private int investPrice;
     @Column(name = "period")
     private LocalDate period;

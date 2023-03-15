@@ -29,7 +29,7 @@ public class AdminProductServiceTest {
                     .information("안녕하세요.")
                     .investPrice(10000)
                     .build();
-            System.out.println(adminProductService.register(productDTO));
+//            System.out.println(adminProductService.register(productDTO));
         });
 
     }

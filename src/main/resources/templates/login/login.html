@@ -10,33 +10,32 @@
   <link href="/style/login/login.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
   <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
-  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-
 <body>
 <!--공통되는 header-->
 <div th:insert="/header :: header"></div>
 <div class="text-center">
   <main class="form-login w-100 m-auto">
-    <form action="user/login" th:object="${userForm}" method="post">
+    <form th:action="@{/member/login}" th:object="${userForm}" method="POST">
       <i class="bi-robot fs-1"></i>
       <h1 class="h3 mb-3 fw-normal">로그인</h1>
         <div class="form-floating">
-          <input type="email" th:field="*{email}" class="form-control" id="email" placeholder="name@example.com">
+          <input type="email" th:field="*{email}" name="email" class="form-control" id="email" placeholder="name@example.com">
           <label th:for="email">Email</label>
         </div>
         <div class="form-floating">
-          <input type="password" th:field="*{password}" class="form-control" id="password" placeholder="Password">
+          <input type="password" th:field="*{password}" name="password" class="form-control" id="password" placeholder="Password">
           <label th:for="password">password</label>
         </div>
       <div>
         <p class="forgotAccount">
-          <a class="#">로그인 정보를 잊으셨나요?</a>
+          <a th:href="@{/find/member}">로그인 정보를 잊으셨나요?</a>
         </p>
       </div>
       <button class="w-100 btn btn-lg btn-primary" type="submit">로그인</button>
       <!-- 네이버로 시작하기 버튼 -->
-      <a href="http://localhost:8080/test">네이버로그인 test</a>
+      <a href="http://localhost:8080/test">네이버 로그인 test</a>
       <div id="naver_id_login"></div>
       <!-- 회원가입 페이지 이동 -->
       <div class="bottom-message">
@@ -50,15 +49,15 @@
   </main>
 </div>
 <!--<script src="/script/header.js"></script>-->
-<script type="text/javascript">
-  	var naver_id_login = new naver_id_login("", "http://localhost:8080/navercallback");
-  	var state = naver_id_login.getUniqState();
-  	naver_id_login.setButton("white", 4, 40);
-  	naver_id_login.setDomain("http://localhost:8080");
-  	naver_id_login.setState(state);
-  	naver_id_login.setPopup();
-  	naver_id_login.init_naver_id_login();
-  </script>
+<!--<script type="text/javascript">-->
+<!--  	var naver_id_login = new naver_id_login("", "http://localhost:8080/navercallback");-->
+<!--  	var state = naver_id_login.getUniqState();-->
+<!--  	naver_id_login.setButton("white", 4, 40);-->
+<!--  	naver_id_login.setDomain("http://localhost:8080");-->
+<!--  	naver_id_login.setState(state);-->
+<!--  	naver_id_login.setPopup();-->
+<!--  	naver_id_login.init_naver_id_login();-->
+<!--  </script>-->
 </body>
 </html>
 

@@ -2,7 +2,10 @@ package techsuppDev.techsupp.repository;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import techsuppDev.techsupp.domain.Payment;
 import techsuppDev.techsupp.domain.Product;
 import techsuppDev.techsupp.domain.User;
 import techsuppDev.techsupp.domain.WishList;
@@ -12,19 +15,12 @@ import java.util.Optional;
 
 @Repository
 public interface MyPageRepository extends JpaRepository<WishList, Long> {
-    //JPA 선택된 즐겨찾기를 만들 Repository
+
 
     List<WishList> findAll();
-    List<WishList> findByUserId(Long userId);
+
+    @Query("SELECT w FROM WishList w WHERE w.user.userEmail = :userEmail")
+    List<WishList> findByUserEmail(@Param("userEmail") String userEmail);
 
 
-
-
-
-    //email로 조인할 수 잇는 쿼리를 JPA
-
-
-
-
-//    Product findByUserProduct(long productId);
 }

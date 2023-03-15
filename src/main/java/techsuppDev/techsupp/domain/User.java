@@ -32,8 +32,7 @@ public class User {
     @Column(nullable = false)
     private String userPhone;
 
-//    @Enumerated(EnumType.STRING)
-//    private Role role;
+    private String role;        //ROLE_USER, ROLE_ADMIN
 
 //    @Enumerated(EnumType.STRING)
 //    private SocalStatus status;
@@ -50,4 +49,5 @@ public class User {
 //        user.role = role;
         return user;
     }
+
 }

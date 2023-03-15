@@ -25,6 +25,10 @@
     }
 
     #email {
+        border: none;
+        background-color: transparent;
+        color: #000;
+        font-size: 16px;
         width: 350px;
         margin-right: 5px;
     }

@@ -3,103 +3,181 @@ package techsuppDev.techsupp.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import techsuppDev.techsupp.controller.form.MyPageForm;
-import techsuppDev.techsupp.controller.form.UserForm;
 import techsuppDev.techsupp.domain.User;
+import techsuppDev.techsupp.domain.WishList;
+import techsuppDev.techsupp.repository.ProductRepository;
+import techsuppDev.techsupp.repository.UserRepository;
 import techsuppDev.techsupp.service.MyPageService;
-import techsuppDev.techsupp.service.UserService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @AllArgsConstructor
+@RequestMapping(value = "/user")
 public class MyPageController {
 
+    @Autowired
     private final MyPageService myPageService;
+
+
     private final PasswordEncoder passwordEncoder;
+    private ProductRepository productRepository;
 
     //  회원수정하기 전 비밀번호 확인
     @GetMapping("/checkPassword")
     public String checkPwdView() {
+
         return "mypage/checkPassword";
     }
 
     // 비밀번호 확인 체크
     @PostMapping("/checkPassword")
     @ResponseBody
-    public boolean checkPassword(@RequestParam String checkPassword, HttpSession session) throws Exception {
-        System.out.println("testtt "+checkPassword);
+    public boolean checkPassword(@RequestParam(name = "checkPassword") String checkPassword, HttpServletRequest request) throws Exception {
+
+        System.out.println("testt1qt "+checkPassword);
         boolean result = false;  // 리절트값 초기화
 
         //기존 디비user 조회
+        HttpSession session = request.getSession();
+        System.out.println("zzzz"+session); // 세션은 받아오는데 유저 이메일을 못받아오는듯? 세션의
+        String userEmail = (String) session.getAttribute("userEmail");
+        User user = myPageService.getUserEmail(userEmail); // 기존 로그인 db 확인
+        System.out.println("gfhhhg"+user);
+//        String email = "tjansqja@naver.com"; //데이터베이스 JPA를 통해서 조회
+        myPageService.checkPassword(user.getUserEmail());
 
-//       User user = (User) session.getAttribute("user"); // 기존 로그인 db 확인
-
-        String email = "tjansqja@naver.com"; //데이터베이스 JPA를 통해서 조회
-//        myPageService.checkPassword(email);
-
-//        if (passwordEncoder.matches(checkPassword, myPageService.checkPassword(email))) {
-//            result = true;
-//        } else {
-//            result = false;
-//        }//현재 비밀번호
-
+        if (passwordEncoder.matches(checkPassword, myPageService.checkPassword(user.getUserEmail()))) {
+            result = true;
+            session.setAttribute("checkPasswordOk" , "OK");
+        } else {
+            result = false;
+        }//현재 비밀번호
         return result;
     }
 
 
+    // 비밀번호 확인 두번 째
+
+    //  회원수정하기 전 비밀번호 확인
+    @GetMapping("/checkPassword1")
+    public String checkPwdView1() {
+
+        return "mypage/checkPassword1";
+    }
+
+    // 비밀번호 확인 체크
+    @PostMapping("/checkPassword1")
+    @ResponseBody
+    public boolean checkPassword1(@RequestParam(name = "checkPassword1") String checkPassword, HttpServletRequest request) throws Exception {
+
+        System.out.println("testt1qt "+checkPassword);
+        boolean result = false;  // 리절트값 초기화
+
+        //기존 디비user 조회
+        HttpSession session = request.getSession();
+        System.out.println("zzzz"+session); // 세션은 받아오는데 유저 이메일을 못받아오는듯? 세션의
+        String userEmail = (String) session.getAttribute("userEmail");
+        User user = myPageService.getUserEmail(userEmail); // 기존 로그인 db 확인
+        System.out.println("gfhhhg"+user);
+//        String email = "tjansqja@naver.com"; //데이터베이스 JPA를 통해서 조회
+        myPageService.checkPassword(user.getUserEmail());
+
+        if (passwordEncoder.matches(checkPassword, myPageService.checkPassword(user.getUserEmail()))) {
+            result = true;
+            session.setAttribute("checkPasswordOk" , "OK");
+        } else {
+            result = false;
+        }//현재 비밀번호
+        return result;
+    }
+
+
+
+
     //    회원정보수정페이지
-    @GetMapping("/edituser") // modelandview 모델을 뷰에 던져준다는 개념임.
-    public String editUser(HttpSession session, Model model) {
+    @GetMapping("/edituser")
+    public String editUser(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
 
-//        String myEmail = (String) session.getAttribute("userEmail");
-        String myEmail = "tjansqja@naver.com";
-//        User user = myPageService.getUserEmail(myEmail);
-//        model.addAttribute("userinfo", user);
-
-
-// model.addAttribute("userInfo.userEmail", user)
+        if(session.getAttribute("checkPasswordOk") ==null){
+            return "redirect:/user/mypage";
+        }
+        String myEmail = (String) session.getAttribute("userEmail");
+        User user = myPageService.getUserEmail(myEmail);
+        model.addAttribute("userinfo", user);
         return "mypage/editUser";
     }
 
-    //회원정보수정페이지 수정
+    @PostMapping("/edituser")
+    public String userUpdate(@ModelAttribute("userinfo") User user,HttpSession session) {
+        System.out.println("tes22t"+user.getUserPhone());
+        System.out.println("tes22t"+user.getUserName());
+        System.out.println("tes22t"+user.getUserEmail());
+        System.out.println("tes22t"+user.getRole());
+        System.out.println("tes22t"+user.getUserPassword());
 
-        @PostMapping("/edituser")
-//    public String update(@ModelAttribute User user) {
-//        myPageService.update(user);
-////        user.setUserPassword(form.getPassword());
-//        return "redirect:/mypage/";
-//    }
-        public ResponseEntity<String> update(MyPageForm form) {
+        User user1 = myPageService.getUserEmail(user.getUserEmail());
 
-//        System.out.println("this is my info :"+ form.getUserEmail());
-        System.out.println(form.getUserName());
-        System.out.println(form.getUserPhone());
+        user1.setUserName(user.getUserName());
+        user1.setUserPhone(user.getUserPhone());
+        myPageService.userUpdate(user1);
+        session.removeAttribute("checkPasswordOk");
+        return "redirect:/user/mypage";
 
-        User user = new User();
-        user.setUserEmail(form.getUserEmail());
-        user.setUserPhone(form.getUserPhone());
-        user.setUserName(form.getUserName());
 
-            System.out.println(user.getUserName());
-            System.out.println(user.getUserPhone());
-
-//        myPageService.update(user);
-
-        return new ResponseEntity<>("Successfully editUser", HttpStatus.OK);
     }
+
+
+
+    //비밀번호 변경페이지
+    @GetMapping("/editpassword")
+    public String editPassword(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        if(session.getAttribute("checkPasswordOk") ==null){
+            return "redirect:/user/mypage";
+        }
+        String myEmail = (String) session.getAttribute("userEmail");
+        User user = myPageService.getUserEmail(myEmail);
+        model.addAttribute("userinfo", user);
+        return "mypage/editPassword";
+    }
+
+//    @PostMapping("/editpassword")
+//    public ResponseEntity<String> changePassword(MyPageForm form, HttpServletRequest request) {
+//        HttpSession session = request.getSession();
+//        String myEmail = (String) session.getAttribute("userEmail");
+//        System.out.println("124143wa"+myEmail); // 여기까지 다 됨. 근데 그 밑에 수정 코드가 잘못된듯
+//        User user = new User();
+//        user.setUserEmail(myEmail); // 이메일 정보 추가
+////        user.setUserPassword(form.getUserPassword());
+//        myPageService.changePassword(user);
+//        return new ResponseEntity<>("Successfully Change Password", HttpStatus.OK);
+//    }
+    @PostMapping("/editpassword")
+    public String changePassword(String password, HttpServletRequest request) {
+        System.out.println("test2414123"+password);
+        HttpSession session = request.getSession();
+        String myEmail = (String) session.getAttribute("userEmail");
+        User user = myPageService.getUserEmail(myEmail);
+        user.setUserPassword(password);
+        myPageService.changePassword(user);
+        session.removeAttribute("checkPasswordOk");
+        return "mypage/myPage";
+    }
+
+
+
+    // myPage 홈페이지
     @GetMapping("/mypage")
     public ModelAndView myPage() {
         ModelAndView mav = new ModelAndView("/mypage/myPage");
@@ -107,15 +185,27 @@ public class MyPageController {
         return mav;
     }
 
-    // 즐겨찾기
-
+    // 즐겨찾기 홈페이지
 
     @GetMapping("/myfavorite")
-    public ModelAndView favorite() {
-        ModelAndView mav = new ModelAndView("/mypage/myFavorite");
+    public String favorite(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        System.out.println("tset"+session);
+//        String userEmail = (String)session.getAttribute("userEmail");
+        String userEmail = (String) session.getAttribute("userEmail"); //왜 세션값이 안받아지냐..... 계속
+        System.out.println("testtqerwq"+userEmail); //  테스트 결과 db값을 인젝션하면 조회 가능
+
+        List<WishList> wishList = myPageService.findByUserEmail(userEmail);
+        model.addAttribute("wishList", wishList);
+        return "mypage/myFavorite";
+    }
+    // 투자정보 페이지
+
+    @GetMapping("/myinvest")
+    public ModelAndView invest(Long paymentId){
+        ModelAndView mav = new ModelAndView("mypage/myInvest");
+//        Paylog paylog = myPageService.findByUserId();
         return mav;
     }
-
-
 
 }

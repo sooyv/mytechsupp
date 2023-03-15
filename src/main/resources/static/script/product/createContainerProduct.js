@@ -2,9 +2,13 @@
 // const productNumber = urlParams.get('num');
 
 
-function LinkToInvestingProduct(api) {
-  const investingURL = `/invest/?num=${api}`
+function LinkToInvestingProduct(id , paylog) {
+  if(paylog == "n") {
+   return alert("이미 투자한 상품 입니다.")
+  } else {
+  const investingURL = `/invest/?num=${id}`
   window.location.href = investingURL;
+  }
 }
 
 function createSingleProductHtml(api) {
@@ -12,29 +16,30 @@ function createSingleProductHtml(api) {
   <div class="ContainerPictureInvestmentAmountInformation">
       <div>
         <div class="ProductPicture">
-          <h2>${api.seqId}제품 사진</h2>
+          <h2>제품 사진 ${api.seqId}</h2>
+          <img src="http://localhost:8080${api.imgUrl}" style="max-width:80%; min-height:100px;"/>
         </div>
         <div class="ProductInvestmentAmount">
-          <h5>${api.totalPrice} 투자 목표액</h5>
+          <h5> 투자 목표액 ₩ ${api.totalPrice}</h5>
         </div>
         <div class="ProductInformation">
-        <h5>${api.information}제품 제목 설명</h5>
+        <h5>제품 제목 설명 ${api.information}</h5>
         </div>
       </div>
     </div>
     <div class="ContainerNameLimitDatePrecentageInvesting">
       <div class="ProductNameWish">
-        <h5>${api.productName}제품 상세 설명</h5>
+        <h5>제품 상세 설명 ${api.productName}</h5>
         <h5>즐겨찾기</h5>
       </div>
       <div class="ProductLimitDate">
-       <h5>${api.period}투자 마감일</h5>
+       <h5>투자 마감일 ${api.period}</h5>
       </div>
       <div class="ProductPercentage">
-        <h5>${Math.round(api.totalPrice / api.investPrice)}투자율</h5>
+        <h5>투자율 ${Math.round(api.totalPrice / api.investPrice)} % </h5>
       </div>
       <div class="ProductInvesting">
-          <input type=button onclick="LinkToInvestingProduct(${api.id})" value=${api.investPrice}개인 투자 금액 결제페이지 이동>
+          <input type=button onclick="LinkToInvestingProduct(${api.id}, '${api.paylog}')" value="${api.investPrice}원 개인 투자 금액 결제페이지 이동">
       </div>
     </div>
   `

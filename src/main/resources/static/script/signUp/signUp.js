@@ -1,9 +1,9 @@
 console.log("연결완료")
 
 const form = document.getElementById("signUpForm");
-console.log(form);
 const usernameInput = document.getElementById("userName");
 const emailInput = document.getElementById("email");
+const emailAuthInput = document.getElementById("emailAuthNum");
 const passwordInput = document.getElementById("password");
 const checkPasswordInput = document.getElementById("checkPassword");
 const userPhoneInput = document.getElementById("userPhone");
@@ -12,10 +12,53 @@ $("#passwordHelp").hide();
 $("#password-same").hide();
 
 
+// 메일인증
+$("#emailSend").on("click", function() {
+      const email = emailInput.value;
+        $.ajax({
+              type: 'POST',
+              url: "/signup/mailcheck",
+              data: {
+                email : email
+               },
+              success: function(data) {
+                alert("이메일로 인증번호가 발송되었습니다.");
+              }
+        });
+});
+
+
+// 인증번호 check
+$("#mailCheckNum").on("click", function() {
+    const emailAuth = emailAuthInput.value;
+
+    if (!emailAuth) {
+        alert("인증번호를 입력해주세요.");
+    }
+
+    $.ajax({
+          type: 'POST',
+          url: "/mail/check/auth",
+          data: {
+            emailAuth : emailAuth
+           },
+          success: function(data) {
+                if(data === 0) {
+                    alert("메일 인증이 완료되었습니다.");
+                } else if(data === 1) {
+                    alert("세션이 만료되었습니다. 처음부터 다시 시도해주세요.");
+                } else {
+                    alert("인증번호가 일치하지 않습니다.");
+                }
+          }
+    });
+});
+
+
 var $email = $("#email");
 // 아이디 정규식
 $("#email").on("keyup", function(event) {
-    console.log("Email keyup 발생")
+    console.log("Email keyup 발생");
 
     var emailRegExp = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]+$/;
 
@@ -48,7 +91,6 @@ $("#email").on("keyup", function(event) {
                         "font-weight": "bold",
                         "font-size": "15px"
                     })
-                    //console.log("중복아이디");
                 } else if (data === 0) {                // 아니면 중복아님
                     console.log(data)
                     idchk = true;
@@ -59,7 +101,6 @@ $("#email").on("keyup", function(event) {
                             "font-weight": "bold",
                             "font-size": "15px"
                     })
-                    //console.log("중복아닌 아이디");
                 }
             }
         })
@@ -91,8 +132,6 @@ $("#checkPassword").on("keyup", function(event) {
 });
 
 
-
-
 form.addEventListener("submit", event => {
   event.preventDefault();
 
@@ -110,20 +149,21 @@ form.addEventListener("submit", event => {
 
   alert(`Sign-up successful!\nUsername: ${userName}\nEmail: ${email}\nPhone: ${userPhone}`);
 
-
 $(document).ready(function () {
     const userName = $("#userName").val();
     const email = $("#email").val();
+    const authNum = $("#emailAuthNum").val();
     const password = $("#password").val();
     const checkPassword = $("#checkPassword").val();
-    const PhoneNumber = $("#userPhone").val();
-    console.log("ajax직전");
+    const userPhone = $("#userPhone").val();
+    console.log("ajax 직전");
     $.ajax({
       type: 'POST',
-      url: "user/signup",
+      url: "/member/signup",
       data: {
         userName: userName,
         email: email,
+        authNum : authNum,
         password: password,
         checkPassword: checkPassword,
         userPhone : userPhone
@@ -134,7 +174,7 @@ $(document).ready(function () {
       error: function (error) {
         $("#signUpBtn").addClass('shake');
             setTimeout(function() {
-                $("#signUpBtn").removeClass('shake'); // 0.5초 후 shake 클래스 제거
+                $("#signUpBtn").removeClass('shake'); // 0.8초 후 shake 클래스 제거
             }, 800);
         console.log(error);
       }

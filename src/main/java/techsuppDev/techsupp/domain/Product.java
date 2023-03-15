@@ -7,7 +7,9 @@ import org.springframework.data.annotation.LastModifiedDate;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @DiscriminatorValue("i")
@@ -16,20 +18,20 @@ import java.util.Date;
 @Entity
 @Builder
 @SqlResultSetMapping(
-        name = "ProductMapping",
-                columns = {
-                        @ColumnResult(name = "id", type = Long.class),
-                        @ColumnResult(name = "moddate", type = LocalDateTime.class),
-                        @ColumnResult(name = "regdate", type = LocalDateTime.class),
-                        @ColumnResult(name = "click_count", type = int.class),
-                        @ColumnResult(name = "information", type = String.class),
-                        @ColumnResult(name = "invest_price", type = Integer.class),
-                        @ColumnResult(name = "period", type = LocalDate.class),
-                        @ColumnResult(name = "product_name", type = String.class),
-                        @ColumnResult(name = "product_status", type = String.class),
-                        @ColumnResult(name = "seq_id", type = Long.class),
-                        @ColumnResult(name = "total_price", type = Integer.class)
-                })
+    name = "ProductMapping",
+    columns = {
+        @ColumnResult(name = "id", type = Long.class),
+        @ColumnResult(name = "moddate", type = LocalDateTime.class),
+        @ColumnResult(name = "regdate", type = LocalDateTime.class),
+        @ColumnResult(name = "click_count", type = int.class),
+        @ColumnResult(name = "information", type = String.class),
+        @ColumnResult(name = "invest_price", type = Integer.class),
+        @ColumnResult(name = "period", type = LocalDate.class),
+        @ColumnResult(name = "product_name", type = String.class),
+        @ColumnResult(name = "product_status", type = String.class),
+        @ColumnResult(name = "seq_id", type = Long.class),
+        @ColumnResult(name = "total_price", type = Integer.class)
+    })
 
 //)
 @Table(name = "Product")
@@ -55,5 +57,6 @@ public class Product extends BaseEntity{
     private ProductStatus productStatus;
     @Column(name = "click_count", columnDefinition = "integer default 0", nullable = false)
     private int clickCount;
+
 
 }

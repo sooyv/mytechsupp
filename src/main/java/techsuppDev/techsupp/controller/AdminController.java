@@ -41,10 +41,7 @@ public class AdminController {
     private final ProductImageService productImageService;
 
 
-//    @GetMapping("/")
-//    public String index() {
-//        return "redirect:/admin/Product/list";
-//    }
+
 
     @GetMapping("/product/list")
     public String list(@ModelAttribute PageRequestDTO pageRequestDTO, Model model) {

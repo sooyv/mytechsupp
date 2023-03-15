@@ -1,31 +1,36 @@
 package techsuppDev.techsupp.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import techsuppDev.techsupp.domain.User;
 import techsuppDev.techsupp.repository.UserRepository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final MailService mailService;
 
     @Transactional
     public Long join(User user) {
-        String userName = user.getUserName();
-        String userEmail = user.getUserEmail();
+//        String userName = user.getUserName();
+//        String userEmail = user.getUserEmail();
         // 사용자 비밀번호 암호화.
-        String userPassword = passwordEncoder.encode(user.getUserPassword());
+        user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
 //        String userPassword = user.getUserPassword();
-        String userPhone = user.getUserPhone();
-        user = user.createUser(userName, userEmail, userPassword, userPhone);
+//        String userPhone = user.getUserPhone();
+//        user = user.createUser(userName, userEmail, userPassword, userPhone);
         validateDuplicateUser(user);        // 회원 중복 검증
         userRepository.save(user);
         return user.getUserId();
@@ -71,13 +76,48 @@ public class UserService {
         return null;
     }
 
-
+    // 로그인
     public User login(String email, String password) {
         User user = getUserByEmail(email);
         if (user != null && passwordEncoder.matches(password, user.getUserPassword())) {
             return user;
         }
         return null;
+    }
+
+
+    // user 이메일 찾기
+    public List<String> findUserEmail(String userName, String userPhone) {
+        List<User> users = userRepository.findByUserNameAndUserPhone(userName, userPhone);
+        List<String> userEmail = new ArrayList<>();
+        for (User user : users) {
+            String email = user.getUserEmail();
+            userEmail.add(email);
+        }
+        if (users.size() <= 0) {
+//            throw new IllegalStateException("User not found");
+            userEmail = null;
+            log.info("user not found");
+        }
+
+        return userEmail;
+    }
+
+    // user 비밀번호 재발급
+    public void updateUserPw(String email) throws Exception {
+        Optional<User> user = userRepository.findByUserEmail(email);
+        String userEmail = user.get().getUserEmail();
+        System.out.println("비밀번호 변경 대상 email: " + userEmail);
+
+        if (user.isPresent()) {        // 있는 경우
+            String code = mailService.sendPwMail(email);
+
+            user.get().setUserPassword(passwordEncoder.encode(code));
+            userRepository.save(user.get());
+
+        } else {
+            throw new NoSuchElementException("등록되지 않은 이메일입니다.");
+        }
     }
 
 }

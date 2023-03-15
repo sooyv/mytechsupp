@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:object-fit="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,23 +7,20 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
   <link href="/style/main/main.css" rel="stylesheet">
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <!--공통되는 header-->
-<!--<div id="header"></div> javascript 파일에서 밑의 html 파일로 대체했습니다-->
-<div th:insert="/header :: header"></div>
-session 값 : <p th:text="${session.loginUserName}"></p>
+<div th:replace="/header :: header"></div>
+<p th:text="${session.userEmail}"></p>
+<p th:text="${session.userName}"></p>
 <main>
   <!-- Three columns of text below the carousel -->
   <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
-      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-label="Slide 1"
-              aria-current="true"></button>
-      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"
-              class=""></button>
-      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"
-              class="">
-      </button>
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-label="Slide 1" aria-current="true"></button>
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2" class=""></button>
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3" class=""></button>
     </div>
     <div class="carousel-inner">
       <div class="carousel-item active">
@@ -33,9 +30,9 @@ session 값 : <p th:text="${session.loginUserName}"></p>
         </svg>
         <div class="container">
           <div class="carousel-caption text-start">
-            <h1>Example headline.</h1>
+            <h1>TECHSUPP의 상품을 소개해요</h1>
             <p>이미지를 삽입</p>
-            <p><a class="btn btn-lg btn-primary" href="#">Comming Soon</a></p>
+            <p><a class="btn btn-lg btn-primary" href="#">TECHSUPP 상품 보기</a></p>
           </div>
         </div>
       </div>
@@ -46,9 +43,9 @@ session 값 : <p th:text="${session.loginUserName}"></p>
         </svg>
         <div class="container">
           <div class="carousel-caption">
-            <h1>Another example headline.</h1>
+            <h1>TECHSUPP Funding에 대해 알아보세요</h1>
             <p>이미지를 삽입</p>
-            <p><a class="btn btn-lg btn-primary" href="#">Comming Soon</a></p>
+            <p><a class="btn btn-lg btn-primary" href="#">서비스 소개</a></p>
           </div>
         </div>
       </div>
@@ -59,9 +56,9 @@ session 값 : <p th:text="${session.loginUserName}"></p>
         </svg>
         <div class="container">
           <div class="carousel-caption text-end">
-            <h1>One more headline.</h1>
+            <h1>문의 사항이 있으신가요?</h1>
             <p>이미지를 삽입</p>
-            <p><a class="btn btn-lg btn-primary" href="#">Comming Soon</a></p>
+            <p><a class="btn btn-lg btn-primary" th:href="@{/notice/question-list}">문의 하기</a></p>
           </div>
         </div>
       </div>
@@ -76,113 +73,37 @@ session 값 : <p th:text="${session.loginUserName}"></p>
     </button>
   </div>
   <div class="container marketing">
-    <!-- Three columns of text below the carousel -->
+    <!-- show product -->
     <div class="row-product">
       <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-4 row-cols-2 row-cols-md-3 row-cols-xl-5 justify-content-center">
-          <div class="col mb-5">
-            <div class="card h-100">
-              <!-- Product image-->
-              <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."/>
-              <!-- Product details-->
-              <div class="card-body p-4">
-                <div class="text-center">
-                  <!-- Product name-->
-                  <h5 class="fw-bolder">상품명1</h5>
-                  <!-- Product price-->
-                  상세설명
+          <!-- random 상품 표시 -->
+            <th:block th:each="product : ${products}">
+              <div class="col mb-5">
+                <div class="card h-100">
+                  <!-- Product image-->
+                  <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."/>
+                  <!-- Product details-->
+                  <div class="card-body p-4">
+                    <div class="text-center">
+                      <!-- Product name-->
+                      <h5 class="fw-bolder" th:text="${product.productName}"></h5>
+                      <!-- Product explain-->
+                      <p th:text="${product.information}"></p>
+                    </div>
+                  </div>
+                  <!-- Product actions-->
+                  <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:href="@{productSelect/product/?(num=${product.seqId})}">이 상품 보기</a></div>
+                  </div>
                 </div>
               </div>
-              <!-- Product actions-->
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View
-                  options</a></div>
-              </div>
-            </div>
-          </div>
-          <div class="col mb-5">
-            <div class="card h-100">
-              <!-- Product image-->
-              <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."/>
-              <!-- Product details-->
-              <div class="card-body p-4">
-                <div class="text-center">
-                  <!-- Product name-->
-                  <h5 class="fw-bolder">상품명2</h5>
-                  <!-- Product price-->
-                  상세설명
-                </div>
-              </div>
-              <!-- Product actions-->
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View
-                  options</a></div>
-              </div>
-            </div>
-          </div>
-          <div class="col mb-5">
-            <div class="card h-100">
-              <!-- Product image-->
-              <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."/>
-              <!-- Product details-->
-              <div class="card-body p-4">
-                <div class="text-center">
-                  <!-- Product name-->
-                  <h5 class="fw-bolder">상품명3</h5>
-                  <!-- Product price-->
-                  상세설명
-                </div>
-              </div>
-              <!-- Product actions-->
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View
-                  options</a></div>
-              </div>
-            </div>
-          </div>
-          <div class="col mb-5">
-            <div class="card h-100">
-              <!-- Product image-->
-              <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."/>
-              <!-- Product details-->
-              <div class="card-body p-4">
-                <div class="text-center">
-                  <!-- Product name-->
-                  <h5 class="fw-bolder">상품명4</h5>
-                  <!-- Product price-->
-                  상세설명
-                </div>
-              </div>
-              <!-- Product actions-->
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
-              </div>
-            </div>
-          </div>
-          <div class="col mb-5">
-            <div class="card h-100">
-              <!-- Product image-->
-              <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."/>
-              <!-- Product details-->
-              <div class="card-body p-4">
-                <div class="text-center">
-                  <!-- Product name-->
-                  <h5 class="fw-bolder">상품명5</h5>
-                  <!-- Product price-->
-                  상세설명
-                </div>
-              </div>
-              <!-- Product actions-->
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
-              </div>
-            </div>
-          </div>
+            </th:block>
         </div>
       </div>
     </div>
     <div id="more-product">
-      <button type="button" id="productList-btn" class="btn btn-outline-dark">상품 더보기</button>
+      <div class="text-center"><a id="productList-btn" class="btn btn-outline-dark mt-auto" th:href="@{/productMain/product?page=0&order=0}">상품 더보기</a></div>
     </div>
     <!-- 새로운 상품 페이지 / 서비스 소개 페이지 -->
     <hr class="featurette-divider">
@@ -216,8 +137,7 @@ session 값 : <p th:text="${session.loginUserName}"></p>
       </div>
     </div>
     <hr class="featurette-divider">
-  </div><!-- /.container -->
-
+  </div>
   <!-- FOOTER -->
   <footer class="container">
     <p class="float-end"><a href="#">Back to top</a></p>
@@ -227,10 +147,5 @@ session 값 : <p th:text="${session.loginUserName}"></p>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous"></script>
-<!--<script src="/script/header.js"></script>-->
-<!--<script th:inline="javascript">-->
-<!--  createHead([[${session.loginUserName}]]);-->
-<!-- createHead()-->
-<!--</script>-->
 </body>
 </html>

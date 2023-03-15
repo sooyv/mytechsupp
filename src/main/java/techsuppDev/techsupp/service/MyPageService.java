@@ -1,15 +1,15 @@
 package techsuppDev.techsupp.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import techsuppDev.techsupp.domain.Product;
-import techsuppDev.techsupp.domain.User;
-import techsuppDev.techsupp.domain.WishList;
+import techsuppDev.techsupp.DTO.Paylog;
+import techsuppDev.techsupp.domain.*;
 import techsuppDev.techsupp.repository.MyPageRepository;
+import techsuppDev.techsupp.repository.PayLogRepository;
+import techsuppDev.techsupp.repository.PaymentRepository;
 import techsuppDev.techsupp.repository.UserRepository;
 
-import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,12 +21,14 @@ public class MyPageService {
 
     // 회원정보검색
     private final UserRepository userRepository;
-
     private final UserService userService;
-
     private final MyPageRepository myPageRepository;
 
+    private final PayLogRepository payLogRepository;
 
+    private final PaymentRepository paymentRepository;
+
+    private final PasswordEncoder passwordEncoder;
     // 이메일 조회
     public User getUserEmail(String myEmail) {
         Optional<User> user = userRepository.findByUserEmail(myEmail);
@@ -38,48 +40,54 @@ public class MyPageService {
 
     // 비밀번호 확인
     public String checkPassword(String email) {
+
         return userService.getUserByEmail(email).getUserPassword();
     }
 
     // 회원 업데이트
-    public void update(User user) {
-//        List<User> users = userRepository.findByUserEmail(user.getUserEmail());
-//        String userPhone = user.getUserPhone();
-//        String userName = user.getUserName();
-//
-//        user = users.get(0);
-//        user.setUserName(userName);
-//        user.setUserPhone(userPhone);
-        User user1 = userRepository.findByUserEmail(user.getUserEmail()).get();
-        user1.setUserPhone(user.getUserPhone());
-        user1.setUserName(user.getUserName());
-        userRepository.save(user1);
+    public void userUpdate(User user) {
+//        User user1 = userRepository.findByUserEmail(user.getUserEmail());
+//        user.setUserPhone(user.getUserPhone());
+//        user.setUserName(user.getUserName());
+        userRepository.save(user);
     }
 
-    ////
-    public List<WishList> findByUserWishList(Long userId) {
-        List<WishList> product = myPageRepository.findByUserId(userId);
+    // 비밀번호 업데이트
 
-//        Optional<WishList> wishList1 = product;
-//
-//
-////         db에 있는 상품을 가져와서 product1에 집어 넣고 싶다.
-//        for (Product product1 : product)
-//            if ()
-//        }
-        return product;
+    public void changePassword(User user) {
+//        User user1 = userRepository.findByUserEmail(user.getUserEmail()).get();
+//        user1.setUserPassword(user.getUserPassword());
+        user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
+        userRepository.save(user);
     }
+
+
+    //// 로그인한 회원의 즐겨찾기 목록
+
+    public List<WishList> findByUserEmail(String userEmail) {
+        List<WishList> wishList = myPageRepository.findByUserEmail(userEmail);
+        return wishList;
+    }
+
+
+    // 현재 진행중인 투자 목록
+//
+//    // 결제 내역 조회
+//    public Paylog getPaylog(Long paylogId) {
+//        return payLogRepository.getPaylogId(paylogId);
+//    }
+//
+//    // 결제 취소
+//    public void cancelPaylog(Long cancelPaylog) {
+//        Paylog paylog = (Paylog) payLogRepository.getPaylogId(cancelPaylog);
+//
+//
+//    }
+//
+//    // 결제 상태 변경
+//    public void paylogUpdate(PaylogStatus paylogStatus) {
+//    PaylogStatus paylogStatus1 =
+//        paylogStatus.setPaylogStatus(PaylogStatus.REFUND);
+//    paymentRepository.save(paylogStatus);  // jpa형식으로 save하면 바로 나오는데
+//    }
 }
-
-
-//
-//}
-
-//    }
-//    public User updateForm(String myEmail) {
-//        Optional<User> user = userRepository.findByUserEmail(myEmail);
-//        return user.get();
-//    }
-
-    // 선택한 모든 투자제품 조회
-

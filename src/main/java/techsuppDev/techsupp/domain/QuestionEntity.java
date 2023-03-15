@@ -6,11 +6,13 @@ import lombok.Setter;
 import techsuppDev.techsupp.DTO.QuestionDTO;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "question_table")
+@Table(name = "question")
 public class QuestionEntity {
 
     @Id
@@ -20,30 +22,73 @@ public class QuestionEntity {
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
 //    private Long userId;
+    @Column(length = 20, nullable = false)
+    private String questionWriter;
+
+    @Column(length = 255)
+    private String questionPass;
+
+    @Column
+    private String questionCategory;
 
     @Column
     private String questionTitle;
 
     @Column(length = 500)
-    private String questionDetail;
-
-    @Column
-    private String questionCategory;
+    private String questionContents;
 
 //    @Column
-//    private QuestionStatus questionStatus;
+//    private int questionStatus;
 
     @Column
     private String questionAnswer;
 
+    @Column
+    private int fileAttached;
+
+    @OneToMany(mappedBy = "questionEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<QuestionFileEntity> questionFileEntityList = new ArrayList<>();
+
     public static QuestionEntity toSaveEntity(QuestionDTO questionDTO){
         QuestionEntity questionEntity = new QuestionEntity();
-        questionEntity.setQuestionTitle(questionDTO.getQuestionTitle());
-        questionEntity.setQuestionDetail(questionDTO.getQuestionDetail());
+        questionEntity.setQuestionWriter(questionDTO.getQuestionWriter());
+        questionEntity.setQuestionPass(questionEntity.getQuestionPass());
         questionEntity.setQuestionCategory(questionDTO.getQuestionCategory());
+        questionEntity.setQuestionTitle(questionDTO.getQuestionTitle());
+        questionEntity.setQuestionContents(questionDTO.getQuestionContents());
+//        questionEntity.setQuestionStatus(questionDTO.getQuestionStatus());
         questionEntity.setQuestionAnswer(questionDTO.getQuestionAnswer());
+        questionEntity.setFileAttached(0);
 
         return questionEntity;
 
+    }
+
+    public static QuestionEntity toUpdateEntity(QuestionDTO questionDTO) {
+        QuestionEntity questionEntity = new QuestionEntity();
+        questionEntity.setQuestionId(questionDTO.getQuestionId());
+        questionEntity.setQuestionWriter(questionDTO.getQuestionWriter());
+        questionEntity.setQuestionPass(questionEntity.getQuestionPass());
+        questionEntity.setQuestionCategory(questionDTO.getQuestionCategory());
+        questionEntity.setQuestionTitle(questionDTO.getQuestionTitle());
+        questionEntity.setQuestionContents(questionDTO.getQuestionContents());
+//        questionEntity.setQuestionStatus(questionDTO.getQuestionStatus());
+        questionEntity.setQuestionAnswer(questionDTO.getQuestionAnswer());
+
+        return questionEntity;
+    }
+
+    public static QuestionEntity toSaveFileEntity(QuestionDTO questionDTO) {
+        QuestionEntity questionEntity = new QuestionEntity();
+        questionEntity.setQuestionWriter(questionDTO.getQuestionWriter());
+        questionEntity.setQuestionPass(questionEntity.getQuestionPass());
+        questionEntity.setQuestionCategory(questionDTO.getQuestionCategory());
+        questionEntity.setQuestionTitle(questionDTO.getQuestionTitle());
+        questionEntity.setQuestionContents(questionDTO.getQuestionContents());
+//        questionEntity.setQuestionStatus(questionDTO.getQuestionStatus());
+        questionEntity.setQuestionAnswer(questionDTO.getQuestionAnswer());
+        questionEntity.setFileAttached(1);
+
+        return questionEntity;
     }
 }

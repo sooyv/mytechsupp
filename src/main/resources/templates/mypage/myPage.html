@@ -13,23 +13,22 @@
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
 <body>
-<div id="header"></div>
-<div id="entire_box">
-    <div id = "sidebar_box">
-        <div id="mypage_btn">마이페이지</div>
-        <div class ="btn_box" onclick="goMyFavorite()">즐겨찾기</div>
-        <div class ="btn_box" onclick="goMyInvest()">투자목록</div>
-        <div class ="btn btn-outline-primary" type="button" onclick="goMyCheckPassword()">회원정보수정</div>
-        <div class ="btn btn-outline-primary" type="button" onclick="goMyPassword()">비밀번호변경</div>
-    </div>
+<div th:insert="/header :: header"></div>
+<!--<div id="entire_box">-->
+<!--    <div id = "sidebar_box">-->
+<!--        <div id="mypage_btn">마이페이지</div>-->
+<!--        <div class ="btn_box" onclick="goMyFavorite()">즐겨찾기</div>-->
+<!--        <div class ="btn_box" onclick="goMyInvest()">투자목록</div>-->
+<!--        <div class ="btn btn-outline-primary" type="button" onclick="goMyCheckPassword()">회원정보수정</div>-->
+<!--        <div class ="btn btn-outline-primary" type="button" onclick="goMyCheckPassword1()">비밀번호변경</div>-->
+<!--    </div>-->
     <div id="big_invest_box">
-        <div class="invest_box">1</div>
-        <div class="invest_box">2</div>
-        <div class="invest_box">3</div>
+        <div class="invest_box" type="button" onclick="goMyFavorite()">즐겨찾기 바로가기</div>
+        <div class="invest_box" type="button" onclick="goMyCheckPassword()">회원정보수정 바로가기</div>
+        <div class="invest_box" type="button" onclick="goMyCheckPassword1()">비밀번호변경 바로가기</div>
     </div>
 </div>
 
-<script src="/script/header.js"></script>
 <script th:src="@{/script/mypage/myPage.js}"></script>
 </body>
 </html>

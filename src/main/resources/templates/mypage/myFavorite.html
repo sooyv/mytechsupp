@@ -6,60 +6,59 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>TECHSUPP </title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <link href="/style/mypage/myFavorite.css" rel="stylesheet">
+    <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css}" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link th:href="@{/style/mypage/myFavorite.css}" rel="stylesheet">
     <!--    <script src="../static/js/signUp"></script>-->
     <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
 <body>
-<div id="header"></div>
+<div th:insert="/header :: header"></div>
 <div id="entire_box">
     <div id = "sidebar_box">
-        <div id="mypage_btn">마이페이지</div>
-        <div class ="btn_box" onclick="goMyFavorite()">즐겨찾기</div>
-        <div class ="btn_box" onclick="goMyInvest()">투자목록</div>
-        <div class ="btn btn-outline-primary" type="button" onclick="goMyCheckPassword()">회원정보수정</div>
-        <div class ="btn btn-outline-primary" type="button" onclick="goMyPassword()">비밀번호변경</div>
+<!--        <div id="mypage_btn">마이페이지</div>-->
+        <div class="btn_box" type="button" onclick="location.href='/user/myfavorite'">즐겨찾기</div>
+        <!--        <div class="btn_box" th:onclick="location.href=/user/myinvest">투자목록</div>-->
+        <div class="btn_box" type="button" onclick="goMyCheckPassword()">회원정보수정</div>
+        <div class="btn_box" type="button" onclick="goMyCheckPassword1()">비밀번호변경</div>
     </div>
 
-    <div class="container">
+    <div class="myfavorite_container">
         <div class="notice_board">
             <!-- title 열 -->
             <ul class="board_row title_row">
-                <li class="w70">게시글 번호</li>
+                <li class="w70">번호</li>
                 <li class="w500">제품명</li>
                 <li class="w120">목표투자액</li>
-                <li class="w100">투자율</li>
+                <li class="w100">투자총액</li>
                 <li class="w100">제품상태</li>
             </ul>
+            <ul class="board_row" th:each="w : ${wishList}">
+                <li class="w70" th:text="${wStat.index + 1}"></li>
+                <!--                <li class="w70" th:text="${w.product.id}"></li>-->
+                <li class="w500" th:text="${w.product.productName}"></li>
+                <li class="w120" th:text="${w.product.investPrice}"></li>
+                <li class="w100" th:text="${w.product.totalPrice}"></li>
+                <li class="w100" th:text="${w.product.productStatus}"></li>
+            </ul>
 
-<!--            <tr th:each="product : ${wishList}" th:object="${product}">-->
-<!--                <td th:text="*{프로퍼티1}">default value</td>-->
-<!--                <td th:text="*{아이템로퍼티2}">default value</td>-->
-<!--            </tr>-->
+            <div th:if="${wishList == null}">
+                <p>즐겨찾기한 제품이 없습니다.</p>
+            </div>
 
-
-
-            <!-- 게시글 추가로 들어오는 위치 -->
-        </div>
-    <!-- 페이지 블럭 -->
-    <div class="pagination">
-        <button class="before_move" onclick="before()">이전</button>
-        <div class="block">
-            <!-- 블럭 추가로 들어오는 위치 -->
 
         </div>
-        <button class="next_move" onclick="next()">다음</button>
+        <!-- 페이지 블럭 -->
+        <div class="pagination">
+            <button class="before_move" onclick="prevBlock()">이전</button>
+            <div class="block">
+                <!-- 블럭 추가로 들어오는 위치 -->
+            </div>
+            <button class="next_move" onclick="nextBlock()">다음</button>
+        </div>
     </div>
 </div>
 
-</div>
-
-
-<!--<script th:inline="javascript"> var wishList = [[${wishList}]];-->
-<!--                                console.log(wishList); </script>-->
-<script src="/script/header.js"></script>
-<script src="/script/myFavorite.js"></script>
+<script src="/script/mypage/myFavorite.js"></script>
 </body>
 </html>

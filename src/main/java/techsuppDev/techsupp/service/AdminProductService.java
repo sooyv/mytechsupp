@@ -1,6 +1,7 @@
 package techsuppDev.techsupp.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -12,12 +13,16 @@ import techsuppDev.techsupp.DTO.PageResultDTO;
 import techsuppDev.techsupp.DTO.ProductDTO;
 import techsuppDev.techsupp.DTO.ProductImgDTO;
 import techsuppDev.techsupp.domain.Image;
+import techsuppDev.techsupp.controller.HomeController;
 import techsuppDev.techsupp.domain.Product;
 import techsuppDev.techsupp.repository.AdminProductRepository;
 import techsuppDev.techsupp.repository.ProductImageRepository;
 
 import javax.persistence.EntityExistsException;
 import java.util.ArrayList;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 
@@ -82,5 +87,11 @@ public class AdminProductService {
         adminProductRepository.delete(adminProductRepository.findById(id).get());
     }
 
-
+    // 소영 main page - random product
+    public List<Product> getRandomProduct() {
+        List<Product> allProducts = adminProductRepository.findAll();
+        List<Product> randomProducts = new ArrayList<>(allProducts);
+        Collections.shuffle(randomProducts);
+        return randomProducts.subList(0, 5);
+    }
 }

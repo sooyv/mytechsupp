@@ -9,7 +9,6 @@ import techsuppDev.techsupp.domain.User;
 import java.util.List;
 import java.util.Optional;
 
-
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
@@ -17,10 +16,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findAll();
 
     // email로 회원 찾기
+//    Optional<User> findByUserEmail(String userEmail);
     Optional<User> findByUserEmail(String userEmail);
-//    List<User> findByUserEmail(String userEmail);
-
 
     // 회원 한명 조회
     User getOne(Long userId);
+
+
+    // 회원 이메일 찾
+    List<User> findByUserNameAndUserPhone(String userName, String userPhone);
 }

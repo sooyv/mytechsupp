@@ -1,100 +1,152 @@
-        ul{
-            padding: 0;
-            margin: 0;
-            display:inline-block;
-        }
-        /*
-            게시판 목록 행 단위
-            목록 요소 자체를 가운데 정렬하기
-            ul 기본 가로 크기는 100%이므로, 가로 크기를 지정해줘야 가운데로 정렬할 수 있다.
-            가운데 정렬
-            데이터 정렬
-        */
-        .board_row {
-            width: 1000px;
-            border-bottom:solid 1px gray;
+.myfavorite_container ul {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-        }
-        /* 게시글 목록 공통 개별 요소 속성 */
-        li{
-            list-style:none;
-            border-bottom:solid 1px gray;
-            float:left;
-            text-align:center;
-            /* padding: 0;
-            margin: 0; */
-        }
-        /* 번호, 제목, 작성자, 작성일, 조회, 좋아요 row의 style 설정 */
-        .title_row > li {
-            height: 50px;
-            line-height: 50px;
-            background:rgb(233, 233, 233);
-            font-weight: bold;
-            border-top:solid 2px rgb(0, 0, 0);
-            border-right:solid 1px gray;
-        }
-        /* 게시글 목록 데이터 개별 요소 속성 */
-        .data_row > li{
-            height: 40px;
-            line-height: 40px;
-            font-weight: lighter;
-            border-right:solid 1px gray;
-        }
+.board_row {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
 
-        /* 요소들의 너비 설정 */
-        .w70 {width:70px; }
-        .w500 {width:500px; }
-        .w120 {width:120px; }
-        .w100 {width:100px; }
 
-        /* 게시판 목록 박스 */
-        .notice_board{
+.myfavorite_container {
+  padding: 0;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
 
-            display: flex;
-            justify-content: center;
-            align-content: center;
-            align-items: center;
-            /* 구성 요소 세로로 배치 */
-            flex-direction: column;
 
-        }
+.myfavorite_container li {
+  list-style: none;
+    border-bottom: solid 1px gray;
+    float: left;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
 
-        .pagination{
-            display: flex;
-            width: 400px;
-            justify-content: space-between;
-        }
+.title_row > li {
 
-        /* 전체 중앙 정렬 */
-        .container{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+  flex-grow: 1;
+  height: 50px;
+  line-height: 50px;
+  background: rgb(233, 233, 233);
+  font-weight: bold;
+  border-top: solid 2px rgb(0, 0, 0);
+  border-right: solid 1px gray;
+}
 
-        /*여기서부터 사이드빠 */
-        #entire_box{
-            display : flex;
-            flex-direction : row;
-        }
+.data_row > li {
+  flex-basis: 0;
+  flex-grow: 1;
+  height: 40px;
+  line-height: 40px;
+  font-weight: lighter;
+  border-right: solid 1px gray;
+}
 
-        #sidebar_box{
-            padding-top : 150px;
-            padding-left : 130px;
-            width : 300px;
-            height : 800px;
-        }
+.w70 {
+  width: 70px;
+}
 
-        #mypage_btn{
-            margin-bottom : 30px;
-            width : 200px;
-            height : 80px;
-            border : 2px solid red;
-        }
+.w500 {
+  width: 500px;
+}
 
-        .btn_box{
-            margin-bottom : 30px;
-            width : 200px;
-            height : 80px;
-            border : 2px solid blue;
-        }
+.w120 {
+  width: 120px;
+}
+
+.w100 {
+  width: 100px;
+}
+
+.notice_board {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.pagination {
+  display: flex;
+  width: 400px;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.pagination .block button {
+  font-size: 1.2rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: transparent;
+  color: #000;
+  cursor: pointer;
+}
+
+.pagination .block button:hover {
+  text-decoration: underline;
+}
+
+.pagination .block button.active {
+  font-weight: bold;
+}
+
+#entire_box {
+  display: flex;
+  flex-direction: row;
+}
+
+#sidebar_box {
+  padding-left: 130px;
+  width: 300px;
+  height: 800px;
+  box-sizing: border-box;
+  margin: auto;
+}
+
+#mypage_btn {
+  margin-bottom: 30px;
+  width: 200px;
+  height: 80px;
+  box-sizing: border-box;
+}
+
+.btn_box {
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+.btn_box:hover{
+  box-shadow: 4px 12px 30px 6px rgba(0,0,0,.7);
+  transform: scale(1.05);
+}
+
+.btn_box:active{
+  box-shadow: 4px 12px 30px 6px rgba(0,0,0,.9);
+  transform: scale(0.95);
+}
+
+/* 일반적인 화면 크기에서 myfavorite_container와 sidebar_box의 규격 조정 */
+@media screen and (max-width: 1000px) {
+  .myfavorite_container {
+    width: 90%;
+    max-width: 500px;
+  }
+
+  #sidebar_box {
+    width: 90%;
+    max-width: 500px;
+    padding-left: 0;
+    margin-top: 30px;
+  }
+}

@@ -1,17 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- CSS -->
-  <!-- spring 적용시 -->
-  <link rel="stylesheet" href="/style/product/productStyle.css?ver=1">
-  <!-- bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-  integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-  <!-- kakao map script -->
-  <script type="text/javascript" src="/script/kakaomap.js?ver=1"></script>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
+    <!-- spring 적용시 -->
+    <link rel="stylesheet" href="/style/product/productStyle.css?ver=1">
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <!-- jquery -->
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <!-- kakao map script -->
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <!-- <script type="text/javascript" src="/script/kakaomap.js?ver=1"></script> -->
+  <!-- import -->
+  <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
   <title>TECHSUPP</title>
 </head>
 <body>
@@ -23,29 +28,18 @@
   <article class="ProductContent">상품 정보 생성은 스크립트로</article>
   <!-- 결제 인적 사항 -->
   <div class="ContainerUserInput">
-    아이디
-    <input type="email" placeholder="아이디">
-    휴대폰 번호
-    <input type="tel" placeholder="휴대폰 번호">
-    <div class="KakaomapContainer">
-      <div class="zipcode">
-        <input type="text" id="sample4_postcode" placeholder="우편번호">
-        <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
-      </div>
-      <div class="roadDetailAddress">
-        <input type="text" id="sample4_roadAddress" placeholder="도로명주소">
-        <input type="text" id="sample4_detailAddress" placeholder="상세주소">
-      </div>
-    </div>
+    입력 폼 생성은 스크립트로
+  </div>
 
   </div>
   <!-- 투자 결정 - 취소 컨테이너 -->
   <div class="ContainerConfirmCancel">
     
-    <input type="button" value="투자 확정">
+    <input type="button" onclick="investRequest()" value="투자 확정">
   
-    <input type="button" value="취소">
+    <input type="button" onclick="" value="취소">
   </div>
+  <footer class="ContainerFooter">footer 생성은 스크립트로</footer>
   <!-- 스크립트 -->
 <!-- url data -->
 <script type="text/javascript" src="/script/product/productMain.js?ver=1"></script>
@@ -57,12 +51,14 @@
 <script type="text/javascript" src="/script/invest/createInvestProduct.js?ver=1"></script>  
 <!-- kakao map 스크립트 -->
 <script type="text/javascript" src="/script/invest/kakaomap.js?ver=1"></script>
+<!-- checkbox -->
+<script type="text/javascript" src="/script/invest/paymentCheckbox.js?ver=1"></script>
+<!-- investRequest 스크립트 -->
+<script type="text/javascript" src="/script/invest/investRequest.js?ver=1"></script>
+<!-- investform 스크립트 -->
+<script type="text/javascript" src="/script/invest/createInvestForm.js?ver=1"></script>
+<!-- footer 생성 스크립트 -->
+<script type="text/javascript" src="/script/fragment/createFooter.js?ver=1"></script>
 
-  
-
-  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-  <footer>
-    footer
-  </footer>
 </body>
 </html>

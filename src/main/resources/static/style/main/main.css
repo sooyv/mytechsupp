@@ -66,6 +66,15 @@ body {
 #productList-btn {
     width: 180px;
 }
+
+#newProduct {
+    cursor: pointer;
+}
+
+#aboutFunding {
+    cursor: pointer;
+}
+
 /* rtl:end:remove */
 
 /* RESPONSIVE CSS

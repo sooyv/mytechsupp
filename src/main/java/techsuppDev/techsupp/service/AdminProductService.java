@@ -91,7 +91,11 @@ public class AdminProductService {
     // 소영 main page - random product
     public List<Product> getRandomProduct() {
         List<Product> allProducts = adminProductRepository.findAll();
+//        List<ProductImgDTO> allProductImg = productImageRepository.findAll();
+//
         List<Product> randomProducts = new ArrayList<>(allProducts);
+        System.out.println("main random: " + randomProducts);
+
         Collections.shuffle(randomProducts);
         return randomProducts.subList(0, 5);
     }

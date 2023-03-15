@@ -44,21 +44,21 @@ public class MyPageController {
     @ResponseBody
     public boolean checkPassword(@RequestParam(name = "checkPassword") String checkPassword, HttpServletRequest request) throws Exception {
 
-        System.out.println("testt1qt " + checkPassword);
+        System.out.println("testt1qt "+checkPassword);
         boolean result = false;  // 리절트값 초기화
 
         //기존 디비user 조회
         HttpSession session = request.getSession();
-        System.out.println("zzzz" + session); // 세션은 받아오는데 유저 이메일을 못받아오는듯? 세션의
+        System.out.println("zzzz"+session); // 세션은 받아오는데 유저 이메일을 못받아오는듯? 세션의
         String userEmail = (String) session.getAttribute("userEmail");
         User user = myPageService.getUserEmail(userEmail); // 기존 로그인 db 확인
-        System.out.println("gfhhhg" + user);
-
+        System.out.println("gfhhhg"+user);
+//        String email = "tjansqja@naver.com"; //데이터베이스 JPA를 통해서 조회
         myPageService.checkPassword(user.getUserEmail());
 
         if (passwordEncoder.matches(checkPassword, myPageService.checkPassword(user.getUserEmail()))) {
             result = true;
-            session.setAttribute("checkPasswordOk", "OK");
+            session.setAttribute("checkPasswordOk" , "OK");
         } else {
             result = false;
         }//현재 비밀번호
@@ -80,21 +80,21 @@ public class MyPageController {
     @ResponseBody
     public boolean checkPassword1(@RequestParam(name = "checkPassword1") String checkPassword, HttpServletRequest request) throws Exception {
 
-        System.out.println("testt1qt " + checkPassword);
+        System.out.println("testt1qt "+checkPassword);
         boolean result = false;  // 리절트값 초기화
 
         //기존 디비user 조회
         HttpSession session = request.getSession();
-        System.out.println("zzzz" + session); // 세션은 받아오는데 유저 이메일을 못받아오는듯? 세션의
+        System.out.println("zzzz"+session); // 세션은 받아오는데 유저 이메일을 못받아오는듯? 세션의
         String userEmail = (String) session.getAttribute("userEmail");
         User user = myPageService.getUserEmail(userEmail); // 기존 로그인 db 확인
-        System.out.println("gfhhhg" + user);
-
+        System.out.println("gfhhhg"+user);
+//        String email = "tjansqja@naver.com"; //데이터베이스 JPA를 통해서 조회
         myPageService.checkPassword(user.getUserEmail());
 
         if (passwordEncoder.matches(checkPassword, myPageService.checkPassword(user.getUserEmail()))) {
             result = true;
-            session.setAttribute("checkPasswordOk", "OK");
+            session.setAttribute("checkPasswordOk" , "OK");
         } else {
             result = false;
         }//현재 비밀번호
@@ -102,13 +102,15 @@ public class MyPageController {
     }
 
 
+
+
     //    회원정보수정페이지
     @GetMapping("/edituser")
     public String editUser(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
 
-        if (session.getAttribute("checkPasswordOk") == null) {
-            return "redirect:/user/myfavorite";
+        if(session.getAttribute("checkPasswordOk") ==null){
+            return "redirect:/user/mypage";
         }
         String myEmail = (String) session.getAttribute("userEmail");
         User user = myPageService.getUserEmail(myEmail);
@@ -117,12 +119,12 @@ public class MyPageController {
     }
 
     @PostMapping("/edituser")
-    public String userUpdate(@ModelAttribute("userinfo") User user, HttpSession session) {
-        System.out.println("tes22t" + user.getUserPhone());
-        System.out.println("tes22t" + user.getUserName());
-        System.out.println("tes22t" + user.getUserEmail());
-        System.out.println("tes22t" + user.getRole());
-        System.out.println("tes22t" + user.getUserPassword());
+    public String userUpdate(@ModelAttribute("userinfo") User user,HttpSession session) {
+        System.out.println("tes22t"+user.getUserPhone());
+        System.out.println("tes22t"+user.getUserName());
+        System.out.println("tes22t"+user.getUserEmail());
+        System.out.println("tes22t"+user.getRole());
+        System.out.println("tes22t"+user.getUserPassword());
 
         User user1 = myPageService.getUserEmail(user.getUserEmail());
 
@@ -130,18 +132,19 @@ public class MyPageController {
         user1.setUserPhone(user.getUserPhone());
         myPageService.userUpdate(user1);
         session.removeAttribute("checkPasswordOk");
-        return "redirect:/user/myfavorite";
+        return "redirect:/user/mypage";
 
 
     }
+
 
 
     //비밀번호 변경페이지
     @GetMapping("/editpassword")
     public String editPassword(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
-        if (session.getAttribute("checkPasswordOk") == null) {
-            return "redirect:/user/myfavorite";
+        if(session.getAttribute("checkPasswordOk") ==null){
+            return  "redirect:/user/mypage";
         }
         String myEmail = (String) session.getAttribute("userEmail");
         User user = myPageService.getUserEmail(myEmail);
@@ -151,28 +154,49 @@ public class MyPageController {
 
     @PostMapping("/editpassword")
     public String changePassword(String password, HttpServletRequest request) {
-        System.out.println("test2414123" + password);
+        System.out.println("test2414123"+password);
         HttpSession session = request.getSession();
         String myEmail = (String) session.getAttribute("userEmail");
         User user = myPageService.getUserEmail(myEmail);
         user.setUserPassword(password);
         myPageService.changePassword(user);
         session.removeAttribute("checkPasswordOk");
-        return "redirect:/user/myfavorite";
+        return "redirect:/user/mypage";
     }
 
+
+
+    // myPage 홈페이지
+    @GetMapping("/mypage")
+    public String myPage(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+    String myEmail = (String) session.getAttribute("userEmail");
+        User user = myPageService.getUserEmail(myEmail);
+        model.addAttribute("userinfo", user);
+        return "mypage/myPage";
+    }
 
     // 즐겨찾기 홈페이지
 
     @GetMapping("/myfavorite")
     public String favorite(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
-        System.out.println("tset" + session);
-        String userEmail = (String) session.getAttribute("userEmail");
-        System.out.println("testtqerwq" + userEmail);
+        System.out.println("tset"+session);
+//        String userEmail = (String)session.getAttribute("userEmail");
+        String userEmail = (String) session.getAttribute("userEmail"); //왜 세션값이 안받아지냐..... 계속
+        System.out.println("testtqerwq"+userEmail); //  테스트 결과 db값을 인젝션하면 조회 가능
 
         List<WishList> wishList = myPageService.findByUserEmail(userEmail);
         model.addAttribute("wishList", wishList);
         return "mypage/myFavorite";
     }
+    // 투자정보 페이지
+//
+//    @GetMapping("/myinvest")
+//    public ModelAndView invest(Long paymentId){
+//        ModelAndView mav = new ModelAndView("mypage/myInvest");
+////        Paylog paylog = myPageService.findByUserId();
+//        return mav;
+//    }
+
 }

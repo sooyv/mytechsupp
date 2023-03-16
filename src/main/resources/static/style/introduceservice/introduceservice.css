@@ -1,0 +1,37 @@
+.techsupp {
+
+}
+
+.title {
+
+}
+
+.main {
+    height: 400px;
+    padding: 10%;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    font-size: xxx-large;
+}
+
+.contents {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    font-size: xx-large;
+}
+
+#introduce {
+    background-color: #2E64FE;
+}
+
+#aboutFundding {
+    background-color: white;
+}
+
+#inquiry {
+    background-color: #f5f5f5;
+}

@@ -1,12 +1,9 @@
 package techsuppDev.techsupp.service;
 
-import com.nimbusds.oauth2.sdk.auth.Secret;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
@@ -21,7 +18,7 @@ public class MailService {
     @Autowired
     JavaMailSender javaMailSender;
 
-    public String code;
+
 
     // 랜덤 인증 코드
     public String createKey() {
@@ -49,14 +46,16 @@ public class MailService {
         return key.toString();
     }
 
-    // 메일 내용 작성
-    private MimeMessage createMessage(String email) throws MessagingException, UnsupportedEncodingException {
+
+    // 회원가입 인증 메일 내용 작성
+    public MimeMessage createMailMessage(String email,String code) throws MessagingException, UnsupportedEncodingException {
+
+
         MimeMessage message = javaMailSender.createMimeMessage();
 
         message.addRecipients(Message.RecipientType.TO, email);         // 보내는 대상
-        message.setSubject("TECHSUPP 회원가입 이메일 인증");                  // 제목
+        message.setSubject("TECHSUPP 인증메일 발송");
 
-        // 회원가입 메일 인증
         String msg = "";
         msg += "<h1>TECHSUPP 이메일 인증번호입니다.</h1>";
         msg += "<div style='font-size:130%'>";
@@ -71,28 +70,31 @@ public class MailService {
     }
 
     // 회원가입 인증 메일 발송
-    public String sendMail(String email) throws Exception {
-        code = createKey();
-        MimeMessage mimeMessage = createMessage(email);
+    public String sendMail(String email) throws MessagingException, UnsupportedEncodingException {
+        String code = createKey();
+        //메일전송에 필요한 정보 설정
+        MimeMessage emailMsg = createMailMessage(email, code);
 
         try {
-            javaMailSender.send(mimeMessage);
+            // 메일 전송
+            javaMailSender.send(emailMsg);
         } catch (MailException mailException) {
             mailException.printStackTrace();
             throw new IllegalStateException();
         }
+
         return code;
     }
 
 
 
-    // 비밀번호 재발급
-    private MimeMessage createPwMessage(String email) throws MessagingException, UnsupportedEncodingException {
+    // 비밀번호 재발급 메일 작성
+    private MimeMessage createPwMessage(String email, String code) throws MessagingException, UnsupportedEncodingException {
 
         MimeMessage message = javaMailSender.createMimeMessage();
 
         message.addRecipients(Message.RecipientType.TO, email);         // 보내는 대상
-        message.setSubject("TECHSUPP 비밀번호 재발급");                  // 제목
+        message.setSubject("TECHSUPP 비밀번호 재발급");                     // 제목
 
         // 비밀번호 재발급
         String pwmsg = "";
@@ -110,8 +112,8 @@ public class MailService {
 
     // 비밀번호 재발급 메일 발송
     public String sendPwMail(String email) throws Exception {
-        code = createKey();
-        MimeMessage mimeMessage = createPwMessage(email);
+        String code = createKey();
+        MimeMessage mimeMessage = createPwMessage(email, code);
 
         try {
             javaMailSender.send(mimeMessage);

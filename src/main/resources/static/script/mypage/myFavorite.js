@@ -41,7 +41,7 @@ function prevBlock() {
   generatePageBlock();
   history.pushState({}, '', `?page=${currentPage}`);
 }
-:
+
 
 function generatePageBlock() {
   const startPage = Math.floor((currentPage - 1) / 10) * 10 + 1;
@@ -121,9 +121,6 @@ if (currentPage !== 1) { // currentPage가 1일 때는 쿼리스트링을 추가
 function goMyPage() {
     location.href = "mypage";
 }
-function goMyInvest() {
-    location.href = "myinvest";
-}
 function goMyFavorite() {
     location.href = "myfavorite";
 }
@@ -131,12 +128,11 @@ function goMyPassword() {
     location.href = "editpassword";
 }
 function goMyCheckPassword() {
-    location.href = "checkPassword";
+    location.href = "checkpassword";
 }
 function goMyEdit() {
     location.href = "edituser";
 }
-
 function goMyCheckPassword1() {
-    location.href = "checkPassword1";
+    location.href = "checkpassword1";
 }

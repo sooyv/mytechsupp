@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import techsuppDev.techsupp.controller.form.AdminPaymentForm;
 import techsuppDev.techsupp.controller.form.PaymentCountForm;
 import techsuppDev.techsupp.controller.form.PaymentForm;
 import techsuppDev.techsupp.domain.Payment;
@@ -41,18 +42,25 @@ public class PaymentRepository {
     }
 
 //    Payment에 데이터 입력 후 입력 된 데이터 가져와서 Paylog 에 사용할 데이터 가져오는 함
-    public Object getPaymentId(String productId) {
+    public Long getPaymentId() {
         String sql = "" +
-                "select * from payment " +
-                "where product_id = " +
-                productId + ";";
+                "select last_insert_id();";
 
-        Query nativeQuery = em.createNativeQuery(sql, Payment.class);
-        Object singlePayment = nativeQuery.getSingleResult();
+        Query nativeQuery = em.createNativeQuery(sql);
+        Long singlePayment = Long.parseLong(nativeQuery.getSingleResult().toString()) ;
         return singlePayment;
     }
 
 //    single product 에 해당하는 payment count 필요함
+    public Long getSinglePaymentCount(Long productId) {
+        String sql = "" +
+                "select " +
+                "(select count(*) from payment " +
+                "where product_id = " + productId + ") as count";
+        Query nativeQuery = em.createNativeQuery(sql);
+        Long paymentCount = Long.parseLong(nativeQuery.getSingleResult().toString());
+        return paymentCount;
+    }
 
 
 //    product list 생성시 투자율 계산을 위한 투자 count value
@@ -105,9 +113,20 @@ public class PaymentRepository {
             paymentCount.add(dataFromDB.getNum4());
             return paymentCount;
         }
+    }
+    // 관리자 페이지 결제 정보 리스트 출력하기 위해 필요함
+    public List<AdminPaymentForm> getAllPayment () {
+        String sql = "" +
+                "select payment.payment_id, user_email, payment_method, payment_date, paylog_status, payment_price, product_name " +
+                "from payment " +
+                "inner join paylog " +
+                "on paylog.payment_id = payment.payment_id " +
+                "inner join product " +
+                "on payment.product_id = product.id;";
 
-
-
+        Query nativeQuery = em.createNativeQuery(sql, AdminPaymentForm.class);
+        List<AdminPaymentForm> result = nativeQuery.getResultList();
+        return result;
     }
 
 }

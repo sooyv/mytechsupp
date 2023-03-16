@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:object-fit="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,40 +22,34 @@
     </div>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
-             aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+        <img src="/style/main/image/pattern-3.jpg" class="bd-placeholder-img" width="100%" aria-hidden="true">
           <rect width="100%" height="100%" fill="#777"></rect>
-        </svg>
+        </img>
         <div class="container">
           <div class="carousel-caption text-start">
             <h1>TECHSUPP의 상품을 소개해요</h1>
-            <p>이미지를 삽입</p>
-            <p><a class="btn btn-lg btn-primary" href="#">TECHSUPP 상품 보기</a></p>
+            <p><a class="btn btn-lg btn-primary" th:href="@{/productMain/product?page=0&order=0}">TECHSUPP 상품 보기</a></p>
           </div>
         </div>
       </div>
       <div class="carousel-item">
-        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
-             aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+        <img src="/style/main/image/pattern-2.jpg" class="bd-placeholder-img" width="100%" aria-hidden="true">
           <rect width="100%" height="100%" fill="#777"></rect>
-        </svg>
+        </img>
         <div class="container">
           <div class="carousel-caption">
             <h1>TECHSUPP Funding에 대해 알아보세요</h1>
-            <p>이미지를 삽입</p>
             <p><a class="btn btn-lg btn-primary" href="#">서비스 소개</a></p>
           </div>
         </div>
       </div>
       <div class="carousel-item">
-        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
-             aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+        <img src="/style/main/image/pattern-1.jpg" class="bd-placeholder-img" width="100%" aria-hidden="true">
           <rect width="100%" height="100%" fill="#777"></rect>
-        </svg>
+        </img>
         <div class="container">
           <div class="carousel-caption text-end">
             <h1>문의 사항이 있으신가요?</h1>
-            <p>이미지를 삽입</p>
             <p><a class="btn btn-lg btn-primary" th:href="@{/notice/question-list}">문의 하기</a></p>
           </div>
         </div>
@@ -80,7 +74,7 @@
               <div class="col mb-5">
                 <div class="card h-100">
                   <!-- Product image-->
-                  <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."/>
+                  <img class="card-img-top" th:src="@{${product.productImgDTOList[0].imgUrl}}" alt="..."/>
                   <!-- Product details-->
                   <div class="card-body p-4">
                     <div class="text-center">
@@ -92,7 +86,7 @@
                   </div>
                   <!-- Product actions-->
                   <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:href="@{productSelect/product/?(num=${product.seqId})}">이 상품 보기</a></div>
+                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:href="@{productSelect/product/?(num=${product.id})}">이 상품 보기</a></div>
                   </div>
                 </div>
               </div>
@@ -111,22 +105,20 @@
         <p class="lead">새로 출시 된 TECHSUPP의 상품을 소개합니다.</p>
       </div>
       <div class="col-md-5">
-        <img src="/style/image/newproduct.jpg"
-             class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder: 500x500"
-             preserveAspectRatio="xMidYMid slice" focusable="false">
+        <img src="/style/main/image/newproduct.jpg"
+             class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto">
         </img>
       </div>
     </div>
     <hr class="featurette-divider">
     <div class="row featurette" id="aboutFunding">
       <div class="col-md-7 order-md-2">
-        <h2 class="featurette-heading fw-normal lh-1">TECHSUPP 펀딩<span class="text-muted">이 궁금하시다면</span></h2>
-        <p class="lead">펀딩 방법의 A부터 Z까지, 펀딩에 대한 궁금증을 풀어드려요</p>
+        <h2 class="featurette-heading fw-normal lh-1">TECHSUPP <span class="text-muted">궁금점이 있으신가요?</span></h2>
+        <p class="lead">모든걸 알려드려요, 문의하기로 남겨보세요.</p>
       </div>
       <div class="col-md-5 order-md-1">
-        <img src="/style/image/aboutFunding.jpg"
-             class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder: 500x500"
-             preserveAspectRatio="xMidYMid slice" focusable="false">
+        <img src="/style/main/image/aboutFunding.jpg"
+             class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto">
         </img>
       </div>
     </div>

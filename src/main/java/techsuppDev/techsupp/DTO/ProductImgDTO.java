@@ -20,6 +20,7 @@ public class ProductImgDTO {
     private String imgUrl;
     private String regImg;
 
+
     public Image dtoToEntity(ProductImgDTO dto) {
         Image entity = Image.builder()
                 .id(dto.id)

@@ -34,9 +34,6 @@ public class UserDetailsimplService implements UserDetailsService {
             System.out.println("user 가져옴");
             return new UserDetailsimpl(userOp.get());
         }
-
-        System.out.println("user 없음");                  // userOp가 존재하지 않으면
-        System.out.println(userOp.get());
         throw new UsernameNotFoundException(email);      // UsernameNotFoundException 발생
     }
 }

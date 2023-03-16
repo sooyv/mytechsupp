@@ -13,7 +13,6 @@
     }
 
     .main {
-         max-width: 400px;
          padding: 10px;
     }
 
@@ -23,7 +22,7 @@
     }
 
     h3 {
-        margin: 10px;
+        margin-bottom: 10px;
     }
 
     h5 {
@@ -41,7 +40,7 @@
     }
 
     .form-check {
-        margin-left: 15px;
+        margin-left: 20px;
     }
 
     #username-box {
@@ -60,7 +59,7 @@
     }
 
     #findId-btn {
-        width: 330px;
+        width: 100%;
         margin-top: 20px;
     }
 

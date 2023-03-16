@@ -2,10 +2,7 @@ package techsuppDev.techsupp.domain;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
@@ -13,15 +10,25 @@ import javax.persistence.Id;
 @Entity
 @Getter
 @Setter
+@SqlResultSetMapping(
+    name = "feedbackMapping",
+    columns = {
+        @ColumnResult(name = "product_id", type = Long.class),
+        @ColumnResult(name = "user_id", type = Long.class),
+        @ColumnResult(name = "feedback_text", type = String.class),
+        @ColumnResult(name = "score", type = Integer.class),
+        @ColumnResult(name = "feedback_status", type = String.class)
+    }
+)
 public class Feedback {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long productId;
-    private Long seqId;
+    private Long userId;
     private String feedbackText;
     private int score;
 //    1 ~ 10
-    private int feedbackStatus;
+    private FeedbackStatus feedbackStatus;
 
 }

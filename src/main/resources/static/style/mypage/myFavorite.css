@@ -103,6 +103,7 @@
 #entire_box {
   display: flex;
   flex-direction: row;
+  background-color: #f5f5f5
 }
 
 #sidebar_box {

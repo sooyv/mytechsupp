@@ -15,7 +15,9 @@
 <body>
 <!--공통되는 header-->
 <div th:insert="/header :: header"></div>
+
 <div class="text-center">
+
   <div id = "sidebar_box">
     <!--        <div id="mypage_btn">마이페이지</div>-->
     <div class="btn_box" type="button" onclick="goMyPage()">마이페이지</div>
@@ -27,12 +29,12 @@
   <!--        th:value="${userInfo.userEmail} 세션값 가져올 때 -->
 
 
-  <h4 class="mb-3">회원정보</h4>
-  <div class="align-form">
 
+  <div class="align-form">
+    <h4 class="mb-3">회원정보</h4>
     <form action="mypage"  method="post">
 
-      <div>
+      <div class="mypage_box">
         <div id="email-box" class="form-group col-md-4" name="myPageForm">
           <label for="email">이메일</label>
           <div id="emailcheck">

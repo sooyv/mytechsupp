@@ -17,27 +17,36 @@ function linkToFeedbackWriteForm(id, paylog, status) {
 
 // 선택된 제품 하나 생성하는 function
 
-function createFeedbackSingleHTML(api) {
+async function createFeedbackSingleHTML(api) {
+  try {
   singleFeedback.innerHTML = ``;
   singleFeedback.innerHTML = `
   <article class="FeedbackContent">
     <div class="FeedbackListPicture">
-      <h4>제품 사진 ${api.seqId}</h4>
       <img src="http://localhost:8080${api.imgUrl}" style="max-width:80%; min-height:100px;"/>
     </div>
     <div class="FeebackListInformation">
       <div class="FeedbackListName-FeedbackListInformation">
-        <h5>제품 제목 ${api.productName}</h5>
-        <h5>제품 설명 ${api.information}</h5>
+        <h5>제품 제목 : ${api.productName}</h5>
+        <h5>제품 설명 : ${api.information}</h5>
       </div>
       <div class="FeedbackListScore-LimitDate-SuccesStatus">
-        <h5>상품 점수 다른 테이블에서 가져와야함</h5>
-        <h5>투자 마감일 ${api.period}</h5>
-        <h5>투자성공여부 ${api.productStatus}</h5>
+        <h5 class = "FeedbackScore"></h5>
+        <h5>투자 마감일 : ${api.period}</h5>
+        <h5>투자 성공 여부 : </h5>
+        <h5 class = "FeedbackStatus">${api.productStatus}</h5>
       </div>
     </div>
   </article>
-  `;
+  `;} catch {
+    console.log("create single html fail")
+  } finally {
+    const productStatus = document.querySelector('.FeedbackStatus');
+    console.log(productStatus);
+    if (feedbackSpecificContainer != null) {
+    createSpecificFeedbackList(productStatus);
+    }
+  }
 }
 
 function createFeedbackWriteButton(api) {
@@ -52,7 +61,9 @@ function createSingleFeedback() {
   fetch(`/api/product/?num=${productNumber}`)
   .then(res => res.json())
   .then(data => (createFeedbackSingleHTML(data), createFeedbackWriteButton(data)))
-
 }
 
-createSingleFeedback();
+
+if (url.includes("form")) {
+  createSingleFeedback();
+}

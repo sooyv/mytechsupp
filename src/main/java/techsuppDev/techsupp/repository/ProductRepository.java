@@ -3,7 +3,9 @@ package techsuppDev.techsupp.repository;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Repository;
+import techsuppDev.techsupp.controller.form.FeedbackProductListForm;
 import techsuppDev.techsupp.controller.form.ProductListForm;
+import techsuppDev.techsupp.controller.form.ProductListNoWishForm;
 import techsuppDev.techsupp.controller.form.ProductSingleForm;
 import techsuppDev.techsupp.domain.Product;
 
@@ -15,14 +17,20 @@ import java.util.*;
 public class ProductRepository {
     private final EntityManager em;
 
-    public Object findOneProduct(Long id) {
+    public Object findOneProduct(Long productId, String userId) {
         String sql = " " +
-                "select id, moddate, regdate, click_count, information, invest_price, period, product_name, product_status, seq_id, total_price, img_url from " +
+                "select " +
+                "productdata.id, moddate, regdate, click_count, information, invest_price, period, product_name, product_status, seq_id, total_price, img_url, wish_id " +
+                "from " +
                 "(select * " +
-                "from Product where id = " + id + ") as productdata " +
-                "inner join image " +
-                "using (id) " +
-                "where productdata.id = image.id";
+                "from Product where id = " + productId + ") as productdata " +
+                "join image " +
+                "on productdata.id = image.id " +
+                "left outer join " +
+                "(select * from wish_list where user_id = '" +
+                userId + "') as mywish " +
+                "on mywish.product_id = productdata.id ";
+
 
 
         System.out.println("asdf: "+ sql);
@@ -31,17 +39,20 @@ public class ProductRepository {
         return singleProduct;
     }
 
-    public List<ProductListForm> findFiveProduct(int orderNumber, String keyword) {
+    public List<ProductListForm> findFiveProduct(int orderNumber, String keyword, String userId) {
         String sql = " " +
-                "select id, moddate, regdate, click_count, information, invest_price, period, product_name, product_status, seq_id, total_price, img_url from " +
+                "select " +
+                "productdata.id, moddate, regdate, click_count, information, invest_price, period, product_name, product_status, seq_id, total_price, img_url, wish_id " +
+                "from " +
                 "(select * from Product " +
                 "where " +
                 "period is not Null " +
-                "and product_status like 'PROGRESS' order by id desc) as productdata " +
-                "inner join image " +
-                "using (id) " +
-                "where productdata.id = image.id ";
-
+                "and product_status like 'PROGRESS' order by period desc) as productdata " +
+                "join image " +
+                "on productdata.id = image.id " +
+                "left outer join" +
+                "(select * from wish_list where user_id = '" + userId + "') as mywish " +
+                "on mywish.product_id = productdata.id ";
 
         String limitSql =
                 "limit " +
@@ -59,10 +70,60 @@ public class ProductRepository {
             sql = sql + keywordSql + limitSql;
         }
 
-        Query nativeQuery = em.createNativeQuery(sql, ProductListForm.class);
+        System.out.println("sql: " + sql);
+        try {
+            Query nativeQuery = em.createNativeQuery(sql, ProductListForm.class);
 
-        List<ProductListForm> fiveProduct = nativeQuery.getResultList();
-        return fiveProduct;
+            List<ProductListForm> fiveProduct = nativeQuery.getResultList();
+            return fiveProduct;
+        } catch (Exception e) {
+            Query nativeQuery = em.createNativeQuery(sql, ProductListForm.class);
+
+            List<ProductListForm> fiveProduct = nativeQuery.getResultList();
+            return fiveProduct;
+        }
+    }
+
+    public List<ProductListNoWishForm> findFiveProductNoWish(int orderNumber, String keyword, String userId) {
+        String sql = " " +
+                "select " +
+                "productdata.id, moddate, regdate, click_count, information, invest_price, period, product_name, product_status, seq_id, total_price, img_url from " +
+                "(select * from Product " +
+                "where " +
+                "period is not Null " +
+                "and product_status like 'PROGRESS' order by period desc) as productdata " +
+                "inner join image " +
+                "using (id) " +
+                "where productdata.id = image.id ";
+
+        String limitSql =
+                "limit " +
+                        orderNumber +
+                        ", 5;" ;
+
+        String keywordSql = "";
+
+        if (keyword.equals("null") || keyword.equals("")) {
+            sql = sql + limitSql;
+        } else {
+            keywordSql = "and product_name like '%" +
+                    keyword +
+                    "%' ";
+            sql = sql + keywordSql + limitSql;
+        }
+
+        System.out.println("sql: " + sql);
+        try{
+            Query nativeQuery = em.createNativeQuery(sql, ProductListNoWishForm.class);
+
+            List<ProductListNoWishForm> fiveProduct = nativeQuery.getResultList();
+            return fiveProduct;
+        } catch (Exception e) {
+            Query nativeQuery = em.createNativeQuery(sql, ProductListNoWishForm.class);
+
+            List<ProductListNoWishForm> fiveProduct = nativeQuery.getResultList();
+            return fiveProduct;
+        }
     }
 
 
@@ -121,27 +182,21 @@ public Object ProductCount(int pagingNumber, String keyword) {
 
 
 // 피드백 리스트로 보내주는 조건절
-    public List<ProductListForm> findFiveProductFeedback (int orderNumber, String keyword) {
-
-//        String sql = "" +
-//                "select * from " +
-//                "(select * from product " +
-//                "where product_status like '%SUCCESS%' " +
-//                "or product_status like '%FAIL%' " +
-//                "order by period)successFail ";
-
+    public List<FeedbackProductListForm> findFiveProductFeedback (int orderNumber, String keyword) {
         String sql = "" +
-                "select id, moddate, regdate, click_count, information, invest_price, period, product_name, product_status, seq_id, total_price, img_url from " +
+                "select id, moddate, regdate, click_count, information, invest_price, period, product_name, product_status, seq_id, total_price, img_url " +
+                "from " +
                 "(select * from Product " +
                 "where " +
                 "product_status like '%SUCCESS%' " +
                 "or product_status like '%FAIL%' " +
-                "order by id desc) as productdata " +
+                "order by id) as productdata " +
                 "inner join image " +
                 "using (id) " +
                 "where productdata.id = image.id ";
 
         String limitSql = "" +
+                "order by period " +
                 "limit " + orderNumber + ", 5;" ;
 
         String keywordSql = "";
@@ -154,8 +209,9 @@ public Object ProductCount(int pagingNumber, String keyword) {
             sql = sql + keywordSql + limitSql;
         }
 
-        Query nativeQuery = em.createNativeQuery(sql, ProductListForm.class);
-        List<ProductListForm> fiveProduct = nativeQuery.getResultList();
+        System.out.println("feedback: " + sql);
+        Query nativeQuery = em.createNativeQuery(sql, FeedbackProductListForm.class);
+        List<FeedbackProductListForm> fiveProduct = nativeQuery.getResultList();
 
         return fiveProduct;
     }
@@ -169,15 +225,15 @@ public Object ProductCount(int pagingNumber, String keyword) {
                 "(select  count(*) from " +
                 "(select * from Product " +
                 "where " +
-                "product_status like '%SUCCESS%' or " +
-                "product_status like '%FAIL%' " +
+                "product_status = 'SUCCESS' or " +
+                "product_status = 'FAIL' " +
                 "order by period)successFailCountAll), ";
         String keywordSqlAllCount =
                 "(select  count(*) from " +
                 "(select * from Product " +
                 "where " +
-                "product_status like '%SUCCESS%' or " +
-                "product_status like '%FAIL%' " +
+                "product_status = 'SUCCESS' or " +
+                "product_status = 'FAIL' " +
                 "order by period)as successFail " +
                 "where product_name like '%" + keyword + "%' "
                 ;
@@ -192,16 +248,16 @@ public Object ProductCount(int pagingNumber, String keyword) {
                 "(select count(*) from " +
                 "(select * from Product " +
                 "where " +
-                "product_status like '%SUCCESS%' or " +
-                "product_status like '%FAIL%' order by period " +
+                "product_status = 'SUCCESS' or " +
+                "product_status = 'FAIL' order by period " +
                 "limit " + pagingNumber + " , 50)as noKeywordData)as pagecount;";
 
         String keywordSql =
                 "(select count(*) from " +
                 "(select * from Product " +
                 "where " +
-                "product_status like '%SUCCESS%' or " +
-                "product_status like '%FAIL%' " +
+                "product_status = 'SUCCESS' or " +
+                "product_status = 'FAIL' " +
                 "order by period)as succesfailcount " +
                 "where product_name like '%" + keyword + "%' " +
                 "limit " + pagingNumber + ", 50)as searchData;";
@@ -212,12 +268,17 @@ public Object ProductCount(int pagingNumber, String keyword) {
             resultSql += keywordSql;
         }
 
+        System.out.println("feedback count sql : " +  resultSql);
+
         Query nativeQuery = em.createNativeQuery(resultSql);
         Object rowNum = nativeQuery.getSingleResult();
         return rowNum;
 
 
     }
+
+
+
 
 
 

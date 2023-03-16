@@ -1,43 +1,61 @@
-function testFormInput () {
+function FeedbackFormInput() {
   let form = document.querySelector('.FeedbackForm');
   let scoreList = document.getElementsByName('score');
-  let image = document.querySelector('.FeedbackImage');
-  let text = document.querySelector('.FeedbackText');
-  let formData = new FormData(form);
-  let score = 0;
+  let feedbackImage = document.querySelector('.FeedbackImage');
+  let feedbackText = document.querySelector('.FeedbackText');
+  let feedbackScore = 0;
+  let formData = new FormData();
 
  
-  scoreList.forEach((node) => { if(node.checked){score = (node.value)}});
+  scoreList.forEach((node) => { if(node.checked){feedbackScore = (node.value)}});
 
+  let alertMessage = "빈 입력란이 존재합니다." + "\n\n";
 
-  formData.append("score", score);
-  formData.append("image", $(image)[0].files[0]);
-  formData.append("text", $(text)[0]);
+  if (feedbackScore == '') {
+    alertMessage += "점수" + "\n";
+  }
 
-  console.log(formData.get("score"));
-  console.log(formData.get("image"));
-  console.log(formData.get("text"));
+  if (feedbackText.value == '') {
+    alertMessage += "피드백 작성란" + "\n";
+  }
 
-  // set / get 해야함
+  if (feedbackImage.value == '') {
+    alertMessage += "이미지 첨부"
+  }
 
-  $.ajax({
-    url: "/api/feedback/post",
-    processData: false,
-    contentType: false,
-    data: formData,
-    type: 'POST',
-    success: function(result){
-      console.log(result);
-        alert("업로드 성공!!");
-    }
-    });
+  if (alertMessage != "빈 입력란이 존재합니다.\n\n") {
+    alert(alertMessage);
+  } else {
+    console.log("fetch start")
+
+    formData.append("score", feedbackScore);
+    formData.append("image", $(feedbackImage)[0].files[0]);
+    formData.append("text",  feedbackText.value);
+    formData.append("num", productNumber);
+    
+
+    fetch(`/api/feedback/post/?num=${productNumber}`, {
+      method: "POST",
+      body: formData
+    })
+      .then(res => res.json())
+      .then(alert("소중한 피드백에 감사드립니다"))
+      .then(returnToFeedbackSelect())
+  }
 }
+  
+
+function returnToFeedbackSelect() {
+  let feedbackSelected = `/feedbackSelect/feedback/?num=${productNumber}`;
+  window.location.href = feedbackSelected;
+}
+  
 
 function createSubmit () {
 const feedbacksubmit = document.querySelector('.FeedbackSubmit');
 feedbacksubmit.innerHTML = ``;
 feedbacksubmit.innerHTML = `
-<input type="button" onclick = "testFormInput()" value="작성하기">
+<input type="button" onclick = "FeedbackFormInput()" value="작성하기">
 `;
 }
 

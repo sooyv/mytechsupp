@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>question-list</title>
+  <title>list</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
   <link href="/style/signUp/signUp.css" rel="stylesheet">
   <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -14,18 +14,20 @@
 <div th:insert="/header :: header"></div>
 <table>
   <tr>
-    <th>questionId</th>
+    <th>faqId</th>
     <th>title</th>
+    <!--    <th>title(||쓰지 않은 경우)</th>-->
     <th>writer</th>
-    <th>status</th>
     <!--    <th>date</th>-->
+    <th>hits</th>
   </tr>
-  <tr th:each="question: ${questionList}">
-    <td th:text="${question.questionId}"></td>
-    <td><a th:href="@{|/notice/question-check/${question.questionId}|}" th:text="${question.questionTitle}"></a></td>
-    <td th:text="${question.questionWriter}"></td>
-<!--    <td th:text="${question.questionStatus}"></td>-->
+  <tr th:each="faq: ${faqList}">
+    <td th:text="${faq.fqaId}"></td>
+    <td><a th:href="@{|/notice/${faq.faqId}|}" th:text="${faq.faqTitle}"></a></td>
+    <!--    <td><a th:href="@{/notice/${notice.noticeId}}" th:text="${notice.noticeTitle}"></a></td>-->
+            <td th:text="${faq.faqWriter}"></td>
     <!--    <td th:text="*{#temporals.format(notice.noticeregDate, 'yyyy-MM-dd HH:mm:ss')}"></td>-->
+    <td th:text="${faq.faqHits}"></td>
   </tr>
 </table>
 <script src="/script/header.js"></script>

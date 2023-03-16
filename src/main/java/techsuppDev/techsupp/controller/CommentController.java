@@ -14,6 +14,8 @@ import techsuppDev.techsupp.service.CommentService;
 
 import java.util.List;
 
+
+// 문의글 댓글
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/comment")

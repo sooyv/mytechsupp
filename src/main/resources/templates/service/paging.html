@@ -13,11 +13,11 @@
 
 <table>
   <tr>
-    <th>id</th>
-    <th>title</th>
-    <th>writer</th>
+    <th>번호</th>
+    <th>제목</th>
+    <th>작성자</th>
 <!--    <th>date</th>-->
-    <th>hits</th>
+    <th>조회수</th>
   </tr>
   <tr th:each="notice: ${noticeList}">
     <td th:text="${notice.noticeId}"></td>

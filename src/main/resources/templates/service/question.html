@@ -13,12 +13,12 @@
 <body>
 <div th:insert="/header :: header"></div>
 <form action="/notice/question" method="post" enctype="multipart/form-data">
-  writer: <input type="text" name="questionWriter"> <br>
-  pass: <input type="text" name="questionPass" placeholder="비밀번호는 필수사항입니다"> <br>
-  category: <input type="text" name="questionCategory"> <br>
-  title: <input type="text" name="questionTitle"> <br>
-  contents: <textarea name="questionContents" cols="30" rows="10"></textarea><br>
-  file: <input type="file" name="questionFile"> <br>
+  작성자: <input type="text" name="questionWriter"> <br>
+  비밀번호: <input type="text" name="questionPass" placeholder="비밀번호는 필수사항입니다"> <br>
+  분류: <input type="text" name="questionCategory"> <br>
+  제목: <input type="text" name="questionTitle"> <br>
+  내용: <textarea name="questionContents" cols="30" rows="10"></textarea><br>
+  첨부파일: <input type="file" name="questionFile"> <br>
   <input type="submit" value="문의제출">
 </form>
 <script src="/script/header.js"></script>

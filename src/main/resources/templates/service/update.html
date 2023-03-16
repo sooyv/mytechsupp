@@ -8,11 +8,11 @@
 <body>
 <div th:insert="/header :: header"></div>
 <form action="/notice/update" method="post" name="updateForm">
-  noticeId: <input type="text" name="noticeId" th:value="${noticeUpdate.noticeId}" readonly>
-  writer: <input type="text" name="noticeWriter" th:value="${noticeUpdate.noticeWriter}" readonly> <br>
-  title: <input type="text" name="noticeTitle" th:value="${noticeUpdate.noticeTitle}"> <br>
-  contents: <textarea name="noticeContents" cols="30" rows="10" th:text="${noticeUpdate.noticeContents}"></textarea> <br>
-  file: <input type="file" name="noticeFile"> <br>
+  번호: <input type="text" name="noticeId" th:value="${noticeUpdate.noticeId}" readonly>
+  작성자: <input type="text" name="noticeWriter" th:value="${noticeUpdate.noticeWriter}" readonly> <br>
+  제목: <input type="text" name="noticeTitle" th:value="${noticeUpdate.noticeTitle}"> <br>
+  내용: <textarea name="noticeContents" cols="30" rows="10" th:text="${noticeUpdate.noticeContents}"></textarea> <br>
+  첨부파일: <input type="file" name="noticeFile"> <br>
   <input type="hidden" name="noticeHits" th:value="${noticeUpdate.noticeHits}">
   <input type="submit" value="공지수정">
 <!--  <input type="button" value="공지수정" onclick="noticeUpdate()">-->

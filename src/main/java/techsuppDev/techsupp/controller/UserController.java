@@ -113,18 +113,28 @@ public class UserController {
         return new ResponseEntity<>("Successfully Registered", HttpStatus.OK);
     }
 
+
     // 이메일 인증
     @PostMapping("/signup/mailcheck")
     @ResponseBody
-    public String mailCheck(@RequestParam String email, HttpSession session) throws Exception {
+    public ResponseEntity<String> mailCheck(@RequestParam String email, HttpSession session) throws Exception {
         System.out.println("이메일 인증요청");
         System.out.println("인증 이메일: " + email);
-        String code = mailService.sendMail(email);
+
+        String code = null;
+        try {
+            code = mailService.sendMail(email);
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body("인증메일 전송 실패");
+        }
 
         session.setAttribute("authCode", code);
-        session.setMaxInactiveInterval(180);        // 3분 동안만 회원가입 가능
-        return code;
+        session.setMaxInactiveInterval(180);        // 3분동안만 회원가입 가능
+
+        return ResponseEntity.ok(code);
     }
+
 
     // 이메일 인증번호 확인
     @PostMapping("/mail/check/auth")
@@ -135,7 +145,7 @@ public class UserController {
         System.out.println("입력한 인증번호: " + emailAuth);
         System.out.println("세션에 저장한 인증번호: " + code);
 
-        if (authSession != null && code.equals(emailAuth)) {
+        if (code != null && code.equals(emailAuth)) {
             // 인증이 완료되었습니다.
             return 0;
         } else if (code == null) {      // 세션이 만료

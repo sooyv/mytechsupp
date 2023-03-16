@@ -1,65 +1,139 @@
-/*#entire_box{
-    display : flex;
-    flex-direction : row;
+    .text-center {
+    display: flex;
+        justify-content: center;
+        align-items: center;
+        /* padding-left: 56px; */
+        padding-top: 40px;
+        padding-bottom: 40px;
+        background-color: #f5f5f5;
+    }
+
+    #signUpForm {
+        display: flex;
+        flex-direction: block;
+        justify-content: center;
+        width: 500px;
+    }
+
+    .form-group {
+        width: 450px;
+        margin-top: 23px;
+    }
+
+    #emailcheck {
+        display: flex;
+        flex-direction: row;
+    }
+
+    #email {
+        border: none;
+        background-color: transparent;
+        color: #000;
+        font-size: 16px;
+        width: 350px;
+        margin-right: 5px;
+    }
+
+    #email-duplication {
+        width: auto;
+        margin-left: 5px;
+        margin-top: 5px;
+    }
+
+    #signUpbtn{
+        margin: 10px;
+        width: 185px;
+    }
+
+    #naver_id_login {
+        margin: 10px;
+    }
+
+    label {
+        display: flex;
+        justify-content: start;
+        margin-left: 10px;
+        border-bottom: 1px solid rgba(220,227,233,.8);
+    }
+
+    #emailHelp {
+        display: flex;
+        justify-content: start;
+    }
+
+    #password-same {
+        display: flex;
+        justify-content: start;
+    }
+
+    #email-certification {
+        display: flex;
+        justify-content: start;
+    }
+
+    .align-form {
+
+    }
+
+
+input[type="name"], input[type="tel"] {
+    border: none;
+    background-color: transparent;
 }
 
-#sidebar_box{
-    padding-top : 150px;
-    padding-left : 130px;
-    width : 300px;
-    height : 800px;
-}
 
-#mypage_btn{
-    margin-bottom : 30px;
-    width : 200px;
-    height : 80px;
-    border : 2px solid red;
-}
+    .board_row {
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
 
-.btn_box{
-    margin-bottom : 30px;
-    width : 200px;
-    height : 80px;
-    border : 2px solid blue;
-}
-*/
-#big_invest_box{
-  padding-left : 30px;
-  padding-top : 100px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
 
-.invest_box{
-  width : 800px;
-  height : 200px;
-  border : 2px solid lightgrey;
-  margin: 15px;
-  text-align: center; /* 글자 중앙 정렬 */
-  background-color: lightgrey; /* 박스 색상 변경 */
-  display: flex; /* 수직 중앙 정렬을 위한 Flexbox */
-  align-items: center; /* 수직 중앙 정렬 */
-  justify-content: center;
-  border-radius: 100px;
-  box-shadow: 4px 12px 30px 6px rgba(0,0,0,.4);
-  transition: box-shadow 0.2s, transform 0.2s;
-}
+    #sidebar_box {
+      box-sizing: border-box;
+      display: inline-block;
+          width: 300px;
+    }
 
-.invest_box:hover{
-  box-shadow: 4px 12px 30px 6px rgba(0,0,0,.7);
-  transform: scale(1.05);
-}
+    .btn_box {
+         margin-bottom: 30px;
 
-.invest_box:active{
-  box-shadow: 4px 12px 30px 6px rgba(0,0,0,.9);
-  transform: scale(0.95);
-}
+         box-sizing: border-box;
+     }
+    .btn_box:hover{
+      box-shadow: 4px 12px 30px 6px rgba(0,0,0,.7);
+      transform: scale(1.05);
 
-@media screen and (max-width: 600px) {
-  .invest_box {
-    width: 90%;
-    flex-direction: column;
-  }
-}
+    }
+
+    .btn_box:active{
+      box-shadow: 4px 12px 30px 6px rgba(0,0,0,.9);
+      transform: scale(0.95);
+
+    }
+
+    /* 일반적인 화면 크기에서 myfavorite_container와 sidebar_box의 규격 조정 */
+    @media screen and (max-width: 1000px) {
+
+      #sidebar_box {
+        width: 90%;
+        max-width: 500px;
+        padding-left: 0;
+        margin-top: 30px;
+      }
+    }
+
+
+    .mypage_box {
+            padding: 16px 17px 0;
+            border-radius: 15px;
+            box-shadow: 2px 2px 14px 0 rgba(0,164,73,.08);
+            border: solid 1px rgba(3,213,128,.8);
+            background-color: #fff;
+            box-sizing: border-box;
+    }
+
+    .mb-3 {
+
+    }

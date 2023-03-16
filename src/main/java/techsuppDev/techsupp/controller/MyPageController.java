@@ -144,7 +144,7 @@ public class MyPageController {
     public String editPassword(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
         if(session.getAttribute("checkPasswordOk") ==null){
-            return "redirect:/user/mypage";
+            return  "redirect:/user/mypage";
         }
         String myEmail = (String) session.getAttribute("userEmail");
         User user = myPageService.getUserEmail(myEmail);
@@ -152,17 +152,6 @@ public class MyPageController {
         return "mypage/editPassword";
     }
 
-//    @PostMapping("/editpassword")
-//    public ResponseEntity<String> changePassword(MyPageForm form, HttpServletRequest request) {
-//        HttpSession session = request.getSession();
-//        String myEmail = (String) session.getAttribute("userEmail");
-//        System.out.println("124143wa"+myEmail); // 여기까지 다 됨. 근데 그 밑에 수정 코드가 잘못된듯
-//        User user = new User();
-//        user.setUserEmail(myEmail); // 이메일 정보 추가
-////        user.setUserPassword(form.getUserPassword());
-//        myPageService.changePassword(user);
-//        return new ResponseEntity<>("Successfully Change Password", HttpStatus.OK);
-//    }
     @PostMapping("/editpassword")
     public String changePassword(String password, HttpServletRequest request) {
         System.out.println("test2414123"+password);
@@ -172,17 +161,19 @@ public class MyPageController {
         user.setUserPassword(password);
         myPageService.changePassword(user);
         session.removeAttribute("checkPasswordOk");
-        return "mypage/myPage";
+        return "redirect:/user/mypage";
     }
 
 
 
     // myPage 홈페이지
     @GetMapping("/mypage")
-    public ModelAndView myPage() {
-        ModelAndView mav = new ModelAndView("/mypage/myPage");
-
-        return mav;
+    public String myPage(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+    String myEmail = (String) session.getAttribute("userEmail");
+        User user = myPageService.getUserEmail(myEmail);
+        model.addAttribute("userinfo", user);
+        return "mypage/myPage";
     }
 
     // 즐겨찾기 홈페이지
@@ -200,12 +191,12 @@ public class MyPageController {
         return "mypage/myFavorite";
     }
     // 투자정보 페이지
-
-    @GetMapping("/myinvest")
-    public ModelAndView invest(Long paymentId){
-        ModelAndView mav = new ModelAndView("mypage/myInvest");
-//        Paylog paylog = myPageService.findByUserId();
-        return mav;
-    }
+//
+//    @GetMapping("/myinvest")
+//    public ModelAndView invest(Long paymentId){
+//        ModelAndView mav = new ModelAndView("mypage/myInvest");
+////        Paylog paylog = myPageService.findByUserId();
+//        return mav;
+//    }
 
 }

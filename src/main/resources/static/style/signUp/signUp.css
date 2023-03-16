@@ -1,7 +1,4 @@
     .text-center {
-    display: column;
-    justify-content: center;
-    align-items: center;
     padding-top: 40px;
     padding-bottom: 40px;
     background-color: #f5f5f5;
@@ -9,7 +6,6 @@
 
     #signUpForm {
         display: flex;
-        flex-direction: block;
         justify-content: center;
         width: 500px;
     }
@@ -30,22 +26,22 @@
     }
 
     #email {
-        width: 350px;
+        width: 76%;
         margin-right: 5px;
     }
 
     #emailSend {
-        width: auto;
+        width: 24%;
         margin-left: 5px;
     }
 
     #emailAuthNum {
-        width: 350px;
+        width: 76%;
         margin-right: 5px;
     }
 
     #mailCheckNum {
-        width: auto;
+        width: 24%;
         margin-left: 5px;
     }
 
@@ -101,7 +97,6 @@
 
     .align-form {
         display: flex;
-        flex-direction: block;
         justify-content: center;
     }
 

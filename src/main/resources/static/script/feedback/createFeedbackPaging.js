@@ -66,7 +66,7 @@ function createPaging(numberOfdata) {
 function getNumbersOfProductToCreatePaging(pageNumber, keyword) {  
   fetch(`/api/feedbackPaging/product?page=${pageNumber}&order=0&keyword=${keyword}`)
   .then(response => response.json())
-  .then(data => createPaging(data))
+  .then(data => (createPaging(data), console.log(data)))
 }
 
 getNumbersOfProductToCreatePaging(pageNumber, keyword)

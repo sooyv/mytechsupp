@@ -28,13 +28,20 @@ public class QuestionDTO {
     private String questionContents;
 //    private Date questionDate;
 //    private int questionStatus;
-    private String questionAnswer;
+//    private String questionAnswer;
 
     private MultipartFile questionFile;
     private String originalFileName;
     private String storedFileName;
     private int fileAttached;
 
+    public QuestionDTO(Long questionId, String questionWriter, String questionTitle) {
+
+        this.questionId = questionId;
+        this.questionWriter = questionWriter;
+        this.questionTitle = questionTitle;
+//        this.questionStatus = questionStatus;
+    }
 
 
     public static QuestionDTO toQuestionDTO(QuestionEntity questionEntity) {
@@ -46,7 +53,7 @@ public class QuestionDTO {
         questionDTO.setQuestionTitle(questionEntity.getQuestionTitle());
         questionDTO.setQuestionContents(questionEntity.getQuestionContents());
 //        questionDTO.setQuestionStatus(questionEntity.getQuestionStatus());
-        questionDTO.setQuestionAnswer(questionEntity.getQuestionAnswer());
+//        questionDTO.setQuestionAnswer(questionEntity.getQuestionAnswer());
         if (questionEntity.getFileAttached() == 0) {
             questionDTO.setFileAttached(questionEntity.getFileAttached()); // 0
         } else {

@@ -2,18 +2,33 @@ console.log("연결완료")
 
 const form = document.getElementById("signUpForm");
 const usernameInput = document.getElementById("userName");
-const emailInput = document.getElementById("email");
-const emailAuthInput = document.getElementById("emailAuthNum");
-const passwordInput = document.getElementById("password");
-const checkPasswordInput = document.getElementById("checkPassword");
-const userPhoneInput = document.getElementById("userPhone");
-
+let emailInput = document.getElementById("email");
+let emailAuthInput = document.getElementById("emailAuthNum");
+let passwordInput = document.getElementById("password");
+let checkPasswordInput = document.getElementById("checkPassword");
+let userPhoneInput = document.getElementById("userPhone");
+let idchk = true;
 $("#passwordHelp").hide();
 $("#password-same").hide();
 
 
 // 메일인증
 $("#emailSend").on("click", function() {
+//       console.log(idchk);
+//       console.log(emailInput.value=="");
+      if(emailInput.value == ""){
+        alert("이메일을 입력하세요");
+        emailInput.focus();
+        return;
+      }
+
+      if(idchk){
+        alert("이메일을 형식에 맞게 입력해주세요");
+        emailInput.focus();
+        return;
+      }
+
+
       const email = emailInput.value;
         $.ajax({
               type: 'POST',
@@ -23,6 +38,11 @@ $("#emailSend").on("click", function() {
                },
               success: function(data) {
                 alert("이메일로 인증번호가 발송되었습니다.");
+              },
+              error: function(xhr, status, error) {
+                if (xhr.status === 400) {
+                    alert(xhr.responseText);
+                }
               }
         });
 });
@@ -31,10 +51,6 @@ $("#emailSend").on("click", function() {
 // 인증번호 check
 $("#mailCheckNum").on("click", function() {
     const emailAuth = emailAuthInput.value;
-
-    if (!emailAuth) {
-        alert("인증번호를 입력해주세요.");
-    }
 
     $.ajax({
           type: 'POST',
@@ -64,7 +80,7 @@ $("#email").on("keyup", function(event) {
 
     // email 형식 정규화
     if (!emailRegExp.test($email.val())) {
-        idchk = false;
+        idchk = true;
         var emailHelp = document.getElementById("emailHelp");
         emailHelp.innerHTML = "이메일 형식에 맞게 작성해주세요"
         $("#emailHelp").css({
@@ -72,7 +88,9 @@ $("#email").on("keyup", function(event) {
                 "font-weight": "bold",
                 "font-size": "15px"
         })
+
     } else { // 공백아니면 중복체크
+        idchk = false;
         $.ajax({
             type : "POST",                  // http 방식
             url : "/signup/checkid",        // ajax 통신 url
@@ -83,7 +101,6 @@ $("#email").on("keyup", function(event) {
             success : function(data) {
                 if (data === 1) {                // 1이면 이메일 중복
                     console.log(data)
-                    idchk = false;
                     var elements = document.getElementById("emailHelp");
                     elements.innerHTML = "이미 사용중인 이메일입니다"
                     $("#emailHelp").css({
@@ -93,7 +110,6 @@ $("#email").on("keyup", function(event) {
                     })
                 } else if (data === 0) {                // 아니면 중복아님
                     console.log(data)
-                    idchk = true;
                     var emailHelp = document.getElementById("emailHelp");
                     emailHelp.innerHTML = "사용 가능한 이메일입니다"
                     $("#emailHelp").css({
@@ -137,12 +153,13 @@ form.addEventListener("submit", event => {
 
   const userName = usernameInput.value;
   const email = emailInput.value;
+  const emailAuth = emailAuthInput.value;
   const password = passwordInput.value;
   const checkPassword = checkPasswordInput.value;
   const userPhone = userPhoneInput.value;
 
 // 모든 항목 작성
-  if (!userName || !email || !password || !checkPassword || !userPhone) {
+  if (!userName || !email || !emailAuth || !password || !checkPassword || !userPhone) {
     alert("모든 항목을 작성해주세요.");
     return;
   }
@@ -170,6 +187,7 @@ $(document).ready(function () {
         },
       success: function (response) {
         console.log(response);
+        window.location.href="/";
       },
       error: function (error) {
         $("#signUpBtn").addClass('shake');

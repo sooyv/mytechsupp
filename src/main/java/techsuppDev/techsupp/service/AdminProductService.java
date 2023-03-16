@@ -90,12 +90,32 @@ public class AdminProductService {
         adminProductRepository.delete(adminProductRepository.findById(id).get());
     }
 
+
     // 소영 main page - random product
-    public List<Product> getRandomProduct() {
+    public List<ProductDTO> getRandomProduct() {
         List<Product> allProducts = adminProductRepository.findAll();
+
         List<Product> randomProducts = new ArrayList<>(allProducts);
+        System.out.println("main random: " + randomProducts);
+
         Collections.shuffle(randomProducts);
-        return randomProducts.subList(0, 5);
+
+        List<Product> plist = randomProducts.subList(0, 5);
+        List<ProductDTO> pDTOList = new ArrayList<ProductDTO>();
+
+        for(Product p : plist){
+            ProductDTO pDTO = ProductDTO.entityToDto(p);
+            List<Image> imageList = productImageRepository.findByProductIdOrderByIdAsc(p.getId());
+
+            List<ProductImgDTO> productImgDTOList = new ArrayList<>();
+
+            productImgDTOList.add(ProductImgDTO.entityToDto(imageList.get(0)));
+            pDTO.setProductImgDTOList(productImgDTOList);
+            pDTOList.add(pDTO);
+        }
+
+
+        return pDTOList;
     }
 
     public List<AdminPaymentForm> paymentList() {

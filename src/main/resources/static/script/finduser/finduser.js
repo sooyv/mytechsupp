@@ -1,8 +1,3 @@
-//// test
-//$("input[name='find']").change(function() {
-//    var test = $("input[name='find']:checked").val();
-//    alert(test);
-//})
 
 $("#formFindPw").hide();
 
@@ -116,4 +111,8 @@ formFindPw.addEventListener("submit", event => {
       });
   });
 
+// 비밀번호 재발급 시 login으로
+$("#goLogin").on("click", function() {
+    window.location.href="/login";
+});
 

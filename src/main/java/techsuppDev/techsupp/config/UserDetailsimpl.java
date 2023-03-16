@@ -22,8 +22,6 @@ public class UserDetailsimpl implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
-        System.out.println("-----------------UserDetailsimpl--------------");
-        System.out.println("이 user의 role은: " + user.getRole());
         return Collections.singleton(
                 new SimpleGrantedAuthority(user.getRole())      // 로그인 시 권한 확인
         );

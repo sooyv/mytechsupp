@@ -22,7 +22,7 @@
   </tr>
   <tr th:each="question: ${questionList}">
     <td th:text="${question.questionId}"></td>
-    <td><a th:href="@{|/notice/question-list/${question.questionId}|}" th:text="${question.questionTitle}"></a></td>
+    <td><a th:href="@{|/notice/question-check/${question.questionId}|}" th:text="${question.questionTitle}"></a></td>
     <td th:text="${question.questionWriter}"></td>
 <!--    <td th:text="${question.questionStatus}"></td>-->
     <!--    <td th:text="*{#temporals.format(notice.noticeregDate, 'yyyy-MM-dd HH:mm:ss')}"></td>-->

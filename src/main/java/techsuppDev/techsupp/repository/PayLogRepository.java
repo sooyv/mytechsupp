@@ -28,7 +28,7 @@ public class PayLogRepository {
                 paylog.getUserEmail() + "', " +
                 paylog.getPaymentId() + ", '" +
                 paylog.getPaylogStatus() + "');";
-
+        System.out.println("paylog sql : " + sql);
         Query navtiveQuery = em.createNativeQuery(sql, Paylog.class);
         navtiveQuery.executeUpdate();
     }

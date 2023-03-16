@@ -14,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.ResponseBody;
+import techsuppDev.techsupp.DTO.ProductDTO;
 import techsuppDev.techsupp.config.UserDetailsimpl;
 import techsuppDev.techsupp.controller.form.UserForm;
 import techsuppDev.techsupp.domain.Product;
@@ -41,9 +42,14 @@ public class HomeController {
     public String main(Model model) {
 
         // product 5개 random
-        List<Product> randomProducts = adminProductService.getRandomProduct();
+        List<ProductDTO> randomProducts = adminProductService.getRandomProduct();
         model.addAttribute("products", randomProducts);
 
         return "/main/main";
+    }
+
+    @GetMapping("/introduce/service")
+    public String introduceService() {
+        return "/introduceService/introduceService";
     }
 }

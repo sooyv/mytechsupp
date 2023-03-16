@@ -5,7 +5,7 @@ const feedbackContentAll = document.querySelectorAll('.FeedbackContent');
 const singleFeedback = document.querySelector('.FeedbackContainer');
 const writeFormButton = document.querySelector('.FeedbackGotoWrite')
 const writeForm = document.querySelector('.ContainerFeedbackWriteForm');
-
+const feedbackSpecificContainer = document.querySelector('.FeedbackWritenByUserList');
 
 const url = location.href;
 const urlParams = new URL(url).searchParams;

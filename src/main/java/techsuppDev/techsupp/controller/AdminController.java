@@ -76,6 +76,7 @@ public class AdminController {
         ProductDTO productDTO = adminProductService.getProductDetail(id);
         model.addAttribute("productForm", productDTO);
 
+
         return "admin/Product/edit";
     }
     @GetMapping("product/delete/{id}")

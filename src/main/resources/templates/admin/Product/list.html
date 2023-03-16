@@ -29,7 +29,6 @@
                        </thead>
                        <tbody>
                        <tr th:each="dto : ${result.dtoList}">
-<<<<<<< HEAD
                            <td th:text="${dto.id}"></td>
 <!--                           <td>-->
 <!--                               <img th:src="@{'/images/' + ${productImgDTO.imgUrl}}" style="height: 2em">-->
@@ -39,18 +38,6 @@
                            <td th:text="${dto.productStatus}"></td>
                            <td><a th:href="@{'/admin/product/edit/' + ${dto.id}}">수정</a></td>
                            <td><a class="deleteConfirm" th:href="@{'/admin/product/delete/' + ${dto.id}}">삭제</a></td>
-=======
-                           <th scope="row">[[${dto.id}]]</th>
-<<<<<<< HEAD
-                           <td>[[${dto.productName}]]</td>
-                           <td>[[${dto.totalPrice}]]</td>
-                           <td>[[${dto.prodStatus}]]</td>
-=======
-                                <td>[[${dto.productName}]]></td>
-                                <td>[[${dto.totalPrice}]]</td>
-                                <td>[[${dto.productStatus}]]</td>
->>>>>>> f411958c73057b3a6a5fb40a91671b249374e9cb
->>>>>>> 484508decfe6ee0c9beb018b855fecfeb1335606
                        </tr>
                        </tbody>
                    </table>

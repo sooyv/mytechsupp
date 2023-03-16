@@ -1,24 +1,22 @@
 package techsuppDev.techsupp.controller.form;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.ColumnResult;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.SqlResultSetMapping;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
-@Entity
-@Getter
-@Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Entity
 @Builder
 @SqlResultSetMapping(
-        name = "ProductListMapping",
-        columns = {
+    name = "feedbackProductMapping",
+    columns = {
         @ColumnResult(name = "id", type = Long.class),
         @ColumnResult(name = "moddate", type = LocalDateTime.class),
         @ColumnResult(name = "regdate", type = LocalDateTime.class),
@@ -30,21 +28,21 @@ import java.time.LocalDateTime;
         @ColumnResult(name = "product_status", type = String.class),
         @ColumnResult(name = "seq_id", type = Long.class),
         @ColumnResult(name = "total_price", type = Integer.class),
-        @ColumnResult(name = "img_url", type = String.class),
-        @ColumnResult(name = "wish_id", type = String.class)
-        })
-public class ProductListForm {
-        @Id
-        private Long id;
-        private Long seqId;
-        private String productName;
-        private String information;
-        private int totalPrice;
-        private int investPrice;
-        private LocalDate period;
-        private String productStatus;
-        private int clickCount;
-        private String imgUrl;
-        private String wishId;
-    }
+        @ColumnResult(name = "img_url", type = String.class)
+    })
+public class FeedbackProductListForm {
+    @Id
+    private Long id;
+    private String moddate;
+    private String  regdate;
+    private int clickCount;
+    private String information;
+    private int investPrice;
+    private String period;
+    private String productName;
+    private String productStatus;
+    private Long seqId;
+    private int totalPrice;
+    private String imgUrl;
 
+}

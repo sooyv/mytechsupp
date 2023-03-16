@@ -15,6 +15,14 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "WishList")
+@SqlResultSetMapping(
+    name = "wishListMapping",
+    columns = {
+        @ColumnResult(name = "wish_id", type = Long.class),
+        @ColumnResult(name = "product_id", type = Long.class),
+        @ColumnResult(name = "user_id", type = Long.class)
+    }
+)
 public class WishList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

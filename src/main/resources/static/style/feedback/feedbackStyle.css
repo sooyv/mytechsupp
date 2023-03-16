@@ -126,7 +126,7 @@ body {
 
 .FeedbackContent > * {
   display: flex;
-  border-style: solid;
+  /* border-style: solid; */
   margin: 4px;
 }
 
@@ -153,14 +153,14 @@ body {
 
 .FeedbackListName-FeedbackListInformation > * {
   display: flex;
-  border-style: solid;
+  /* border-style: solid; */
   flex-direction: row;
-  margin: 1px;
+  margin: 5px;
 }
 
 .FeedbackInvestPrice-FeedbackPeriod-FeedbackProductStatus > * {
   display: flex;
-  border-style: solid;
+  /* border-style: solid; */
   flex-direction: column;
 }
 
@@ -242,6 +242,7 @@ body {
     display: flex;
     border-style: solid;
     flex-direction: column;
+    width: 800px;
     
 }
 

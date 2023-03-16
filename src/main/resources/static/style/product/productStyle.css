@@ -105,11 +105,13 @@ body > * {
 .ProductContent {
   display: flex;
   border-style: solid;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  /* justify-content: space-evenly; */
+  justify-content: space-around;
   flex-direction: row;
-  width: 780px;
+  width: 800px;
   height: 150px;
-  margin: 10px;
+  margin: 1px;
 }
 
 .ProductListPicture {
@@ -126,19 +128,20 @@ body > * {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  width: 300px;
+  width: 550px;
   height: 150px;
+  margin: 10px;
 }
 
 .ProductListInvestment-ProductListLimitDate {
   display: flex;
   justify-content: space-between;
+  margin: 10px;
 }
 
 .ProductListPercentage-ProductListWish {
   display: flex;
   justify-content: space-between;
-  flex-direction: column;
   margin: 10px;
 }
 
@@ -220,6 +223,7 @@ body > * {
 .ProductNameWish {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   border-style: solid;
   margin-top: 10px;
   margin-left: 20px;
@@ -227,22 +231,24 @@ body > * {
   height: 240px;
 }
 
-.ProductNameWish > span {
+/* .ProductNameWish > span {
   display: flex;
   width: 240px;
   height: 200px;
-}
+} */
 
-.ProductNameWish > button {
+.ProductNameWish > input {
   display: flex;
-  /* justify-content: right; */
-  width: 40px;
+  justify-content: center;
+  margin-left: auto;
+  width: 100px;
   height: 40px;
 }
 
 .ProductLimitDate {
   display: flex;
   border-style: solid;
+  justify-content: center;
   margin-top: 10px;
   margin-left: 20px;
   width: 240px;
@@ -252,6 +258,7 @@ body > * {
 .ProductPercentage {
   display: flex;
   border-style: solid;
+  justify-content: center;
   margin-top: 10px;
   margin-left: 20px;
   width: 240px;
@@ -261,6 +268,7 @@ body > * {
 .ProductInvesting {
   display: flex;
   border-style: solid;
+  justify-content: center;
   margin-top: 10px;
   margin-left: 20px;
   width: 240px;
@@ -286,19 +294,40 @@ body > * {
   border-style: solid;
   flex-direction: column;
   margin: 10px;
-  margin-left: 100px;
+  /* margin-left: 100px; */
+  align-items: flex-start;
+  justify-content: flex-start;
   height: 400px;
 }
 
 .ContainerUserInput > * {
   display: flex;
   border-style: solid;
-  margin: 30px;
+  flex-direction: column;
+  align-items: flex-start;
+  /* margin: 30px; */
+  /* margin: auto; */
+  margin-left: 10px;
+  margin-top: 40px;
   width: 200px;
   height: 30px;
 }
 
+.InvestForm {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  border: none;
+}
+
+
 /* 투자 확정 - 취소 컨테이너 */
+
+.ProductName-ProductInvestment {
+  display: flex;
+  align-items: row;
+  justify-content: space-between;
+}
 
 .ContainerConfirmCancel {
   display: flex;
@@ -317,10 +346,14 @@ body > * {
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  margin-top: 10px;
+  margin-top: 2px;
   margin-bottom: 10px;
   width: 100px;
+  height: 30px;
+}
 
+.PaymentRadio > * {
+  margin: 8px;
 }
 
 /* 결제 완료 안내 페이지 */
@@ -331,7 +364,6 @@ body > * {
   justify-content: center;
   flex-direction: column;
   margin: 10px;
-  margin-left: 100px;
   height: 300px;
 }
 
@@ -377,4 +409,18 @@ body > * {
 .roadDetailAddress {
   display: flex;
   flex-direction: column;
+}
+
+/* investComplete */
+
+.ContainerGotoOtherPage {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  height: 50px;
+  margin: 10px;
+}
+
+.ContainerGotoOtherPage > * {
+  margin: 10px;
 }

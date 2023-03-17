@@ -3,5 +3,5 @@ $("#newProduct").on("click", function() {
 });
 
 $("#aboutFunding").on("click", function() {
-    window.location.href="/#";
+    window.location.href="/notice/question-list";
 });

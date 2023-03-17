@@ -11,21 +11,21 @@
 <table>
   <div th:insert="/header :: header"></div>
   <tr>
-    <th>id</th>
+    <th>넘버</th>
     <td th:text="${question.questionId}"></td>
   </tr>
   <tr>
-    <th>writer</th>
+    <th>작성자</th>
     <td th:text="${question.questionWriter}"></td>
   </tr>
-  <th>pass</th>
+  <th>비밀번호</th>
   <td th:text="${question.questionPass}"></td>
   </tr>
-  <th>category</th>
+  <th>분류</th>
   <td th:text="${question.questionCategory}"></td>
   </tr>
   <tr>
-    <th>title</th>
+    <th>제목</th>
     <td th:text="${question.questionTitle}"></td>
   </tr>
   <tr>
@@ -33,11 +33,11 @@
     <!--    <td th:text="${notice.noticeregDate}"></td>-->
   </tr>
   <tr>
-    <th>contents</th>
+    <th>내용</th>
     <td th:text="${question.questionContents}"></td>
   </tr>
   <tr th:if="${question.fileAttached == 1}">
-    <th>attached-file</th>
+    <th>첨부파일</th>
     <td><a th:href="@{/notice/question-list/fileDownload/{questionId}(questionId=${question.questionId})}" th:text="${question.originalFileName}">파일이름1.png</a></td>
 <!--    <td><img th:src="@{|/upload/${question.storedFileName}|}" alt=""></td>-->
   </tr>

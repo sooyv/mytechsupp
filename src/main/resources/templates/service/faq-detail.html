@@ -13,38 +13,38 @@
 <table>
   <tr>
     <th>번호</th>
-    <td th:text="${notice.noticeId}"></td>
+    <td th:text="${faq.faqId}"></td>
   </tr>
   <tr>
     <th>제목</th>
-    <td th:text="${notice.noticeTitle}"></td>
+    <td th:text="${faq.faqTitle}"></td>
   </tr>
   <tr>
     <th>작성자</th>
-    <td th:text="${notice.noticeWriter}"></td>
+    <td th:text="${faq.faqWriter}"></td>
   </tr>
   <tr>
-<!--    <th>date</th>-->
-<!--    <td th:text="${notice.noticeregDate}"></td>-->
+    <!--    <th>date</th>-->
+    <!--    <td th:text="${notice.noticeregDate}"></td>-->
   </tr>
   <tr>
     <th>조회수</th>
-    <td th:text="${notice.noticeHits}"></td>
+    <td th:text="${faq.faqHits}"></td>
   </tr>
   <tr>
     <th>내용</th>
-    <td th:text="${notice.noticeContents}"></td>
+    <td th:text="${faq.faqContents}"></td>
   </tr>
-  <tr th:if="${notice.fileAttached == 1}">
-    <th>첨부파일</th>
-<!--    <td><img th:src="@{|/upload/${notice.storedFileName}|}" alt=""></td>-->
-    <td><a th:href="@{/notice/fileDownload/{noticeId}(noticeId=${notice.noticeId})}" th:text="${notice.OriginalFileName}">파일이름1.png</a></td>
-  </tr>
+<!--  <tr th:if="${notice.fileAttached == 1}">-->
+<!--    <th>첨부파일</th>-->
+<!--    &lt;!&ndash;    <td><img th:src="@{|/upload/${notice.storedFileName}|}" alt=""></td>&ndash;&gt;-->
+<!--    <td><a th:href="@{/notice/fileDownload/{noticeId}(noticeId=${notice.noticeId})}" th:text="${notice.OriginalFileName}">파일이름1.png</a></td>-->
+<!--  </tr>-->
 </table>
 <!--<a th:href="@{/fileDownload/{noticeId}(noticeId=${notice.noticeId})}" th:text="${notice.originalFileName}">파일이름1.png</a>-->
 <!--<button onclick="listReq()"><a href="/notice/list">공지사항</a></button>-->
-<button onclick="pagingReq()"><a href="/notice/paging">공지사항</a></button>
-<button onclick="updateReq()"><a th:href="@{/notice/update/{noticeId}(noticeId=${notice.noticeId})}">수정</a></button>
+<button><a href="/notice/faq-list">자주하는질문</a></button>
+<!--<button onclick="updateReq()"><a th:href="@{/notice/update/{noticeId}(noticeId=${notice.noticeId})}">수정</a></button>-->
 
 
 <!-- 댓글 작성 부분 -->

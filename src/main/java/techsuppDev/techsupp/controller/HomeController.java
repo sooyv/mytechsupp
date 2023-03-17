@@ -48,6 +48,7 @@ public class HomeController {
         return "/main/main";
     }
 
+    // 서비스 소개
     @GetMapping("/introduce/service")
     public String introduceService() {
         return "/introduceService/introduceService";

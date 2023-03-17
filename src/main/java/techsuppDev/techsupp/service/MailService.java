@@ -113,10 +113,10 @@ public class MailService {
     // 비밀번호 재발급 메일 발송
     public String sendPwMail(String email) throws Exception {
         String code = createKey();
-        MimeMessage mimeMessage = createPwMessage(email, code);
+        MimeMessage message = createPwMessage(email, code);
 
         try {
-            javaMailSender.send(mimeMessage);
+            javaMailSender.send(message);
         } catch (MailException mailException) {
             mailException.printStackTrace();
             throw new IllegalStateException();

@@ -6,22 +6,23 @@
 
 }
 
+
 .main {
-    height: 400px;
+    height: auto;
     padding: 10%;
 }
 
 .title {
     display: flex;
     justify-content: center;
-    font-size: xxx-large;
+    font-size: xx-large;
 }
 
 .contents {
     display: flex;
     justify-content: center;
     margin-top: 40px;
-    font-size: xx-large;
+    font-size: x-large;
 }
 
 #introduce {

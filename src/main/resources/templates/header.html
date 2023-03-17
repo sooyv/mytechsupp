@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script th:src="@{/script/header.js}"></script>
 </head>
 <body>
@@ -15,6 +14,7 @@
         <li class="nav-item"><a th:href="@{/feedbackMain/product?page=0&order=0}" class="nav-link link-dark px-2">후기</a></li>
       </ul>
       <ul class="nav">
+        <li class="nav-item"><a class="nav-link link-dark px-2" th:if="${session.userEmail != null}" th:text="${session.userName} + '님 반갑습니다!'"></a></li>
         <li class="nav-item"><a th:href="@{/admin/product/list}" th:if="${session.userRole == 'ROLE_ADMIN'}" class="nav-link link-dark px-2">관리자 페이지</a></li>
         <li class="nav-item"><a th:href="@{/login}" th:if="${session.userEmail == null}" class="nav-link link-dark px-2">로그인</a></li>
         <li class="nav-item"><a th:href="@{/member/logout}" th:if="${session.userEmail != null}" class="nav-link link-dark px-2" id="logout-btn">로그아웃</a></li>

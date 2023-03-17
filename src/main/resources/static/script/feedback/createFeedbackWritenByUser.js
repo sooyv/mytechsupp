@@ -2,11 +2,12 @@
 
 async function feedbackSpecificProductList(api, status) {
   try {
+    
     feedbackSpecificContainer.innerHTML = ``;
     let string = status.innerText;
     if (string != 'FAIL') {
       if (api.length != 0){
-        for (let i = 0; i < api.length -1; i++) {
+        for (let i = 0; i < api.length; i++) {
           feedbackSpecificContainer.innerHTML += `
           <article class="FeedbackWritenByUser">
             <div class="FeedbackPictureByUser">

@@ -117,9 +117,13 @@ public class AdminProductService {
 
         return pDTOList;
     }
+    public PageResultDTO<AdminPaymentForm, AdminPaymentForm> paymentList(PageRequestDTO pageRequestDTO) {
+        Pageable pageable = pageRequestDTO.getPageable(Sort.by("id").descending());
+        Page<AdminPaymentForm> result = paymentRepository.getAllPayment(pageable);
+        System.out.println(result);
+        Function<AdminPaymentForm, AdminPaymentForm> fn = (entity -> entity);
 
-    public List<AdminPaymentForm> paymentList() {
-        return paymentRepository.getAllPayment();
+        return new PageResultDTO<>(result, fn);
     }
 
 }

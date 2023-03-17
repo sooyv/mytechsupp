@@ -1,6 +1,9 @@
 package techsuppDev.techsupp.repository;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -115,7 +118,7 @@ public class PaymentRepository {
         }
     }
     // 관리자 페이지 결제 정보 리스트 출력하기 위해 필요함
-    public List<AdminPaymentForm> getAllPayment () {
+    public Page<AdminPaymentForm> getAllPayment (Pageable pageable) {
         String sql = "" +
                 "select payment.payment_id, user_email, payment_method, payment_date, paylog_status, payment_price, product_name " +
                 "from payment " +
@@ -126,7 +129,10 @@ public class PaymentRepository {
 
         Query nativeQuery = em.createNativeQuery(sql, AdminPaymentForm.class);
         List<AdminPaymentForm> result = nativeQuery.getResultList();
-        return result;
+        int start = (int)pageable.getOffset();
+        int end = (start + pageable.getPageSize()) > result.size() ? result.size() : (start + pageable.getPageSize());
+
+        return new PageImpl<>(result.subList(start, end), pageable, result.size());
     }
 
 }

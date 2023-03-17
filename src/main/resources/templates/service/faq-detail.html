@@ -1,45 +1,47 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>detail</title>
-  <!-- jquery cdn -->
-  <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>faq-detail</title>
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+            integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
 <body>
 <div th:insert="/header :: header"></div>
+<div th:insert="/service/service-header :: service-header"></div>
 <table>
-  <tr>
-    <th>번호</th>
-    <td th:text="${faq.faqId}"></td>
-  </tr>
-  <tr>
-    <th>제목</th>
-    <td th:text="${faq.faqTitle}"></td>
-  </tr>
-  <tr>
-    <th>작성자</th>
-    <td th:text="${faq.faqWriter}"></td>
-  </tr>
-  <tr>
-    <!--    <th>date</th>-->
-    <!--    <td th:text="${notice.noticeregDate}"></td>-->
-  </tr>
-  <tr>
-    <th>조회수</th>
-    <td th:text="${faq.faqHits}"></td>
-  </tr>
-  <tr>
-    <th>내용</th>
-    <td th:text="${faq.faqContents}"></td>
-  </tr>
-<!--  <tr th:if="${notice.fileAttached == 1}">-->
-<!--    <th>첨부파일</th>-->
-<!--    &lt;!&ndash;    <td><img th:src="@{|/upload/${notice.storedFileName}|}" alt=""></td>&ndash;&gt;-->
-<!--    <td><a th:href="@{/notice/fileDownload/{noticeId}(noticeId=${notice.noticeId})}" th:text="${notice.OriginalFileName}">파일이름1.png</a></td>-->
-<!--  </tr>-->
+    <tr>
+        <th>번호</th>
+        <td th:text="${faq.faqId}"></td>
+    </tr>
+    <tr>
+        <th>제목</th>
+        <td th:text="${faq.faqTitle}"></td>
+    </tr>
+    <tr>
+        <th>작성자</th>
+        <td th:text="${faq.faqWriter}"></td>
+    </tr>
+    <tr>
+        <!--    <th>date</th>-->
+        <!--    <td th:text="${notice.noticeregDate}"></td>-->
+    </tr>
+    <tr>
+        <th>조회수</th>
+        <td th:text="${faq.faqHits}"></td>
+    </tr>
+    <tr>
+        <th>내용</th>
+        <td th:text="${faq.faqContents}"></td>
+    </tr>
+    <!--  <tr th:if="${notice.fileAttached == 1}">-->
+    <!--    <th>첨부파일</th>-->
+    <!--    &lt;!&ndash;    <td><img th:src="@{|/upload/${notice.storedFileName}|}" alt=""></td>&ndash;&gt;-->
+    <!--    <td><a th:href="@{/notice/fileDownload/{noticeId}(noticeId=${notice.noticeId})}" th:text="${notice.OriginalFileName}">파일이름1.png</a></td>-->
+    <!--  </tr>-->
 </table>
 <!--<a th:href="@{/fileDownload/{noticeId}(noticeId=${notice.noticeId})}" th:text="${notice.originalFileName}">파일이름1.png</a>-->
 <!--<button onclick="listReq()"><a href="/notice/list">공지사항</a></button>-->
@@ -73,63 +75,5 @@
 <!--</div>-->
 
 </body>
-<script th:inline="javascript">
-<!--    const commentWrite = () => {-->
-<!--        const writer = document.getElementById("commentWriter").value;-->
-<!--        const contents = document.getElementById("commentContents").value;-->
-<!--        console.log("작성자: ", writer);-->
-<!--        console.log("내용: ", contents);-->
-<!--        const id = [[${notice.noticeId}]];-->
-<!--        $.ajax({-->
-<!--           // 요청방식: post, 요청주소: /comment/save, 요청데이터: 작성자, 작성내용, 게시글번호-->
-<!--           type: "post",-->
-<!--           url: "/comment/save",-->
-<!--           data: {-->
-<!--               "commentWriter": writer,-->
-<!--               "commentContents": contents,-->
-<!--               "boardId": id-->
-<!--           },-->
-<!--           success: function (res) {-->
-<!--               console.log("요청성공", res);-->
-<!--               let output = "<table>";-->
-<!--               output += "<tr><th>댓글번호</th>";-->
-<!--               output += "<th>작성자</th>";-->
-<!--               output += "<th>내용</th>";-->
-<!--               output += "<th>작성시간</th></tr>";-->
-<!--               for (let i in res) {-->
-<!--                   output += "<tr>";-->
-<!--                   output += "<td>" + res[i].id + "</td>";-->
-<!--                   output += "<td>" + res[i].commentWriter + "</td>";-->
-<!--                   output += "<td>" + res[i].commentContents + "</td>";-->
-<!--                   output += "<td>" + res[i].commentCreatedTime + "</td>";-->
-<!--                   output += "</tr>";-->
-<!--               }-->
-<!--               output += "</table>";-->
-<!--               document.getElementById('comment-list').innerHTML = output;-->
-<!--               document.getElementById('commentWriter').value = '';-->
-<!--               document.getElementById('commentContents').value = '';-->
-<!--           },-->
-<!--           error: function (err) {-->
-<!--               console.log("요청실패", err);-->
-<!--           }-->
-<!--        });-->
 
-<!--    }-->
-    const listReq = () => {
-        console.log("목록 요청");
-        const id = [[${notice.noticeId}]];
-<!--        const page = [[${page}]];-->
-<!--        location.href = "/notice/paging?page="+page;-->
-    }
-    const updateReq = () => {
-        console.log("수정 요청");
-        const id = [[${notice.noticeId}]];
-        location.href = "/notice/update/" + noticeId;
-    }
-<!--    const deleteReq = () => {-->
-<!--        console.log("삭제 요청");-->
-<!--        const id = [[${notice.noticeId}]];-->
-<!--        location.href = "/notice/delete/" + noticeId;-->
-<!--    }-->
-</script>
 </html>

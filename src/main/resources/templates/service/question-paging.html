@@ -1,62 +1,100 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>questionpaging</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-  <link href="/style/signUp/signUp.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>question-paging</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link href="/style/signUp/signUp.css" rel="stylesheet">
 
 </head>
 <body>
 <div th:insert="/header :: header"></div>
+<div th:insert="/service/service-header :: service-header"></div>
 <!--<button onclick="saveReq()">글작성</button>-->
 
-<table>
-  <tr>
-    <th>번호</th>
-    <th>제목</th>
-    <th>작성자</th>
-    <!--    <th>date</th>-->
-    <th>답변상태</th>
-  </tr>
-  <tr th:each="question: ${questionList}">
-    <td th:text="${question.questionId}"></td>
-<!--    <td><a th:href="@{|/notice/${question.questionId}|(page=${questionList.number + 1})}" th:text="${question.questionTitle}"></a></td>-->
-      <td><a th:href="@{|/notice/question-check/${question.questionId}|(page=${questionList.number + 1})}" th:text="${question.questionTitle}"></a></td>
-    <td th:text="${question.questionWriter}"></td>
-    <!--    <td th:text="*{#temporals.format(notice.noticemogTime, 'yyyy-MM-dd HH:mm:ss')}"></td>-->
-<!--    <td th:text="${question.questionStatus}"></td>-->
-  </tr>
-</table>
-<!-- 첫번째 페이지로 이동 -->
-<!-- /board/paging?page=1 -->
-<a th:href="@{/notice/question-paging(page=1)}">First</a>
-<!-- 이전 링크 활성화 비활성화 -->
-<!-- boardList.getNumber() 사용자:2페이지 getNumber()=1 -->
-<a th:href="${questionList.first} ? '#' : @{/notice/question-paging(page=${questionList.number})}">prev</a>
 
-<!-- 페이지 번호 링크(현재 페이지는 숫자만)
-        for(int page=startPage; page<=endPage; page++)-->
-<span th:each="page: ${#numbers.sequence(startPage, endPage)}">
+<!--<table>-->
+<!--    <tr>-->
+<!--        <th>번호</th>-->
+<!--        <th>제목</th>-->
+<!--        <th>작성자</th>-->
+<!--        &lt;!&ndash;    <th>date</th>&ndash;&gt;-->
+<!--        <th>답변상태</th>-->
+<!--    </tr>-->
+<!--    <tr th:each="question: ${questionList}">-->
+<!--        <td th:text="${question.questionId}"></td>-->
+<!--        &lt;!&ndash;    <td><a th:href="@{|/notice/${question.questionId}|(page=${questionList.number + 1})}" th:text="${question.questionTitle}"></a></td>&ndash;&gt;-->
+<!--        <td><a th:href="@{|/notice/question-check/${question.questionId}|(page=${questionList.number + 1})}"-->
+<!--               th:text="${question.questionTitle}"></a></td>-->
+<!--        <td th:text="${question.questionWriter}"></td>-->
+<!--        &lt;!&ndash;    <td th:text="*{#temporals.format(notice.noticemogTime, 'yyyy-MM-dd HH:mm:ss')}"></td>&ndash;&gt;-->
+<!--        &lt;!&ndash;    <td th:text="${question.questionStatus}"></td>&ndash;&gt;-->
+<!--    </tr>-->
+<!--</table>-->
+
+<div class="container-fluid px-3">
+    <div class="card mb-4">
+        <div class="card-body">
+            <table class="table" id="result">
+                <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>답변상태</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="question: ${questionList}">
+                    <td th:text="${question.questionId}"></td>
+                    <td><a th:href="@{|/notice/question-check/${question.questionId}|(page=${questionList.number + 1})}"
+                           th:text="${question.questionTitle}"></a></td>
+                    <td th:text="${question.questionWriter}"></td>
+<!--                    <td th:text="${question.questionStatus}"></td>-->
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <!-- 첫번째 페이지로 이동 -->
+    <!-- /board/paging?page=1 -->
+    <a th:href="@{/notice/question-paging(page=1)}">First</a>
+    <!-- 이전 링크 활성화 비활성화 -->
+    <!-- boardList.getNumber() 사용자:2페이지 getNumber()=1 -->
+    <a th:href="${questionList.first} ? '#' : @{/notice/question-paging(page=${questionList.number})}">prev</a>
+
+    <!-- 페이지 번호 링크(현재 페이지는 숫자만)
+            for(int page=startPage; page<=endPage; page++)-->
+    <span th:each="page: ${#numbers.sequence(startPage, endPage)}">
 <!-- 현재페이지는 링크 없이 숫자만 -->
     <span th:if="${page == questionList.number + 1}" th:text="${page}"></span>
-  <!-- 현재페이지 번호가 아닌 다른 페이지번호에는 링크를 보여줌 -->
+        <!-- 현재페이지 번호가 아닌 다른 페이지번호에는 링크를 보여줌 -->
     <span th:unless="${page == questionList.number + 1}">
         <a th:href="@{/notice/question-paging(page=${page})}" th:text="${page}"></a>
     </span>
 </span>
 
-<!-- 다음 링크 활성화 비활성화
-    사용자: 2페이지, getNumber: 1, 3페이지-->
-<a th:href="${questionList.last} ? '#' : @{/notice/question-paging(page=${questionList.number + 2})}">next</a>
-<!-- 마지막 페이지로 이동 -->
-<a th:href="@{/notice/question-paging(page=${questionList.totalPages})}">Last</a>
+    <!-- 다음 링크 활성화 비활성화
+        사용자: 2페이지, getNumber: 1, 3페이지-->
+    <a th:href="${questionList.last} ? '#' : @{/notice/question-paging(page=${questionList.number + 2})}">next</a>
+    <!-- 마지막 페이지로 이동 -->
+    <a th:href="@{/notice/question-paging(page=${questionList.totalPages})}">Last</a>
+
+    <button onclick="pagingReq()"><a href="/notice/question">문의작성</a></button>
+
+</div>
 
 </body>
 <script>
 <!--    const saveReq = () => {-->
 <!--        location.href = "/notice/question";-->
 <!--    }-->
+
+
+
 
 </script>
 </html>

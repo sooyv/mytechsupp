@@ -53,7 +53,7 @@ function createFeedbackWriteButton(api) {
   if (writeFormButton != null ) {
   writeFormButton.innerHTML = ``;
   writeFormButton.innerHTML = `
-  <input type="button" onclick = "linkToFeedbackWriteForm(${api.id}, '${api.paylog}', '${api.productStatus}')" value="후기 작성하러 가기">
+  <input class="btn btn-lg btn-primary" type="button" onclick = "linkToFeedbackWriteForm(${api.id}, '${api.paylog}', '${api.productStatus}')" value="후기 작성하러 가기">
   `}
 }
 

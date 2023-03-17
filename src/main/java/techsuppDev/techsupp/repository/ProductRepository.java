@@ -64,7 +64,7 @@ public class ProductRepository {
         if (keyword.equals("null") || keyword.equals("")) {
             sql = sql + limitSql;
         } else {
-            keywordSql = "and product_name like '%" +
+            keywordSql = "where product_name like '%" +
                     keyword +
                     "%' ";
             sql = sql + keywordSql + limitSql;

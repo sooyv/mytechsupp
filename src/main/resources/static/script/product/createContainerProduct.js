@@ -52,7 +52,7 @@ function createSingleProductHtml(api) {
     <div class="ContainerNameLimitDatePrecentageInvesting">
       <div class="ProductNameWish">
         <h5>제품 설명 : ${api.productName}</h5>
-        <input type=button onclick="wishCheck('${api.wishId}',  '${api.id}')" value="즐겨찾기">
+        <input class="btn btn-outline-dark mt-auto" type=button onclick="wishCheck('${api.wishId}',  '${api.id}')" value="즐겨찾기">
       </div>
       <div class="ProductLimitDate">
        <h5>투자 마감일 : ${api.period}</h5>
@@ -61,7 +61,7 @@ function createSingleProductHtml(api) {
         <h5>현재 투자율 : ${Math.round((api.investPrice * api.paymentCount) / api.totalPrice * 100)} % </h5>
       </div>
       <div class="ProductInvesting">
-          <input type=button onclick="LinkToInvestingProduct(${api.id}, '${api.paylog}')" value=" ₩ ${api.investPrice} 투자하기">
+          <input class="btn btn-lg btn-primary" type=button onclick="LinkToInvestingProduct(${api.id}, '${api.paylog}')" value=" ₩ ${api.investPrice} 투자하기">
       </div>
     </div>
   `

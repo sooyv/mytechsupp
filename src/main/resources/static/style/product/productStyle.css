@@ -2,22 +2,25 @@ body {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  width: 820px;
-  margin: 20px;
+  /* width: 820px; */
+  /* margin: 20px; */
+  padding-top: 0rem;
+  padding-bottom: 3rem;
+  color: #5a5a5a;
 }
 
 body > * {
   display: flex;
   justify-content: center;
+  /* border: solid;  */
   flex-direction: column;
-  border: solid;
   margin-left: 10px;
 }
 
 /* 헤더 - 메뉴 스타일 */
 .Header {
-  width: 800px;
-  border-style: solid;
+  /* width: 800px; */
+  /* border-style: solid; */
   margin: 10px;
 }
 
@@ -63,7 +66,7 @@ body > * {
 /* 제품 정렬 - 제품 검색  */
 .ContainerProductSort {
   display: flex;
-  border-style: solid;
+  /* border-style: solid; */
   justify-content: space-around;
   align-items: center;
   flex-direction: row;
@@ -102,16 +105,39 @@ body > * {
 }
 
 /* 제품 스타일 */
+.ProductList > * {
+  display: flex;
+  /* flex-wrap: wrap; */
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 16px;
+  margin: auto;
+}
+
+.ContainerProductList {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 .ProductContent {
   display: flex;
   border-style: solid;
   /* justify-content: space-between; */
   /* justify-content: space-evenly; */
+  justify-content: center ;
   justify-content: space-around;
+  align-items: center;
   flex-direction: row;
   width: 800px;
   height: 150px;
-  margin: 1px;
+  margin: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-radius: 50px;
+  
 }
 
 .ProductListPicture {
@@ -129,37 +155,44 @@ body > * {
   justify-content: center;
   flex-direction: column;
   width: 550px;
-  height: 150px;
+  height: 140px;
   margin: 10px;
+  margin-top: 5px;
 }
 
 .ProductListInvestment-ProductListLimitDate {
   display: flex;
   justify-content: space-between;
-  margin: 10px;
+  margin: 5px;
 }
 
 .ProductListPercentage-ProductListWish {
   display: flex;
   justify-content: space-between;
-  margin: 10px;
+  margin: 5px;
 }
 
 
 /* 페이징 */
-.PagingContainer {
+.PagingContainer > * {
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 800px;
+  margin: auto;
   
 }
 
 .PagingList {
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-direction: row;
   float: left;
+  margin-top: 10px;
+  margin: auto;
   list-style-type: none;
+  padding-left: 0px;
 }
 
 .Page {
@@ -177,6 +210,7 @@ body > * {
   margin-top: 20px;
 }
 
+
   /* 사진, 목표투자액, 상품 정보 */
 .ContainerPictureInvestmentAmountInformation {
   display: flex;
@@ -190,16 +224,19 @@ body > * {
   border-style: solid;
   width: 400px;
   height: 400px;
+  border-radius: 10px;
 }
 
 .ProductInvestmentAmount {
   display: flex;
   justify-content: center;
+  align-items: center;
   border-style: solid;
   margin-top: 10px;
   margin-left: 25px;
   width: 350px;
   height: 100px;
+  border-radius: 10px;
 }
 
 .ProductInformation {
@@ -210,6 +247,7 @@ body > * {
   margin-left: 20px;
   width: 360px;
   height: 400px;
+  border-radius: 10px;
 }
 
   /* 제품명, 투자 마감일, 투자율, 개인투자금액(결제페이지 이동) */
@@ -218,6 +256,7 @@ body > * {
   justify-content: top;
   flex-direction: column;
   width: 280px;
+  border-radius: 10px;
 }
 
 .ProductNameWish {
@@ -229,6 +268,17 @@ body > * {
   margin-left: 20px;
   width: 240px;
   height: 240px;
+  border-radius: 10px;
+}
+
+.ProductNameWish > h5 {
+  margin-top: 5px;
+  margin-left: 5px;
+}
+
+.ProductNameWish > input {
+  margin-bottom: 5px;
+  margin-right: 5px;
 }
 
 /* .ProductNameWish > span {
@@ -243,36 +293,42 @@ body > * {
   margin-left: auto;
   width: 100px;
   height: 40px;
+  border-radius: 10px;
 }
 
 .ProductLimitDate {
   display: flex;
   border-style: solid;
   justify-content: center;
+  align-items: center;
   margin-top: 10px;
   margin-left: 20px;
   width: 240px;
   height: 50px;
+  border-radius: 10px;
 }
 
 .ProductPercentage {
   display: flex;
   border-style: solid;
   justify-content: center;
+  align-items: center;
   margin-top: 10px;
   margin-left: 20px;
   width: 240px;
   height: 50px;
+  border-radius: 10px;
 }
 
 .ProductInvesting {
   display: flex;
-  border-style: solid;
+  
   justify-content: center;
   margin-top: 10px;
   margin-left: 20px;
   width: 240px;
   height: 50px;
+  border-radius: 50px;
 }
 
 .ProductInvesting > * {
@@ -297,6 +353,7 @@ body > * {
   /* margin-left: 100px; */
   align-items: flex-start;
   justify-content: flex-start;
+  border-radius: 10px;
   height: 400px;
 }
 
@@ -331,14 +388,14 @@ body > * {
 
 .ContainerConfirmCancel {
   display: flex;
-  border-style: solid;
+  
   justify-content: center;
   justify-content: space-evenly;
   align-items: row;
   flex-direction: row;
   width: 300px;
-  height: 40px;
-  margin-left: 200px;
+  /* height: 40px; */
+  margin-left: auto;
 }
 
 .ContainerConfirmCancel > * {
@@ -349,7 +406,7 @@ body > * {
   margin-top: 2px;
   margin-bottom: 10px;
   width: 100px;
-  height: 30px;
+  /* height: 30px; */
 }
 
 .PaymentRadio > * {
@@ -360,7 +417,7 @@ body > * {
 
 .InvestCompleteNotice {
   display: flex;
-  border-style: solid;
+  /* border-style: solid; */
   justify-content: center;
   flex-direction: column;
   margin: 10px;
@@ -378,7 +435,7 @@ body > * {
   display: flex;
   justify-content: center;
   justify-content: space-evenly;
-  border-style: solid;
+  /* border-style: solid; */
   margin: 10px;
   height: 50px;
 }

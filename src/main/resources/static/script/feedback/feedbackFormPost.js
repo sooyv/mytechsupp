@@ -55,7 +55,7 @@ function createSubmit () {
 const feedbacksubmit = document.querySelector('.FeedbackSubmit');
 feedbacksubmit.innerHTML = ``;
 feedbacksubmit.innerHTML = `
-<input type="button" onclick = "FeedbackFormInput()" value="작성하기">
+<input class="SubmitFeedbackForm btn btn-outline-dark mt-auto" type="button" onclick = "FeedbackFormInput()" value="작성하기">
 `;
 }
 

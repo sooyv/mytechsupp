@@ -12,11 +12,11 @@
 <body>
 <div th:insert="/header :: header"></div>
 <form action="/notice/save" method="post" enctype="multipart/form-data">
-  writer: <input type="text" name="noticeWriter"> <br>
+  작성자: <input type="text" name="noticeWriter"> <br>
 <!--  category: <input type="text" name="noticeCategory"> <br>-->
-  title: <input type="text" name="noticeTitle"> <br>
-  contents: <textarea name="noticeContents" cols="30" rows="10"></textarea><br>
-  file: <input type="file" name="noticeFile"> <br>
+  제목: <input type="text" name="noticeTitle"> <br>
+  내용: <textarea name="noticeContents" cols="30" rows="10"></textarea><br>
+  첨부파일: <input type="file" name="noticeFile"> <br>
   <input type="submit" value="공지작성">
 </form>
 <script src="/script/header.js"></script>

@@ -12,10 +12,12 @@ import techsuppDev.techsupp.DTO.PageRequestDTO;
 import techsuppDev.techsupp.DTO.PageResultDTO;
 import techsuppDev.techsupp.DTO.ProductDTO;
 import techsuppDev.techsupp.DTO.ProductImgDTO;
+import techsuppDev.techsupp.controller.form.AdminPaymentForm;
 import techsuppDev.techsupp.domain.Image;
 import techsuppDev.techsupp.controller.HomeController;
 import techsuppDev.techsupp.domain.Product;
 import techsuppDev.techsupp.repository.AdminProductRepository;
+import techsuppDev.techsupp.repository.PaymentRepository;
 import techsuppDev.techsupp.repository.ProductImageRepository;
 
 import javax.persistence.EntityExistsException;
@@ -32,6 +34,7 @@ public class AdminProductService {
     private final AdminProductRepository adminProductRepository;
     private final ProductImageService productImageService;
     private final ProductImageRepository productImageRepository;
+    private final PaymentRepository paymentRepository;
 
     public Long register(ProductDTO productDTO, List<MultipartFile> multipartFileList) throws Exception {
         Product product = productDTO.dtoToEntity(productDTO);
@@ -114,4 +117,9 @@ public class AdminProductService {
 
         return pDTOList;
     }
+
+    public List<AdminPaymentForm> paymentList() {
+        return paymentRepository.getAllPayment();
+    }
+
 }

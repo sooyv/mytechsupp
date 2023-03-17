@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import techsuppDev.techsupp.DTO.CommentDTO;
+import techsuppDev.techsupp.DTO.FaqDTO;
 import techsuppDev.techsupp.DTO.NoticeDTO;
 import techsuppDev.techsupp.DTO.QuestionDTO;
 import techsuppDev.techsupp.domain.NoticeFileEntity;
@@ -20,6 +21,7 @@ import techsuppDev.techsupp.domain.User;
 import techsuppDev.techsupp.repository.CommentRepository;
 import techsuppDev.techsupp.repository.NoticeFileRepository;
 import techsuppDev.techsupp.service.CommentService;
+import techsuppDev.techsupp.service.FaqService;
 import techsuppDev.techsupp.service.NoticeService;
 import techsuppDev.techsupp.service.QuestionService;
 
@@ -44,21 +46,52 @@ public class NoticeController {
     private final NoticeService noticeService;
     private final QuestionService questionService;
 
+    private final FaqService faqService;
+
     private final CommentService commentService;
 
     private final NoticeFileRepository noticeFileRepository;
     private final CommentRepository commentRepository;
 
-    @GetMapping("/")
-    public String introductionpage() {
-
-        return "service/introduction-page";
-    }
-
     @GetMapping("")
     public String serviceMain() {
 
         return "service/service-main";
+    }
+
+    @GetMapping("/faq")
+    public String faqsaveForm() {
+
+        return "service/faq";
+    }
+
+    @PostMapping("/faq")
+    public String faqsave(@ModelAttribute FaqDTO faqDTO) throws IOException {
+
+        faqService.save(faqDTO);
+        return "service/service-main";
+    }
+
+    @GetMapping("/faq-list")
+    public String findfaqAll(Model model) {
+        List<FaqDTO> faqDTOList = faqService.findAll();
+        System.out.println(faqDTOList);
+        model.addAttribute("faqList", faqDTOList);
+        return "service/faq-list";
+    }
+
+    @GetMapping("/faq-list/{faqId}")
+    public String faqfindById(@PathVariable Long faqId, Model model) {
+        /*
+        해당 게시글의 조회수를 하나 올리고
+        게시글 데이터를 가져와서 faq_detail.html에 출력
+         */
+        faqService.updateHits(faqId);
+        FaqDTO faqDTO = faqService.findById(faqId);
+//        System.out.println(faqDTO.getfaqTitle());
+
+        model.addAttribute("faq", faqDTO);
+        return "service/faq-detail";
     }
 
     @GetMapping("/save")

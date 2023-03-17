@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import techsuppDev.techsupp.controller.form.AdminPaymentForm;
 import techsuppDev.techsupp.controller.form.PaymentCountForm;
 import techsuppDev.techsupp.controller.form.PaymentForm;
 import techsuppDev.techsupp.domain.Payment;
@@ -113,21 +114,19 @@ public class PaymentRepository {
             return paymentCount;
         }
     }
+    // 관리자 페이지 결제 정보 리스트 출력하기 위해 필요함
+    public List<AdminPaymentForm> getAllPayment () {
+        String sql = "" +
+                "select payment.payment_id, user_email, payment_method, payment_date, paylog_status, payment_price, product_name " +
+                "from payment " +
+                "inner join paylog " +
+                "on paylog.payment_id = payment.payment_id " +
+                "inner join product " +
+                "on payment.product_id = product.id;";
 
-//    public List<AdminPaymentForm> getAllPayment () {
-//        String sql = "" +
-//                "select payment.payment_id, user_email, payment_method, payment_date, paylog_status, payment_price, product_name " +
-//                "from payment " +
-//                "inner join paylog " +
-//                "on paylog.payment_id = payment.payment_id " +
-//                "inner join product " +
-//                "on payment.product_id = product.id;";
-//
-//        Query nativeQuery = em.createNativeQuery(sql, AdminPaymentFrom.class);
-//        List<AdminPaymentForm> result = nativeQuery.getResultList();
-//        return result;
-//    }
-
-
+        Query nativeQuery = em.createNativeQuery(sql, AdminPaymentForm.class);
+        List<AdminPaymentForm> result = nativeQuery.getResultList();
+        return result;
+    }
 
 }

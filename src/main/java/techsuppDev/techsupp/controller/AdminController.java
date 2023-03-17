@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import techsuppDev.techsupp.DTO.PageRequestDTO;
 import techsuppDev.techsupp.DTO.ProductDTO;
 import techsuppDev.techsupp.DTO.ProductImgDTO;
+import techsuppDev.techsupp.controller.form.AdminPaymentForm;
 import techsuppDev.techsupp.domain.Product;
 import techsuppDev.techsupp.repository.AdminProductRepository;
 import techsuppDev.techsupp.service.AdminProductService;
@@ -40,9 +41,10 @@ public class AdminController {
     private final AdminProductService adminProductService;
     private final ProductImageService productImageService;
 
-
-
-
+    @GetMapping("/")
+    public String Home() {
+        return "admin/adminhome";
+    }
     @GetMapping("/product/list")
     public String list(@ModelAttribute PageRequestDTO pageRequestDTO, Model model) {
         model.addAttribute("result", adminProductService.getList(pageRequestDTO));
@@ -108,10 +110,13 @@ public class AdminController {
         }
         return "redirect:/admin/product/list";
     }
-//    @GetMapping("/delete/{id}")
-//    public String delete(@PathVariable("id") Long id) {
-//
-//    }
+
+    @GetMapping("payment/list")
+    public String paymentList(Model model) {
+        model.addAttribute("payments", adminProductService.paymentList());
+
+        return "admin/Payment/paymentlist";
+    }
 
 
 }

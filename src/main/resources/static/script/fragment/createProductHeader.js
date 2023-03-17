@@ -14,7 +14,7 @@ function createProductHeaderHtml(api) {
         </ul>
         <ul class="nav">
           <li class="nav-item"><a href="/member/logout" class="nav-link link-dark px-2">로그아웃</a></li>
-          <li class="nav-item"><a href="/mypage" class="nav-link link-dark px-2">마이페이지</a></li>
+          <li class="nav-item"><a href="/user/mypage" class="nav-link link-dark px-2">마이페이지</a></li>
         </ul>
       </div>
     </nav>
@@ -78,7 +78,7 @@ function createProductHeaderHtml(api) {
         </ul>
         <ul class="nav">
           <li class="nav-item"><a href="/member/logout" class="nav-link link-dark px-2">로그아웃</a></li>
-          <li class="nav-item"><a href="/mypage" class="nav-link link-dark px-2">마이페이지</a></li>
+          <li class="nav-item"><a href="/user/mypage" class="nav-link link-dark px-2">마이페이지</a></li>
         </ul>
       </div>
     </nav>

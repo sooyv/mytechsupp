@@ -14,7 +14,7 @@ function createPaging(numberOfdata) {
   paging.innerHTML = `
     <ul class="PagingList">
       <li class="Page">
-        <input type="button" class="PageButton" onclick=window.location.href="${prevPageLocation}" value="${"<"}">
+        <input type="button" class="PageButton btn btn-outline-dark mt-auto" onclick=window.location.href="${prevPageLocation}" value="${"<"}">
       </li>
     </ul>
     `;
@@ -25,7 +25,7 @@ function createPaging(numberOfdata) {
       li.classList.add('Page');
 
     let input = document.createElement("input");
-      input.classList.add('PageButton');
+      input.classList.add('PageButton', 'btn', 'btn-outline-dark', 'mt-auto');
       input.setAttribute('type', 'button');
       input.setAttribute('onclick', `window.location.href="${pageNumberLocationString(i)}"`);
       input.setAttribute('value', `${(+pageNumber * 10 + i)}`);
@@ -42,7 +42,7 @@ function createPaging(numberOfdata) {
     li.classList.add('Page');
 
   let input = document.createElement("input");
-    input.classList.add('PageButton');
+    input.classList.add('PageButton', 'btn', 'btn-outline-dark', 'mt-auto');
     input.setAttribute('type', 'button');
     input.setAttribute('onclick', `window.location.href="${nextPageLocation}"`);
     input.setAttribute('value', `>`);

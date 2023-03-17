@@ -39,7 +39,7 @@ public class SecurityConfig {
                 .antMatchers("/login", "/member/login").permitAll()
                 .antMatchers("/user/**").authenticated()            // /스프링 시큐리티에 의해 로그인이 되면 접근가능
                 .antMatchers("/admin/**").authenticated()            // /스프링 시큐리티에 의해 로그인이 되면 접근가능
-//                .antMatchers("/invest/**").authenticated()   스타일링 위해서 잠시 해제
+                .antMatchers("/invest/**").authenticated()
                 .antMatchers("/feedbackSelect/feedback/form/**").authenticated()
                 .antMatchers("/admin/**").authenticated()
 //                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")

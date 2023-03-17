@@ -198,5 +198,4 @@ public class MyPageController {
 ////        Paylog paylog = myPageService.findByUserId();
 //        return mav;
 //    }
-
 }

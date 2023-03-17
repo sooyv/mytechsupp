@@ -2,14 +2,25 @@ body {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  /* align-items: center; */
-  width: 700px;
+  /* width: 820px; */
+  /* margin: 20px; */
+  padding-top: 0rem;
+  padding-bottom: 3rem;
+  color: #5a5a5a;
+}
+
+body > * {
+  display: flex;
+  justify-content: center;
+  /* border: solid;  */
+  flex-direction: column;
+  margin-left: 10px;
 }
 
 /* 헤더 - 메뉴 스타일 */
 .Header {
-  width: 800px;
-  border-style: solid;
+  /* width: 800px;
+  border-style: solid; */
   margin: 10px;
 }
 
@@ -115,13 +126,37 @@ body {
 /* flex-basis 사용해서 배치 해보자 (기본 크기 설정하는 것)*/
 /* flex-shrink 사용해보자 (비율 설정하는 것 ) */
 /* flex-wrap 컨테이너를 벗어났을때 줄바꿈 해주는 것 */
+.ProductList > * {
+  display: flex;
+  /* flex-wrap: wrap; */
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 16px;
+  margin: auto;
+}
+
+.ContainerFeedbackList {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+
+
+
+
 .FeedbackContent {
   display: flex;
   border-style: solid;
   justify-content: space-around;
-  margin: 10px;
-  margin-left: 30px;
+  /* margin: 10px;
+  margin-left: 30px; */
+  margin: auto;
+  margin-bottom: 30px;
   width: 750px;
+  border-radius: 10px;
 }
 
 .FeedbackContent > * {
@@ -165,18 +200,23 @@ body {
 }
 
 /* 페이징 */
-.PagingContainer {
+.PagingContainer > * {
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 800px;
+  margin: auto;
   
 }
 
 .PagingList {
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-direction: row;
   float: left;
+  margin-top: 10px;
+  margin: auto;
   list-style-type: none;
 }
 
@@ -190,6 +230,8 @@ body {
 .FeedbackGotoWrite {
   display: flex;
   justify-content: center;
+
+  margin: auto;
 }
 
 .FeedbackGotoWrite > * {
@@ -204,9 +246,10 @@ body {
   display: flex;
   flex-direction: column;
   border-style: solid;
-  margin: 5px;
-  margin-left: 50px;
+  margin: auto;
+  margin-top: 10px;  
   width: 700px;
+  border-radius: 10px;
 }
 
 .FeedbackWritenByUser {
@@ -215,7 +258,7 @@ body {
 
 .FeedbackPictureByUser {
   display: flex;
-  border-style: solid;
+  /* border-style: solid; */
   width: 100px;
   margin: 1px;
 }
@@ -242,21 +285,29 @@ body {
     display: flex;
     border-style: solid;
     flex-direction: column;
+    margin: auto;
     width: 800px;
-    
+    border-radius: 10px;
 }
 
 .FeedbackInsertScore-FeebackUploadImg {
   display: flex;
-  border-style: solid;
+  /* border-style: solid; */
   flex-direction: column;
-  margin: 1px;
+  margin: 5px;
+  
 }
 
 .FeedbackInsertText {
   display: flex;
-  border-style: solid;
+  /* border-style: solid; */
   flex-direction: column;
-  margin: 1px;
+  margin: 5px;
   height: 300px;
+  width: auto;
+}
+
+.SubmitFeedbackForm {
+  display: flex;
+  margin: 5px;
 }

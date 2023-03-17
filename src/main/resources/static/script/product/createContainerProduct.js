@@ -11,26 +11,34 @@ function LinkToInvestingProduct(id , paylog) {
   }
 }
 
-function wish(wishId, id) {
+function alertWishProductName(wishId , productName) {
+  if(wishId != 'null'){
+    alert(`${productName}이 즐겨찾기에서 삭제 되었습니다`)
+  } else{
+    alert(`${productName}이 즐겨찾기에 추가 되었습니다`)
+  }
+}
+
+function wish(wishId , id, productName) {
   if(wishId != 'null') { 
-    console.log("delete :" +id)
   fetch(`http://localhost:8080/api/wish/delete/?num=${+id}`)
   .then(response => response.json())
+  .then(alertWishProductName(wishId , productName))
   .then(data => {createSingleProduct(id) });
   } else {
-    console.log("post: " +id)
     fetch(`http://localhost:8080/api/wish/post/?num=${+id}`)
   .then(response => response.json())
+  .then(alertWishProductName(wishId , productName))
   .then(data => {createSingleProduct(id) });
   }
 }
 
-function wishCheck(wishId, id) {
+function wishCheck(wishId, id, productName) {
   if (wishId == "0") {
     alert("로그인 후 추가 가능합니다")
     window.location.href = "/login";
   } else {
-    wish(wishId, id)
+    wish(wishId, id, productName)
   }
 }
 
@@ -52,7 +60,7 @@ function createSingleProductHtml(api) {
     <div class="ContainerNameLimitDatePrecentageInvesting">
       <div class="ProductNameWish">
         <h5>제품 설명 : ${api.productName}</h5>
-        <input class="btn btn-outline-dark mt-auto" type=button onclick="wishCheck('${api.wishId}',  '${api.id}')" value="즐겨찾기">
+        <input class="btn btn-outline-dark mt-auto" type=button onclick="wishCheck('${api.wishId}',  '${api.id}', '${api.productName}')" value="즐겨찾기">
       </div>
       <div class="ProductLimitDate">
        <h5>투자 마감일 : ${api.period}</h5>

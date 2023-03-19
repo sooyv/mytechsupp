@@ -95,6 +95,7 @@ public class NoticeService {
         }
     }
 
+
     public NoticeDTO update(NoticeDTO noticeDTO) {
         NoticeEntity noticeEntity = NoticeEntity.toUpdateEntity(noticeDTO);
         noticeRepository.save(noticeEntity);
@@ -118,9 +119,9 @@ public class NoticeService {
         System.out.println("noticeEntities.isLast() = " + noticeEntities.isLast()); // 마지막 페이지 여부
 
         // 목록: noticeid, writer, title, hits,
-        Page<NoticeDTO> boardDTOS = noticeEntities.map(notice -> new NoticeDTO(notice.getNoticeId(),
+        Page<NoticeDTO> noticeDTOS = noticeEntities.map(notice -> new NoticeDTO(notice.getNoticeId(),
                 notice.getNoticeWriter(), notice.getNoticeTitle(), notice.getNoticeHits()));
-        return boardDTOS;
+        return noticeDTOS;
     }
 
 

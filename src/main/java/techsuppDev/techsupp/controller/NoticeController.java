@@ -56,7 +56,7 @@ public class NoticeController {
     @GetMapping("")
     public String serviceMain() {
 
-        return "service/service-main";
+        return "service/service-header";
     }
 
     @GetMapping("/faq")
@@ -69,7 +69,7 @@ public class NoticeController {
     public String faqsave(@ModelAttribute FaqDTO faqDTO) throws IOException {
 
         faqService.save(faqDTO);
-        return "service/service-main";
+        return "service/faq-list";
     }
 
     @GetMapping("/faq-list")
@@ -94,6 +94,7 @@ public class NoticeController {
         return "service/faq-detail";
     }
 
+
     @GetMapping("/save")
     public String saveForm() {
 
@@ -104,7 +105,7 @@ public class NoticeController {
     public String save(@ModelAttribute NoticeDTO noticeDTO) throws IOException {
 
         noticeService.save(noticeDTO);
-        return "service/service-main";
+        return "redirect:/notice/paging"; //templates/service/paging.html
     }
 
     @GetMapping("/list")
@@ -140,8 +141,10 @@ public class NoticeController {
     public String update(@ModelAttribute NoticeDTO noticeDTO, Model model) {
         NoticeDTO notice = noticeService.update(noticeDTO);
         model.addAttribute("notice", notice);
+        System.out.println("&&&&&&&" + noticeDTO.getNoticeId());
         return "service/detail";
-        // return "redirect:/notice/" + noticeDTO.getNoticeId();
+//        return "redirect:/notice/update" + noticeDTO.getNoticeId();
+
     }
 
     @GetMapping("/fileDownload/{noticeId}")
@@ -155,7 +158,7 @@ public class NoticeController {
         //파일 경로
         Path savePath = Paths.get("C:/springboot_img/" + noticeDTO.getStoredFileName());
         //해당 경로에 파일이 없으면
-        if(!savePath.toFile().exists()) {
+        if (!savePath.toFile().exists()) {
             throw new RuntimeException("file not found");
         }
 
@@ -165,21 +168,25 @@ public class NoticeController {
         //파일 복사
         fileCopy(res, savePath);
     }
+
     /**
      * 파일 header 설정
+     *
      * @param res
      * @param noticeDTO
      * @throws UnsupportedEncodingException
      */
     private void setFileHeader(HttpServletResponse res, NoticeDTO noticeDTO) throws UnsupportedEncodingException {
-        res.setHeader("Content-Disposition", "attachment; filename=" +  URLEncoder.encode((String) noticeDTO.getOriginalFileName(), "UTF-8"));
+        res.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode((String) noticeDTO.getOriginalFileName(), "UTF-8"));
         res.setHeader("Content-Transfer-Encoding", "binary");
         res.setHeader("Content-Type", "application/download; utf-8");
         res.setHeader("Pragma", "no-cache;");
         res.setHeader("Expires", "-1;");
     }
+
     /**
      * 파일 복사
+     *
      * @param res
      * @param savePath
      */
@@ -190,15 +197,12 @@ public class NoticeController {
             fis = new FileInputStream(savePath.toFile());
             FileCopyUtils.copy(fis, res.getOutputStream());
             res.getOutputStream().flush();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
-        }
-        finally {
+        } finally {
             try {
                 fis.close();
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -216,7 +220,7 @@ public class NoticeController {
 //        System.out.println("questionPass:" + questionDTO.getQuestionPass() );
 
         questionService.save(questionDTO);
-        return "service/service-main";
+        return "redirect:/notice/question-paging";
     }
 
     @GetMapping("/question-list")
@@ -240,23 +244,25 @@ public class NoticeController {
 //        return "service/question-check";
         return "service/question-detail";
     }
+
     @GetMapping("/question-check/{questionId}")
-    public String questionCheck(@PathVariable Long questionId, Model model){
-        model.addAttribute("questionId",questionId);
+    public String questionCheck(@PathVariable Long questionId, Model model) {
+        model.addAttribute("questionId", questionId);
         return "service/question-check";
 //        return "service/question-detail";
     }
+
     @GetMapping("/question-check/getPass")
     @ResponseBody
     public boolean getPass(@RequestParam("questionId") Long questionId,
-                                    @RequestParam("questionPass") String questionPass, Model model) throws Exception {
+                           @RequestParam("questionPass") String questionPass, Model model) throws Exception {
         QuestionDTO questionDTO = new QuestionDTO();
         questionDTO.setQuestionId(questionId);
         QuestionDTO result = questionService.findById(questionId);
 
         boolean flag = false;
 
-        if(result.getQuestionPass().equals(questionPass)){
+        if (result.getQuestionPass().equals(questionPass)) {
             flag = true;
         }
         return flag;
@@ -289,7 +295,7 @@ public class NoticeController {
         //파일 경로
         Path savePath = Paths.get("C:/springboot_img/" + questionDTO.getStoredFileName());
         //해당 경로에 파일이 없으면
-        if(!savePath.toFile().exists()) {
+        if (!savePath.toFile().exists()) {
             throw new RuntimeException("file not found");
         }
 
@@ -302,12 +308,13 @@ public class NoticeController {
 
     /**
      * 파일 header 설정
+     *
      * @param res
      * @param questionDTO
      * @throws UnsupportedEncodingException
      */
     private void setFileHeader(HttpServletResponse res, QuestionDTO questionDTO) throws UnsupportedEncodingException {
-        res.setHeader("Content-Disposition", "attachment; filename=" +  URLEncoder.encode((String) questionDTO.getOriginalFileName(), "UTF-8"));
+        res.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode((String) questionDTO.getOriginalFileName(), "UTF-8"));
         res.setHeader("Content-Transfer-Encoding", "binary");
         res.setHeader("Content-Type", "application/download; utf-8");
         res.setHeader("Pragma", "no-cache;");
@@ -316,6 +323,7 @@ public class NoticeController {
 
     /**
      * 파일 복사
+     *
      * @param res
      * @param savePath
      */
@@ -326,15 +334,12 @@ public class NoticeController {
             fis = new FileInputStream(savePath.toFile());
             FileCopyUtils.copy(fis, res.getOutputStream());
             res.getOutputStream().flush();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
-        }
-        finally {
+        } finally {
             try {
                 fis.close();
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
@@ -348,7 +353,7 @@ public class NoticeController {
         Page<NoticeDTO> noticeList = noticeService.paging(pageable);
 
         int blockLimit = 5;
-        int startPage = (((int)(Math.ceil((double)pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1; // 1 4 7 10 ~~
+        int startPage = (((int) (Math.ceil((double) pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1; // 1 4 7 10 ~~
         int endPage = ((startPage + blockLimit - 1) < noticeList.getTotalPages()) ? startPage + blockLimit - 1 : noticeList.getTotalPages();
 
         // page 갯수 20개
@@ -372,7 +377,7 @@ public class NoticeController {
         Page<QuestionDTO> questionList = questionService.paging(pageable);
 
         int blockLimit = 5;
-        int startPage = (((int)(Math.ceil((double)pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1; // 1 4 7 10 ~~
+        int startPage = (((int) (Math.ceil((double) pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1; // 1 4 7 10 ~~
         int endPage = ((startPage + blockLimit - 1) < questionList.getTotalPages()) ? startPage + blockLimit - 1 : questionList.getTotalPages();
 
         // page 갯수 20개

@@ -6,27 +6,29 @@
 <head>
     <meta charset="UTF-8">
     <title>question-check</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-<!--    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>-->
-<!--    <script src="/script/service/checkPass.js" type="text/javascript"></script>-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <!--    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>-->
+    <!--    <script src="/script/service/checkPass.js" type="text/javascript"></script>-->
 </head>
 <body>
 <div th:insert="/header :: header"></div>
+<div th:insert="/service/service-header :: service-header"></div>
 <div layout:fragment="content">
     <div>
-<!--        <form name="question-check-form" action="/notice/question-check" autocomplete="off" method="post">-->
-            <div>
-                <input type="hidden" name="questionId" th:value="${questionId}">
-                <br />
-                글을 작성할 때 입력했던 비밀번호를 적어주세요
-                <input type="password" id="questionPass" name="questionPass" maxlength='6'  value="" placeholder="비밀번호">
-                <input type="button" class="btn btn-outline-primary mr-7"onclick="checkPass()" value="비밀번호 확인">
-                <br />
-<!--                <input type="submit" id="submitBtn"  class="btn btn-outline-primary mr-2" value="삭제" disabled>-->
-<!--                <a th:href="@{'/board/detail?idx='+${idx}}"><input type="button" class="btn btn-outline-primary mr-2" value="취소"></input></a>-->
-                <a href="/notice/question-list"><input type="button" class="btn btn-outline-primary mr-2" value="취소"></a>
-            </div>
-<!--        </form>-->
+        <!--        <form name="question-check-form" action="/notice/question-check" autocomplete="off" method="post">-->
+        <div>
+            <input type="hidden" name="questionId" th:value="${questionId}">
+            <br/>
+            글을 작성할 때 입력했던 비밀번호를 적어주세요
+            <input type="password" id="questionPass" name="questionPass" maxlength='6' value="" placeholder="비밀번호">
+            <input type="button" class="btn btn-outline-primary mr-7" onclick="checkPass()" value="비밀번호 확인">
+            <br/>
+            <!--                <input type="submit" id="submitBtn"  class="btn btn-outline-primary mr-2" value="삭제" disabled>-->
+            <!--                <a th:href="@{'/board/detail?idx='+${idx}}"><input type="button" class="btn btn-outline-primary mr-2" value="취소"></input></a>-->
+            <a href="/notice/question-paging"><input type="button" class="btn btn-outline-primary mr-2" value="취소"></a>
+        </div>
+        <!--        </form>-->
     </div>
 </div>
 
@@ -34,6 +36,6 @@
 <th:block layout:fragment="script">
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="/script/service/checkPass.js" type="text/javascript"></script>
-<!--    <script th:src="@{/js/delete.js}" type="text/javascript"></script>-->
+    <!--    <script th:src="@{/js/delete.js}" type="text/javascript"></script>-->
 </th:block>
 </html>

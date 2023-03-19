@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <script th:src="@{/script/header.js}"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
 <body>
 <div th:fragment="header">
@@ -10,7 +11,7 @@
       <ul class="nav me-auto">
         <li class="nav-item"><a th:href="@{/introduce/service}" class="nav-link link-dark px-2">서비스 소개</a></li>
         <li class="nav-item"><a th:href="@{/productMain/product?page=0&order=0}" class="nav-link link-dark px-2">펀딩</a></li>
-        <li class="nav-item"><a th:href="@{/notice}" class="nav-link link-dark px-2">고객센터</a></li>
+        <li class="nav-item"><a th:href="@{/notice/paging}" class="nav-link link-dark px-2">고객센터</a></li>
         <li class="nav-item"><a th:href="@{/feedbackMain/product?page=0&order=0}" class="nav-link link-dark px-2">후기</a></li>
       </ul>
       <ul class="nav">

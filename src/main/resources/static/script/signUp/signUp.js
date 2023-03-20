@@ -200,8 +200,11 @@ $(document).ready(function () {
       error: function (error) {
         if (error.responseText == "password") {
             alert("비밀번호 확인을 체크해주세요.");
-        } else if (error.responseText == "authNum") {
+        }
+        if (error.responseText == "authNum") {
             alert("인증번호를 확인해주세요.");
+        } else if (error.responseText == "codeNull") {
+            alert("세션이 만료되었습니다. 처음부터 다시 시도해주세요.");
         }
 
         $("#signUpBtn").addClass('shake');

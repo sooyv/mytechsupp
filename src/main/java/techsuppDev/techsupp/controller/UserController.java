@@ -2,28 +2,20 @@ package techsuppDev.techsupp.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.servlet.ModelAndView;
 import techsuppDev.techsupp.config.UserDetailsimpl;
-import techsuppDev.techsupp.controller.form.UserForm;
 import techsuppDev.techsupp.domain.User;
 import techsuppDev.techsupp.service.MailService;
 import techsuppDev.techsupp.service.UserService;
 
 import javax.servlet.http.*;
-import javax.validation.Valid;
 import java.io.*;
 import java.math.BigInteger;
-import java.net.BindException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -54,7 +46,6 @@ public class UserController {
 
         } else {                  // 세션이 없으면 로그인 페이지 접근 가능
             ModelAndView mav = new ModelAndView("/login/login");
-            mav.addObject("userForm",new UserForm());
             return mav;
         }
     }
@@ -92,15 +83,11 @@ public class UserController {
            return new ResponseEntity<>("password", HttpStatus.BAD_REQUEST);
        }
 
-       if (!authNum.equals(code)) {
+       if (code == null) {
+           return new ResponseEntity<>("codeNull", HttpStatus.BAD_REQUEST);
+       } else if (!authNum.equals(code)) {
            return new ResponseEntity<>("authNum", HttpStatus.BAD_REQUEST);
        }
-
-        System.out.println(userName);
-        System.out.println(email);
-        System.out.println(password);
-        System.out.println(checkPassword);
-        System.out.println(userPhone);
 
         User user = new User();
         user.setUserName(userName);
@@ -112,8 +99,6 @@ public class UserController {
 
         userService.join(user);
 
-//        ModelAndView mav = new ModelAndView("redirect:/");
-//        return mav;
         return new ResponseEntity<>("Successfully Registered", HttpStatus.OK);
     }
 

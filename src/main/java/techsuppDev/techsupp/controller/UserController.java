@@ -88,8 +88,12 @@ public class UserController {
         HttpSession authSession = request.getSession();
         String code = (String) authSession.getAttribute("authCode");
 
-       if (!password.equals(checkPassword) && !authNum.equals(code)) {
-           return new ResponseEntity<>("Password and Confirm Password do not match", HttpStatus.BAD_REQUEST);
+       if (!password.equals(checkPassword)) {
+           return new ResponseEntity<>("password", HttpStatus.BAD_REQUEST);
+       }
+
+       if (!authNum.equals(code)) {
+           return new ResponseEntity<>("authNum", HttpStatus.BAD_REQUEST);
        }
 
         System.out.println(userName);
@@ -137,25 +141,25 @@ public class UserController {
 
 
     // 이메일 인증번호 확인
-    @PostMapping("/mail/check/auth")
-    public int mailAuthCheck(@RequestParam String emailAuth, HttpServletRequest request) {
-        HttpSession authSession = request.getSession();
-        String code = (String) authSession.getAttribute("authCode");
-
-        System.out.println("입력한 인증번호: " + emailAuth);
-        System.out.println("세션에 저장한 인증번호: " + code);
-
-        if (code != null && code.equals(emailAuth)) {
-            // 인증이 완료되었습니다.
-            return 0;
-        } else if (code == null) {      // 세션이 만료
-            // 세션이 만료되었습니다.
-            return 1;
-        } else {
-            // 인증 번호가 틀렸습니다.
-            return 2;
-        }
-    }
+//    @PostMapping("/mail/check/auth")
+//    public int mailAuthCheck(@RequestParam String emailAuth, HttpServletRequest request) {
+//        HttpSession authSession = request.getSession();
+//        String code = (String) authSession.getAttribute("authCode");
+//
+//        System.out.println("입력한 인증번호: " + emailAuth);
+//        System.out.println("세션에 저장한 인증번호: " + code);
+//
+//        if (code != null && code.equals(emailAuth)) {
+//            // 인증이 완료되었습니다.
+//            return 0;
+//        } else if (code == null) {      // 세션이 만료
+//            // 세션이 만료되었습니다.
+//            return 1;
+//        } else {
+//            // 인증 번호가 틀렸습니다.
+//            return 2;
+//        }
+//    }
 
 
     // 로그인과 로그아웃의 url spring Security에 의해서 관리

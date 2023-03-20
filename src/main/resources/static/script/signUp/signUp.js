@@ -7,7 +7,8 @@ let emailAuthInput = document.getElementById("emailAuthNum");
 let passwordInput = document.getElementById("password");
 let checkPasswordInput = document.getElementById("checkPassword");
 let userPhoneInput = document.getElementById("userPhone");
-let idchk = true;
+let idchk = false;
+let mailchk = false;
 $("#passwordHelp").hide();
 $("#password-same").hide();
 
@@ -22,8 +23,14 @@ $("#emailSend").on("click", function() {
         return;
       }
 
-      if(idchk){
+      if(!idchk){
         alert("이메일을 형식에 맞게 입력해주세요");
+        emailInput.focus();
+        return;
+      }
+
+      if(!mailchk) {
+        alert("이미 존재하는 이메일입니다. 사용하실 수 없습니다.")
         emailInput.focus();
         return;
       }
@@ -49,26 +56,26 @@ $("#emailSend").on("click", function() {
 
 
 // 인증번호 check
-$("#mailCheckNum").on("click", function() {
-    const emailAuth = emailAuthInput.value;
-
-    $.ajax({
-          type: 'POST',
-          url: "/mail/check/auth",
-          data: {
-            emailAuth : emailAuth
-           },
-          success: function(data) {
-                if(data === 0) {
-                    alert("메일 인증이 완료되었습니다.");
-                } else if(data === 1) {
-                    alert("세션이 만료되었습니다. 처음부터 다시 시도해주세요.");
-                } else {
-                    alert("인증번호가 일치하지 않습니다.");
-                }
-          }
-    });
-});
+//$("#mailCheckNum").on("click", function() {
+//    const emailAuth = emailAuthInput.value;
+//
+//    $.ajax({
+//          type: 'POST',
+//          url: "/mail/check/auth",
+//          data: {
+//            emailAuth : emailAuth
+//           },
+//          success: function(data) {
+//                if(data === 0) {
+//                    alert("메일 인증이 완료되었습니다.");
+//                } else if(data === 1) {
+//                    alert("세션이 만료되었습니다. 처음부터 다시 시도해주세요.");
+//                } else {
+//                    alert("인증번호가 일치하지 않습니다.");
+//                }
+//          }
+//    });
+//});
 
 
 var $email = $("#email");
@@ -80,7 +87,7 @@ $("#email").on("keyup", function(event) {
 
     // email 형식 정규화
     if (!emailRegExp.test($email.val())) {
-        idchk = true;
+        idchk = false;
         var emailHelp = document.getElementById("emailHelp");
         emailHelp.innerHTML = "이메일 형식에 맞게 작성해주세요"
         $("#emailHelp").css({
@@ -88,9 +95,8 @@ $("#email").on("keyup", function(event) {
                 "font-weight": "bold",
                 "font-size": "15px"
         })
-
     } else { // 공백아니면 중복체크
-        idchk = false;
+        idchk = true;
         $.ajax({
             type : "POST",                  // http 방식
             url : "/signup/checkid",        // ajax 통신 url
@@ -100,7 +106,8 @@ $("#email").on("keyup", function(event) {
             },
             success : function(data) {
                 if (data === 1) {                // 1이면 이메일 중복
-                    console.log(data)
+                    console.log(data);
+                    mailchk = false;
                     var elements = document.getElementById("emailHelp");
                     elements.innerHTML = "이미 사용중인 이메일입니다"
                     $("#emailHelp").css({
@@ -109,7 +116,8 @@ $("#email").on("keyup", function(event) {
                         "font-size": "15px"
                     })
                 } else if (data === 0) {                // 아니면 중복아님
-                    console.log(data)
+                    console.log(data);
+                    mailchk = true;
                     var emailHelp = document.getElementById("emailHelp");
                     emailHelp.innerHTML = "사용 가능한 이메일입니다"
                     $("#emailHelp").css({
@@ -164,7 +172,6 @@ form.addEventListener("submit", event => {
     return;
   }
 
-  alert(`Sign-up successful!\nUsername: ${userName}\nEmail: ${email}\nPhone: ${userPhone}`);
 
 $(document).ready(function () {
     const userName = $("#userName").val();
@@ -188,13 +195,20 @@ $(document).ready(function () {
       success: function (response) {
         console.log(response);
         window.location.href="/";
+        alert(`Sign-up successful!\nUsername: ${userName}\nEmail: ${email}\nPhone: ${userPhone}`);
       },
       error: function (error) {
+        if (error.responseText == "password") {
+            alert("비밀번호 확인을 체크해주세요.");
+        } else if (error.responseText == "authNum") {
+            alert("인증번호를 확인해주세요.");
+        }
+
         $("#signUpBtn").addClass('shake');
             setTimeout(function() {
                 $("#signUpBtn").removeClass('shake'); // 0.8초 후 shake 클래스 제거
             }, 800);
-        console.log(error);
+        console.log(error.responseText);
       }
     });
   });

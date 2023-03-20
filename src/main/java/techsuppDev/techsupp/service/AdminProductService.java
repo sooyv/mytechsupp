@@ -100,7 +100,12 @@ public class AdminProductService {
 
         Collections.shuffle(randomProducts);
 
-        List<Product> plist = randomProducts.subList(0, 5);
+        List<Product> plist;
+        if (randomProducts.size() < 5) {
+            plist = randomProducts.subList(0, randomProducts.size());
+        } else {
+            plist = randomProducts.subList(0, 5);
+        }
         List<ProductDTO> pDTOList = new ArrayList<ProductDTO>();
 
         for(Product p : plist){

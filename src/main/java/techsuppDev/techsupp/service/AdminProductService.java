@@ -120,7 +120,6 @@ public class AdminProductService {
                 productImgDTOList.add(ProductImgDTO.entityToDto(imageList.get(0)));
             }
 
-//            productImgDTOList.add(ProductImgDTO.entityToDto(imageList.get(0)));
             pDTO.setProductImgDTOList(productImgDTOList);
             pDTOList.add(pDTO);
         }

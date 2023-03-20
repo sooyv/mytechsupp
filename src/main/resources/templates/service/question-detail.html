@@ -7,50 +7,70 @@
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="/style/service/question-detail.css"/>
 </head>
 <body>
-<table>
-    <div th:insert="/header :: header"></div>
-    <div th:insert="/service/service-header :: service-header"></div>
-    <tr>
-        <th>번호</th>
-        <td th:text="${question.questionId}"></td>
-    </tr>
-    <tr>
-        <th>작성자</th>
-        <td th:text="${question.questionWriter}"></td>
-    </tr>
-    <th>비밀번호</th>
-    <td th:text="${question.questionPass}"></td>
-    </tr>
-    <th>분류</th>
-    <td th:text="${question.questionCategory}"></td>
-    </tr>
-    <tr>
-        <th>제목</th>
-        <td th:text="${question.questionTitle}"></td>
-    </tr>
-    <tr>
-        <!--    <th>date</th>-->
-        <!--    <td th:text="${notice.noticeregDate}"></td>-->
-    </tr>
-    <tr>
-        <th>내용</th>
-        <td th:text="${question.questionContents}"></td>
-    </tr>
-    <tr th:if="${question.fileAttached == 1}">
-        <th>첨부파일</th>
-        <td><a th:href="@{/notice/question-list/fileDownload/{questionId}(questionId=${question.questionId})}"
-               th:text="${question.originalFileName}">파일이름1.png</a></td>
-        <!--    <td><img th:src="@{|/upload/${question.storedFileName}|}" alt=""></td>-->
-    </tr>
-</table>
-<!--<button onclick="question-listReq()"><a href="/notice/question-list">문의사항</a></button>-->
-<button onclick="question-pagingReq()"><a href="/notice/question-paging">문의사항</a></button>
-<button onclick="question-updateReq()"><a
-        th:href="@{/notice/question-update/{questionId}(questionId=${question.questionId})}">수정</a></button>
+<div th:insert="/header :: header"></div>
+<div th:insert="/service/service-header :: service-header"></div>
 
+<div class="align-form">
+    <form id="signUpForm" action="/notice/question-detail" method="POST" enctype="multipart/form-data">
+        <div>
+            <div id="userId-box" class="form-group col-md-4">
+                <label for="questionId">번호</label>
+                <input type="text" id="questionId" name="questionId"
+                       th:value="${question.questionId}" readonly>
+            </div>
+            <!-- 작성자 -->
+            <div id="username-box" class="form-group col-md-4">
+                <label for="questionWriter">작성자</label>
+                <input id="questionWriter" class="form-control"
+                       th:value="${question.questionWriter}" readonly>
+            </div>
+            <!--            비밀번호-->
+            <div id="pass-box" class="form-group col-md-4">
+                <label for="questionPass">비밀번호</label>
+                <input id="questionPass" type="password" class="form-control"
+                       th:value="${question.questionPass}" readonly>
+            </div>
+            <!--            분류-->
+            <div id="checkpassword-box" class="form-group col-md-4">
+                <label for="questionCategory">분류</label>
+                <input type="text" id="questionCategory" class="form-control"
+                       th:value="${question.questionCategory}" readonly>
+            </div>
+            <!-- 제목 -->
+            <div id="password-box" class="form-group col-md-4">
+                <label for="questionTitle">제목</label>
+                <input type="text" id="questionTitle" class="form-control"
+                       th:value="${question.questionTitle}" readonly>
+            </div>
+            <!-- 내용 -->
+            <div>
+                <label for="questionContents">내용</label>
+                <textarea id="questionContents" name="questionContents" cols="60" rows="10"
+                          th:text="${question.questionContents}" readonly></textarea>
+            </div>
+            <!-- 첨부파일 -->
+            <div id="phoneNum-box" class="form-group col-md-4">
+                <label for="questionFile">첨부파일</label>
+                <input type="file" id="questionFile" class="form-control"
+                       th:if="${question.fileAttached == 1}">
+                <a th:href="@{/notice/question-list/fileDownload/{questionId}(questionId=${question.questionId})}"
+                   th:value="${question.originalFileName}">파일이름1.png</a>
+            </div>
 
+            <div>
+                <button onclick="question-pagingReq()">
+                    <a href="/notice/question-paging">문의사항</a></button>
+                <button onclick="question-updateReq()">
+                    <a th:href="@{/notice/question-update/{questionId}(questionId=${question.questionId})}">수정</a>
+                </button>
+            </div>
+        </div>
+    </form>
+
+</div>
 댓글 작성 부분
 <div id="comment-write">
     <input type="text" id="commentWriter" placeholder="작성자">
@@ -75,6 +95,73 @@
         </tr>
     </table>
 </div>
+</div>
+
+
+<!--<table>-->
+<!--    <tr>-->
+<!--        <th>번호</th>-->
+<!--        <td th:text="${question.questionId}"></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <th>작성자</th>-->
+<!--        <td th:text="${question.questionWriter}"></td>-->
+<!--    </tr>-->
+<!--    <th>비밀번호</th>-->
+<!--    <td th:text="${question.questionPass}"></td>-->
+<!--    </tr>-->
+<!--    <th>분류</th>-->
+<!--    <td th:text="${question.questionCategory}"></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <th>제목</th>-->
+<!--        <td th:text="${question.questionTitle}"></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        &lt;!&ndash;    <th>date</th>&ndash;&gt;-->
+<!--        &lt;!&ndash;    <td th:text="${notice.noticeregDate}"></td>&ndash;&gt;-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <th>내용</th>-->
+<!--        <td th:text="${question.questionContents}"></td>-->
+<!--    </tr>-->
+<!--    <tr th:if="${question.fileAttached == 1}">-->
+<!--        <th>첨부파일</th>-->
+<!--        <td><a th:href="@{/notice/question-list/fileDownload/{questionId}(questionId=${question.questionId})}"-->
+<!--               th:text="${question.originalFileName}">파일이름1.png</a></td>-->
+<!--        &lt;!&ndash;    <td><img th:src="@{|/upload/${question.storedFileName}|}" alt=""></td>&ndash;&gt;-->
+<!--    </tr>-->
+<!--</table>-->
+<!--<button onclick="question-listReq()"><a href="/notice/question-list">문의사항</a></button>-->
+<!--<button onclick="question-pagingReq()"><a href="/notice/question-paging">문의사항</a></button>-->
+<!--<button onclick="question-updateReq()"><a-->
+<!--        th:href="@{/notice/question-update/{questionId}(questionId=${question.questionId})}">수정</a></button>-->
+
+
+<!--댓글 작성 부분-->
+<!--<div id="comment-write">-->
+<!--    <input type="text" id="commentWriter" placeholder="작성자">-->
+<!--    <input type="text" id="commentContents" placeholder="내용">-->
+<!--    <button id="comment-write-btn" onclick="commentWrite()">댓글작성</button>-->
+<!--</div>-->
+
+<!--댓글 출력 부분-->
+<!--<div id="comment-list">-->
+<!--    <table>-->
+<!--        <tr>-->
+<!--            <th>댓글번호</th>-->
+<!--            <th>작성자</th>-->
+<!--            <th>내용</th>-->
+<!--            &lt;!&ndash;      <th>작성시간</th>&ndash;&gt;-->
+<!--        </tr>-->
+<!--        <tr th:each="comment: ${commentList}">-->
+<!--            <td th:text="${comment.commentId}"></td>-->
+<!--            <td th:text="${comment.commentWriter}"></td>-->
+<!--            <td th:text="${comment.commentContents}"></td>-->
+<!--            &lt;!&ndash;      <td th:text="${comment.commentCreatedTime}"></td>&ndash;&gt;-->
+<!--        </tr>-->
+<!--    </table>-->
+<!--</div>-->
 
 </body>
 <script th:inline="javascript">
@@ -125,6 +212,11 @@
         console.log("목록 요청");
         const id = [[${question.questionId}]];
     }
+
+
+
+
+
 
 
 </script>

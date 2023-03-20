@@ -29,7 +29,8 @@ public class NoticeService {
     private final NoticeFileRepository noticeFileRepository;
     public void save(NoticeDTO noticeDTO) throws IOException {
 
-        if (noticeDTO.getNoticeFile().isEmpty()) {
+        System.out.println("adgsdg:" + noticeDTO);
+        if (noticeDTO.getNoticeFile()==null )  {
             // 첨부 파일 없음.
             NoticeEntity noticeEntity = NoticeEntity.toSaveEntity(noticeDTO);
             noticeRepository.save(noticeEntity);

@@ -21,17 +21,63 @@
         </div>
     </div>
 </div>
-<form action="/notice/update" method="post" name="updateForm">
-    번호: <input type="text" name="noticeId" th:value="${noticeUpdate.noticeId}" readonly>
-    작성자: <input type="text" name="noticeWriter" th:value="${noticeUpdate.noticeWriter}" readonly> <br>
-    제목: <input type="text" name="noticeTitle" th:value="${noticeUpdate.noticeTitle}"> <br>
-    내용: <textarea name="noticeContents" cols="30" rows="10" th:text="${noticeUpdate.noticeContents}"></textarea> <br>
-<!--    첨부파일: <input type="file" name="noticeFile"> <br>-->
-    <input type="hidden" name="noticeHits" th:value="${noticeUpdate.noticeHits}">
-    <input type="submit" value="공지수정">
-    <!--  <input type="button" value="공지수정" onclick="noticeUpdate()">-->
-    <!--  <button><a href="/notice/list">공지수정</a></button>-->
-</form>
+
+<div class="align-form">
+    <form id="signUpForm" action="/notice/update" method="POST" enctype="multipart/form-data">
+        <div>
+            <div id="userid-box" class="form-group col-md-4">
+                <label for="noticeId">번호</label>
+                <input type="text" id="noticeId" name="noticeId" th:value="${noticeUpdate.noticeId}" readonly>
+        </div>
+        <div>
+            <!-- 작성자 -->
+            <div id="username-box" class="form-group col-md-4">
+                <label for="noticeWriter">작성자</label>
+                <input type="text" id="noticeWriter" name="noticeWriter" class="form-control"
+                       th:value="${noticeUpdate.noticeWriter}" readonly>
+            </div>
+            <!-- 제목 -->
+            <div id="password-box" class="form-group col-md-4">
+                <label for="noticeTitle">제목</label>
+                <input type="text" id="noticeTitle" name="noticeTitle" class="form-control"
+                       th:value="${noticeUpdate.noticeTitle}">
+            </div>
+            <!-- 내용 -->
+            <div>
+                <label for="noticeContents">내용</label>
+                <textarea id="noticeContents" name="noticeContents" cols="60" rows="10"
+                          th:text="${noticeUpdate.noticeContents}"></textarea>
+            </div>
+            <!--            <div id="checkpassword-box" class="form-group col-md-4">-->
+            <!--                <label for="checkPassword">내용</label>-->
+            <!--                <input id="checkPassword"  class="내용">-->
+            <!--            </div>-->
+            <!-- 첨부파일 -->
+            <div id="phoneNum-box" class="form-group col-md-4">
+                <label for="noticeFile">첨부파일</label>
+                <input type="file" id="noticeFile" name="noticeFile" class="form-control">
+            </div>
+
+            <div>
+                <input type="submit" value="공지수정">
+<!--                <button><a href="/notice/${notice.noticeId}">공지수정</a></button>-->
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<!--<form action="/notice/update" method="post" name="updateForm">-->
+<!--    번호: <input type="text" name="noticeId" th:value="${noticeUpdate.noticeId}" readonly>-->
+<!--    작성자: <input type="text" name="noticeWriter" th:value="${noticeUpdate.noticeWriter}" readonly> <br>-->
+<!--    제목: <input type="text" name="noticeTitle" th:value="${noticeUpdate.noticeTitle}"> <br>-->
+<!--    내용: <textarea name="noticeContents" cols="30" rows="10" th:text="${noticeUpdate.noticeContents}"></textarea> <br>-->
+<!--&lt;!&ndash;    첨부파일: <input type="file" name="noticeFile"> <br>&ndash;&gt;-->
+<!--    <input type="hidden" name="noticeHits" th:value="${noticeUpdate.noticeHits}">-->
+<!--    <input type="submit" value="공지수정">-->
+<!--    &lt;!&ndash;  <input type="button" value="공지수정" onclick="noticeUpdate()">&ndash;&gt;-->
+<!--      <button><a href="/notice/list">공지수정</a></button>-->
+<!--</form>-->
 <script th:inline="javascript">
 </script>
 </body>

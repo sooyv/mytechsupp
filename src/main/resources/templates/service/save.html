@@ -27,15 +27,58 @@
     </div>
 </div>
 
+<div class="align-form">
+    <form id="signUpForm" action="/notice/save" method="POST" enctype="multipart/form-data">
+<!--        <div>-->
+<!--            <input type="text" name="noticeId">-->
+<!--        </div>-->
+        <div>
+            <!-- 작성자 -->
+            <div id="username-box" class="form-group col-md-4">
+                <label for="noticeWriter">작성자</label>
+                <input type="text" id="noticeWriter" name="noticeWriter" class="form-control" placeholder="관리자">
+            </div>
+            <!-- 제목 -->
+            <div id="password-box" class="form-group col-md-4">
+                <label for="noticeTitle">제목</label>
+                <input id="noticeTitle" name="noticeTitle" class="form-control" placeholder="제목">
+            </div>
+            <!-- 내용 -->
+            <div>
+                <label for="noticeContents">내용</label>
+                <textarea id="noticeContents" name="noticeContents" cols="60" rows="10"></textarea>
+            </div>
+<!--            <div id="usercontents-box" class="form-group col-md-4">-->
+<!--                <label for="noticeContents">내용</label>-->
+<!--&lt;!&ndash;                <input id="noticeContents" name="noticeContents" class="textForm"></input>&ndash;&gt;-->
+<!--                <input type="text" id="noticeContents" name="noticeContents" cols="60" rows="10"></input>-->
+<!--            </div>-->
+            <!--            <div id="checkpassword-box" class="form-group col-md-4">-->
+            <!--                <label for="checkPassword">내용</label>-->
+            <!--                <input id="checkPassword"  class="내용">-->
+            <!--            </div>-->
+            <!-- 첨부파일 -->
+            <div id="phoneNum-box" class="form-group col-md-4">
+                <label for="noticeFile">첨부파일</label>
+                <input type="file" id="noticeFile" name="noticeFile" class="form-control">
+            </div>
 
-<form action="/notice/save" method="post" enctype="multipart/form-data">
-    작성자: <input type="text" name="noticeWriter"> <br>
-    <!--  category: <input type="text" name="noticeCategory"> <br>-->
-    제목: <input type="text" name="noticeTitle"> <br>
-    내용: <textarea name="noticeContents" cols="30" rows="10"></textarea><br>
-    첨부파일: <input type="file" name="noticeFile"> <br>
-    <input type="submit" value="공지작성">
-</form>
+            <div>
+                <input type="submit" value="공지작성">
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<!--<form action="/notice/save" method="post" enctype="multipart/form-data">-->
+<!--    작성자: <input type="text" name="noticeWriter"> <br>-->
+<!--    &lt;!&ndash;  category: <input type="text" name="noticeCategory"> <br>&ndash;&gt;-->
+<!--    제목: <input type="text" name="noticeTitle"> <br>-->
+<!--    내용: <textarea name="noticeContents" cols="30" rows="10"></textarea><br>-->
+<!--    첨부파일: <input type="file" name="noticeFile"> <br>-->
+<!--    <input type="submit" value="공지작성">-->
+<!--</form>-->
 <script src="/script/header.js"></script>
 </body>
 </html>

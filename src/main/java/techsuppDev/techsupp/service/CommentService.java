@@ -26,6 +26,9 @@ public class CommentService {
             QuestionEntity questionEntity = optionalQuestionEntity.get();
             CommentEntity commentEntity = CommentEntity.toSaveEntity(commentDTO, questionEntity);
             return commentRepository.save(commentEntity).getQuestionId();
+
+            // 상태 바뀌는 로직
+
         } else {
             return null;
         }

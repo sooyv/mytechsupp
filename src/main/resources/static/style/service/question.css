@@ -2,3 +2,127 @@ h2 {
     text-align: center;
     margin: 20px;
 }
+
+#signUpForm {
+        display: flex;
+        justify-content: center;
+        width: 500px;
+    }
+
+    .form-group {
+        width: 450px;
+        margin-top: 23px;
+    }
+
+    #emailcheck {
+        display: flex;
+        flex-direction: row;
+    }
+
+    #emailAuth-check {
+        display: flex;
+        flex-direction: row;
+    }
+
+    #email {
+        width: 76%;
+        margin-right: 5px;
+    }
+
+    #emailSend {
+        width: 24%;
+        margin-left: 5px;
+    }
+
+    #emailAuthNum {
+        width: 76%;
+        margin-right: 5px;
+    }
+
+    #mailCheckNum {
+        width: 24%;
+        margin-left: 5px;
+    }
+
+    #techsupp-naverBtn{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin-top: 30px;
+    }
+
+    #signUpBtn{
+        margin: 10px;
+        width: 185px;
+    }
+
+    #naver_id_login {
+        margin: 10px;
+    }
+
+    label {
+        display: flex;
+        justify-content: start;
+        margin-left: 10px;
+    }
+
+    #emailHelp {
+        display: flex;
+        justify-content: start;
+        margin-top: 3px;
+    }
+
+    #password-same {
+        display: flex;
+        justify-content: start;
+        color: #FA3E3E;
+        font-weight: bold;
+        font-size: 15px;
+    }
+
+    #passwordHelp {
+        display: flex;
+        justify-content: start;
+        color: #FA3E3E;
+        font-weight: bold;
+        font-size: 15px;
+    }
+
+    #email-certification {
+        display: flex;
+        justify-content: start;
+
+    }
+
+    .align-form {
+        display: flex;
+        justify-content: center;
+    }
+
+    .shake {
+        animation: shake 0.5s;
+    }
+
+    @keyframes shake {
+        10%, 90% {
+          transform: translate3d(-1px, 0, 0);
+        }
+
+        20%, 80% {
+          transform: translate3d(2px, 0, 0);
+        }
+
+        30%, 50%, 70% {
+          transform: translate3d(-4px, 0, 0);
+        }
+
+        40%, 60% {
+          transform: translate3d(4px, 0, 0);
+        }
+    }
+
+    a {
+
+            text-decoration-line:none
+
+    }

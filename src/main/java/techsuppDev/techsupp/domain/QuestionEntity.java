@@ -91,7 +91,10 @@ public class QuestionEntity {
 //        questionEntity.setQuestionStatus(questionDTO.getQuestionStatus());
 //        questionEntity.setQuestionAnswer(questionDTO.getQuestionAnswer());
         questionEntity.setFileAttached(1);
-
         return questionEntity;
     }
+
+
+
+
 }

@@ -202,6 +202,7 @@ $(document).ready(function () {
             alert("비밀번호 확인을 체크해주세요.");
             checkPasswordInput.focus();
         }
+
         if (error.responseText == "authNum") {
             alert("인증번호를 확인해주세요.");
             emailAuthInput.focus();

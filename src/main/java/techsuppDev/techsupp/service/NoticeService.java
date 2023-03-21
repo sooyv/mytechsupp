@@ -51,7 +51,8 @@ public class NoticeService {
             MultipartFile noticeFile = noticeDTO.getNoticeFile(); // 1.
             String originalFilename = noticeFile.getOriginalFilename(); // 2.
             String storedFileName = System.currentTimeMillis() + "_" + originalFilename; // 3.
-            String savePath = "C:/springboot_img/" + storedFileName; // 4. C:/springboot_img/9802398403948_내사진.jpg
+//            String savePath = "C:/springboot_img/" + storedFileName; // 4. C:/springboot_img/9802398403948_내사진.jpg
+            String savePath = "C:/project file/techsupp/src/main/resources/static/file/service" + storedFileName; // 4. C:/springboot_img/9802398403948_내사진.jpg
 //            String savePath = "/Users/사용자이름/springboot_img/" + storedFileName; // C:/springboot_img/9802398403948_내사진.jpg
             noticeFile.transferTo(new File(savePath)); // 5.
             NoticeEntity noticeEntity = NoticeEntity.toSaveFileEntity(noticeDTO);

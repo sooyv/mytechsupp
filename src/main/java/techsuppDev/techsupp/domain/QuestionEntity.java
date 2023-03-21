@@ -37,6 +37,10 @@ public class QuestionEntity {
     @Column(length = 500)
     private String questionContents;
 
+//    @Enumerated(EnumType.STRING)
+//    @Column
+//    private QuestionStatus questionStatus;
+
 //    @Column
 //    private int questionStatus;
 
@@ -93,6 +97,13 @@ public class QuestionEntity {
         questionEntity.setFileAttached(1);
         return questionEntity;
     }
+
+//    public static QuestionEntity updateStatus(QuestionStatus questionStatus) {
+//        QuestionEntity questionEntity = new QuestionEntity();
+//        questionEntity.setQuestionStatus(QuestionStatus.AnswerCompleted);
+//        return questionEntity;
+//    }
+
 
 
 

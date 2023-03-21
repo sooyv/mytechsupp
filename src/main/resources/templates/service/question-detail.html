@@ -54,10 +54,11 @@
             <!-- 첨부파일 -->
             <div id="phoneNum-box" class="form-group col-md-4">
                 <label for="questionFile">첨부파일</label>
-                <input type="file" id="questionFile" class="form-control"
-                       th:if="${question.fileAttached == 1}">
-                <a th:href="@{/notice/question-list/fileDownload/{questionId}(questionId=${question.questionId})}"
-                   th:value="${question.originalFileName}">파일이름1.png</a>
+                <!--                <input type="file" id="questionFile" class="form-control"-->
+                <!--                       th:if="${question.fileAttached == 1}">-->
+                <a id="questionFile"
+                   th:href="@{/notice/question-list/fileDownload/{questionId}(questionId=${question.questionId})}"
+                   th:text="${question.originalFileName}">파일이름1.png</a>
             </div>
 
             <div>
@@ -68,34 +69,60 @@
                 </button>
             </div>
         </div>
+        <!--        &lt;!&ndash;댓글 작성 부분&ndash;&gt;-->
+        <div id="comment-write">
+            <input type="text" id="commentWriter" placeholder="관리자">
+            <input type="text" id="commentContents" placeholder="내용">
+            <input type="button" id="comment-write-btn" onclick="commentWrite()" value="댓글작성">
+        </div>
+        <!--        &lt;!&ndash;댓글 출력 부분&ndash;&gt;-->
+        <!--                <div id="comment-list">-->
+        <div id="comment-list">
+            <table>
+                <!--                                    <tr>-->
+                <!--                                        <th>번호</th>-->
+                <!--                                        <th>작성자</th>-->
+                <!--                                        <th>내용</th>-->
+                <!--                                    </tr>-->
+                <tr th:each="comment: ${commentList}">
+<!--                    <td th:text="${comment.commentId}"></td>-->
+<!--                    <td th:text="${comment.commentWriter}"></td>-->
+<!--                                                         <a th:text="${comment.commentContents}"></a>-->
+                    <td>
+                        <label>답글</label>
+                        <textarea name="commentContents" cols="40" rows="15"
+                                  th:text="${comment.commentContents}" readonly></textarea>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </form>
 
 </div>
-댓글 작성 부분
-<div id="comment-write">
-    <input type="text" id="commentWriter" placeholder="작성자">
-    <input type="text" id="commentContents" placeholder="내용">
-    <button id="comment-write-btn" onclick="commentWrite()">댓글작성</button>
-</div>
 
-댓글 출력 부분
-<div id="comment-list">
-    <table>
-        <tr>
-            <th>댓글번호</th>
-            <th>작성자</th>
-            <th>내용</th>
-            <!--      <th>작성시간</th>-->
-        </tr>
-        <tr th:each="comment: ${commentList}">
-            <td th:text="${comment.commentId}"></td>
-            <td th:text="${comment.commentWriter}"></td>
-            <td th:text="${comment.commentContents}"></td>
-            <!--      <td th:text="${comment.commentCreatedTime}"></td>-->
-        </tr>
-    </table>
-</div>
-</div>
+<!--댓글 작성 부분-->
+<!--<div id="comment-write">-->
+<!--    <input type="text" id="commentWriter" placeholder="작성자">-->
+<!--    <input type="text" id="commentContents" placeholder="내용">-->
+<!--    <button id="comment-write-btn" onclick="commentWrite()">댓글작성</button>-->
+<!--</div>-->
+<!--&lt;!&ndash;댓글 출력 부분&ndash;&gt;-->
+<!--<div id="comment-list">-->
+<!--    <table>-->
+<!--        <tr>-->
+<!--            <th>댓글번호</th>-->
+<!--            <th>작성자</th>-->
+<!--            <th>내용</th>-->
+<!--            &lt;!&ndash;      <th>작성시간</th>&ndash;&gt;-->
+<!--        </tr>-->
+<!--        <tr th:each="comment: ${commentList}">-->
+<!--            <td th:text="${comment.commentId}"></td>-->
+<!--            <td th:text="${comment.commentWriter}"></td>-->
+<!--            <td th:text="${comment.commentContents}"></td>-->
+<!--            &lt;!&ndash;      <td th:text="${comment.commentCreatedTime}"></td>&ndash;&gt;-->
+<!--        </tr>-->
+<!--    </table>-->
+<!--</div>-->
 
 
 <!--<table>-->
@@ -181,24 +208,10 @@
                "questionId": id
            },
           success: function (res) {
-               console.log("요청성공", res);
-               let output = "<table>";
-               output += "<tr><th>댓글번호</th>";
-               output += "<th>작성자</th>";
-               output += "<th>내용</th>";
-<!--               output += "<th>작성시간</th></tr>";-->
-               for (let i in res) {
-                   output += "<tr>";
-                   output += "<td>" + res[i].commentId + "</td>";
-                   output += "<td>" + res[i].commentWriter + "</td>";
-                   output += "<td>" + res[i].commentContents + "</td>";
-<!--                   output += "<td>" + res[i].commentCreatedTime + "</td>";-->
-                   output += "</tr>";
+               if(res){
+                    location.href="/notice/question-list/"+id;
                }
-               output += "</table>";
-               document.getElementById('comment-list').innerHTML = output;
-               document.getElementById('commentWriter').value = '';
-               document.getElementById('commentContents').value = '';
+
            },
            error: function (err) {
                console.log("요청실패", err);
@@ -212,6 +225,10 @@
         console.log("목록 요청");
         const id = [[${question.questionId}]];
     }
+
+
+
+
 
 
 

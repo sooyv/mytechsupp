@@ -61,7 +61,7 @@ h2 {
     }
 
     label {
-        display: flex;
+        --display: flex;
         justify-content: start;
         margin-left: 10px;
     }
@@ -124,5 +124,11 @@ h2 {
     a {
 
             text-decoration-line:none
+
+    }
+
+    #comment-list {
+
+    flex-direction:row
 
     }

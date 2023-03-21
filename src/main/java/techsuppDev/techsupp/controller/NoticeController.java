@@ -156,7 +156,7 @@ public class NoticeController {
         NoticeDTO noticeDTO = noticeService.findById(noticeId);
 
         //파일 경로
-        Path savePath = Paths.get("C:/springboot_img/" + noticeDTO.getStoredFileName());
+        Path savePath = Paths.get("C:/project file/techsupp/src/main/resources/static/file/service" + noticeDTO.getStoredFileName());
         //해당 경로에 파일이 없으면
         if (!savePath.toFile().exists()) {
             throw new RuntimeException("file not found");
@@ -293,7 +293,7 @@ public class NoticeController {
         QuestionDTO questionDTO = questionService.findById(questionId);
 
         //파일 경로
-        Path savePath = Paths.get("C:/springboot_img/" + questionDTO.getStoredFileName());
+        Path savePath = Paths.get("C:/project file/techsupp/src/main/resources/static/file/service" + questionDTO.getStoredFileName());
         //해당 경로에 파일이 없으면
         if (!savePath.toFile().exists()) {
             throw new RuntimeException("file not found");

@@ -62,9 +62,9 @@
                 <!-- 첨부파일 -->
                 <div id="phoneNum-box" class="form-group col-md-4">
                     <label for="noticeFile">첨부파일</label>
-                    <input id="noticeFile" type="file" class="form-control"
-                           th:if="${notice.fileAttached == 1}">
-                    <a th:href="@{/notice/fileDownload/{noticeId}(noticeId=${notice.noticeId})}"
+<!--                    <input id="noticeFile" type="file" class="form-control"-->
+<!--                           th:if="${notice.fileAttached == 1}">-->
+                    <a id="noticeFile" th:href="@{/notice/fileDownload/{noticeId}(noticeId=${notice.noticeId})}"
                        th:text="${notice.OriginalFileName}">파일이름1.png</a>
                 </div>
 

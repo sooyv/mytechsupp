@@ -3,6 +3,7 @@ package techsuppDev.techsupp.DTO;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 import techsuppDev.techsupp.domain.QuestionEntity;
+//import techsuppDev.techsupp.domain.QuestionStatus;
 
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -26,8 +27,9 @@ public class QuestionDTO {
     private String questionCategory;
     private String questionTitle;
     private String questionContents;
+//    private QuestionStatus questionStatus;
 //    private Date questionDate;
-//    private int questionStatus;
+//    private enum questionStatus;
 //    private String questionAnswer;
 
     private MultipartFile questionFile;

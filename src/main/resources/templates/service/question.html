@@ -27,15 +27,57 @@
         </div>
     </div>
 </div>
-<form action="/notice/question" method="post" enctype="multipart/form-data">
-    작성자: <input type="text" name="questionWriter"> <br>
-    비밀번호: <input type="text" name="questionPass" placeholder="비밀번호는 필수사항입니다"> <br>
-    분류: <input type="text" name="questionCategory"> <br>
-    제목: <input type="text" name="questionTitle"> <br>
-    내용: <textarea name="questionContents" cols="30" rows="10"></textarea><br>
-    첨부파일: <input type="file" name="questionFile"> <br>
-    <input type="submit" value="문의작성">
-</form>
+
+<div class="align-form">
+    <form id="signUpForm" action="/notice/question" method="POST" enctype="multipart/form-data">
+        <div>
+            <!-- 작성자 -->
+            <div id="username-box" class="form-group col-md-4">
+                <label for="questionWriter">작성자</label>
+                <input type="text" id="questionWriter" name="questionWriter" class="form-control">
+            </div>
+            <!--            비밀번호-->
+            <div id="pass-box" class="form-group col-md-4">
+                <label for="questionPass">비밀번호</label>
+                <input id="questionPass" name="questionPass" type="password" class="form-control" placeholder="Password">
+            </div>
+            <!--            분류-->
+            <div id="checkpassword-box" class="form-group col-md-4">
+                <label for="questionCategory">분류</label>
+                <input id="questionCategory" name="questionCategory"  class="분류">
+            </div>
+            <!-- 제목 -->
+            <div id="password-box" class="form-group col-md-4">
+                <label for="questionTitle">제목</label>
+                <input id="questionTitle" name="questionTitle" class="form-control" placeholder="제목">
+            </div>
+            <!-- 내용 -->
+            <div>
+                <label for="questionContents">내용</label>
+                <textarea id="questionContents" name="questionContents" cols="60" rows="10"></textarea>
+            </div>
+            <!-- 첨부파일 -->
+            <div id="phoneNum-box" class="form-group col-md-4">
+                <label for="questionFile">첨부파일</label>
+                <input type="file" id="questionFile" name="questionFile" class="form-control">
+            </div>
+
+            <div>
+                <input type="submit" value="문의작성">
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--<form action="/notice/question" method="post" enctype="multipart/form-data">-->
+<!--    작성자: <input type="text" name="questionWriter"> <br>-->
+<!--    비밀번호: <input type="text" name="questionPass" placeholder="비밀번호는 필수사항입니다"> <br>-->
+<!--    분류: <input type="text" name="questionCategory"> <br>-->
+<!--    제목: <input type="text" name="questionTitle"> <br>-->
+<!--    내용: <textarea name="questionContents" cols="30" rows="10"></textarea><br>-->
+<!--    첨부파일: <input type="file" name="questionFile"> <br>-->
+<!--    <input type="submit" value="문의작성">-->
+<!--</form>-->
 <script src="/script/header.js"></script>
 </body>
 </html>

@@ -41,7 +41,6 @@ public class SecurityConfig {
                 .antMatchers("/admin/**").authenticated()            // /스프링 시큐리티에 의해 로그인이 되면 접근가능
                 .antMatchers("/invest/**").authenticated()
                 .antMatchers("/feedbackSelect/feedback/form/**").authenticated()
-                .antMatchers("/admin/**").authenticated()
 //                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/admin/**").hasRole("ADMIN")          // ROLE_ADMIN 권한 유저 접근가능
                 .anyRequest().permitAll();

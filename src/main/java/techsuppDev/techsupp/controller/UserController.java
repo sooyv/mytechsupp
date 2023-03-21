@@ -2,28 +2,20 @@ package techsuppDev.techsupp.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.servlet.ModelAndView;
 import techsuppDev.techsupp.config.UserDetailsimpl;
-import techsuppDev.techsupp.controller.form.UserForm;
 import techsuppDev.techsupp.domain.User;
 import techsuppDev.techsupp.service.MailService;
 import techsuppDev.techsupp.service.UserService;
 
 import javax.servlet.http.*;
-import javax.validation.Valid;
 import java.io.*;
 import java.math.BigInteger;
-import java.net.BindException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -54,7 +46,6 @@ public class UserController {
 
         } else {                  // 세션이 없으면 로그인 페이지 접근 가능
             ModelAndView mav = new ModelAndView("/login/login");
-            mav.addObject("userForm",new UserForm());
             return mav;
         }
     }
@@ -88,15 +79,15 @@ public class UserController {
         HttpSession authSession = request.getSession();
         String code = (String) authSession.getAttribute("authCode");
 
-       if (!password.equals(checkPassword) && !authNum.equals(code)) {
-           return new ResponseEntity<>("Password and Confirm Password do not match", HttpStatus.BAD_REQUEST);
+       if (!password.equals(checkPassword)) {           // 비밀번호와 비밀번호 확인 일치 체크
+           return new ResponseEntity<>("password", HttpStatus.BAD_REQUEST);
        }
 
-        System.out.println(userName);
-        System.out.println(email);
-        System.out.println(password);
-        System.out.println(checkPassword);
-        System.out.println(userPhone);
+       if (code == null) {                          // 세션이 만료시
+           return new ResponseEntity<>("codeNull", HttpStatus.BAD_REQUEST);
+       } else if (!authNum.equals(code)) {          // 세션의 인증번호와 입력한 인증번호가 다를시
+           return new ResponseEntity<>("authNum", HttpStatus.BAD_REQUEST);
+       }
 
         User user = new User();
         user.setUserName(userName);
@@ -108,8 +99,6 @@ public class UserController {
 
         userService.join(user);
 
-//        ModelAndView mav = new ModelAndView("redirect:/");
-//        return mav;
         return new ResponseEntity<>("Successfully Registered", HttpStatus.OK);
     }
 
@@ -137,25 +126,25 @@ public class UserController {
 
 
     // 이메일 인증번호 확인
-    @PostMapping("/mail/check/auth")
-    public int mailAuthCheck(@RequestParam String emailAuth, HttpServletRequest request) {
-        HttpSession authSession = request.getSession();
-        String code = (String) authSession.getAttribute("authCode");
-
-        System.out.println("입력한 인증번호: " + emailAuth);
-        System.out.println("세션에 저장한 인증번호: " + code);
-
-        if (code != null && code.equals(emailAuth)) {
-            // 인증이 완료되었습니다.
-            return 0;
-        } else if (code == null) {      // 세션이 만료
-            // 세션이 만료되었습니다.
-            return 1;
-        } else {
-            // 인증 번호가 틀렸습니다.
-            return 2;
-        }
-    }
+//    @PostMapping("/mail/check/auth")
+//    public int mailAuthCheck(@RequestParam String emailAuth, HttpServletRequest request) {
+//        HttpSession authSession = request.getSession();
+//        String code = (String) authSession.getAttribute("authCode");
+//
+//        System.out.println("입력한 인증번호: " + emailAuth);
+//        System.out.println("세션에 저장한 인증번호: " + code);
+//
+//        if (code != null && code.equals(emailAuth)) {
+//            // 인증이 완료되었습니다.
+//            return 0;
+//        } else if (code == null) {      // 세션이 만료
+//            // 세션이 만료되었습니다.
+//            return 1;
+//        } else {
+//            // 인증 번호가 틀렸습니다.
+//            return 2;
+//        }
+//    }
 
 
     // 로그인과 로그아웃의 url spring Security에 의해서 관리

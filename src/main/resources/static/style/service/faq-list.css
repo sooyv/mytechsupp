@@ -1,0 +1,25 @@
+.align-form {
+        display: flex;
+        justify-content: center;
+    }
+
+#listForm {
+        display: flex;
+        justify-content: center;
+        width: 930px;
+
+    }
+
+#pagingForm{
+
+        display: flex;
+        justify-content: center;
+
+    }
+
+
+a {
+
+        text-decoration-line:none
+
+}

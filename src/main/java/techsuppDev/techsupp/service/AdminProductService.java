@@ -114,7 +114,11 @@ public class AdminProductService {
 
             List<ProductImgDTO> productImgDTOList = new ArrayList<>();
 
-            productImgDTOList.add(ProductImgDTO.entityToDto(imageList.get(0)));
+            if (imageList.isEmpty()) {
+                return null;
+            } else {
+                productImgDTOList.add(ProductImgDTO.entityToDto(imageList.get(0)));
+            }
             pDTO.setProductImgDTOList(productImgDTOList);
             pDTOList.add(pDTO);
         }

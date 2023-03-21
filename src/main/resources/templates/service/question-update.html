@@ -22,19 +22,73 @@
         </div>
     </div>
 </div>
-<form action="/notice/question-update" method="post" name="questionUpdateForm">
-    noticeId: <input type="text" name="questionId" th:value="${questionUpdate.questionId}" readonly>
-    writer: <input type="text" name="questionWriter" th:value="${questionUpdate.questionWriter}" readonly> <br>
-    pass: <input type="text" name="questionPass" th:value="${questionUpdate.questionPass}" readonly> <br>
-    category: <input type="text" name="questionCategory" th:value="${questionUpdate.questionCategory}" readonly> <br>
-    title: <input type="text" name="questionTitle" th:value="${questionUpdate.questionTitle}"> <br>
-    contents: <textarea name="questionContents" cols="30" rows="10"
-                        th:text="${questionUpdate.questionContents}"></textarea> <br>
-    <!--    <input type="hidden" name="noticeHits" th:value="${noticeUpdate.noticeHits}">-->
-    <input type="submit" value="문의수정">
-    <!--  <input type="button" value="공지수정" onclick="noticeUpdate()">-->
-    <!--  <button><a href="/notice/list">공지수정</a></button>-->
-</form>
+
+<div class="align-form">
+    <form id="signUpForm" action="/notice/question-update" method="POST" enctype="multipart/form-data">
+        <div>
+            <div id="ausername-box" class="form-group col-md-4">
+                <label for="questionId">번호</label>
+                <input type="text" id="questionId" name="questionId" th:value="${questionUpdate.questionId}">
+            </div>
+            <div>
+                <!-- 작성자 -->
+                <div id="username-box" class="form-group col-md-4">
+                    <label for="questionWriter">작성자</label>
+                    <input type="text" id="questionWriter" name="questionWriter" class="form-control"
+                           th:value="${questionUpdate.questionWriter}" readonly>
+                </div>
+                <!--            비밀번호-->
+                <div id="pass-box" class="form-group col-md-4">
+                    <label for="questionPass">비밀번호</label>
+                    <input id="questionPass" name="questionPass" type="password" class="form-control"
+                           th:value="${questionUpdate.questionPass}" readonly>
+                </div>
+                <!--            분류-->
+                <div id="checkpassword-box" class="form-group col-md-4">
+                    <label for="questionCategory">분류</label>
+                    <input type="text" id="questionCategory" name="questionCategory" class="form-control"
+                           th:value="${questionUpdate.questionCategory}">
+                </div>
+                <!-- 제목 -->
+                <div id="password-box" class="form-group col-md-4">
+                    <label for="questionTitle">제목</label>
+                    <input type="text" id="questionTitle" name="questionTitle" class="form-control"
+                           th:value="${questionUpdate.questionTitle}">
+                </div>
+                <!-- 내용 -->
+                <div>
+                    <label for="questionContents">내용</label>
+                    <textarea id="questionContents" name="questionContents" cols="60" rows="10"
+                              th:text="${questionUpdate.questionContents}"></textarea>
+                </div>
+                <!-- 첨부파일 -->
+                <div id="phoneNum-box" class="form-group col-md-4">
+                    <label for="questionFile">첨부파일</label>
+                    <input type="file" id="questionFile" name="questionFile" class="form-control">
+                </div>
+
+                <div>
+                    <input type="submit" value="문의수정">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<!--<form action="/notice/question-update" method="post" name="questionUpdateForm">-->
+<!--    noticeId: <input type="text" name="questionId" th:value="${questionUpdate.questionId}" readonly>-->
+<!--    writer: <input type="text" name="questionWriter" th:value="${questionUpdate.questionWriter}" readonly> <br>-->
+<!--    pass: <input type="text" name="questionPass" th:value="${questionUpdate.questionPass}" readonly> <br>-->
+<!--    category: <input type="text" name="questionCategory" th:value="${questionUpdate.questionCategory}" readonly> <br>-->
+<!--    title: <input type="text" name="questionTitle" th:value="${questionUpdate.questionTitle}"> <br>-->
+<!--    contents: <textarea name="questionContents" cols="30" rows="10"-->
+<!--                        th:text="${questionUpdate.questionContents}"></textarea> <br>-->
+<!--    &lt;!&ndash;    <input type="hidden" name="noticeHits" th:value="${noticeUpdate.noticeHits}">&ndash;&gt;-->
+<!--    <input type="submit" value="문의수정">-->
+<!--    &lt;!&ndash;  <input type="button" value="공지수정" onclick="noticeUpdate()">&ndash;&gt;-->
+<!--    &lt;!&ndash;  <button><a href="/notice/list">공지수정</a></button>&ndash;&gt;-->
+<!--</form>-->
 <script th:inline="javascript">
 </script>
 </body>

@@ -203,6 +203,11 @@ $(document).ready(function () {
             checkPasswordInput.focus();
         }
 
+        if (error.responseText == "passwordRegExp") {
+            alert("비밀번호는 영문, 숫자, 특수문자를 포함하여 최소 8자 이상이어야합니다.");
+            passwordInput.focus();
+        }
+
         if (error.responseText == "authNum") {
             alert("인증번호를 확인해주세요.");
             emailAuthInput.focus();

@@ -31,6 +31,7 @@ public class UserController {
 
     private final UserService userService;
     private final MailService mailService;
+    private static final String pwRegExp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,}$";
 
 
     // 로그인 창
@@ -81,6 +82,11 @@ public class UserController {
 
        if (!password.equals(checkPassword)) {
            return new ResponseEntity<>("password", HttpStatus.BAD_REQUEST);
+       }
+
+       // 정규식 검사
+       if (!password.matches(pwRegExp)) {
+           return new ResponseEntity<>(("passwordRegExp"), HttpStatus.BAD_REQUEST);
        }
 
        if (code == null) {

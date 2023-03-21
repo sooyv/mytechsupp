@@ -8,11 +8,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import techsuppDev.techsupp.DTO.CommentDTO;
 import techsuppDev.techsupp.DTO.NoticeDTO;
 import techsuppDev.techsupp.DTO.QuestionDTO;
-import techsuppDev.techsupp.domain.NoticeEntity;
-import techsuppDev.techsupp.domain.QuestionEntity;
-import techsuppDev.techsupp.domain.QuestionFileEntity;
+import techsuppDev.techsupp.domain.*;
 import techsuppDev.techsupp.repository.NoticeRepository;
 import techsuppDev.techsupp.repository.QuestionFileRepository;
 import techsuppDev.techsupp.repository.QuestionRepository;
@@ -52,7 +51,7 @@ public class QuestionService {
             MultipartFile questionFile = questionDTO.getQuestionFile(); // 1.
             String originalFilename = questionFile.getOriginalFilename(); // 2.
             String storedFileName = System.currentTimeMillis() + "_" + originalFilename; // 3.
-            String savePath = "C:/springboot_img/" + storedFileName; // C:/springboot_img/12987489712_내사진 notice랑 충돌확인
+            String savePath = "C:/project file/techsupp/src/main/resources/static/file/service" + storedFileName; // C:/springboot_img/12987489712_내사진 notice랑 충돌확인
             questionFile.transferTo(new File(savePath)); // 5.
             QuestionEntity questionEntity = QuestionEntity.toSaveFileEntity(questionDTO);
             Long savedQuestionId = questionRepository.save(questionEntity).getQuestionId();
@@ -98,7 +97,7 @@ public class QuestionService {
     public Page<QuestionDTO> paging(Pageable pageable) {
         int page = pageable.getPageNumber() - 1;
         int pageLimit = 10; // 한 페이지에 보여줄 글 갯수
-        // 힌페이지당 3개씩 글을 보여주고 정렬 기준은 noticeId 기준으로 내림차순 정렬
+        // 힌페이지당 3개씩 글을 보여주고 정렬 기준은 questionId 기준으로 내림차순 정렬
         // page 위치에 있는 값은 0 부터 시작
         Page<QuestionEntity> questionEntities =
                 questionRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "questionId")));
@@ -115,5 +114,9 @@ public class QuestionService {
                 question.getQuestionWriter(), question.getQuestionTitle()));
         return questionDTOS;
     }
+
+//    public void updateStatus(QuestionDTO questionDTO){
+//        QuestionEntity questionStatus = QuestionEntity.updateStatus();
+//    }
 
 }

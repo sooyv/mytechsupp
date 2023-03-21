@@ -61,7 +61,7 @@ h2 {
     }
 
     label {
-        display: flex;
+        --display: flex;
         justify-content: start;
         margin-left: 10px;
     }
@@ -102,6 +102,7 @@ h2 {
     .shake {
         animation: shake 0.5s;
     }
+
 
     @keyframes shake {
         10%, 90% {

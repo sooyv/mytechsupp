@@ -26,7 +26,7 @@ public class MailService {
         Random rnd = new Random();
 
         for (int i = 0; i < 8; i++) { // 인증코드 8자리
-            int index = rnd.nextInt(3); // 0~2 까지 랜덤
+            int index = rnd.nextInt(4); // 0~2 까지 랜덤
 
             switch (index) {
                 case 0:
@@ -40,6 +40,10 @@ public class MailService {
                 case 2:
                     key.append((rnd.nextInt(10)));
                     // 0~9
+                    break;
+                case 3:
+                    key.append((char) ((int) (rnd.nextInt(15)) + 33));
+                    // 특수문자
                     break;
             }
         }

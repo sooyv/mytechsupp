@@ -59,4 +59,6 @@ public class Product extends BaseEntity{
     private int clickCount;
 
 
+
+
 }

@@ -79,13 +79,13 @@ public class UserController {
         HttpSession authSession = request.getSession();
         String code = (String) authSession.getAttribute("authCode");
 
-       if (!password.equals(checkPassword)) {
+       if (!password.equals(checkPassword)) {           // 비밀번호와 비밀번호 확인 일치 체크
            return new ResponseEntity<>("password", HttpStatus.BAD_REQUEST);
        }
 
-       if (code == null) {
+       if (code == null) {                          // 세션이 만료시
            return new ResponseEntity<>("codeNull", HttpStatus.BAD_REQUEST);
-       } else if (!authNum.equals(code)) {
+       } else if (!authNum.equals(code)) {          // 세션의 인증번호와 입력한 인증번호가 다를시
            return new ResponseEntity<>("authNum", HttpStatus.BAD_REQUEST);
        }
 

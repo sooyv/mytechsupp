@@ -6,6 +6,11 @@
 // console.log에 나오는 값을 직접 db에 넣어주셔야합니다.
 
 
+//  test product 생성은 페이지에서 생성 가능
+//  productMain/createtest
+// url로 요청을 하면 intellij 콘솔 창에 string 값이 출력 됩니다 
+// 
+
 
 
 
@@ -15,6 +20,7 @@
 // 
 // 
 
+// create test payment
 
 function createPayment(a, b) {
   // detail addresss

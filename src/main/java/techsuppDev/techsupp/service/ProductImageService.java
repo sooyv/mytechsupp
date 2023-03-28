@@ -26,7 +26,10 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ProductImageService {
 
-    private String imgLocation = "/Users/rladn/IdeaProjects/techsupp/src/main/resources/static/file/product";
+//    private String imgLocation = "/Users/rladn/IdeaProjects/techsupp/src/main/resources/static/file/product";
+    @Value("${imgLocation}")
+    String imgLocation;
+
     private final ProductImageRepository productImageRepository;
 
     public String uploadFile(String uploadPath, String originalFileName, byte[] fileData) throws Exception {

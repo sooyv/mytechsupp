@@ -359,7 +359,7 @@ public ResponseEntity wishDelete( HttpServletRequest req) {
 
         MultipartFile files = req.getFile("image");
 
-        String downPath = "/Users/mk/Desktop/team project/techsupp/src/main/resources/static/file/feedback";
+        String downPath = "/Users/leesoyoung/Desktop/Funding/techsupp/mytechsupp/src/main/resources/static/file/feedback";
 
         File fileDir = new File(downPath);
 

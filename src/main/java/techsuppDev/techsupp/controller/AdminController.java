@@ -92,7 +92,7 @@ public class AdminController {
         ProductDTO productDTO = adminProductService.getProductDetail(id);
 
         if (productDTO.getProductImgDTOList().size() != 0) {
-            Path currentPath = Paths.get("C:/Users/rladn/IdeaProjects/techsupp/src/main/resources/static/file/product/"
+            Path currentPath = Paths.get("/Users/leesoyoung/Desktop/Funding/techsupp/mytechsupp/src/main/resources/static/file/product/"
                     + productDTO.getProductImgDTOList().get(0).getOriginImgName());
             Files.delete(currentPath);
             Long imgId = productDTO.getProductImgDTOList().get(0).getId();

@@ -112,6 +112,7 @@ public class UserController {
     // 이메일 인증
     @PostMapping("/signup/mailcheck")
     @ResponseBody
+//    public ResponseEntity<String> mailCheck(@RequestParam String email, HttpSession session) throws Exception {
     public ResponseEntity<String> mailCheck(@RequestParam String email, HttpSession session) throws Exception {
         System.out.println("이메일 인증요청");
         System.out.println("인증 이메일: " + email);

@@ -18,8 +18,6 @@ public class MailService {
     @Autowired
     JavaMailSender javaMailSender;
 
-
-
     // 랜덤 인증 코드
     public String createKey() {
         StringBuffer key = new StringBuffer();
@@ -78,10 +76,12 @@ public class MailService {
         String code = createKey();
         //메일전송에 필요한 정보 설정
         MimeMessage emailMsg = createMailMessage(email, code);
+        System.out.println("MailService emailMsg1 : " + emailMsg);
 
         try {
             // 메일 전송
             javaMailSender.send(emailMsg);
+            System.out.println("MailService emailMsg1 : " + emailMsg);
         } catch (MailException mailException) {
             mailException.printStackTrace();
             throw new IllegalStateException();

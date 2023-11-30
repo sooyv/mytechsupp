@@ -109,11 +109,12 @@ public class MyPageController {
     public String editUser(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
 
-        if(session.getAttribute("checkPasswordOk") ==null){
+        if(session.getAttribute("checkPasswordOk") == null){
             return "redirect:/user/mypage";
         }
         String myEmail = (String) session.getAttribute("userEmail");
         User user = myPageService.getUserEmail(myEmail);
+
         model.addAttribute("userinfo", user);
         return "mypage/editUser";
     }
@@ -143,7 +144,7 @@ public class MyPageController {
     @GetMapping("/editpassword")
     public String editPassword(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
-        if(session.getAttribute("checkPasswordOk") ==null){
+        if(session.getAttribute("checkPasswordOk") == null){
             return  "redirect:/user/mypage";
         }
         String myEmail = (String) session.getAttribute("userEmail");
@@ -154,7 +155,6 @@ public class MyPageController {
 
     @PostMapping("/editpassword")
     public String changePassword(String password, HttpServletRequest request) {
-        System.out.println("test2414123"+password);
         HttpSession session = request.getSession();
         String myEmail = (String) session.getAttribute("userEmail");
         User user = myPageService.getUserEmail(myEmail);

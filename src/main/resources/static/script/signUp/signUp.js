@@ -17,24 +17,23 @@ $("#password-same").hide();
 $("#emailSend").on("click", function() {
 //       console.log(idchk);
 //       console.log(emailInput.value=="");
-      if(emailInput.value == ""){
+      if(emailInput.value == "") {
         alert("이메일을 입력하세요");
         emailInput.focus();
         return;
       }
 
-      if(!idchk){
+      if(!idchk) {
         alert("이메일을 형식에 맞게 입력해주세요");
         emailInput.focus();
         return;
       }
 
       if(!mailchk) {
-        alert("이미 존재하는 이메일입니다. 사용하실 수 없습니다.")
+        alert("이미 존재하는 이메일입니다. 사용하실 수 없습니다.");
         emailInput.focus();
         return;
       }
-
 
       const email = emailInput.value;
         $.ajax({
@@ -180,7 +179,7 @@ $(document).ready(function () {
     const password = $("#password").val();
     const checkPassword = $("#checkPassword").val();
     const userPhone = $("#userPhone").val();
-    console.log("ajax 직전");
+    // console.log("ajax 직전");
     $.ajax({
       type: 'POST',
       url: "/member/signup",
@@ -194,7 +193,7 @@ $(document).ready(function () {
         },
       success: function (response) {
         console.log(response);
-        window.location.href="/";
+        window.location.href="/login";
         alert(`Sign-up successful!\nUsername: ${userName}\nEmail: ${email}\nPhone: ${userPhone}`);
       },
       error: function (error) {

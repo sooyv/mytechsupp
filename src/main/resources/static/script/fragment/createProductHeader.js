@@ -26,7 +26,7 @@ function createProductHeaderHtml(api) {
         </a>
       </div>
       <div class="SearchbyKeyword">
-          <form class="col-12 col-lg-auto mb-3 mb-lg-0" action="http://localhost:8080/productMain/product?" method="get">
+          <form class="col-12 col-lg-auto mb-3 mb-lg-0" action="/productMain/product?" method="get">
             <input type="hidden" name="page" value="0">
             <input type="hidden" name="order" value="0">
             <input type="text submit" class="form-control" placeholder="Search..." name="keyword">
@@ -57,7 +57,7 @@ function createProductHeaderHtml(api) {
           </a>
         </div>
         <div class="SearchbyKeyword">
-          <form class="col-12 col-lg-auto mb-3 mb-lg-0" action="http://localhost:8080/productMain/product?" method="get">
+          <form class="col-12 col-lg-auto mb-3 mb-lg-0" action="/productMain/product?" method="get">
             <input type="hidden" name="page" value="0">
             <input type="hidden" name="order" value="0">
             <input type="text submit" class="form-control" placeholder="Search..." name="keyword">
@@ -90,7 +90,7 @@ function createProductHeaderHtml(api) {
         </a>
       </div>
       <div class="SearchbyKeyword">
-        <form action="http://localhost:8080/feedbackMain/product?" method="get">
+        <form action="/feedbackMain/product?" method="get">
           <input type="hidden" name="page" value="0">
           <input type="hidden" name="order" value="0">
           <input type="text submit" class="ProductSearch" placeholder="Search..." name="keyword">
@@ -121,7 +121,7 @@ function createProductHeaderHtml(api) {
           </a>
         </div>
         <div class="SearchbyKeyword">
-          <form action="http://localhost:8080/feedbackMain/product?" method="get">
+          <form action="/feedbackMain/product?" method="get">
             <input type="hidden" name="page" value="0">
             <input type="hidden" name="order" value="0">
             <input type="text submit" class="ProductSearch" placeholder="Search..." name="keyword">

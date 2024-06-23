@@ -77,12 +77,12 @@ $("#emailSend").on("click", function() {
 //});
 
 
-var $email = $("#email");
+let $email = $("#email");
 // 아이디 정규식
 $("#email").on("keyup", function(event) {
     console.log("Email keyup 발생");
 
-    var emailRegExp = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]+$/;
+    const emailRegExp = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]+$/;
 
     // email 형식 정규화
     if (!emailRegExp.test($email.val())) {

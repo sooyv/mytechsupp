@@ -106,7 +106,7 @@
   background-color: #f5f5f5
 }
 
-#sidebar_box {
+#mypage_side_box {
   padding-right: 134px;
       width: auto;
       height: 800px;
@@ -144,7 +144,7 @@
     max-width: 500px;
   }
 
-  #sidebar_box {
+  #mypage_side_box {
     width: 90%;
     max-width: 500px;
     padding-left: 0;

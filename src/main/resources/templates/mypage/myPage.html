@@ -1,60 +1,52 @@
 <!DOCTYPE html>
 <!--<html lang="en">-->
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<html xmlns="http://www.w3.org/1999/xhtml"> </html>
+<!--<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">-->
+<!--<html xmlns="http://www.w3.org/1999/xhtml"> </html>-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>TECHSUPP </title>
-  <th:block th:replace="/head_css :: head_css"></th:block>
+  <div th:replace="/head_css :: head_css"></div>
   <link href="/style/mypage/myPage.css" rel="stylesheet">
-
 </head>
 <body>
-<!--공통되는 header-->
-<div th:insert="/header :: header"></div>
-
-<div class="text-center">
-
-  <div id = "sidebar_box">
-    <!--        <div id="mypage_btn">마이페이지</div>-->
-    <div class="btn_box" type="button" onclick="goMyPage()">마이페이지</div>
-    <div class="btn_box" type="button" onclick="location.href='/user/myfavorite'">즐겨찾기</div>
-    <!--        <div class="btn_box" th:onclick="location.href=/user/myinvest">투자목록</div>-->
-    <div class="btn_box" type="button" onclick="goMyCheckPassword()">회원정보수정</div>
-    <div class="btn_box" type="button" onclick="goMyCheckPassword1()">비밀번호변경</div>
-  </div>
-  <!--        th:value="${userInfo.userEmail} 세션값 가져올 때 -->
-
-
-
-  <div class="align-form">
-    <h4 class="mb-3">회원정보</h4>
-    <form action="mypage"  method="post">
-
-      <div class="mypage_box">
-        <div id="email-box" class="form-group col-md-4" name="myPageForm">
-          <label for="email">이메일</label>
-          <div id="emailcheck">
+  <!--공통되는 header-->
+  <div th:insert="/header :: header"></div>
+  <div class="mypage-container">
+    <!-- 사이드 메뉴 -->
+    <ul id = "mypage_side_box">
+      <li class="btn_box" type="button" onclick="goMyPage()">마이페이지</li>
+      <li class="btn_box" type="button" onclick="location.href='/user/myfavorite'">즐겨찾기</li>
+      <!--        <div class="btn_box" th:onclick="location.href=/user/myinvest">투자목록</div>-->
+      <li class="btn_box" type="button" onclick="goMyCheckPassword()">회원정보수정</li>
+      <li class="btn_box" type="button" onclick="goMyCheckPassword1()">비밀번호변경</li>
+    </ul>
+    <!-- 사이드 메뉴 끝 -->
+    <!-- 회원정보 -->
+    <div class="align-form">
+      <form id="member-info-form" action="mypage"  method="post">
+        <h4>회원정보</h4>
+        <div class="mypage_box">
+          <div id="email-box" class="form-group col-md-4" name="myPageForm">
+            <label for="email">이메일</label>
             <input type="email" name="userEmail" id="email" class="form-control" aria-describedby="emailHelp" placeholder="email@example.com" th:value="${userinfo.userEmail}" readonly>
           </div>
-          <small id="emailHelp" class="form-text text-muted"></small>
-        </div>
-        <!-- 이름 -->
-        <div id="name-box" class="form-group col-md-4">
-          <label for="userName">이름</label>
-          <input type="name" id="userName" name="userName" th:value="${userinfo.userName}"  class="form-control"  placeholder="" readonly>
-        </div>
-        <!-- 전화번호 -->
-        <div id="phoneNum-box" class="form-group col-md-4">
-          <label for="userPhone">전화번호</label>
-          <input type="tel" id="userPhone" name="userPhone" th:value="${userinfo.userPhone}" class="form-control" placeholder="" readonly>
-        </div>
+          <!-- 이름 -->
+          <div id="name-box" class="form-group col-md-4">
+            <label for="userName">이름</label>
+            <input type="name" id="userName" name="userName" th:value="${userinfo.userName}"  class="form-control"  placeholder="" readonly>
+          </div>
+          <!-- 전화번호 -->
+          <div id="phoneNum-box" class="form-group col-md-4">
+            <label for="userPhone">전화번호</label>
+            <input type="tel" id="userPhone" name="userPhone" th:value="${userinfo.userPhone}" class="form-control" placeholder="" readonly>
+          </div>
 
-      </div>
-    </form>
+        </div>
+      </form>
+    </div>
   </div>
-</div>
 
 <script src="/script/mypage/myPage.js"></script>
 </body>

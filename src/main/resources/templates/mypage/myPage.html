@@ -1,27 +1,19 @@
 <!DOCTYPE html>
-<!--<html lang="en">-->
-<!--<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">-->
-<!--<html xmlns="http://www.w3.org/1999/xhtml"> </html>-->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TECHSUPP </title>
+  <title>TECHSUPP</title>
   <div th:replace="/head_css :: head_css"></div>
   <link href="/style/mypage/myPage.css" rel="stylesheet">
+  <link href="/style/mypage/mypage-sideBox.css" rel="stylesheet">
 </head>
 <body>
   <!--공통되는 header-->
   <div th:insert="/header :: header"></div>
   <div class="mypage-container">
     <!-- 사이드 메뉴 -->
-    <ul id = "mypage_side_box">
-      <li class="btn_box" type="button" onclick="goMyPage()">마이페이지</li>
-      <li class="btn_box" type="button" onclick="location.href='/user/myfavorite'">즐겨찾기</li>
-      <!--        <div class="btn_box" th:onclick="location.href=/user/myinvest">투자목록</div>-->
-      <li class="btn_box" type="button" onclick="goMyCheckPassword()">회원정보수정</li>
-      <li class="btn_box" type="button" onclick="goMyCheckPassword1()">비밀번호변경</li>
-    </ul>
+    <div th:replace="/mypage/mypage-sideBox :: mypage-sideBox"></div>
     <!-- 사이드 메뉴 끝 -->
     <!-- 회원정보 -->
     <div class="align-form">

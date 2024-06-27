@@ -1,19 +1,21 @@
 
 function goMyPage() {
-    location.href = "mypage";
+    location.href = "/user/mypage";
 }
 function goMyFavorite() {
-    location.href = "myfavorite";
+    // location.href = "myfavorite";
+    location.href = "/user/myfavorite";
 }
 function goMyPassword() {
-    location.href = "editpassword";
+    // location.href = "editpassword";
+    location.href = "/user/editPassword";
 }
 function goMyCheckPassword() {
-    location.href = "checkPassword";
+    location.href = "/user/checkpassword";
 }
 function goMyEdit() {
-    location.href = "edituser";
+    location.href = "/user/edituser";
 }
 function goMyCheckPassword1() {
-    location.href = "checkPassword1";
+    location.href = "/user/checkPassword1";
 }

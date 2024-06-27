@@ -51,7 +51,7 @@ $(document).ready(function () {
         email: email,
         password: password,
         checkPassword: checkPassword,
-        userPhone : userPhone
+        userPhone : userPhone,
         address : userAddress
         },
       success: function (response) {

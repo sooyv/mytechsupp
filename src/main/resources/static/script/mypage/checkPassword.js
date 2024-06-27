@@ -14,7 +14,7 @@ $('#checkPassword').click(function(e) {
         } else{
             $.ajax({
                 type: 'POST',
-                url: '/user/checkPassword',
+                url: '/user/checkpassword',
                 data: {'checkPassword': checkPassword},
                 datatype: "text"
             }).done(function(result){

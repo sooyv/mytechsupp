@@ -1,26 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<html xmlns="http://www.w3.org/1999/xhtml"> </html>
 <head>
-<!-- 모델로 던저주는 데이터를 받아서 키로 꺼내서 블럭 추가 위치에 타임리프 문법 작성      -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>TECHSUPP </title>
     <th:block th:replace="/head_css :: head_css"></th:block>
     <link th:href="@{/style/mypage/myFavorite.css}" rel="stylesheet">
+    <link href="/style/mypage/mypage-sideBox.css" rel="stylesheet">
 </head>
 <body>
 <div th:insert="/header :: header"></div>
 
 <div id="entire_box">
-    <div id = "mypage_side_box">
-<!--        <div id="mypage_btn">마이페이지</div>-->
-        <div class="btn_box" type="button" onclick="location.href='/user/mypage'">마이페이지</div>
-        <div class="btn_box" type="button" onclick="location.href='/user/myfavorite'">즐겨찾기</div>
-        <!--        <div class="btn_box" th:onclick="location.href=/user/myinvest">투자목록</div>-->
-        <div class="btn_box" type="button" onclick="location.href='/user/checkPassword'">회원정보수정</div>
-        <div class="btn_box" type="button" onclick="location.href='/user/checkPassword1'">비밀번호변경</div>
-    </div>
+    <!-- 사이드 메뉴 -->
+    <div th:replace="/mypage/mypage-sideBox :: mypage-sideBox"></div>
+    <!-- 사이드 메뉴 끝 -->
 
     <div class="myfavorite_container">
         <div class="notice_board">

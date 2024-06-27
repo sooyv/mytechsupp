@@ -1,6 +1,5 @@
 package techsuppDev.techsupp.controller;
 
-
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,24 +26,21 @@ public class MyPageController {
 
     @Autowired
     private final MyPageService myPageService;
-
-
     private final PasswordEncoder passwordEncoder;
     private ProductRepository productRepository;
 
     //  회원수정하기 전 비밀번호 확인
-    @GetMapping("/checkPassword")
+    @GetMapping("/checkpassword")
     public String checkPwdView() {
-
         return "mypage/checkPassword";
     }
 
     // 비밀번호 확인 체크
-    @PostMapping("/checkPassword")
+    @PostMapping("/checkpassword")
     @ResponseBody
     public boolean checkPassword(@RequestParam(name = "checkPassword") String checkPassword, HttpServletRequest request) throws Exception {
 
-        System.out.println("testt1qt "+checkPassword);
+        System.out.println("checkPassword: "+checkPassword);
         boolean result = false;  // 리절트값 초기화
 
         //기존 디비user 조회
@@ -177,7 +173,6 @@ public class MyPageController {
     }
 
     // 즐겨찾기 홈페이지
-
     @GetMapping("/myfavorite")
     public String favorite(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();

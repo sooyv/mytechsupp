@@ -1,65 +1,67 @@
 <!DOCTYPE html>
-<!--<html lang="en">-->
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<html xmlns="http://www.w3.org/1999/xhtml"> </html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TECHSUPP </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TECHSUPP</title>
     <th:block th:replace="/head_css :: head_css"></th:block>
     <link href="/style/mypage/editUser.css" rel="stylesheet">
-  <!--    <script src="../static/js/signUp"></script>-->
+    <link href="/style/mypage/mypage-sideBox.css" rel="stylesheet">
 </head>
 <body>
 <!--공통되는 header-->
 <div th:insert="/header :: header"></div>
-<div class="text-center">
-  <h4 class="mb-3">회원정보수정</h4>
-  <div class="align-form">
-    <form action="edituser"  method="post">
-      <div>
 
-<!--        th:value="${userInfo.userEmail} 세션값 가져올 때 -->
-        <!--이메일 블럭처리-->
-        <div id="email-box" class="form-group col-md-4" name="myPageForm">
-          <label for="email">이메일</label>
-          <div id="emailcheck">
-            <input type="email" name="userEmail" id="email" class="form-control" aria-describedby="emailHelp" placeholder="email@example.com" th:value="${userinfo.userEmail}">
-          </div>
-          <small id="emailHelp" class="form-text text-muted"></small>
+<div class="editUser">
+    <!-- 사이드 메뉴 -->
+    <div th:replace="/mypage/mypage-sideBox :: mypage-sideBox"></div>
+    <!-- 사이드 메뉴 끝 -->
+    <div class="text-center">
+        <div class="align-form">
+            <h4 class="mb-3">회원정보수정</h4>
+            <form action="edituser" method="post">
+                <div>
+                    <!--이메일 블럭처리-->
+                    <div id="email-box" class="form-group col-md-4" name="myPageForm">
+                        <label for="email">이메일</label>
+                        <div id="emailcheck">
+                            <input type="email" name="userEmail" id="email" class="form-control" aria-describedby="emailHelp" placeholder="email@example.com" th:value="${userinfo.userEmail}">
+                        </div>
+                        <small id="emailHelp" class="form-text text-muted"></small>
+                    </div>
+                    <!-- 이름 -->
+                    <div id="name-box" class="form-group col-md-4">
+                        <label for="userName">이름</label>
+                        <input type="name" id="userName" name="userName" th:value="${userinfo.userName}"  class="form-control"  placeholder="">
+                    </div>
+                    <!-- 전화번호 -->
+                    <div id="phoneNum-box" class="form-group col-md-4">
+                        <label for="userPhone">전화번호</label>
+                        <input type="tel" id="userPhone" name="userPhone" th:value="${userinfo.userPhone}" class="form-control" placeholder="">
+                    </div>
+                    <!--수정, 취소-->
+                    <div id="modify-cancel">
+                        <div class="confirm-cancel">
+                            <button type="submit" value="수정" id="form-control"  class="btn btn-info"></a> 수정 </button>
+                        </div>
+
+                        <div class="confirm-cancel">
+                            <button type="button" value="취소" onclick="goMyCheckPassword();" class="btn btn-light"></a> 취소 </button>
+                        </div>
+
+                    </div>
+                    <!--        <div id="modify">-->
+                    <!--          <button type="submit" value="수정" id="form-control" class="btn btn-info"></a>수정</button>-->
+                    <!--        </div>-->
+
+                    <!--        <div id="cancel">-->
+                    <!--          <button type="submit" value="취소" id="signUpCancel" class="btn btn-light"></a>취소</button>-->
+                    <!--        </div>-->
+
+                </div>
+            </form>
         </div>
-        <!-- 이름 -->
-        <div id="name-box" class="form-group col-md-4">
-          <label for="userName">이름</label>
-          <input type="name" id="userName" name="userName" th:value="${userinfo.userName}"  class="form-control"  placeholder="">
-        </div>
-        <!-- 전화번호 -->
-        <div id="phoneNum-box" class="form-group col-md-4">
-          <label for="userPhone">전화번호</label>
-          <input type="tel" id="userPhone" name="userPhone" th:value="${userinfo.userPhone}" class="form-control" placeholder="">
-        </div>
-        <!--수정, 취소-->
-        <div id="modify-cancel">
-          <div id="modify">
-            <button type="submit" value="수정" id="form-control"  class="btn btn-info"></a> 수정 </button>
-          </div>
-
-          <div id="cancel">
-            <button type="button" value="취소" id="signUpCancel" onclick="goMyCheckPassword();" class="btn btn-light"></a> 취소 </button>
-          </div>
-
-        </div>
-<!--        <div id="modify">-->
-<!--          <button type="submit" value="수정" id="form-control" class="btn btn-info"></a>수정</button>-->
-<!--        </div>-->
-
-<!--        <div id="cancel">-->
-<!--          <button type="submit" value="취소" id="signUpCancel" class="btn btn-light"></a>취소</button>-->
-<!--        </div>-->
-
-      </div>
-    </form>
-  </div>
+    </div>
 </div>
 
 <script src="/script/mypage/myPage.js"></script>

@@ -3,12 +3,12 @@ const passwordInput = document.getElementById("password");
 const checkPasswordInput = document.getElementById("checkPassword");
 
 
-function validatePassword(){
-if(passwordInput.value !== checkPasswordInput.value) {
-checkPasswordInput.setCustomValidity("비밀번호가 일치하지 않습니다.");
-} else {
-checkPasswordInput.setCustomValidity('');
-}
+function validatePassword() {
+    if (passwordInput.value !== checkPasswordInput.value) {
+        checkPasswordInput.setCustomValidity("비밀번호가 일치하지 않습니다.");
+    } else {
+        checkPasswordInput.setCustomValidity('');
+    }
 }
 
 passwordInput.onchange = validatePassword;
@@ -21,20 +21,20 @@ const password = passwordInput.value;
 const checkPassword = checkPasswordInput.value;
 
 $(document).ready(function () {
-$.ajax({
-type: 'POST',
-url: "mypage/editPassword",
-data: {
-password: password,
-checkPassword: checkPassword
-},
-success: function (response) {
-console.log(response);
-},
-error: function (error) {
-console.log(error);
-},
-});
+    $.ajax({
+        type: 'POST',
+        url: "mypage/editPassword",
+        data: {
+        password: password,
+        checkPassword: checkPassword
+        },
+        success: function (response) {
+        console.log(response);
+        },
+        error: function (error) {
+        console.log(error);
+        },
+    });
 });
 //});
 

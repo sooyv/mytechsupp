@@ -21,6 +21,8 @@
     /*box-sizing: border-box;*/
     border-bottom: 1px solid #d5d5d5;
     font-size: large;
+    font-family: "IBM Plex Sans KR", sans-serif;
+    font-weight: 200;
 }
 
 .btn_box:hover{

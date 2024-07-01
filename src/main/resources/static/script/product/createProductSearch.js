@@ -12,7 +12,7 @@ function createProductSortSearch() {
     <li><input class="Keyword" type="button" value="date" placeholder=최신 순"></li>
   </ul>
   <div class="SearchbyKeyword">
-    <form action="http://localhost:8080/productMain/product?" method="get">
+    <form action="/productMain/product?" method="get">
       <input type="hidden" name="page" value="0">
       <input type="hidden" name="order" value="0">
       <input type="text submit" class="ProductSearch" placeholder="Search..." name="keyword">

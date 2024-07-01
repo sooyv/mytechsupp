@@ -18,12 +18,12 @@ function alertWishProductName(wishId , productName) {
 
 function wish(wishId, id, productName) {
   if(wishId != 'null') { 
-    fetch(`http://localhost:8080/api/wish/delete/?num=${+id}`)
+    fetch(`/api/wish/delete/?num=${+id}`)
     .then(response => response.json())
     .then(alertWishProductName(wishId , productName))
     .then(data => {linkBackToProductMain() });
   } else {
-    fetch(`http://localhost:8080/api/wish/post/?num=${+id}`)
+    fetch(`/api/wish/post/?num=${+id}`)
     .then(response => response.json())
     .then(alertWishProductName(wishId , productName))
     .then(data => {linkBackToProductMain() });
@@ -64,7 +64,7 @@ async function createProductList(api) {
           productList.innerHTML += `
           <article class="ProductContent">
             <div class="ProductListPicture">
-              <img src="http://localhost:8080${api[i].imgUrl}" style="max-width:80%; min-height:100px;"/>
+              <img src="${api[i].imgUrl}" style="max-width:80%; min-height:100px;"/>
             </div>
             <div class="ProductListInformation">
               <h5 class="ProductName">제품명 :  ${api[i].productName}</h5>

@@ -21,12 +21,12 @@ function alertWishProductName(wishId , productName) {
 
 function wish(wishId , id, productName) {
   if(wishId != 'null') { 
-  fetch(`http://localhost:8080/api/wish/delete/?num=${+id}`)
+  fetch(`/api/wish/delete/?num=${+id}`)
   .then(response => response.json())
   .then(alertWishProductName(wishId , productName))
   .then(data => {createSingleProduct(id) });
   } else {
-    fetch(`http://localhost:8080/api/wish/post/?num=${+id}`)
+    fetch(`/api/wish/post/?num=${+id}`)
   .then(response => response.json())
   .then(alertWishProductName(wishId , productName))
   .then(data => {createSingleProduct(id) });
@@ -47,7 +47,7 @@ function createSingleProductHtml(api) {
   <div class="ContainerPictureInvestmentAmountInformation">
       <div>
         <div class="ProductPicture">
-          <img src="http://localhost:8080${api.imgUrl}" style="max-width:80%; min-height:100px;"/>
+          <img src="${api.imgUrl}" style="max-width:80%; min-height:100px;"/>
         </div>
         <div class="ProductInvestmentAmount">
           <h5> 목표 투자액 :  ₩ ${api.totalPrice}</h5>
@@ -76,7 +76,7 @@ function createSingleProductHtml(api) {
 }
 
 function createSingleProduct(productNumber) {
-  fetch(`http://localhost:8080/api/product/?num=${productNumber}`)
+  fetch(`/api/product/?num=${productNumber}`)
   .then(response => response.json())
   .then(data => createSingleProductHtml(data));
 }

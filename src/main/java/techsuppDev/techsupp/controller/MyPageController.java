@@ -191,7 +191,6 @@ public class MyPageController {
     }
 
 
-
     // myPage 홈페이지
     @GetMapping("/mypage")
     public String myPage(HttpServletRequest request, Model model) {
@@ -206,16 +205,15 @@ public class MyPageController {
     @GetMapping("/myfavorite")
     public String favorite(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
-        System.out.println("tset"+session);
-//        String userEmail = (String)session.getAttribute("userEmail");
-        String userEmail = (String) session.getAttribute("userEmail"); //왜 세션값이 안받아지냐..... 계속
-        System.out.println("testtqerwq"+userEmail); //  테스트 결과 db값을 인젝션하면 조회 가능
+        String userEmail = (String) session.getAttribute("userEmail");
 
         List<WishList> wishList = myPageService.findByUserEmail(userEmail);
         model.addAttribute("wishList", wishList);
         return "mypage/myFavorite";
     }
-    // 투자정보 페이지
+
+
+// 투자정보 페이지
 //
 //    @GetMapping("/myinvest")
 //    public ModelAndView invest(Long paymentId){

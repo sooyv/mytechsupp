@@ -109,27 +109,8 @@ for (let i = 0; i < products.length; i++) {
 
 window.addEventListener("load", loadProducts);
 
-
-
 loadProducts();
 generatePageBlock();
 if (currentPage !== 1) { // currentPage가 1일 때는 쿼리스트링을 추가하지 않음
   history.pushState({}, '', `?page=${currentPage}`);
 }
-
-
-// function goMyPage() {
-//     location.href = "mypage";
-// }
-// function goMyFavorite() {
-//     location.href = "myfavorite";
-// }
-// function goMyPassword() {
-//     location.href = "editpassword";
-// }
-// function goMyCheckPassword() {
-//     location.href = "checkpassword";
-// }
-// function goMyEdit() {
-//     location.href = "edituser";
-// }

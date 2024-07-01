@@ -24,7 +24,7 @@
                     <!--이메일 블럭처리-->
                     <div id="email-box" class="form-group col-md-4" name="myPageForm">
                         <label for="email">이메일</label>
-                        <div id="emailcheck">
+                        <div>
                             <input type="email" name="userEmail" id="email" class="form-control" aria-describedby="emailHelp" placeholder="email@example.com" th:value="${userinfo.userEmail}">
                         </div>
                         <small id="emailHelp" class="form-text text-muted"></small>
@@ -46,7 +46,7 @@
                         </div>
 
                         <div class="confirm-cancel">
-                            <button type="button" value="취소" onclick="goMyCheckPassword();" class="btn btn-light"></a> 취소 </button>
+                            <button type="button" value="취소" onclick="checkPwd();" class="btn btn-light"></a> 취소 </button>
                         </div>
 
                     </div>

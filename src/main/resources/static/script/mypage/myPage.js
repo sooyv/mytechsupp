@@ -3,19 +3,18 @@ function goMyPage() {
     location.href = "/user/mypage";
 }
 function goMyFavorite() {
-    // location.href = "myfavorite";
     location.href = "/user/myfavorite";
 }
-function goMyPassword() {
-    // location.href = "editpassword";
-    location.href = "/user/editPassword";
+
+function checkPwd(path) {
+    window.location.href = "/user/checkpassword?path=" + encodeURIComponent(path);
 }
-function goMyCheckPassword() {
-    location.href = "/user/checkpassword";
-}
-function goMyEdit() {
-    location.href = "/user/edituser";
-}
-function goMyCheckPassword1() {
-    location.href = "/user/checkPassword1";
-}
+
+// function goMyPassword() {
+//     // location.href = "editpassword";
+//     location.href = "/user/editPassword";
+// }
+
+// function goMyEdit() {
+//     location.href = "/user/edituser";
+// }

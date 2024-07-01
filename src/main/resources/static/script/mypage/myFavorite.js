@@ -118,21 +118,18 @@ if (currentPage !== 1) { // currentPage가 1일 때는 쿼리스트링을 추가
 }
 
 
-function goMyPage() {
-    location.href = "mypage";
-}
-function goMyFavorite() {
-    location.href = "myfavorite";
-}
-function goMyPassword() {
-    location.href = "editpassword";
-}
-function goMyCheckPassword() {
-    location.href = "checkpassword";
-}
-function goMyEdit() {
-    location.href = "edituser";
-}
-function goMyCheckPassword1() {
-    location.href = "checkpassword1";
-}
+// function goMyPage() {
+//     location.href = "mypage";
+// }
+// function goMyFavorite() {
+//     location.href = "myfavorite";
+// }
+// function goMyPassword() {
+//     location.href = "editpassword";
+// }
+// function goMyCheckPassword() {
+//     location.href = "checkpassword";
+// }
+// function goMyEdit() {
+//     location.href = "edituser";
+// }

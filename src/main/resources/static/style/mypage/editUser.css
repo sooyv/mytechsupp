@@ -36,10 +36,10 @@ body {
         margin-top: 23px;
     }
 
-    #emailcheck {
-        display: flex;
-        flex-direction: row;
-    }
+    /*#emailcheck {*/
+    /*    display: flex;*/
+    /*    flex-direction: row;*/
+    /*}*/
 
     #email {
         border: none;
@@ -58,16 +58,6 @@ body {
     }
 
     #emailHelp {
-        display: flex;
-        justify-content: start;
-    }
-
-    #password-same {
-        display: flex;
-        justify-content: start;
-    }
-
-    #email-certification {
         display: flex;
         justify-content: start;
     }

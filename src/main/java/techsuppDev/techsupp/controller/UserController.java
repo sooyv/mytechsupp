@@ -2,12 +2,14 @@ package techsuppDev.techsupp.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.info.ProjectInfoProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.servlet.ModelAndView;
+import techsuppDev.techsupp.DTO.SignUpDTO;
 import techsuppDev.techsupp.config.UserDetailsimpl;
 import techsuppDev.techsupp.domain.User;
 import techsuppDev.techsupp.service.MailService;
@@ -71,39 +73,42 @@ public class UserController {
     }
 
     // 회원가입
+
+//    public ResponseEntity<String> signUpUser(@RequestParam("userName") String userName, @RequestParam("email") String email,
+//                                             @RequestParam("authNum") String authNum, @RequestParam("password") String password,
+//                                             @RequestParam("checkPassword") String checkPassword, @RequestParam("userPhone") String userPhone,
+//                                             HttpServletRequest request) {
     @PostMapping("/member/signup")
-    public ResponseEntity<String> signUpUser(@RequestParam("userName") String userName, @RequestParam("email") String email,
-                                             @RequestParam("authNum") String authNum, @RequestParam("password") String password,
-                                             @RequestParam("checkPassword") String checkPassword, @RequestParam("userPhone") String userPhone,
+    public ResponseEntity<String> signUpUser(@RequestBody SignUpDTO signUpDTO,
                                              HttpServletRequest request) {
 
         HttpSession authSession = request.getSession();
         String code = (String) authSession.getAttribute("authCode");
 
-       if (!password.equals(checkPassword)) {
+       if (!signUpDTO.getPassword().equals(signUpDTO.getCheckPassword())) {
            return new ResponseEntity<>("password", HttpStatus.BAD_REQUEST);
        }
 
        // 정규식 검사
-       if (!password.matches(pwRegExp)) {
+       if (!signUpDTO.getPassword().matches(pwRegExp)) {
            return new ResponseEntity<>(("passwordRegExp"), HttpStatus.BAD_REQUEST);
        }
 
        if (code == null) {
            return new ResponseEntity<>("codeNull", HttpStatus.BAD_REQUEST);
-       } else if (!authNum.equals(code)) {
+       } else if (!signUpDTO.getAuthNum().equals(code)) {
            return new ResponseEntity<>("authNum", HttpStatus.BAD_REQUEST);
        }
 
-        User user = new User();
-        user.setUserName(userName);
-        user.setUserEmail(email);
-        user.setUserPassword(password);
-        user.setUserPhone(userPhone);
-        user.setRole("ROLE_USER");          // 무조건 role컬럼엔 ROLE_USER으로
-        log.info(userName);
+//        User user = new User();
+//        user.setUserName(userName);
+//        user.setUserEmail(email);
+//        user.setUserPassword(password);
+//        user.setUserPhone(userPhone);
+//        user.setRole("ROLE_USER");          // 무조건 role컬럼엔 ROLE_USER으로
+//        log.info(userName);
 
-        userService.join(user);
+        userService.join(signUpDTO);
 
         return new ResponseEntity<>("Successfully Registered", HttpStatus.OK);
     }

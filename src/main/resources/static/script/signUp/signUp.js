@@ -173,24 +173,20 @@ form.addEventListener("submit", event => {
 
 
 $(document).ready(function () {
-    const userName = $("#userName").val();
-    const email = $("#email").val();
-    const authNum = $("#emailAuthNum").val();
-    const password = $("#password").val();
-    const checkPassword = $("#checkPassword").val();
-    const userPhone = $("#userPhone").val();
-    // console.log("ajax 직전");
+    const signUpDTO = {
+        userName: $('#userName').val(),
+        email: $('#email').val(),
+        authNum : $('#emailAuthNum').val(),
+        password: $('#password').val(),
+        checkPassword: $('#checkPassword').val(),
+        userPhone: $("#userPhone").val()
+    };
+
     $.ajax({
       type: 'POST',
       url: "/member/signup",
-      data: {
-        userName: userName,
-        email: email,
-        authNum : authNum,
-        password: password,
-        checkPassword: checkPassword,
-        userPhone : userPhone
-        },
+      contentType: 'application/json',
+      data: JSON.stringify(signUpDTO),
       success: function (response) {
         console.log(response);
         window.location.href="/login";

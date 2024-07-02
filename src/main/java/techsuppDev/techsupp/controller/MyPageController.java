@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import techsuppDev.techsupp.DTO.UserDTO;
 import techsuppDev.techsupp.controller.form.MyPageForm;
 import techsuppDev.techsupp.domain.User;
 import techsuppDev.techsupp.domain.WishList;
@@ -144,13 +145,13 @@ public class MyPageController {
         }
     }
 
+//    public String userUpdate(@ModelAttribute("userinfo") User user, HttpSession session) {
     @PostMapping("/edituser")
-    public String userUpdate(@ModelAttribute("userinfo") User user, HttpSession session) {
-        User findUser = userService.getUserByEmail(user.getUserEmail());
+    public String userUpdate(@ModelAttribute("userinfo") UserDTO userDTO, HttpSession session) {
 
-        findUser.setUserName(user.getUserName());
-        findUser.setUserPhone(user.getUserPhone());
-        myPageService.userUpdate(findUser);
+//        findUser.setUserName(userDTO.getUserName());
+//        findUser.setUserPhone(userDTO.getUserPhone());
+        myPageService.userUpdate(userDTO);
         session.removeAttribute("checkPasswordOk");
         return "redirect:/user/mypage";
     }
@@ -184,7 +185,7 @@ public class MyPageController {
         HttpSession session = request.getSession();
         String findUserEmail = (String) session.getAttribute("userEmail");
         User user = userService.getUserByEmail(findUserEmail);
-        user.setUserPassword(password);
+        user.updatePassword(password);
         myPageService.changePassword(user);
         session.removeAttribute("checkPasswordOk");
         return "redirect:/user/mypage";

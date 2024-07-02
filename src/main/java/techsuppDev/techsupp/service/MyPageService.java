@@ -3,6 +3,7 @@ package techsuppDev.techsupp.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import techsuppDev.techsupp.DTO.UserDTO;
 import techsuppDev.techsupp.domain.*;
 import techsuppDev.techsupp.repository.MyPageRepository;
 import techsuppDev.techsupp.repository.PayLogRepository;
@@ -33,13 +34,16 @@ public class MyPageService {
     }
 
     // 회원 업데이트
-    public void userUpdate(User user) {
-        userRepository.save(user);
+    public void userUpdate(UserDTO userDTO) {
+        User updateUser = userService.getUserByEmail(userDTO.getUserEmail());
+        updateUser.updateUsername(userDTO.getUserName());
+        updateUser.updatePhone(userDTO.getUserPhone());
+        userRepository.save(updateUser);
     }
 
     // 비밀번호 업데이트
     public void changePassword(User user) {
-        user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
+        user.updatePassword(passwordEncoder.encode(user.getUserPassword()));
         userRepository.save(user);
     }
 

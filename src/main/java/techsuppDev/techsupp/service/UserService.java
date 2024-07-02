@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import techsuppDev.techsupp.DTO.SignUpDTO;
 import techsuppDev.techsupp.domain.User;
 import techsuppDev.techsupp.repository.UserRepository;
 
@@ -23,14 +24,19 @@ public class UserService {
     private final MailService mailService;
 
     @Transactional
-    public Long join(User user) {
-//        String userName = user.getUserName();
-//        String userEmail = user.getUserEmail();
-        // 사용자 비밀번호 암호화.
-        user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
-//        String userPassword = user.getUserPassword();
-//        String userPhone = user.getUserPhone();
-//        user = user.createUser(userName, userEmail, userPassword, userPhone);
+    public Long join(SignUpDTO signUpDTO) {
+        System.out.println("회원가입 회원 전화번호"+ signUpDTO.getUserPhone());
+        System.out.println("회원가입 회원 이름"+ signUpDTO.getUserName());
+        System.out.println("회원가입 회원 email "+ signUpDTO.getEmail());
+
+        User user = User.builder()
+                .userName(signUpDTO.getUserName())
+                .userEmail(signUpDTO.getEmail())
+                .userPassword(passwordEncoder.encode(signUpDTO.getPassword()))  // 비밀번호 암호화
+                .userPhone(signUpDTO.getUserPhone())
+                .role("ROLE_USER")
+                .build();
+
         validateDuplicateUser(user);        // 회원 중복 검증
         userRepository.save(user);
         return user.getUserId();
@@ -106,13 +112,11 @@ public class UserService {
     // user 비밀번호 재발급
     public void updateUserPw(String email) throws Exception {
         Optional<User> user = userRepository.findByUserEmail(email);
-        String userEmail = user.get().getUserEmail();
-        System.out.println("비밀번호 변경 대상 email: " + userEmail);
 
         if (user.isPresent()) {        // 있는 경우
             String code = mailService.sendPwMail(email);
 
-            user.get().setUserPassword(passwordEncoder.encode(code));
+            user.get().updatePassword(passwordEncoder.encode(code));
             userRepository.save(user.get());
 
         } else {

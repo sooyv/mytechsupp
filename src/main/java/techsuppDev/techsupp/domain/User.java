@@ -1,25 +1,20 @@
 package techsuppDev.techsupp.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hibernate.procedure.spi.ParameterRegistrationImplementor;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Getter @Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 public class User {
 
     @Id
     @Column(name = "userid") // db의 id userid와 매핑
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
-
-    // 소셜여부 구분
 
     @Column(nullable = false)
     private String userName;
@@ -34,20 +29,16 @@ public class User {
 
     private String role;        //ROLE_USER, ROLE_ADMIN
 
-//    @Enumerated(EnumType.STRING)
-//    private SocalStatus status;
+    public void updatePassword(String userPassword) {
+        this.userPassword = userPassword;
+    }
 
-    //isAdmin
+    public void updatePhone(String userPhone) {
+        this.userPhone = userPhone;
+    }
 
-    public User createUser(String userName, String userEmail, String userPassword, String userPhone) {
-        User user = new User();
-        user.userName = userName;
-//        user.setUserEmail(userEmail);
-        user.userEmail = userEmail;
-        user.userPassword = userPassword;
-        user.userPhone = userPhone;
-//        user.role = role;
-        return user;
+    public void updateUsername(String userPhone) {
+        this.userPhone = userPhone;
     }
 
 }

@@ -61,4 +61,10 @@ public class ProductDTO {
                 .clickCount(entity.getClickCount()).build();
         return dto;
     }
+
+    public String getInformation() {
+//        return information.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+        return information.replaceAll("\\<.*?\\>", "");
+
+    }
 }

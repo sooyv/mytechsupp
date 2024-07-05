@@ -65,14 +65,7 @@ public class AdminController {
     @PostMapping("/product/register")
     public String registerPost(@ModelAttribute ProductDTO productDTO,
                                @RequestParam("productImgFile") List<MultipartFile> multipartFileList) throws Exception {
-
         adminProductService.register(productDTO, multipartFileList);
-
-//                               RedirectAttributes redirectAttributes,
-//                               @RequestParam MultipartFile file) throws IOException {
-
-//        Long productId = adminProductService.register(productDTO);
-//        redirectAttributes.addFlashAttribute("msg", productId);
 
         return "redirect:/admin/product/list";
     }

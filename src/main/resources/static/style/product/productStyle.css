@@ -124,7 +124,6 @@ body > * {
 
 .ProductContent {
   display: flex;
-  border-style: solid;
   /* justify-content: space-between; */
   /* justify-content: space-evenly; */
   justify-content: center ;
@@ -133,11 +132,8 @@ body > * {
   flex-direction: row;
   width: 800px;
   height: 150px;
-  margin: auto;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  border-radius: 50px;
-  
+  margin: 10px;
+  border-bottom: solid 1px #c9c6c6;
 }
 
 .ProductListPicture {

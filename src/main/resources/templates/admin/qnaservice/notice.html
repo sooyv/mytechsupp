@@ -2,6 +2,36 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="admin/layouts/base">
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".deleteConfirm").on("click", function(event) {
+                event.preventDefault();
+                const noticeId = $(this).data("noticeId");
+
+                if (confirm('정말 삭제하시겠습니까?')) {
+                    $.ajax({
+                        type: 'DELETE',
+                        url: "/admin/notice/delete/" + noticeId,
+                        contentType: 'application/json',
+                        data: { noticeId: noticeId },
+                        success: function(response) {
+                            console.log("Success:", response);
+                            alert("삭제했습니다.");
+                            location.reload();
+                        },
+                        error: function(error) {
+                            alert("삭제에 실패했습니다.");
+                            console.log(error)
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</head>
+<body>
 <div layout:fragment="content" class="content">
     <div class="container-fluid px-4">
         <h1 class="mt-4">공지사항<span>
@@ -33,35 +63,14 @@
                         <td th:text="${notice.noticeWriter}"></td>
                         <td th:text="${notice.noticeHits}"></td>
                         <td><a th:href="@{|/admin/notice/${notice.noticeId}|}">수정</a></td>
-                        <td><a class="deleteConfirm" href="#" onclick="deleteNotice([[${notice.noticeId}]])">삭제</a></td>
+                        <td><a class="deleteConfirm" href="#" th:data-notice-id="${notice.noticeId}">삭제</a></td>
                     </tr>
                     </tbody>
                 </table>
-
             </div>
         </div>
     </div>
 </div>
-<script>
-    function deleteNotice(noticeId) {
-        if (confirm('정말 삭제하시겠습니까?')) {
-            fetch(`/admin/notice/delete/${noticeId}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '[[_${_csrf.token}]]' // If CSRF protection is enabled
-                }
-            })
-                .then(response => {
-                    if (response.ok) {
-                        alert('삭제되었습니다.');
-                        // window.location.href = '/admin/notice/list'; // Redirect to the list page after deletion
-                    } else {
-                        alert('삭제에 실패했습니다.');
-                    }
-                })
-                .catch(error => console.error('Error:', error));
-        }
-    }
-</script>
+
+</body>
 </html>

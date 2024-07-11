@@ -2,6 +2,7 @@ package techsuppDev.techsupp.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -37,12 +38,14 @@ public class AdminController {
         return "admin/Product/list";
     }
 
+    // 상품 등록 페이지
     @GetMapping("/product/register")
     public String productRegister(Model model) {
         model.addAttribute("productForm", new ProductDTO());
         return "admin/Product/create";
     }
 
+    // 상품 등록
     @PostMapping("/product/register")
     public String productRegisterPost(@ModelAttribute ProductDTO productDTO,
                                @RequestParam("productImgFile") List<MultipartFile> multipartFileList) throws Exception {
@@ -106,11 +109,19 @@ public class AdminController {
         return "admin/qnaservice/notice";
     }
 
-    // 공지사항 등록
+    // 공지사항 등록 페이지
     @GetMapping("/notice/register")
     public String noticeRegister(Model model) {
         model.addAttribute("notice", new NoticeDTO());
         return "admin/qnaservice/notice-create";
+    }
+
+    // 공지사항 등록
+    @PostMapping("/notice/register")
+    public String productRegisterPost(@ModelAttribute NoticeDTO noticeDTO) throws Exception {
+//        adminProductService.productRegisteㅇr(noticeDTO, multipartFileList);
+        noticeService.noticeResister(noticeDTO);
+        return "redirect:/admin/product/list";
     }
 
     // 공지사항 상세
@@ -130,11 +141,15 @@ public class AdminController {
     }
 
     // 공지사항 삭제
-    @DeleteMapping("notice/delete/{noticeId}")
-    public String noticeDelete(@PathVariable("noticeId") Long noticeId) {
-        System.out.println("삭제 로직");
-        noticeService.deleteNotice(noticeId);
-        return "redirect:/admin/notice/list";
+    @DeleteMapping ("notice/delete/{noticeId}")
+    public ResponseEntity<String> noticeDelete(@PathVariable("noticeId") Long noticeId) {
+        try {
+            noticeService.deleteNotice(noticeId);
+            return ResponseEntity.ok().body("삭제되었습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("notice 삭제 중 문제가 발생했습니다.");
+        }
+//        return "redirect:/admin/notice/list";
     }
 
 

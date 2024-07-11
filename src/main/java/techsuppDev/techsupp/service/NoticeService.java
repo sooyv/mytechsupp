@@ -29,8 +29,8 @@ public class NoticeService {
 
 
     // 공지사항 작성
-    public void saveNotice(NoticeDTO noticeDTO) throws IOException {
-        System.out.println("adgsdg:" + noticeDTO);
+    public void noticeResister(NoticeDTO noticeDTO) throws IOException {
+        System.out.println("saveNotice 확인 :" + noticeDTO);
         if (noticeDTO.getNoticeFile() == null || noticeDTO.getNoticeFile().isEmpty()) {
             // 첨부 파일 없음.
             NoticeEntity noticeEntity = NoticeEntity.toSaveEntity(noticeDTO);
@@ -68,10 +68,9 @@ public class NoticeService {
     }
 
     // 공지사항 삭제
+    @Transactional
     public Long deleteNotice(Long noticeId) {
-        System.out.println(" deleteNotice 삭제하기");
-        NoticeEntity noticeEntity = NoticeEntity.toSaveEntity(findById(noticeId));
-        noticeRepository.delete(noticeEntity);
+        noticeRepository.deleteByNotionId(noticeId);
         return noticeId;
     }
 

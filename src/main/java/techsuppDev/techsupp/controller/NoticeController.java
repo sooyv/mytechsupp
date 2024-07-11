@@ -83,19 +83,19 @@ public class NoticeController {
     }
 
     // 고객센터 페이지에서는 공지 등록 불가
-//    @GetMapping("/save")
-//    public String saveForm() {
-//
-//        return "service/save";
-//    }
+    @GetMapping("/save")
+    public String saveForm() {
+
+        return "service/save";
+    }
 
     // 고객센터 페이지에서는 공지 등록 불가
-//    @PostMapping("/save")
-//    public String save(@ModelAttribute NoticeDTO noticeDTO) throws IOException {
-//
-//        noticeService.saveNotice(noticeDTO);
-//        return "redirect:/notice/paging"; //templates/service/paging.html
-//    }
+    @PostMapping("/save")
+    public String save(@ModelAttribute NoticeDTO noticeDTO) throws IOException {
+
+        noticeService.noticeResister(noticeDTO);
+        return "redirect:/notice/paging"; //templates/service/paging.html
+    }
 
     // 공지사항 리스트?
     @GetMapping("/list")
@@ -107,19 +107,19 @@ public class NoticeController {
     }
 
     // 공지사항 업데이트 페이지
-//    @GetMapping("/{noticeId}")
-//    public String findById(@PathVariable Long noticeId, Model model) {
-//        /*
-//        해당 게시글의 조회수를 하나 올리고
-//        게시글 데이터를 가져와서 detail.html에 출력
-//         */
-//        noticeService.updateHits(noticeId);
-//        NoticeDTO noticeDTO = noticeService.findById(noticeId);
-//        System.out.println(noticeDTO.getNoticeTitle());
-//
-//        model.addAttribute("notice", noticeDTO);
-//        return "service/detail";
-//    }
+    @GetMapping("/{noticeId}")
+    public String findById(@PathVariable Long noticeId, Model model) {
+        /*
+        해당 게시글의 조회수를 하나 올리고
+        게시글 데이터를 가져와서 detail.html에 출력
+         */
+        noticeService.updateHits(noticeId);
+        NoticeDTO noticeDTO = noticeService.findById(noticeId);
+        System.out.println(noticeDTO.getNoticeTitle());
+
+        model.addAttribute("notice", noticeDTO);
+        return "service/detail";
+    }
 
     @GetMapping("update/{noticeId}")
     public String updateForm(@PathVariable Long noticeId, Model model) {
@@ -129,15 +129,15 @@ public class NoticeController {
     }
 
     // 일반 회원 공지사항 업데이트 불가
-//    @PostMapping("/update")
-//    public String update(@ModelAttribute NoticeDTO noticeDTO, Model model) {
-//        NoticeDTO notice = noticeService.update(noticeDTO);
-//        model.addAttribute("notice", notice);
-//        System.out.println("&&&&&&&" + noticeDTO.getNoticeId());
-//        return "service/detail";
-////        return "redirect:/notice/update" + noticeDTO.getNoticeId();
-//
-//    }
+    @PostMapping("/update")
+    public String update(@ModelAttribute NoticeDTO noticeDTO, Model model) {
+        NoticeDTO notice = noticeService.noticeUpdate(noticeDTO);
+        model.addAttribute("notice", notice);
+        System.out.println("&&&&&&&" + noticeDTO.getNoticeId());
+        return "service/detail";
+//        return "redirect:/notice/update" + noticeDTO.getNoticeId();
+
+    }
 
     @GetMapping("/fileDownload/{noticeId}")
     @ResponseBody

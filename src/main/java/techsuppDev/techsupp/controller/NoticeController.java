@@ -1,13 +1,9 @@
 package techsuppDev.techsupp.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.query.Param;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -16,8 +12,6 @@ import techsuppDev.techsupp.DTO.CommentDTO;
 import techsuppDev.techsupp.DTO.FaqDTO;
 import techsuppDev.techsupp.DTO.NoticeDTO;
 import techsuppDev.techsupp.DTO.QuestionDTO;
-import techsuppDev.techsupp.domain.NoticeFileEntity;
-import techsuppDev.techsupp.domain.User;
 import techsuppDev.techsupp.repository.CommentRepository;
 import techsuppDev.techsupp.repository.NoticeFileRepository;
 import techsuppDev.techsupp.service.CommentService;
@@ -25,18 +19,12 @@ import techsuppDev.techsupp.service.FaqService;
 import techsuppDev.techsupp.service.NoticeService;
 import techsuppDev.techsupp.service.QuestionService;
 
-import javax.activation.CommandMap;
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.net.URLEncoder;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Map;
-import java.util.logging.Logger;
 
 
 @Controller
@@ -94,41 +82,44 @@ public class NoticeController {
         return "service/faq-detail";
     }
 
+    // 고객센터 페이지에서는 공지 등록 불가
+//    @GetMapping("/save")
+//    public String saveForm() {
+//
+//        return "service/save";
+//    }
 
-    @GetMapping("/save")
-    public String saveForm() {
+    // 고객센터 페이지에서는 공지 등록 불가
+//    @PostMapping("/save")
+//    public String save(@ModelAttribute NoticeDTO noticeDTO) throws IOException {
+//
+//        noticeService.saveNotice(noticeDTO);
+//        return "redirect:/notice/paging"; //templates/service/paging.html
+//    }
 
-        return "service/save";
-    }
-
-    @PostMapping("/save")
-    public String save(@ModelAttribute NoticeDTO noticeDTO) throws IOException {
-
-        noticeService.save(noticeDTO);
-        return "redirect:/notice/paging"; //templates/service/paging.html
-    }
-
+    // 공지사항 리스트?
     @GetMapping("/list")
     public String findAll(Model model) {
-        List<NoticeDTO> noticeDTOList = noticeService.findAll();
+        List<NoticeDTO> noticeDTOList = noticeService.findAllNotice();
         System.out.println(noticeDTOList);
         model.addAttribute("noticeList", noticeDTOList);
         return "service/list";
     }
 
-    @GetMapping("/{noticeId}")
-    public String findById(@PathVariable Long noticeId, Model model) {
-        /*
-        해당 게시글의 조회수를 하나 올리고
-        게시글 데이터를 가져와서 detail.html에 출력
-         */
-        noticeService.updateHits(noticeId);
-        NoticeDTO noticeDTO = noticeService.findById(noticeId);
-        System.out.println(noticeDTO.getNoticeTitle());
-
-        model.addAttribute("notice", noticeDTO);
-        return "service/detail";
-    }
+    // 공지사항 업데이트 페이지
+//    @GetMapping("/{noticeId}")
+//    public String findById(@PathVariable Long noticeId, Model model) {
+//        /*
+//        해당 게시글의 조회수를 하나 올리고
+//        게시글 데이터를 가져와서 detail.html에 출력
+//         */
+//        noticeService.updateHits(noticeId);
+//        NoticeDTO noticeDTO = noticeService.findById(noticeId);
+//        System.out.println(noticeDTO.getNoticeTitle());
+//
+//        model.addAttribute("notice", noticeDTO);
+//        return "service/detail";
+//    }
 
     @GetMapping("update/{noticeId}")
     public String updateForm(@PathVariable Long noticeId, Model model) {
@@ -137,15 +128,16 @@ public class NoticeController {
         return "service/update";
     }
 
-    @PostMapping("/update")
-    public String update(@ModelAttribute NoticeDTO noticeDTO, Model model) {
-        NoticeDTO notice = noticeService.update(noticeDTO);
-        model.addAttribute("notice", notice);
-        System.out.println("&&&&&&&" + noticeDTO.getNoticeId());
-        return "service/detail";
-//        return "redirect:/notice/update" + noticeDTO.getNoticeId();
-
-    }
+    // 일반 회원 공지사항 업데이트 불가
+//    @PostMapping("/update")
+//    public String update(@ModelAttribute NoticeDTO noticeDTO, Model model) {
+//        NoticeDTO notice = noticeService.update(noticeDTO);
+//        model.addAttribute("notice", notice);
+//        System.out.println("&&&&&&&" + noticeDTO.getNoticeId());
+//        return "service/detail";
+////        return "redirect:/notice/update" + noticeDTO.getNoticeId();
+//
+//    }
 
     @GetMapping("/fileDownload/{noticeId}")
     @ResponseBody

@@ -198,18 +198,15 @@ public class UserController {
 
     // 세션
     @GetMapping("/member/loginsuccess")
-    public ModelAndView loginSuccess(HttpSession session, @AuthenticationPrincipal UserDetailsimpl userDetails){
+    public ModelAndView loginSuccess(HttpSession session, @AuthenticationPrincipal UserDetailsimpl userDetails) {
 
-        if(userDetails != null) {
+        if (userDetails != null) {
             User user = userDetails.getUser();
-//            System.out.println("----------------homeController------------------");
-            session.setAttribute("userId", user.getUserId());          // userId 세션에 저장
-            session.setAttribute("userEmail", user.getUserEmail());    // email 세션에 저장
-            session.setAttribute("userName", user.getUserName());      // name 세션에 저장
-            session.setAttribute("userPhone", user.getUserPhone());    // phone 세션에 저장
-            session.setAttribute("userRole", user.getRole());          // userRole 세션에 저장
-//            session.setAttribute("user", user);
-
+            session.setAttribute("userId", user.getUserId());
+            session.setAttribute("userEmail", user.getUserEmail());
+            session.setAttribute("userName", user.getUserName());
+            session.setAttribute("userPhone", user.getUserPhone());
+            session.setAttribute("userRole", user.getRole());
         }
         ModelAndView mav = new ModelAndView("redirect:/");
         return mav;

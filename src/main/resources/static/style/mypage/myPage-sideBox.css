@@ -28,11 +28,7 @@
 .btn_box:hover{
     /*box-shadow: 4px 12px 30px 6px rgba(0,0,0,.7);*/
     /*transform: scale(1.05);*/
-    background-color: #55c0d5;
+    /*background-color: #55c0d5;*/
+    background-color: skyblue;
     transition: 0.2s ease;
-}
-
-.btn_box:active{
-    box-shadow: 4px 12px 30px 6px rgba(0,0,0,.9);
-    transform: scale(0.95);
 }

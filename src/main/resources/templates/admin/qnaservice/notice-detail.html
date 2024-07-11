@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="admin/layouts/base">
+<div layout:fragment="content" class="content">
+
+    <form th:action="@{|/admin/notice/edit/${notice.noticeId}|}" th:method="post" enctype="multipart/form-data">
+        <div th:class="notice-details" style="padding: 3rem">
+            <!-- 작성자 -->
+            <div id="username-box" class="form-group col-md-4" style="margin-bottom: 1rem">
+                <label for="noticeWriter">작성자</label>
+                <input type="text" id="noticeWriter" class="form-control" placeholder="관리자"
+                       th:field="${notice.noticeWriter}">
+            </div>
+            <!-- 제목 -->
+            <div class="form-group col-md-4" style="margin-bottom: 1rem">
+                <label for="noticeTitle">제목</label>
+                <input type="text" id="noticeTitle" class="form-control" placeholder="제목"
+                       th:field="${notice.noticeTitle}">
+            </div>
+            <!-- 내용 -->
+            <div class="mb-3">
+                <label class="small mb-1">상품 내용</label>
+                <textarea class="form-control" rows="5" name="information" id="content" th:field="${notice.noticeContents}"></textarea>
+            </div>
+
+            <button class="btn btn-primary" type="submit">수정하기</button>
+
+            <!-- 첨부파일 -->
+            <!--       <div id="phoneNum-box" class="form-group col-md-4">-->
+            <!--           <label for="noticeFile">첨부파일</label>-->
+            <!--           &lt;!&ndash;                    <input id="noticeFile" type="file" class="form-control"&ndash;&gt;-->
+            <!--           &lt;!&ndash;                           th:if="${notice.fileAttached == 1}">&ndash;&gt;-->
+            <!--           <a id="noticeFile" th:href="@{/notice/fileDownload/{noticeId}(noticeId=${notice.noticeId})}"-->
+            <!--              th:text="${notice.OriginalFileName}">파일이름1.png</a>-->
+            <!--       </div>-->
+            <!--       <div>-->
+            <!--           <button onclick="pagingReq()">-->
+            <!--               <a href="/notice/paging">공지사항</a></button>-->
+            <!--           <button onclick="updateReq()">-->
+            <!--               <a th:href="@{/notice/update/{noticeId}(noticeId=${notice.noticeId})}">수정</a></button>-->
+            <!--       </div>-->
+        </div>
+    </form>
+</div>
+</html>

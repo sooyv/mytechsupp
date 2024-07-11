@@ -41,8 +41,8 @@ public class SecurityConfig {
 
         http.authorizeRequests()
                 .antMatchers("/login", "/member/login").permitAll()
-                .antMatchers("/user/**").authenticated()            // 스프링 시큐리티에 의해 로그인이 되면 접근가능
-                .antMatchers("/admin/**").authenticated()            // 스프링 시큐리티에 의해 로그인이 되면 접근가능
+                .antMatchers("/user/**").authenticated()
+                .antMatchers("/admin/**").authenticated()
                 .antMatchers("/invest/**").authenticated()
                 .antMatchers("/feedbackSelect/feedback/form/**").authenticated()
 //                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
@@ -58,6 +58,8 @@ public class SecurityConfig {
                 .passwordParameter("password")
                 .defaultSuccessUrl("/member/loginsuccess", true)
                 .failureUrl("/login")
+
+
                 .and()
             .logout()
                 .logoutUrl("/member/logout")

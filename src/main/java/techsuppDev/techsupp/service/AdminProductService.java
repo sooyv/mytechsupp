@@ -1,7 +1,6 @@
 package techsuppDev.techsupp.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -14,7 +13,6 @@ import techsuppDev.techsupp.DTO.ProductDTO;
 import techsuppDev.techsupp.DTO.ProductImgDTO;
 import techsuppDev.techsupp.controller.form.AdminPaymentForm;
 import techsuppDev.techsupp.domain.Image;
-import techsuppDev.techsupp.controller.HomeController;
 import techsuppDev.techsupp.domain.Product;
 import techsuppDev.techsupp.repository.AdminProductRepository;
 import techsuppDev.techsupp.repository.PaymentRepository;
@@ -22,8 +20,6 @@ import techsuppDev.techsupp.repository.ProductImageRepository;
 
 import javax.persistence.EntityExistsException;
 import java.util.ArrayList;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
@@ -36,7 +32,7 @@ public class AdminProductService {
     private final ProductImageRepository productImageRepository;
     private final PaymentRepository paymentRepository;
 
-    public Long register(ProductDTO productDTO, List<MultipartFile> multipartFileList) throws Exception {
+    public Long productRegister(ProductDTO productDTO, List<MultipartFile> multipartFileList) throws Exception {
         Product product = productDTO.dtoToEntity(productDTO);
         adminProductRepository.save(product);
 

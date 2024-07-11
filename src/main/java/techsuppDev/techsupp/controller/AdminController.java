@@ -2,39 +2,19 @@ package techsuppDev.techsupp.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.Banner;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import techsuppDev.techsupp.DTO.PageRequestDTO;
-import techsuppDev.techsupp.DTO.ProductDTO;
-import techsuppDev.techsupp.DTO.ProductImgDTO;
-import techsuppDev.techsupp.controller.form.AdminPaymentForm;
-import techsuppDev.techsupp.domain.Product;
-import techsuppDev.techsupp.repository.AdminProductRepository;
+import techsuppDev.techsupp.DTO.*;
 import techsuppDev.techsupp.service.AdminProductService;
+import techsuppDev.techsupp.service.NoticeService;
 import techsuppDev.techsupp.service.ProductImageService;
 
-import javax.persistence.EntityNotFoundException;
-import javax.validation.Valid;
-import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -45,6 +25,7 @@ public class AdminController {
 
     private final AdminProductService adminProductService;
     private final ProductImageService productImageService;
+    private final NoticeService noticeService;
 
     @GetMapping("/")
     public String Home() {
@@ -57,15 +38,15 @@ public class AdminController {
     }
 
     @GetMapping("/product/register")
-    public String register(Model model) {
+    public String productRegister(Model model) {
         model.addAttribute("productForm", new ProductDTO());
         return "admin/Product/create";
     }
 
     @PostMapping("/product/register")
-    public String registerPost(@ModelAttribute ProductDTO productDTO,
+    public String productRegisterPost(@ModelAttribute ProductDTO productDTO,
                                @RequestParam("productImgFile") List<MultipartFile> multipartFileList) throws Exception {
-        adminProductService.register(productDTO, multipartFileList);
+        adminProductService.productRegister(productDTO, multipartFileList);
 
         return "redirect:/admin/product/list";
     }
@@ -79,6 +60,7 @@ public class AdminController {
 
         return "admin/Product/edit";
     }
+
     @GetMapping("product/delete/{id}")
     public String removeFile(@PathVariable("id") Long id) throws IOException {
 
@@ -101,7 +83,7 @@ public class AdminController {
     public String editPost(@ModelAttribute("productForm") ProductDTO productDTO,
                            @RequestParam("productImgFile") List<MultipartFile> multipartFileList) {
         try {
-            adminProductService.register(productDTO, multipartFileList);
+            adminProductService.productRegister(productDTO, multipartFileList);
 
         } catch (Exception e) {
             return "admin/Product/edit";
@@ -112,6 +94,62 @@ public class AdminController {
     public String paymentList(@ModelAttribute PageRequestDTO pageRequestDTO, Model model) {
         model.addAttribute("result", adminProductService.paymentList(pageRequestDTO));
         return "admin/Payment/paymentlist";
+    }
+
+    // ------------------------------------------------------------------------------------------
+
+    // 공지사항 리스트 페이지
+    @GetMapping("/notice/list")
+    public String noticelist(Model model) {
+        List<NoticeDTO> noticeDTOList = noticeService.findAllNotice();
+        model.addAttribute("noticeList", noticeDTOList);
+        return "admin/qnaservice/notice";
+    }
+
+    // 공지사항 등록
+    @GetMapping("/notice/register")
+    public String noticeRegister(Model model) {
+        model.addAttribute("notice", new NoticeDTO());
+        return "admin/qnaservice/notice-create";
+    }
+
+    // 공지사항 상세
+    @GetMapping("/notice/{noticeId}")
+    public String noticeDetails(@PathVariable("noticeId") Long noticeId, Model model) {
+        NoticeDTO noticeDTO = noticeService.findById(noticeId);
+        model.addAttribute("notice", noticeDTO);
+        return "admin/qnaservice/notice-detail";
+    }
+
+    // 공지사항 수정
+    @PostMapping("/notice/edit/{noticeId}")
+    public String noticeUpdate(@ModelAttribute("notice") NoticeDTO noticeDTO, Model model) {
+        NoticeDTO notice = noticeService.noticeUpdate(noticeDTO);
+        model.addAttribute(notice);
+        return "redirect:/admin/notice/list";
+    }
+
+    // 공지사항 삭제
+    @DeleteMapping("notice/delete/{noticeId}")
+    public String noticeDelete(@PathVariable("noticeId") Long noticeId) {
+        System.out.println("삭제 로직");
+        noticeService.deleteNotice(noticeId);
+        return "redirect:/admin/notice/list";
+    }
+
+
+
+    // 자주 묻는 질문 페이지
+    @GetMapping("/faq/list")
+    public String Faqlist(Model model) {
+//        List<FaqDTO> faqDTOList = faq
+        return "admin/qnaservice/faq";
+    }
+
+    // 자주 묻는 질문
+    @PostMapping("/faq/new")
+    public String createFaq(@ModelAttribute NoticeDTO noticeDTO) throws IOException {
+        return "redirect:/admin/qnaservice/faq";
     }
 
 //    @GetMapping("payment/list")

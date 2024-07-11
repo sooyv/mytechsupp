@@ -25,12 +25,13 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class NoticeService {
     private final NoticeRepository noticeRepository;
-
     private final NoticeFileRepository noticeFileRepository;
-    public void save(NoticeDTO noticeDTO) throws IOException {
 
+
+    // 공지사항 작성
+    public void saveNotice(NoticeDTO noticeDTO) throws IOException {
         System.out.println("adgsdg:" + noticeDTO);
-        if (noticeDTO.getNoticeFile()==null )  {
+        if (noticeDTO.getNoticeFile() == null || noticeDTO.getNoticeFile().isEmpty()) {
             // 첨부 파일 없음.
             NoticeEntity noticeEntity = NoticeEntity.toSaveEntity(noticeDTO);
             noticeRepository.save(noticeEntity);
@@ -52,7 +53,8 @@ public class NoticeService {
             String originalFilename = noticeFile.getOriginalFilename(); // 2.
             String storedFileName = System.currentTimeMillis() + "_" + originalFilename; // 3.
 //            String savePath = "C:/springboot_img/" + storedFileName; // 4. C:/springboot_img/9802398403948_내사진.jpg
-            String savePath = "C:/project file/techsupp/src/main/resources/static/file/service" + storedFileName; // 4. C:/springboot_img/9802398403948_내사진.jpg
+//            String savePath = "C:/project file/techsupp/src/main/resources/static/file/service" + storedFileName; // 4. C:/springboot_img/9802398403948_내사진.jpg
+            String savePath = "src/main/resources/static/file/service/" + storedFileName;
 //            String savePath = "/Users/사용자이름/springboot_img/" + storedFileName; // C:/springboot_img/9802398403948_내사진.jpg
             noticeFile.transferTo(new File(savePath)); // 5.
             NoticeEntity noticeEntity = NoticeEntity.toSaveFileEntity(noticeDTO);
@@ -63,14 +65,19 @@ public class NoticeService {
             noticeFileRepository.save(noticeFileEntity);
 
         }
-
-
-//        NoticeEntity noticeEntity = NoticeEntity.toSaveEntity(noticeDTO);
-//        noticeRepository.save(noticeEntity);
     }
 
+    // 공지사항 삭제
+    public Long deleteNotice(Long noticeId) {
+        System.out.println(" deleteNotice 삭제하기");
+        NoticeEntity noticeEntity = NoticeEntity.toSaveEntity(findById(noticeId));
+        noticeRepository.delete(noticeEntity);
+        return noticeId;
+    }
+
+
     @Transactional
-    public List<NoticeDTO> findAll() {
+    public List<NoticeDTO> findAllNotice() {
 
         List<NoticeEntity> noticeEntityList = noticeRepository.findAll();
         List<NoticeDTO> noticeDTOList = new ArrayList<>();
@@ -98,7 +105,7 @@ public class NoticeService {
     }
 
 
-    public NoticeDTO update(NoticeDTO noticeDTO) {
+    public NoticeDTO noticeUpdate(NoticeDTO noticeDTO) {
         NoticeEntity noticeEntity = NoticeEntity.toUpdateEntity(noticeDTO);
         noticeRepository.save(noticeEntity);
         return findById(noticeDTO.getNoticeId());

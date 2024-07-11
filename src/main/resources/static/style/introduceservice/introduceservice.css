@@ -1,8 +1,10 @@
-.techsupp {
-
+html,
+body {
+    height: 100%;
+    font-family: 'IBM Plex Sans KR';
 }
 
-.title {
+.techsupp {
 
 }
 
@@ -24,11 +26,15 @@
     justify-content: center;
     flex-direction: column;
     margin-top: 40px;
-    font-size: x-large;
+    font-size: large;
 }
 
 #introduce {
-    background-color: #2E64FE;
+    background-color: #1742d3;
+}
+
+.introduce-color {
+    color: whitesmoke;
 }
 
 #aboutFundding {

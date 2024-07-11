@@ -29,8 +29,7 @@
 
 
 <div class="align-form">
-    <form id="signUpForm" action="/notice/detail/${notice.noticeId}"
-          method="POST" enctype="multipart/form-data">
+    <form action="/notice/detail/${notice.noticeId}" method="POST" enctype="multipart/form-data">
         <div>
             <div id="userid-box" class="form-group col-md-4">
                 <label for="noticeId">번호</label>
@@ -44,7 +43,7 @@
                            th:value="${notice.noticeWriter}" readonly>
                 </div>
                 <!-- 제목 -->
-                <div id="password-box" class="form-group col-md-4">
+                <div class="form-group col-md-4">
                     <label for="noticeTitle">제목</label>
                     <input type="text" id="noticeTitle" class="form-control" placeholder="제목"
                            th:value="${notice.noticeTitle}" readonly>

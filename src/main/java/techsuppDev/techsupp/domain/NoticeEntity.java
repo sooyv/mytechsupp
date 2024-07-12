@@ -14,7 +14,8 @@ import java.util.List;
 @Table(name = "notice")
 public class NoticeEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "notice_id")
     private Long noticeId;
 
     @Column(length = 20, nullable = false)
@@ -32,8 +33,10 @@ public class NoticeEntity {
     @Column
     private int fileAttached; // 1 or 0
 
-    @OneToMany(mappedBy = "noticeEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<NoticeFileEntity> noticeFileEntityList = new ArrayList<>();
+//    @OneToMany(mappedBy = "noticeEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+//    private List<NoticeFileEntity> noticeFileEntityList = new ArrayList<>();
+    @OneToOne(mappedBy = "notice", cascade = CascadeType.ALL, orphanRemoval = true)
+    private NoticeFileEntity noticeFile;
 
     public static NoticeEntity toSaveEntity(NoticeDTO noticeDTO) {
         NoticeEntity noticeEntity = new NoticeEntity();

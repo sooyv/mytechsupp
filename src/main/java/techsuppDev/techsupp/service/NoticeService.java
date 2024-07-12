@@ -2,6 +2,7 @@ package techsuppDev.techsupp.service;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +27,9 @@ import java.util.Optional;
 public class NoticeService {
     private final NoticeRepository noticeRepository;
     private final NoticeFileRepository noticeFileRepository;
+
+    @Value("${serviceSavePath}")
+    String serviceSavePath;
 
 
     // 공지사항 작성
@@ -52,10 +56,7 @@ public class NoticeService {
             MultipartFile noticeFile = noticeDTO.getNoticeFile(); // 1.
             String originalFilename = noticeFile.getOriginalFilename(); // 2.
             String storedFileName = System.currentTimeMillis() + "_" + originalFilename; // 3.
-//            String savePath = "C:/springboot_img/" + storedFileName; // 4. C:/springboot_img/9802398403948_내사진.jpg
-//            String savePath = "C:/project file/techsupp/src/main/resources/static/file/service" + storedFileName; // 4. C:/springboot_img/9802398403948_내사진.jpg
-            String savePath = "src/main/resources/static/file/service/" + storedFileName;
-//            String savePath = "/Users/사용자이름/springboot_img/" + storedFileName; // C:/springboot_img/9802398403948_내사진.jpg
+            String savePath = serviceSavePath + storedFileName;
             noticeFile.transferTo(new File(savePath)); // 5.
             NoticeEntity noticeEntity = NoticeEntity.toSaveFileEntity(noticeDTO);
             Long savedNoticeId = noticeRepository.save(noticeEntity).getNoticeId();
@@ -74,6 +75,19 @@ public class NoticeService {
         return noticeId;
     }
 
+    // 공지사항 첨부파일 삭제
+    @Transactional
+    public void deleteNoticeFile(Long noticeId) {
+        NoticeFileEntity noticeFileEntity = noticeFileRepository.findByNoticeId(noticeId);
+        if (noticeFileEntity != null) {
+            File file = new File(serviceSavePath + noticeFileEntity.getStoredFileName());
+            if (file.exists()) {
+                file.delete();
+            }
+            noticeFileRepository.deleteAttachedFileByNoticeId(noticeId);
+        }
+    }
+
 
     @Transactional
     public List<NoticeDTO> findAllNotice() {
@@ -85,6 +99,7 @@ public class NoticeService {
         }
         return noticeDTOList;
     }
+
     @Transactional
     public void updateHits(Long noticeId) {
 

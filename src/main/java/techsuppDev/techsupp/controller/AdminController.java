@@ -99,7 +99,7 @@ public class AdminController {
         return "admin/Payment/paymentlist";
     }
 
-    // ------------------------------------------------------------------------------------------
+    // ---------------------------------------공지사항---------------------------------------------------
 
     // 공지사항 리스트 페이지
     @GetMapping("/notice/list")
@@ -144,6 +144,9 @@ public class AdminController {
     @DeleteMapping ("notice/delete/{noticeId}")
     public ResponseEntity<String> noticeDelete(@PathVariable("noticeId") Long noticeId) {
         try {
+            // noticefile 먼저 삭제 - 이후 연관관계로 해결 예정
+//            noticeService.deleteNoticeFile(noticeId);
+            // 해당 notice 삭제
             noticeService.deleteNotice(noticeId);
             return ResponseEntity.ok().body("삭제되었습니다.");
         } catch (Exception e) {
@@ -151,7 +154,18 @@ public class AdminController {
         }
 //        return "redirect:/admin/notice/list";
     }
-
+//
+//    @DeleteMapping ("/attachedfile/delete/{noticeId}")
+//    public ResponseEntity<String> attachedFileDelete(@PathVariable("noticeId") Long noticeId) {
+//        System.out.println("여기 타는지 확인");
+//        try {
+//            System.out.println("여기는??");
+//            noticeService.deleteNoticeFile(noticeId);
+//            return ResponseEntity.ok("첨부 파일 삭제 성공");
+//        } catch (Exception e) {
+//            return ResponseEntity.badRequest().body("첨부 파일 삭제 실패");
+//        }
+//    }
 
 
     // 자주 묻는 질문 페이지

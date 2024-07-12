@@ -1,6 +1,7 @@
 package techsuppDev.techsupp.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -33,13 +34,11 @@ import java.util.List;
 public class NoticeController {
     private final NoticeService noticeService;
     private final QuestionService questionService;
-
     private final FaqService faqService;
-
     private final CommentService commentService;
 
-    private final NoticeFileRepository noticeFileRepository;
-    private final CommentRepository commentRepository;
+    @Value("${serviceSavePath}")
+    String serviceSavePath;
 
     @GetMapping("")
     public String serviceMain() {
@@ -148,7 +147,7 @@ public class NoticeController {
         NoticeDTO noticeDTO = noticeService.findById(noticeId);
 
         //파일 경로
-        Path savePath = Paths.get("C:/project file/techsupp/src/main/resources/static/file/service" + noticeDTO.getStoredFileName());
+        Path savePath = Paths.get(serviceSavePath + noticeDTO.getStoredFileName());
         //해당 경로에 파일이 없으면
         if (!savePath.toFile().exists()) {
             throw new RuntimeException("file not found");

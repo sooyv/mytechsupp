@@ -4,6 +4,38 @@
       layout:decorate="admin/layouts/base">
 <div layout:fragment="content" class="content">
 
+<!--    <head>-->
+<!--        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
+<!--        <script>-->
+<!--            $(document).ready(function() {-->
+<!--                console.log("첨부파일 삭제 1")-->
+<!--                $("#deleteFileBtn").on("click", function(event) {-->
+<!--                    console.log("첨부파일 삭제 클릭")-->
+<!--                    event.preventDefault();-->
+<!--                    const noticeId = $(this).data("noticeId");-->
+
+<!--                    if (confirm('정말 삭제하시겠습니까?')) {-->
+<!--                        $.ajax({-->
+<!--                            type: 'DELETE',-->
+<!--                            url: "/admin/attachedfile/delete/" + noticeId,-->
+<!--                            contentType: 'application/json',-->
+<!--                            data: { noticeId: noticeId },-->
+<!--                            success: function(response) {-->
+<!--                                console.log("Success:", response);-->
+<!--                                alert("첨부파일 삭제.");-->
+<!--                                location.reload();-->
+<!--                            },-->
+<!--                            error: function(error) {-->
+<!--                                alert("삭제에 실패했습니다.");-->
+<!--                                console.log(error)-->
+<!--                            }-->
+<!--                        });-->
+<!--                    }-->
+<!--                });-->
+<!--            });-->
+<!--        </script>-->
+<!--    </head>-->
+
     <form th:action="@{|/admin/notice/edit/${notice.noticeId}|}" th:method="post" enctype="multipart/form-data">
         <div th:class="notice-details" style="padding: 3rem">
             <!-- 작성자 -->
@@ -24,22 +56,22 @@
                 <textarea class="form-control" rows="5" name="information" id="content" th:field="${notice.noticeContents}"></textarea>
             </div>
 
+            <!-- 첨부파일 -->
+<!--            <div class="form-group col-md-4">-->
+<!--                <label for="noticeFile">첨부파일</label>-->
+<!--                <a id="noticeFile" th:if="${notice.originalFileName != null}" th:href="@{/notice/fileDownload/{noticeId}(noticeId=${notice.noticeId})}"-->
+<!--                   th:text="${notice.originalFileName}"></a>-->
+<!--                <button id="deleteFileBtn" th:if="${notice.originalFileName != null}" class="btn btn-danger">삭제</button>-->
+<!--            </div>-->
+
+<!--            <div class="form-group col-md-4">-->
+<!--                <label for="noticeFile">첨부파일</label>-->
+<!--                <a id="noticeFile" th:href="@{/notice/fileDownload/{noticeId}(noticeId=${notice.noticeId})}"-->
+<!--                   th:text="${notice.OriginalFileName}"></a>-->
+<!--            </div>-->
+
             <button class="btn btn-primary" type="submit">수정하기</button>
 
-            <!-- 첨부파일 -->
-            <!--       <div id="phoneNum-box" class="form-group col-md-4">-->
-            <!--           <label for="noticeFile">첨부파일</label>-->
-            <!--           &lt;!&ndash;                    <input id="noticeFile" type="file" class="form-control"&ndash;&gt;-->
-            <!--           &lt;!&ndash;                           th:if="${notice.fileAttached == 1}">&ndash;&gt;-->
-            <!--           <a id="noticeFile" th:href="@{/notice/fileDownload/{noticeId}(noticeId=${notice.noticeId})}"-->
-            <!--              th:text="${notice.OriginalFileName}">파일이름1.png</a>-->
-            <!--       </div>-->
-            <!--       <div>-->
-            <!--           <button onclick="pagingReq()">-->
-            <!--               <a href="/notice/paging">공지사항</a></button>-->
-            <!--           <button onclick="updateReq()">-->
-            <!--               <a th:href="@{/notice/update/{noticeId}(noticeId=${notice.noticeId})}">수정</a></button>-->
-            <!--       </div>-->
         </div>
     </form>
 </div>

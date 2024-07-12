@@ -119,9 +119,9 @@ public class AdminController {
     // 공지사항 등록
     @PostMapping("/notice/register")
     public String productRegisterPost(@ModelAttribute NoticeDTO noticeDTO) throws Exception {
-//        adminProductService.productRegisteㅇr(noticeDTO, multipartFileList);
+//        adminProductService.productRegister(noticeDTO, multipartFileList);
         noticeService.noticeResister(noticeDTO);
-        return "redirect:/admin/product/list";
+        return "redirect:/admin/notice/list";
     }
 
     // 공지사항 상세

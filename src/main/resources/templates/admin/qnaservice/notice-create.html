@@ -4,17 +4,17 @@
       layout:decorate="admin/layouts/base">
 <div layout:fragment="content" class="content">
 
-    <form th:action="@{/admin/notice/register}" th:method="POST" enctype="multipart/form-data">
+    <form th:action="@{/admin/notice/register}" th:method="POST" enctype="multipart/form-data" th:object="${notice}">
         <div th:class="notice-details" style="padding: 3rem">
             <h2>공지작성</h2>
             <!-- 작성자 -->
-            <div id="username-box" class="form-group col-md-4" style="margin-bottom: 1rem">
+            <div class="form-group col-md-4" style="margin: 1rem 1rem 1rem 0rem;">
                 <label for="noticeWriter">작성자</label>
                 <input type="text" id="noticeWriter" class="form-control" placeholder="관리자"
                        th:field="${notice.noticeWriter}">
             </div>
             <!-- 제목 -->
-            <div class="form-group col-md-4" style="margin-bottom: 1rem">
+            <div class="form-group col-md-4" style="margin: 1rem 1rem 1rem 0rem;">
                 <label for="noticeTitle">제목</label>
                 <input type="text" id="noticeTitle" class="form-control" placeholder="제목"
                        th:field="${notice.noticeTitle}">
@@ -25,13 +25,15 @@
                 <textarea class="form-control" rows="5" name="information" id="content" th:field="${notice.noticeContents}"></textarea>
             </div>
 
-            <div class="form-group col-md-4">
-                <label for="noticeFile">첨부파일</label>
-                <input type="file" id="noticeFile" name="noticeFile" class="form-control">
+            <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-end;">
+                <div class="form-group col-md-4">
+                    <label for="noticeFile">첨부파일</label>
+                    <input type="file" id="noticeFile" name="noticeFile" class="form-control">
+                </div>
+
+                <button class="btn btn-primary" type="submit">공지작성</button>
+
             </div>
-
-            <button class="btn btn-primary" type="submit">공지작성</button>
-
             <!-- 첨부파일 -->
             <!--       <div id="phoneNum-box" class="form-group col-md-4">-->
             <!--           <label for="noticeFile">첨부파일</label>-->

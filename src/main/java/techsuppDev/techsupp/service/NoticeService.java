@@ -74,15 +74,19 @@ public class NoticeService {
 
         // 기존 파일 삭제 및 새 파일 저장 로직
         if (noticeFile != null && !noticeFile.isEmpty()) {
+            System.out.println("기존 파일 삭제 및 새 파일 저장 로직");
             deleteNoticeFile(noticeDTO.getNoticeId()); // 기존 첨부 파일 삭제
             String storedFileName = saveFile(noticeFile); // 새로운 파일 저장
             noticeEntity.setFileAttached(1);
             updateNoticeFileEntity(noticeEntity, noticeFile.getOriginalFilename(), storedFileName);
+
         } else if (noticeDTO.getOriginalFileName() != null) {
             // 기존 파일 유지
+            System.out.println("기존 파일 유지");
             noticeEntity.setFileAttached(1);
         } else {
             // 첨부파일 없음
+            System.out.println("첨부파일 없음");
             noticeEntity.setFileAttached(0);
         }
 
@@ -91,6 +95,7 @@ public class NoticeService {
 
     // 파일 저장
     private String saveFile(MultipartFile file) throws IOException {
+        System.out.println("saveFile");
         String originalFilename = file.getOriginalFilename();
         String storedFileName = System.currentTimeMillis() + "_" + originalFilename;
         String savePath = fileUploadPath + storedFileName;
@@ -131,12 +136,14 @@ public class NoticeService {
             if (noticeFile != null) {
                 noticeEntity.setNoticeFile(null);
                 noticeFileRepository.delete(noticeFile);
+
+                // 파일 시스템에서 파일 삭제
+                File file = new File(fileUploadPath + noticeFile.getStoredFileName());
+                if (file.exists()) {
+                    file.delete();
+                }
             }
-            // 파일 시스템에서 파일 삭제
-            File file = new File(fileUploadPath + noticeFile.getStoredFileName());
-            if (file.exists()) {
-                file.delete();
-            }
+
         }
     }
 

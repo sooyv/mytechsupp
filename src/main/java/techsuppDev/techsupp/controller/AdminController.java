@@ -55,11 +55,10 @@ public class AdminController {
     }
 
     @GetMapping("product/edit/{id}")
-    public String edit(@PathVariable("id") Long id, Model model) {
+    public String productEdit(@PathVariable("id") Long id, Model model) {
 
         ProductDTO productDTO = adminProductService.getProductDetail(id);
         model.addAttribute("productForm", productDTO);
-
 
         return "admin/Product/edit";
     }
@@ -82,6 +81,7 @@ public class AdminController {
         return "redirect:/admin/product/list";
     }
 
+    // 상품 수정
     @PostMapping("product/edit/{id}")
     public String editPost(@ModelAttribute("productForm") ProductDTO productDTO,
                            @RequestParam("productImgFile") List<MultipartFile> multipartFileList) {
@@ -93,6 +93,7 @@ public class AdminController {
         }
         return "redirect:/admin/product/list";
     }
+
     @GetMapping("payment/list")
     public String paymentList(@ModelAttribute PageRequestDTO pageRequestDTO, Model model) {
         model.addAttribute("result", adminProductService.paymentList(pageRequestDTO));
@@ -119,25 +120,30 @@ public class AdminController {
     // 공지사항 등록
     @PostMapping("/notice/register")
     public String productRegisterPost(@ModelAttribute NoticeDTO noticeDTO) throws Exception {
-//        adminProductService.productRegister(noticeDTO, multipartFileList);
         noticeService.noticeResister(noticeDTO);
         return "redirect:/admin/notice/list";
     }
 
-    // 공지사항 상세
+    // 공지사항 상세 및 수정
     @GetMapping("/notice/{noticeId}")
     public String noticeDetails(@PathVariable("noticeId") Long noticeId, Model model) {
         NoticeDTO noticeDTO = noticeService.findById(noticeId);
+        System.out.println("============================================");
+        System.out.println("공지사항 수정 시 notice title 확인 : " + noticeDTO.getNoticeTitle());
+        System.out.println("공지사항 수정 시 notice filename 확인 : " + noticeDTO.getOriginalFileName());
         model.addAttribute("notice", noticeDTO);
         return "admin/qnaservice/notice-detail";
     }
 
     // 공지사항 수정
     @PostMapping("/notice/edit/{noticeId}")
-    public String noticeUpdate(@ModelAttribute("notice") NoticeDTO noticeDTO, Model model) {
-        NoticeDTO notice = noticeService.noticeUpdate(noticeDTO);
-        model.addAttribute(notice);
-        return "redirect:/admin/notice/list";
+    public String noticeUpdate(@ModelAttribute("notice") NoticeDTO noticeDTO) {
+            try {
+                noticeService.noticeUpdate(noticeDTO);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return "redirect:/admin/notice/list";
     }
 
     // 공지사항 삭제
@@ -155,17 +161,17 @@ public class AdminController {
 //        return "redirect:/admin/notice/list";
     }
 //
-//    @DeleteMapping ("/attachedfile/delete/{noticeId}")
-//    public ResponseEntity<String> attachedFileDelete(@PathVariable("noticeId") Long noticeId) {
-//        System.out.println("여기 타는지 확인");
-//        try {
-//            System.out.println("여기는??");
-//            noticeService.deleteNoticeFile(noticeId);
-//            return ResponseEntity.ok("첨부 파일 삭제 성공");
-//        } catch (Exception e) {
-//            return ResponseEntity.badRequest().body("첨부 파일 삭제 실패");
-//        }
-//    }
+    @DeleteMapping ("/attachedfile/delete/{noticeId}")
+    public ResponseEntity<String> attachedFileDelete(@PathVariable("noticeId") Long noticeId) {
+        System.out.println("여기 타는지 확인");
+        try {
+            System.out.println("여기는??");
+            noticeService.deleteNoticeFile(noticeId);
+            return ResponseEntity.ok("첨부 파일 삭제 성공");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("첨부 파일 삭제 실패");
+        }
+    }
 
 
     // 자주 묻는 질문 페이지

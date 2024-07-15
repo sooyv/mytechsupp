@@ -22,22 +22,19 @@ public class NoticeDTO {
     private String noticeTitle;
     private String noticeContents;
     private int noticeHits;
-//    private LocalDateTime noticeregDate;
-//    private LocalDateTime noticemodDate;
 
     private MultipartFile noticeFile; // save.html -> Controller 파일 담는 용도
     private String originalFileName; // 원본 파일 이름
     private String storedFileName; // 서버 저장용 파일 이름
     private int fileAttached; // 파일 첨부 여부(첨부 1, 미첨부 0)
 
+
     public NoticeDTO(Long noticeId, String noticeWriter, String noticeTitle, int noticeHits) {
         this.noticeId = noticeId;
         this.noticeWriter = noticeWriter;
         this.noticeTitle = noticeTitle;
         this.noticeHits = noticeHits;
-
     }
-
 
     public static NoticeDTO toNoticeDTO(NoticeEntity noticeEntity) {
         NoticeDTO noticeDTO = new NoticeDTO();

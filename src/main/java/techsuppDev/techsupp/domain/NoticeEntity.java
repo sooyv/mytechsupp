@@ -38,6 +38,7 @@ public class NoticeEntity {
     @OneToOne(mappedBy = "notice", cascade = CascadeType.ALL, orphanRemoval = true)
     private NoticeFileEntity noticeFile;
 
+    // 첨부파일이 없을때 엔티티
     public static NoticeEntity toSaveEntity(NoticeDTO noticeDTO) {
         NoticeEntity noticeEntity = new NoticeEntity();
         noticeEntity.setNoticeWriter(noticeDTO.getNoticeWriter());
@@ -45,6 +46,17 @@ public class NoticeEntity {
         noticeEntity.setNoticeContents(noticeDTO.getNoticeContents());
         noticeEntity.setNoticeHits(0);
         noticeEntity.setFileAttached(0); // 파일 없음.
+        return noticeEntity;
+    }
+
+    // 첨부파일이 있을때 엔티티
+    public static NoticeEntity toSaveFileEntity(NoticeDTO noticeDTO) {
+        NoticeEntity noticeEntity = new NoticeEntity();
+        noticeEntity.setNoticeWriter(noticeDTO.getNoticeWriter());
+        noticeEntity.setNoticeTitle(noticeDTO.getNoticeTitle());
+        noticeEntity.setNoticeContents(noticeDTO.getNoticeContents());
+        noticeEntity.setNoticeHits(0);
+        noticeEntity.setFileAttached(1); // 파일있음.
         return noticeEntity;
     }
 
@@ -56,20 +68,5 @@ public class NoticeEntity {
         noticeEntity.setNoticeContents(noticeDTO.getNoticeContents());
 //        noticeEntity.setNoticeHits(noticeEntity.getNoticeHits());
         return noticeEntity;
-
     }
-
-    public static NoticeEntity toSaveFileEntity(NoticeDTO noticeDTO) {
-        NoticeEntity noticeEntity = new NoticeEntity();
-        noticeEntity.setNoticeWriter(noticeDTO.getNoticeWriter());
-        noticeEntity.setNoticeTitle(noticeDTO.getNoticeTitle());
-        noticeEntity.setNoticeContents(noticeDTO.getNoticeContents());
-        noticeEntity.setNoticeHits(0);
-        noticeEntity.setFileAttached(1); // 파일있음.
-        return noticeEntity;
-
-    }
-
-
-
 }

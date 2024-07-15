@@ -12,11 +12,7 @@ import java.util.Optional;
 
 @Repository
 public interface NoticeFileRepository extends JpaRepository<NoticeFileEntity, Long> {
+    // noticeId에 해당하는 NoticeFileEntity 삭제
+    void deleteByNoticeNoticeId(Long noticeId);
 
-    @Query(value = "SELECT nf FROM NoticeFileEntity nf WHERE nf.notice.noticeId = :noticeId",  nativeQuery = true)
-    NoticeFileEntity findByNoticeId(@Param("noticeId") Long noticeId);
-
-    @Modifying
-    @Query(value = "DELETE FROM notice_file WHERE notice_id = :noticeId", nativeQuery = true)
-    void deleteAttachedFileByNoticeId(@Param("noticeId") Long noticeId);
 }

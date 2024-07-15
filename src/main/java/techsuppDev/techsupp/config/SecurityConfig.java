@@ -40,7 +40,6 @@ public class SecurityConfig {
         http.csrf().disable();
 
         http.authorizeRequests()
-                .antMatchers("/login", "/member/login").permitAll()
                 .antMatchers("/user/**").authenticated()
                 .antMatchers("/admin/**").authenticated()
                 .antMatchers("/invest/**").authenticated()

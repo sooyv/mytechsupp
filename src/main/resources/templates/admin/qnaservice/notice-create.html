@@ -29,11 +29,10 @@
             <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-end;">
                 <div class="form-group col-md-4">
                     <label for="noticeFile">첨부파일</label>
-                    <input type="file" id="noticeFile" name="noticeFile" class="form-control">
+                    <input type="file" id="noticeFile" name="noticeFile" th:field="${notice.noticeFile}" class="form-control">
                 </div>
 
                 <button class="btn btn-primary" type="submit">공지작성</button>
-
             </div>
         </div>
     </form>

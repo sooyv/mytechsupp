@@ -29,7 +29,7 @@ public class NoticeService {
     private final NoticeFileRepository noticeFileRepository;
 
     @Value("${serviceSavePath}")
-    String serviceSavePath;
+    String fileUploadPath;
 
 
     // 공지사항 작성
@@ -41,32 +41,76 @@ public class NoticeService {
             noticeRepository.save(noticeEntity);
         } else {
             // 첨부 파일 있음.
-            /*
-                1. DTO에 담긴 파일을 꺼냄
-                2. 파일의 이름 가져옴
-                3. 서버 저장용 이름을 만듦
-                // 내사진.jpg => 839798375892_내사진.jpg
-                4. 저장 경로 설정
-                5. 해당 경로에 파일 저장
-                6. notice에 해당 데이터 save 처리
-                7. notice_file에 해당 데이터 save 처리
-             */
-
+            saveNoticeFile(noticeDTO);
 //          for(MultipartFile noticeFile: noticeDTO.getNoticeFile()) {
-            MultipartFile noticeFile = noticeDTO.getNoticeFile(); // 1.
-            String originalFilename = noticeFile.getOriginalFilename(); // 2.
-            String storedFileName = System.currentTimeMillis() + "_" + originalFilename; // 3.
-            String savePath = serviceSavePath + storedFileName;
-            noticeFile.transferTo(new File(savePath)); // 5.
-            NoticeEntity noticeEntity = NoticeEntity.toSaveFileEntity(noticeDTO);
-            Long savedNoticeId = noticeRepository.save(noticeEntity).getNoticeId();
-            NoticeEntity notice = noticeRepository.findById(savedNoticeId).get();
-
-            NoticeFileEntity noticeFileEntity = NoticeFileEntity.toNoticeFileEntity(notice, originalFilename, storedFileName);
-            noticeFileRepository.save(noticeFileEntity);
-
         }
     }
+
+
+    // 첨부파일 저장 로직
+    public NoticeEntity saveNoticeFile(NoticeDTO noticeDTO) throws IOException {
+
+        MultipartFile noticeFile = noticeDTO.getNoticeFile(); // 1.
+        String originalFilename = noticeFile.getOriginalFilename(); // 2.
+        String storedFileName = System.currentTimeMillis() + "_" + originalFilename; // 3.
+        String savePath = fileUploadPath + storedFileName;
+        noticeFile.transferTo(new File(savePath)); // 5.
+
+        // 첨부 파일이 있을때 toSaveFileEntity로 첨부파일 추가 noticeEntity 변환
+        NoticeEntity noticeEntity = NoticeEntity.toSaveFileEntity(noticeDTO);
+        noticeRepository.save(noticeEntity);         // 저장
+
+        NoticeFileEntity noticeFileEntity = NoticeFileEntity.toNoticeFileEntity(noticeEntity, originalFilename, storedFileName);
+        noticeFileRepository.save(noticeFileEntity);
+
+        return noticeFileEntity.getNotice();
+    }
+
+    // 공지사항 수정
+    @Transactional
+    public NoticeEntity noticeUpdate(NoticeDTO noticeDTO) throws IOException {
+        NoticeEntity noticeEntity = NoticeEntity.toUpdateEntity(noticeDTO);
+        MultipartFile noticeFile = noticeDTO.getNoticeFile();
+
+        // 기존 파일 삭제 및 새 파일 저장 로직
+        if (noticeFile != null && !noticeFile.isEmpty()) {
+            deleteNoticeFile(noticeDTO.getNoticeId()); // 기존 첨부 파일 삭제
+            String storedFileName = saveFile(noticeFile); // 새로운 파일 저장
+            noticeEntity.setFileAttached(1);
+            updateNoticeFileEntity(noticeEntity, noticeFile.getOriginalFilename(), storedFileName);
+        } else if (noticeDTO.getOriginalFileName() != null) {
+            // 기존 파일 유지
+            noticeEntity.setFileAttached(1);
+        } else {
+            // 첨부파일 없음
+            noticeEntity.setFileAttached(0);
+        }
+
+        return noticeRepository.save(noticeEntity);
+    }
+
+    // 파일 저장
+    private String saveFile(MultipartFile file) throws IOException {
+        String originalFilename = file.getOriginalFilename();
+        String storedFileName = System.currentTimeMillis() + "_" + originalFilename;
+        String savePath = fileUploadPath + storedFileName;
+        file.transferTo(new File(savePath));
+        return storedFileName;
+    }
+
+
+    // NoticeFileEntity를 업데이트하거나 새로 생성하여 NoticeEntity에 연결
+    private void updateNoticeFileEntity(NoticeEntity noticeEntity, String originalFileName, String storedFileName) {
+        NoticeFileEntity noticeFileEntity = noticeEntity.getNoticeFile();
+        if (noticeFileEntity == null) {
+            noticeFileEntity = new NoticeFileEntity();
+            noticeFileEntity.setNotice(noticeEntity);
+        }
+        noticeFileEntity.setOriginalFileName(originalFileName);
+        noticeFileEntity.setStoredFileName(storedFileName);
+        noticeFileRepository.save(noticeFileEntity);
+    }
+
 
     // 공지사항 삭제
     @Transactional
@@ -78,13 +122,21 @@ public class NoticeService {
     // 공지사항 첨부파일 삭제
     @Transactional
     public void deleteNoticeFile(Long noticeId) {
-        NoticeFileEntity noticeFileEntity = noticeFileRepository.findByNoticeId(noticeId);
-        if (noticeFileEntity != null) {
-            File file = new File(serviceSavePath + noticeFileEntity.getStoredFileName());
+        Optional<NoticeEntity> noticeEntityOptional = noticeRepository.findById(noticeId);
+
+        if (noticeEntityOptional.isPresent()) {
+            NoticeEntity noticeEntity = noticeEntityOptional.get();
+            NoticeFileEntity noticeFile = noticeEntity.getNoticeFile();
+
+            if (noticeFile != null) {
+                noticeEntity.setNoticeFile(null);
+                noticeFileRepository.delete(noticeFile);
+            }
+            // 파일 시스템에서 파일 삭제
+            File file = new File(fileUploadPath + noticeFile.getStoredFileName());
             if (file.exists()) {
                 file.delete();
             }
-            noticeFileRepository.deleteAttachedFileByNoticeId(noticeId);
         }
     }
 
@@ -116,13 +168,6 @@ public class NoticeService {
         } else {
             return null;
         }
-    }
-
-
-    public NoticeDTO noticeUpdate(NoticeDTO noticeDTO) {
-        NoticeEntity noticeEntity = NoticeEntity.toUpdateEntity(noticeDTO);
-        noticeRepository.save(noticeEntity);
-        return findById(noticeDTO.getNoticeId());
     }
 
     public Page<NoticeDTO> paging(Pageable pageable) {

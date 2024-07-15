@@ -128,15 +128,15 @@ public class NoticeController {
     }
 
     // 일반 회원 공지사항 업데이트 불가
-    @PostMapping("/update")
-    public String update(@ModelAttribute NoticeDTO noticeDTO, Model model) {
-        NoticeDTO notice = noticeService.noticeUpdate(noticeDTO);
-        model.addAttribute("notice", notice);
-        System.out.println("&&&&&&&" + noticeDTO.getNoticeId());
-        return "service/detail";
+//    @PostMapping("/update")
+//    public String update(@ModelAttribute NoticeDTO noticeDTO, Model model) throws IOException {
+////        NoticeDTO notice = noticeService.noticeUpdate(noticeDTO);
+//        NoticeDTO notice = NoticeDTO.toNoticeDTO(noticeService.noticeUpdate(noticeDTO));
+//        model.addAttribute("notice", notice);
+//        System.out.println("&&&&&&&" + noticeDTO.getNoticeId());
+//        return "service/detail";
 //        return "redirect:/notice/update" + noticeDTO.getNoticeId();
-
-    }
+//    }
 
     @GetMapping("/fileDownload/{noticeId}")
     @ResponseBody

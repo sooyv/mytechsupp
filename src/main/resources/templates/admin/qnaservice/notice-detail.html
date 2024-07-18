@@ -4,39 +4,6 @@
       layout:decorate="admin/layouts/base">
 <div layout:fragment="content" class="content">
 
-    <head>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script>
-            $(function() {
-                console.log("notice_details");
-
-                // 이벤트 위임을 사용하여 동적으로 추가된 요소에 이벤트를 바인딩합니다.
-                $(document).on("click", "#deleteFileBtn", function(event) {
-                    console.log("첨부파일 삭제 클릭");
-                    event.preventDefault();
-                    const noticeId = $(this).data("noticeId");
-
-                    if (confirm('정말 삭제하시겠습니까?')) {
-                        $.ajax({
-                            type: 'DELETE',
-                            url: "/admin/attachedfile/delete/" + noticeId,
-                            contentType: 'application/json',
-                            data: JSON.stringify({ noticeId: noticeId }),  // JSON.stringify를 사용하여 데이터를 JSON 형식으로 보냅니다.
-                            success: function(response) {
-                                console.log("Success:", response);
-                                alert("첨부파일 삭제.");
-                            },
-                            error: function(error) {
-                                alert("삭제에 실패했습니다.");
-                                console.log(error);
-                            }
-                        });
-                    }
-                });
-            });
-        </script>
-    </head>
-
     <form th:action="@{|/admin/notice/edit/${notice.noticeId}|}" th:method="post" enctype="multipart/form-data">
         <div th:class="notice-details" style="padding: 3rem">
             <!-- 작성자 -->
@@ -63,7 +30,7 @@
                         <label for="noticeFile">첨부파일</label>
                         <!-- 기존 첨부 파일 표시 -->
                         <span style="margin: 0px 10px 0px 10px;" th:if="${notice.originalFileName != null}">
-                            <a th:href="@{/notice/fileDownload/{noticeId}(noticeId=${notice.noticeId})}" th:text="${notice.originalFileName}"></a>
+                            <a th:href="@{/notice/fileDownload/{noticeId}(noticeId=${notice.noticeId})}" id="originalFileName" th:text="${notice.originalFileName}"></a>
                         </span>
                         <div id="deleteFileBtn" th:data-notice-id="${notice.noticeId}"><i class="fa-solid fa-x"></i></div>
                     </div>
@@ -75,5 +42,8 @@
             </div>
         </div>
     </form>
+
+    <script src="/script/admin/notice/notice-detail.js"></script>
+
 </div>
 </html>

@@ -2,35 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="admin/layouts/base">
-<head>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $(".deleteConfirm").on("click", function(event) {
-                event.preventDefault();
-                const noticeId = $(this).data("noticeId");
 
-                if (confirm('정말 삭제하시겠습니까?')) {
-                    $.ajax({
-                        type: 'DELETE',
-                        url: "/admin/notice/delete/" + noticeId,
-                        contentType: 'application/json',
-                        data: { noticeId: noticeId },
-                        success: function(response) {
-                            console.log("Success:", response);
-                            alert("삭제했습니다.");
-                            location.reload();
-                        },
-                        error: function(error) {
-                            alert("삭제에 실패했습니다.");
-                            console.log(error)
-                        }
-                    });
-                }
-            });
-        });
-    </script>
-</head>
 <body>
 <div layout:fragment="content" class="content">
     <div class="container-fluid px-4">
@@ -72,5 +44,6 @@
     </div>
 </div>
 
+<script src="/script/admin/notice/notice.js"></script>
 </body>
 </html>

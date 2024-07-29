@@ -31,7 +31,8 @@
                     <tbody>
                     <tr th:each="notice: ${noticeList}">
                         <td th:text="${notice.noticeId}"></td>
-                        <td><a th:href="@{|/admin/notice/${notice.noticeId}|}" th:text="${notice.noticeTitle}"></a></td>
+                        <td th:text="${notice.noticeTitle}"></td>
+<!--                        <td><a th:href="@{|/admin/notice/${notice.noticeId}|}" th:text="${notice.noticeTitle}"></a></td>-->
                         <td th:text="${notice.noticeWriter}"></td>
                         <td th:text="${notice.noticeHits}"></td>
                         <td><a th:href="@{|/admin/notice/${notice.noticeId}|}">수정</a></td>

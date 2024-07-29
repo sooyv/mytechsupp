@@ -13,8 +13,6 @@ import techsuppDev.techsupp.DTO.CommentDTO;
 import techsuppDev.techsupp.DTO.FaqDTO;
 import techsuppDev.techsupp.DTO.NoticeDTO;
 import techsuppDev.techsupp.DTO.QuestionDTO;
-import techsuppDev.techsupp.repository.CommentRepository;
-import techsuppDev.techsupp.repository.NoticeFileRepository;
 import techsuppDev.techsupp.service.CommentService;
 import techsuppDev.techsupp.service.FaqService;
 import techsuppDev.techsupp.service.NoticeService;
@@ -75,26 +73,25 @@ public class NoticeController {
          */
         faqService.updateHits(faqId);
         FaqDTO faqDTO = faqService.findById(faqId);
-//        System.out.println(faqDTO.getfaqTitle());
 
         model.addAttribute("faq", faqDTO);
         return "service/faq-detail";
     }
 
-    // 고객센터 페이지에서는 공지 등록 불가
-    @GetMapping("/save")
-    public String saveForm() {
-
-        return "service/save";
-    }
-
-    // 고객센터 페이지에서는 공지 등록 불가
-    @PostMapping("/save")
-    public String save(@ModelAttribute NoticeDTO noticeDTO) throws IOException {
-
-        noticeService.noticeResister(noticeDTO);
-        return "redirect:/notice/paging"; //templates/service/paging.html
-    }
+//    // 고객센터 페이지에서는 공지 등록 불가
+//    @GetMapping("/save")
+//    public String saveForm() {
+//
+//        return "service/save";
+//    }
+//
+//    // 고객센터 페이지에서는 공지 등록 불가
+//    @PostMapping("/save")
+//    public String save(@ModelAttribute NoticeDTO noticeDTO) throws IOException {
+//
+//        noticeService.noticeResister(noticeDTO);
+//        return "redirect:/notice/paging"; //templates/service/paging.html
+//    }
 
     // 공지사항 리스트?
     @GetMapping("/list")
@@ -112,12 +109,13 @@ public class NoticeController {
         해당 게시글의 조회수를 하나 올리고
         게시글 데이터를 가져와서 detail.html에 출력
          */
+
+        System.out.println("여기?=========");
         noticeService.updateHits(noticeId);
         NoticeDTO noticeDTO = noticeService.findById(noticeId);
-        System.out.println(noticeDTO.getNoticeTitle());
 
         model.addAttribute("notice", noticeDTO);
-        return "service/detail";
+        return "service/user-notice-detail";
     }
 
     @GetMapping("update/{noticeId}")

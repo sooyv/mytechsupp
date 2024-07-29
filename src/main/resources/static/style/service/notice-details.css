@@ -1,0 +1,41 @@
+body {
+    font-family: "IBM Plex Sans KR", sans-serif;
+}
+
+.notice-container {
+    width: 100%;
+}
+
+#notice {
+    /*border-bottom: 1px solid #3a3b3d;*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0 60px;
+}
+
+.notice-inner {
+    margin: 2rem 5rem 5rem 5rem;
+}
+
+.notice-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0 30px;
+    border-bottom: solid 1px #979797;
+}
+
+#notice-title {
+    font-size: x-large;
+}
+
+#notice-contents {
+    padding: 30px 0;
+}
+
+#notice-attachment{
+    display: flex;
+    justify-content: end;
+}

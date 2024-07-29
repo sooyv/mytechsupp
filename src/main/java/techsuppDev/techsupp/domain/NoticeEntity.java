@@ -33,8 +33,6 @@ public class NoticeEntity {
     @Column
     private int fileAttached; // 1 or 0
 
-//    @OneToMany(mappedBy = "noticeEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-//    private List<NoticeFileEntity> noticeFileEntityList = new ArrayList<>();
     @OneToOne(mappedBy = "notice", cascade = CascadeType.ALL, orphanRemoval = true)
     private NoticeFileEntity noticeFile;
 

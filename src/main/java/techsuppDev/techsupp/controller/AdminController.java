@@ -128,10 +128,6 @@ public class AdminController {
     @GetMapping("/notice/{noticeId}")
     public String noticeDetails(@PathVariable("noticeId") Long noticeId, Model model) {
         NoticeDTO noticeDTO = noticeService.findById(noticeId);
-        System.out.println("============================================");
-        System.out.println("공지사항 수정 시 notice title 확인 : " + noticeDTO.getNoticeTitle());
-        System.out.println("공지사항 수정 시 notice filename 확인 : " + noticeDTO.getOriginalFileName());
-        System.out.println("notice hits 확인 2: "+ noticeDTO.getNoticeHits());
         model.addAttribute("notice", noticeDTO);
         return "admin/qnaservice/notice-detail";
     }
@@ -139,7 +135,6 @@ public class AdminController {
     // 공지사항 수정
     @PostMapping("/notice/edit/{noticeId}")
     public String noticeUpdate(@ModelAttribute("notice") NoticeDTO noticeDTO) {
-        System.out.println("notice hits 확인 1: "+ noticeDTO.getNoticeHits());
             try {
                 noticeService.noticeUpdate(noticeDTO);
             } catch (Exception e) {
@@ -152,8 +147,6 @@ public class AdminController {
     @DeleteMapping ("notice/delete/{noticeId}")
     public ResponseEntity<String> noticeDelete(@PathVariable("noticeId") Long noticeId) {
         try {
-            // noticefile 먼저 삭제 - 이후 연관관계로 해결 예정
-//            noticeService.deleteNoticeFile(noticeId);
             // 해당 notice 삭제
             noticeService.deleteNotice(noticeId);
             return ResponseEntity.ok().body("삭제되었습니다.");

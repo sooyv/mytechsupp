@@ -9,27 +9,6 @@
 <body>
 <div th:insert="/header :: header"></div>
 <div th:insert="/service/service-header :: service-header"></div>
-<!--<button onclick="saveReq()">글작성</button>-->
-
-
-<!--<table>-->
-<!--    <tr>-->
-<!--        <th>번호</th>-->
-<!--        <th>제목</th>-->
-<!--        <th>작성자</th>-->
-<!--        &lt;!&ndash;    <th>date</th>&ndash;&gt;-->
-<!--        <th>답변상태</th>-->
-<!--    </tr>-->
-<!--    <tr th:each="question: ${questionList}">-->
-<!--        <td th:text="${question.questionId}"></td>-->
-<!--        &lt;!&ndash;    <td><a th:href="@{|/notice/${question.questionId}|(page=${questionList.number + 1})}" th:text="${question.questionTitle}"></a></td>&ndash;&gt;-->
-<!--        <td><a th:href="@{|/notice/question-check/${question.questionId}|(page=${questionList.number + 1})}"-->
-<!--               th:text="${question.questionTitle}"></a></td>-->
-<!--        <td th:text="${question.questionWriter}"></td>-->
-<!--        &lt;!&ndash;    <td th:text="*{#temporals.format(notice.noticemogTime, 'yyyy-MM-dd HH:mm:ss')}"></td>&ndash;&gt;-->
-<!--        &lt;!&ndash;    <td th:text="${question.questionStatus}"></td>&ndash;&gt;-->
-<!--    </tr>-->
-<!--</table>-->
 
 <div class="align-form">
     <form id="listForm">
@@ -94,17 +73,6 @@
         </div>
     </form>
 </div>
-
+<script src="/script/service/userNotice.js"></script>
 </body>
-<script>
-<!--    const saveReq = () => {-->
-<!--        location.href = "/notice/question";-->
-<!--    }-->
-
-
-
-
-
-
-</script>
 </html>

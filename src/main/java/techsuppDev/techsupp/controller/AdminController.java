@@ -131,6 +131,7 @@ public class AdminController {
         System.out.println("============================================");
         System.out.println("공지사항 수정 시 notice title 확인 : " + noticeDTO.getNoticeTitle());
         System.out.println("공지사항 수정 시 notice filename 확인 : " + noticeDTO.getOriginalFileName());
+        System.out.println("notice hits 확인 2: "+ noticeDTO.getNoticeHits());
         model.addAttribute("notice", noticeDTO);
         return "admin/qnaservice/notice-detail";
     }
@@ -138,6 +139,7 @@ public class AdminController {
     // 공지사항 수정
     @PostMapping("/notice/edit/{noticeId}")
     public String noticeUpdate(@ModelAttribute("notice") NoticeDTO noticeDTO) {
+        System.out.println("notice hits 확인 1: "+ noticeDTO.getNoticeHits());
             try {
                 noticeService.noticeUpdate(noticeDTO);
             } catch (Exception e) {

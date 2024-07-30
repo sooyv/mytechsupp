@@ -6,6 +6,8 @@
 
     <form th:action="@{|/admin/notice/edit/${notice.noticeId}|}" th:method="post" enctype="multipart/form-data">
         <div th:class="notice-details" style="padding: 3rem">
+            <!-- 조회수 -->
+            <input type="hidden" name="noticeHits" th:value="${notice.noticeHits}" />
             <!-- 작성자 -->
             <div id="username-box" class="form-group col-md-4" style="margin-bottom: 1rem">
                 <label for="noticeWriter">작성자</label>

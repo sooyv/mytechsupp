@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>detail</title>
     <div th:replace="/head_css :: head_css"></div>
-    <link rel="stylesheet" href="/style/service/notice-details.css" />
+    <link rel="stylesheet" href="/style/service/notice-details.css"/>
 </head>
 <body>
 <div th:insert="/header :: header"></div>
@@ -21,7 +21,7 @@
                     <div class="notice-info">
                         <!-- 제목 -->
                         <div>
-                            <span id="notice-title" th:text="${notice.noticeTitle}"></span>
+                            <span id="notice-title" th:name="noticeTitle" th:text="${notice.noticeTitle}"></span>
                         </div>
                         <div class="notice-sub">
                             <!-- 게시글 번호 -->
@@ -37,9 +37,7 @@
                             </div>
                         </div>
                     </div>
-
                     <div>
-
                         <!-- 내용 -->
                         <div>
                             <div id="notice-contents" name="noticeContents" th:utext="${notice.noticeContents}"></div>
@@ -48,28 +46,29 @@
                         <div id="notice-attachment">
                             <span th:if="${notice.originalFileName != null}">
                                 <label for="noticeFile">첨부파일 -</label>
-                                <a id="noticeFile" th:href="@{/notice/fileDownload/{noticeId}(noticeId=${notice.noticeId})}"
+                                <a id="noticeFile"
+                                   th:href="@{/notice/fileDownload/{noticeId}(noticeId=${notice.noticeId})}"
                                    th:text="${notice.originalFileName}"></a>
                             </span>
                         </div>
 
 
                         <!--                        <div id="notice-attachment">-->
-<!--                            <label for="noticeFile">첨부파일 -</label>-->
-<!--                            &lt;!&ndash;                    <input id="noticeFile" type="file" class="form-control"&ndash;&gt;-->
-<!--                            &lt;!&ndash;                           th:if="${notice.fileAttached == 1}">&ndash;&gt;-->
-<!--                            <span th:if="${notice.originalFileName != null}>-->
-<!--                                <a id="noticeFile" th:href="@{/notice/fileDownload/{noticeId}(noticeId=${notice.noticeId})}"-->
-<!--                                   th:text="${notice.OriginalFileName}"></a>-->
-<!--                            </span>-->
-<!--                        </div>-->
+                        <!--                            <label for="noticeFile">첨부파일 -</label>-->
+                        <!--                            &lt;!&ndash;                    <input id="noticeFile" type="file" class="form-control"&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;                           th:if="${notice.fileAttached == 1}">&ndash;&gt;-->
+                        <!--                            <span th:if="${notice.originalFileName != null}>-->
+                        <!--                                <a id="noticeFile" th:href="@{/notice/fileDownload/{noticeId}(noticeId=${notice.noticeId})}"-->
+                        <!--                                   th:text="${notice.OriginalFileName}"></a>-->
+                        <!--                            </span>-->
+                        <!--                        </div>-->
 
 
-<!--                        <div>-->
-<!--                            <button onclick="pagingReq()">-->
-<!--                                <a href="/notice/paging">공지사항</a></button>-->
-<!--                            <button onclick="updateReq()"><a th:href="@{/notice/update/{noticeId}(noticeId=${notice.noticeId})}">수정</a></button>-->
-<!--                        </div>-->
+                        <!--                        <div>-->
+                        <!--                            <button onclick="pagingReq()">-->
+                        <!--                                <a href="/notice/paging">공지사항</a></button>-->
+                        <!--                            <button onclick="updateReq()"><a th:href="@{/notice/update/{noticeId}(noticeId=${notice.noticeId})}">수정</a></button>-->
+                        <!--                        </div>-->
                         <!--                <div>-->
                         <!--                    <button onclick="updateReq()">-->
                         <!--                        <a th:href="@{/notice/update/{noticeId}(noticeId=${notice.noticeId})}">수정</a></button>-->
@@ -80,131 +79,5 @@
         </div>
     </div>
 </div>
-<!--<table>-->
-<!--    <tr>-->
-<!--        <th>번호</th>-->
-<!--        <td th:text="${notice.noticeId}"></td>-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--        <th>제목</th>-->
-<!--        <td th:text="${notice.noticeTitle}"></td>-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--        <th>작성자</th>-->
-<!--        <td th:text="${notice.noticeWriter}"></td>-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--        &lt;!&ndash;    <th>date</th>&ndash;&gt;-->
-<!--        &lt;!&ndash;    <td th:text="${notice.noticeregDate}"></td>&ndash;&gt;-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--        <th>조회수</th>-->
-<!--        <td th:text="${notice.noticeHits}"></td>-->
-<!--    </tr><button onclick="updateReq()"><a th:href="@{/notice/update/{noticeId}(noticeId=${notice.noticeId})}">수정</a></button>-->
-<!--    <tr>-->
-<!--        <th>내용</th>-->
-<!--        <td th:text="${notice.noticeContents}"></td>-->
-<!--    </tr>-->
-<!--    <tr th:if="${notice.fileAttached == 1}">-->
-<!--        <th>첨부파일</th>-->
-<!--        &lt;!&ndash;    <td><img th:src="@{|/upload/${notice.storedFileName}|}" alt=""></td>&ndash;&gt;-->
-<!--        <td><a th:href="@{/notice/fileDownload/{noticeId}(noticeId=${notice.noticeId})}"-->
-<!--               th:text="${notice.OriginalFileName}">파일이름1.png</a></td>-->
-<!--    </tr>-->
-<!--</table>-->
-<!--&lt;!&ndash;<a th:href="@{/fileDownload/{noticeId}(noticeId=${notice.noticeId})}" th:text="${notice.originalFileName}">파일이름1.png</a>&ndash;&gt;-->
-<!--&lt;!&ndash;<button onclick="listReq()"><a href="/notice/list">공지사항</a></button>&ndash;&gt;-->
-<!--<button onclick="pagingReq()"><a href="/notice/paging">공지사항</a></button>-->
-
-
-<!-- 댓글 작성 부분 -->
-<!--<div id="comment-write">-->
-<!--  <input type="text" id="commentWriter" placeholder="작성자">-->
-<!--  <input type="text" id="commentContents" placeholder="내용">-->
-<!--  <button id="comment-write-btn" onclick="commentWrite()">댓글작성</button>-->
-<!--</div>-->
-
-<!-- 댓글 출력 부분 -->
-<!--<div id="comment-list">-->
-<!--  <table>-->
-<!--    <tr>-->
-<!--      <th>댓글번호</th>-->
-<!--      <th>작성자</th>-->
-<!--      <th>내용</th>-->
-<!--      <th>작성시간</th>-->
-<!--    </tr>-->
-<!--    <tr th:each="comment: ${commentList}">-->
-<!--      <td th:text="${comment.id}"></td>-->
-<!--      <td th:text="${comment.commentWriter}"></td>-->
-<!--      <td th:text="${comment.commentContents}"></td>-->
-<!--      <td th:text="${comment.commentCreatedTime}"></td>-->
-<!--    </tr>-->
-<!--  </table>-->
-<!--</div>-->
-
 </body>
-<script th:inline="javascript">
-<!--    const commentWrite = () => {-->
-<!--        const writer = document.getElementById("commentWriter").value;-->
-<!--        const contents = document.getElementById("commentContents").value;-->
-<!--        console.log("작성자: ", writer);-->
-<!--        console.log("내용: ", contents);-->
-<!--        const id = [[${notice.noticeId}]];-->
-<!--        $.ajax({-->
-<!--           // 요청방식: post, 요청주소: /comment/save, 요청데이터: 작성자, 작성내용, 게시글번호-->
-<!--           type: "post",-->
-<!--           url: "/comment/save",-->
-<!--           data: {-->
-<!--               "commentWriter": writer,-->
-<!--               "commentContents": contents,-->
-<!--               "boardId": id-->
-<!--           },-->
-<!--           success: function (res) {-->
-<!--               console.log("요청성공", res);-->
-<!--               let output = "<table>";-->
-<!--               output += "<tr><th>댓글번호</th>";-->
-<!--               output += "<th>작성자</th>";-->
-<!--               output += "<th>내용</th>";-->
-<!--               output += "<th>작성시간</th></tr>";-->
-<!--               for (let i in res) {-->
-<!--                   output += "<tr>";-->
-<!--                   output += "<td>" + res[i].id + "</td>";-->
-<!--                   output += "<td>" + res[i].commentWriter + "</td>";-->
-<!--                   output += "<td>" + res[i].commentContents + "</td>";-->
-<!--                   output += "<td>" + res[i].commentCreatedTime + "</td>";-->
-<!--                   output += "</tr>";-->
-<!--               }-->
-<!--               output += "</table>";-->
-<!--               document.getElementById('comment-list').innerHTML = output;-->
-<!--               document.getElementById('commentWriter').value = '';-->
-<!--               document.getElementById('commentContents').value = '';-->
-<!--           },-->
-<!--           error: function (err) {-->
-<!--               console.log("요청실패", err);-->
-<!--           }-->
-<!--        });-->
-
-<!--    }-->
-    const listReq = () => {
-        console.log("목록 요청");
-        const id = [[${notice.noticeId}]];
-<!--        const page = [[${page}]];-->
-<!--        location.href = "/notice/paging?page="+page;-->
-    }
-    const updateReq = () => {
-        console.log("수정 요청");
-        const id = [[${notice.noticeId}]];
-        location.href = "/notice/update/" + noticeId;
-    }
-<!--    const deleteReq = () => {-->
-<!--        console.log("삭제 요청");-->
-<!--        const id = [[${notice.noticeId}]];-->
-<!--        location.href = "/notice/delete/" + noticeId;-->
-<!--    }-->
-
-
-
-
-
-</script>
 </html>

@@ -64,7 +64,7 @@ public class NoticeEntity {
         noticeEntity.setNoticeWriter(noticeDTO.getNoticeWriter());
         noticeEntity.setNoticeTitle(noticeDTO.getNoticeTitle());
         noticeEntity.setNoticeContents(noticeDTO.getNoticeContents());
-//        noticeEntity.setNoticeHits(noticeEntity.getNoticeHits());
+        noticeEntity.setNoticeHits(noticeDTO.getNoticeHits());
         return noticeEntity;
     }
 }

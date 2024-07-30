@@ -78,22 +78,7 @@ public class NoticeController {
         return "service/faq-detail";
     }
 
-//    // 고객센터 페이지에서는 공지 등록 불가
-//    @GetMapping("/save")
-//    public String saveForm() {
-//
-//        return "service/save";
-//    }
-//
-//    // 고객센터 페이지에서는 공지 등록 불가
-//    @PostMapping("/save")
-//    public String save(@ModelAttribute NoticeDTO noticeDTO) throws IOException {
-//
-//        noticeService.noticeResister(noticeDTO);
-//        return "redirect:/notice/paging"; //templates/service/paging.html
-//    }
-
-    // 공지사항 리스트?
+    // 공지사항 리스트
     @GetMapping("/list")
     public String findAll(Model model) {
         List<NoticeDTO> noticeDTOList = noticeService.findAllNotice();
@@ -102,15 +87,13 @@ public class NoticeController {
         return "service/list";
     }
 
-    // 공지사항 업데이트 페이지
+    // 공지사항 확인 페이지 FOR USER
     @GetMapping("/{noticeId}")
-    public String findById(@PathVariable Long noticeId, Model model) {
+    public String noticeDetailPage(@PathVariable Long noticeId, Model model) {
         /*
         해당 게시글의 조회수를 하나 올리고
         게시글 데이터를 가져와서 detail.html에 출력
          */
-
-        System.out.println("여기?=========");
         noticeService.updateHits(noticeId);
         NoticeDTO noticeDTO = noticeService.findById(noticeId);
 
@@ -125,23 +108,11 @@ public class NoticeController {
         return "service/update";
     }
 
-    // 일반 회원 공지사항 업데이트 불가
-//    @PostMapping("/update")
-//    public String update(@ModelAttribute NoticeDTO noticeDTO, Model model) throws IOException {
-////        NoticeDTO notice = noticeService.noticeUpdate(noticeDTO);
-//        NoticeDTO notice = NoticeDTO.toNoticeDTO(noticeService.noticeUpdate(noticeDTO));
-//        model.addAttribute("notice", notice);
-//        System.out.println("&&&&&&&" + noticeDTO.getNoticeId());
-//        return "service/detail";
-//        return "redirect:/notice/update" + noticeDTO.getNoticeId();
-//    }
-
     @GetMapping("/fileDownload/{noticeId}")
     @ResponseBody
     public void downloadFile(HttpServletResponse res, @PathVariable Long noticeId) throws UnsupportedEncodingException {
 
         //파일 조회
-//        NoticeFileEntity noticeFile = noticeFileRepository.findById(noticeId).get();
         NoticeDTO noticeDTO = noticeService.findById(noticeId);
 
         //파일 경로

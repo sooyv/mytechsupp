@@ -2,7 +2,16 @@
 /*    font-family: "IBM Plex Sans KR", sans-serif;*/
 /*}*/
 
-span {
+body {
     font-family: "IBM Plex Sans KR", sans-serif;
+}
+
+span {
     font-weight: bold;
+}
+
+#header-line {
+    justify-content: space-between;
+    max-width: 90%;
+    height: 38px;
 }

@@ -3,134 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <title>faq-detail</title>
-    <!-- jquery cdn -->
-    <script src="https://code.jquery.com/jquery-3.6.3.min.js"
-            integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <div th:replace="/head_css :: head_css"></div>
     <link rel="stylesheet" href="/style/service/faq-detail.css" />
 </head>
+
 <body>
 <div th:insert="/header :: header"></div>
 <div th:insert="/service/service-header :: service-header"></div>
 
-<div id="container">
-    <div id="contArea">
-        <div class="sub-title">
-            <h2>
-                자주하는 질문
-            </h2>
-        </div>
-        <div class="real-cont">
+<div id="faq-container">
+    <div class="faq-inner">
+        <h2 id="faq">TECHSUPP 자주하는 질문</h2>
+
+        <div class="align-form">
+            <form action="/faq/detail/${faq.faqId}" method="POST" enctype="multipart/form-data">
+                <div>
+                    <div class="faq-info">
+                        <!-- 제목 -->
+                        <div>
+                            <span id="faq-title" th:name="faqTitle" th:text="${faq.faqTitle}"></span>
+                        </div>
+                        <div class="faq-sub">
+                            <!-- 게시글 번호 -->
+                            <div>
+                                <label for="faq-id">게시글 번호 : </label>
+                                <span id="faq-id" th:text="${faq.faqId}"></span>
+                            </div>
+
+                            <!-- 작성자 -->
+                            <div>
+                                <label for="faq-writer">작성자 : </label>
+                                <span id="faq-writer" th:text="${faq.faqWriter}"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <!-- 내용 -->
+                        <div>
+                            <div id="faq-contents" name="faqContents" th:utext="${faq.faqContents}"></div>
+                        </div>
+
+
+
+                        <!--                        <div id="notice-attachment">-->
+                        <!--                            <label for="noticeFile">첨부파일 -</label>-->
+                        <!--                            &lt;!&ndash;                    <input id="noticeFile" type="file" class="form-control"&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;                           th:if="${notice.fileAttached == 1}">&ndash;&gt;-->
+                        <!--                            <span th:if="${notice.originalFileName != null}>-->
+                        <!--                                <a id="noticeFile" th:href="@{/notice/fileDownload/{noticeId}(noticeId=${notice.noticeId})}"-->
+                        <!--                                   th:text="${notice.OriginalFileName}"></a>-->
+                        <!--                            </span>-->
+                        <!--                        </div>-->
+
+
+                        <!--                        <div>-->
+                        <!--                            <button onclick="pagingReq()">-->
+                        <!--                                <a href="/notice/paging">공지사항</a></button>-->
+                        <!--                            <button onclick="updateReq()"><a th:href="@{/notice/update/{noticeId}(noticeId=${notice.noticeId})}">수정</a></button>-->
+                        <!--                        </div>-->
+                        <!--                <div>-->
+                        <!--                    <button onclick="updateReq()">-->
+                        <!--                        <a th:href="@{/notice/update/{noticeId}(noticeId=${notice.noticeId})}">수정</a></button>-->
+                        <!--                </div>-->
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
-
-<div class="align-form">
-    <form id="signUpForm" action="/notice/detail/${notice.noticeId}"
-          method="POST" enctype="multipart/form-data">
-        <div>
-            <div id="ausername-box" class="form-group col-md-4">
-                <label for="faqId">번호</label>
-                <input type="text" id="faqId" name="faqId" th:value="${faq.faqId}" readonly>
-            </div>
-            <div>
-                <!-- 작성자 -->
-                <div id="username-box" class="form-group col-md-4">
-                    <label for="faqWriter">작성자</label>
-                    <input type="text" id="faqWriter" class="form-control" placeholder="관리자"
-                           th:value="${faq.faqWriter}" readonly>
-                </div>
-                <!-- 제목 -->
-                <div id="password-box" class="form-group col-md-4">
-                    <label for="faqTitle">제목</label>
-                    <input type="text" id="faqTitle" class="form-control" placeholder="제목"
-                           th:value="${faq.faqTitle}" readonly>
-                </div>
-                <!-- 내용 -->
-                <div>
-                    <label for="faqContents">내용</label>
-                    <textarea id="faqContents" name="faqContents" cols="60" rows="10"
-                              th:text="${faq.faqContents}" readonly></textarea>
-                </div>
-
-                <div>
-                    <button><a href="/notice/faq-list">자주하는질문</a></button>
-                </div>
-<!--                <div>-->
-<!--                    <button onclick="updateReq()">-->
-<!--                        <a th:href="@{/notice/update/{noticeId}(noticeId=${notice.noticeId})}">수정</a></button>-->
-<!--                </div>-->
-            </div>
-        </div>
-    </form>
-</div>
-
-
-
-
-<!--<table>-->
-<!--    <tr>-->
-<!--        <th>번호</th>-->
-<!--        <td th:text="${faq.faqId}"></td>-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--        <th>제목</th>-->
-<!--        <td th:text="${faq.faqTitle}"></td>-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--        <th>작성자</th>-->
-<!--        <td th:text="${faq.faqWriter}"></td>-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--        &lt;!&ndash;    <th>date</th>&ndash;&gt;-->
-<!--        &lt;!&ndash;    <td th:text="${notice.noticeregDate}"></td>&ndash;&gt;-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--        <th>조회수</th>-->
-<!--        <td th:text="${faq.faqHits}"></td>-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--        <th>내용</th>-->
-<!--        <td th:text="${faq.faqContents}"></td>-->
-<!--    </tr>-->
-<!--    &lt;!&ndash;  <tr th:if="${notice.fileAttached == 1}">&ndash;&gt;-->
-<!--    &lt;!&ndash;    <th>첨부파일</th>&ndash;&gt;-->
-<!--    &lt;!&ndash;    &lt;!&ndash;    <td><img th:src="@{|/upload/${notice.storedFileName}|}" alt=""></td>&ndash;&gt;&ndash;&gt;-->
-<!--    &lt;!&ndash;    <td><a th:href="@{/notice/fileDownload/{noticeId}(noticeId=${notice.noticeId})}" th:text="${notice.OriginalFileName}">파일이름1.png</a></td>&ndash;&gt;-->
-<!--    &lt;!&ndash;  </tr>&ndash;&gt;-->
-<!--</table>-->
-<!--&lt;!&ndash;<a th:href="@{/fileDownload/{noticeId}(noticeId=${notice.noticeId})}" th:text="${notice.originalFileName}">파일이름1.png</a>&ndash;&gt;-->
-<!--&lt;!&ndash;<button onclick="listReq()"><a href="/notice/list">공지사항</a></button>&ndash;&gt;-->
-<!--<button><a href="/notice/faq-list">자주하는질문</a></button>-->
-<!--<button onclick="updateReq()"><a th:href="@{/notice/update/{noticeId}(noticeId=${notice.noticeId})}">수정</a></button>-->
-
-
-<!-- 댓글 작성 부분 -->
-<!--<div id="comment-write">-->
-<!--  <input type="text" id="commentWriter" placeholder="작성자">-->
-<!--  <input type="text" id="commentContents" placeholder="내용">-->
-<!--  <button id="comment-write-btn" onclick="commentWrite()">댓글작성</button>-->
-<!--</div>-->
-
-<!-- 댓글 출력 부분 -->
-<!--<div id="comment-list">-->
-<!--  <table>-->
-<!--    <tr>-->
-<!--      <th>댓글번호</th>-->
-<!--      <th>작성자</th>-->
-<!--      <th>내용</th>-->
-<!--      <th>작성시간</th>-->
-<!--    </tr>-->
-<!--    <tr th:each="comment: ${commentList}">-->
-<!--      <td th:text="${comment.id}"></td>-->
-<!--      <td th:text="${comment.commentWriter}"></td>-->
-<!--      <td th:text="${comment.commentContents}"></td>-->
-<!--      <td th:text="${comment.commentCreatedTime}"></td>-->
-<!--    </tr>-->
-<!--  </table>-->
-<!--</div>-->
-
 </body>
+<!--<body>-->
+<!--<div th:insert="/header :: header"></div>-->
+<!--<div th:insert="/service/service-header :: service-header"></div>-->
+
+<!--<div id="container">-->
+<!--    <div id="contArea">-->
+<!--        <div class="sub-title">-->
+<!--            <h2>-->
+<!--                자주하는 질문-->
+<!--            </h2>-->
+<!--        </div>-->
+<!--        <div class="real-cont">-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div class="align-form">-->
+<!--    <form id="signUpForm" action="/notice/detail/${notice.noticeId}"-->
+<!--          method="POST" enctype="multipart/form-data">-->
+<!--        <div>-->
+<!--            <div id="ausername-box" class="form-group col-md-4">-->
+<!--                <label for="faqId">번호</label>-->
+<!--                <input type="text" id="faqId" name="faqId" th:value="${faq.faqId}" readonly>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                &lt;!&ndash; 작성자 &ndash;&gt;-->
+<!--                <div id="username-box" class="form-group col-md-4">-->
+<!--                    <label for="faqWriter">작성자</label>-->
+<!--                    <input type="text" id="faqWriter" class="form-control" placeholder="관리자"-->
+<!--                           th:value="${faq.faqWriter}" readonly>-->
+<!--                </div>-->
+<!--                &lt;!&ndash; 제목 &ndash;&gt;-->
+<!--                <div id="password-box" class="form-group col-md-4">-->
+<!--                    <label for="faqTitle">제목</label>-->
+<!--                    <input type="text" id="faqTitle" class="form-control" placeholder="제목"-->
+<!--                           th:value="${faq.faqTitle}" readonly>-->
+<!--                </div>-->
+<!--                &lt;!&ndash; 내용 &ndash;&gt;-->
+<!--                <div>-->
+<!--                    <label for="faqContents">내용</label>-->
+<!--                    <textarea id="faqContents" name="faqContents" cols="60" rows="10"-->
+<!--                              th:text="${faq.faqContents}" readonly></textarea>-->
+<!--                </div>-->
+
+<!--                <div>-->
+<!--                    <button><a href="/notice/faq-list">자주하는질문</a></button>-->
+<!--                </div>-->
+<!--&lt;!&ndash;                <div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <button onclick="updateReq()">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <a th:href="@{/notice/update/{noticeId}(noticeId=${notice.noticeId})}">수정</a></button>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </form>-->
+<!--</div>-->
+
+
+
+
+<!--&lt;!&ndash;<table>&ndash;&gt;-->
+<!--&lt;!&ndash;    <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;        <th>번호</th>&ndash;&gt;-->
+<!--&lt;!&ndash;        <td th:text="${faq.faqId}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;    </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;    <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;        <th>제목</th>&ndash;&gt;-->
+<!--&lt;!&ndash;        <td th:text="${faq.faqTitle}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;    </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;    <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;        <th>작성자</th>&ndash;&gt;-->
+<!--&lt;!&ndash;        <td th:text="${faq.faqWriter}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;    </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;    <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;        &lt;!&ndash;    <th>date</th>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;        &lt;!&ndash;    <td th:text="${notice.noticeregDate}"></td>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;    <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;        <th>조회수</th>&ndash;&gt;-->
+<!--&lt;!&ndash;        <td th:text="${faq.faqHits}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;    </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;    <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;        <th>내용</th>&ndash;&gt;-->
+<!--&lt;!&ndash;        <td th:text="${faq.faqContents}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;    </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;    &lt;!&ndash;  <tr th:if="${notice.fileAttached == 1}">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    &lt;!&ndash;    <th>첨부파일</th>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    &lt;!&ndash;    &lt;!&ndash;    <td><img th:src="@{|/upload/${notice.storedFileName}|}" alt=""></td>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    &lt;!&ndash;    <td><a th:href="@{/notice/fileDownload/{noticeId}(noticeId=${notice.noticeId})}" th:text="${notice.OriginalFileName}">파일이름1.png</a></td>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    &lt;!&ndash;  </tr>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;</table>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<a th:href="@{/fileDownload/{noticeId}(noticeId=${notice.noticeId})}" th:text="${notice.originalFileName}">파일이름1.png</a>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<button onclick="listReq()"><a href="/notice/list">공지사항</a></button>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;<button><a href="/notice/faq-list">자주하는질문</a></button>&ndash;&gt;-->
+<!--&lt;!&ndash;<button onclick="updateReq()"><a th:href="@{/notice/update/{noticeId}(noticeId=${notice.noticeId})}">수정</a></button>&ndash;&gt;-->
+
+
+<!--&lt;!&ndash; 댓글 작성 부분 &ndash;&gt;-->
+<!--&lt;!&ndash;<div id="comment-write">&ndash;&gt;-->
+<!--&lt;!&ndash;  <input type="text" id="commentWriter" placeholder="작성자">&ndash;&gt;-->
+<!--&lt;!&ndash;  <input type="text" id="commentContents" placeholder="내용">&ndash;&gt;-->
+<!--&lt;!&ndash;  <button id="comment-write-btn" onclick="commentWrite()">댓글작성</button>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--&lt;!&ndash; 댓글 출력 부분 &ndash;&gt;-->
+<!--&lt;!&ndash;<div id="comment-list">&ndash;&gt;-->
+<!--&lt;!&ndash;  <table>&ndash;&gt;-->
+<!--&lt;!&ndash;    <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;      <th>댓글번호</th>&ndash;&gt;-->
+<!--&lt;!&ndash;      <th>작성자</th>&ndash;&gt;-->
+<!--&lt;!&ndash;      <th>내용</th>&ndash;&gt;-->
+<!--&lt;!&ndash;      <th>작성시간</th>&ndash;&gt;-->
+<!--&lt;!&ndash;    </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;    <tr th:each="comment: ${commentList}">&ndash;&gt;-->
+<!--&lt;!&ndash;      <td th:text="${comment.id}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;      <td th:text="${comment.commentWriter}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;      <td th:text="${comment.commentContents}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;      <td th:text="${comment.commentCreatedTime}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;    </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;  </table>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--</body>-->
 
 </html>

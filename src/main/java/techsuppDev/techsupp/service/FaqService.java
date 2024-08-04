@@ -3,18 +3,12 @@ package techsuppDev.techsupp.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 import techsuppDev.techsupp.DTO.FaqDTO;
 import techsuppDev.techsupp.DTO.NoticeDTO;
 import techsuppDev.techsupp.domain.FaqEntity;
 import techsuppDev.techsupp.domain.NoticeEntity;
-import techsuppDev.techsupp.domain.NoticeFileEntity;
-import techsuppDev.techsupp.domain.QuestionEntity;
 import techsuppDev.techsupp.repository.FaqRepository;
-import techsuppDev.techsupp.repository.NoticeFileRepository;
-import techsuppDev.techsupp.repository.NoticeRepository;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,17 +20,25 @@ import java.util.Optional;
 public class FaqService {
     private final FaqRepository faqRepository;
 
-    public void save(FaqDTO faqDTO) throws IOException {
-
+    public void faqResister(FaqDTO faqDTO) throws IOException {
         FaqEntity faqEntity = FaqEntity.toSaveEntity(faqDTO);
         faqRepository.save(faqEntity);
+    }
 
+    @Transactional
+    public FaqEntity faqUpdate(FaqDTO faqDTO) throws IOException {
+        FaqEntity faqEntity = FaqEntity.toUpdateEntity(faqDTO);
+        return faqRepository.save(faqEntity);
+    }
 
+    @Transactional
+    public Long deleteFaq(Long faqId) {
+        faqRepository.deleteById(faqId);
+        return faqId;
     }
 
     @Transactional
     public List<FaqDTO> findAll() {
-
         List<FaqEntity> faqEntityList = faqRepository.findAll();
         List<FaqDTO> faqDTOList = new ArrayList<>();
         for (FaqEntity faqEntity: faqEntityList) {
@@ -44,6 +46,7 @@ public class FaqService {
         }
         return faqDTOList;
     }
+
     @Transactional
     public void updateHits(Long faqId) {
 
@@ -61,4 +64,6 @@ public class FaqService {
             return null;
         }
     }
+
+
 }

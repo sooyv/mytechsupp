@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="admin/layouts/base">
+
+<body>
+<div layout:fragment="content" class="content">
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">자주 묻는 질문<span>
+            <a th:href="@{/admin/faq/register}">
+                <button type="button" class="btn btn-outline-primary">FAQ 등록</button>
+            </a></span>
+        </h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a th:href="@{/admin/}">Dashboard</a></li>
+            <li class="breadcrumb-item active">FAQ</li>
+        </ol>
+        <div class="card mb-4">
+            <div class="card-body">
+                <table class="table" id="result">
+                    <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>조회수</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="faq: ${faqList}">
+                        <td th:text="${faq.faqId}"></td>
+                        <td th:text="${faq.faqTitle}"></td>
+                        <!--                        <td><a th:href="@{|/notice/faq-list/${faq.faqId}|}" th:text="${faq.faqTitle}"></a></td>-->
+                        <td th:text="${faq.faqWriter}"></td>
+                        <td th:text="${faq.faqHits}"></td>
+                        <td><a th:href="@{|/admin/faq/${faq.faqId}|}">수정</a></td>
+                        <td><a class="deleteConfirm" href="#" th:data-faq-id="${faq.faqId}">삭제</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!--                <ul class="pagination h-100 justify-content-center align-items-center">-->
+                <!--                    &lt;!&ndash;현재 페이지 여부를 체크해 'active'라는 이름의 클래스가 출력되도록 작성&ndash;&gt;-->
+                <!--                    <li class="page-item" th:if="${result.prev}">-->
+                <!--                        &lt;!&ndash;이전(previous)의 경우 PageResultDTO의 start 값에서 1적은 값으로 지정&ndash;&gt;-->
+                <!--                        <a class="page-link" th:href="@{/admin/product/list(page= ${result.start -1})}" tabindex="-1">Previous</a>-->
+                <!--                    </li>-->
+
+                <!--                    <li th:class=" 'page-item' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">-->
+                <!--                        <a class="page-link" th:href="@{/admin/product/list(page = ${page})}">-->
+                <!--                            [[${page}]]-->
+                <!--                        </a>-->
+                <!--                    </li>-->
+                <!--                    &lt;!&ndash;현재 페이지 여부를 체크해 'active'라는 이름의 클래스가 출력되도록 작성&ndash;&gt;-->
+                <!--                    <li class="page-item" th:if="${result.next}">-->
+                <!--                        &lt;!&ndash;다음(next)의 경우 PageResultDTO의 end 값에서 1큰 값으로 지정&ndash;&gt;-->
+                <!--                        <a class="page-link" th:href="@{/admin/product/list(page = ${result.end +1})}">Next</a>-->
+                <!--                    </li>-->
+                <!--                </ul>-->
+            </div>
+        </div>
+    </div>
+    <script src="/script/admin/faq/faq.js"></script>
+</div>
+
+</body>
+</html>

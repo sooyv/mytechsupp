@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="admin/layouts/base">
+<div layout:fragment="content" class="content">
+
+    <form th:action="@{|/admin/faq/edit/${faq.faqId}|}" th:method="post" enctype="multipart/form-data">
+        <div th:class="notice-details" style="padding: 3rem">
+            <!-- 조회수 -->
+            <input type="hidden" name="faqHits" th:value="${faq.faqHits}" />
+            <!-- 작성자 -->
+            <div id="username-box" class="form-group col-md-4" style="margin-bottom: 1rem">
+                <label for="faqWriter">작성자</label>
+                <input type="text" id="faqWriter" class="form-control" placeholder="관리자"
+                       th:field="${faq.faqWriter}">
+            </div>
+            <!-- 제목 -->
+            <div class="form-group col-md-4" style="margin-bottom: 1rem">
+                <label for="faq-title">제목</label>
+                <input type="text" id="faq-title" class="form-control" placeholder="제목"
+                       th:field="${faq.faqTitle}">
+            </div>
+            <!-- 내용 -->
+            <div class="mb-3">
+                <label class="small mb-1">내용</label>
+                <textarea class="form-control" rows="5" name="information" id="content" th:field="${faq.faqContents}"></textarea>
+            </div>
+
+<!--            <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-end;">-->
+<!--                <div class="form-group col-md-4">-->
+<!--                    <div style="display: flex; flex-direction: row; width: max-content;">-->
+<!--                        <label for="noticeFile">첨부파일</label>-->
+<!--                        &lt;!&ndash; 기존 첨부 파일 표시 &ndash;&gt;-->
+<!--                        <span style="margin: 0px 10px 0px 10px;" th:if="${notice.originalFileName != null}">-->
+<!--                            <a th:href="@{/notice/fileDownload/{noticeId}(noticeId=${notice.noticeId})}" id="originalFileName" th:text="${notice.originalFileName}"></a>-->
+<!--                        </span>-->
+<!--                        <div id="deleteFileBtn" th:data-notice-id="${notice.noticeId}"><i class="fa-solid fa-x"></i></div>-->
+<!--                    </div>-->
+<!--                    &lt;!&ndash; 새로운 첨부 파일 선택 &ndash;&gt;-->
+<!--                    <input type="file" id="noticeFile" name="noticeFile" class="form-control">-->
+<!--                </div>-->
+
+                <button class="btn btn-primary" type="submit">수정하기</button>
+<!--            </div>-->
+        </div>
+    </form>
+
+
+
+</div>
+</html>

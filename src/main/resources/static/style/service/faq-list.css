@@ -1,25 +1,44 @@
 .align-form {
-        display: flex;
-        justify-content: center;
-    }
+    display: flex;
+    justify-content: center;
+}
 
 #listForm {
-        display: flex;
-        justify-content: center;
-        width: 930px;
-
-    }
+    display: flex;
+    justify-content: center;
+    width: 930px;
+}
 
 #pagingForm{
+    display: flex;
+    justify-content: center;
+}
 
-        display: flex;
-        justify-content: center;
+/* 기본 스타일 정의 */
+.faq-con .question,
+.faq-con .faq-title a {
+    color: black; /* 기본 텍스트 색상 설정 */
+    font-weight: 900;
+    text-decoration: none; /* 링크의 기본 밑줄 제거 (선택 사항) */
+}
 
-    }
+/* hover 상태에서 텍스트 색상 변경 */
+.faq-con:hover .question,
+.faq-con:hover .faq-title a {
+    color: #5ebee7; /* hover 시 하늘색으로 변경 */
+}
 
+.top-faq {
+    font-size: larger;
+    font-weight: bold;
+    border-bottom: solid 3px #b6b6b6;
+    padding: 10px 0 20px 0;
+}
 
-a {
+.faq-title {
+    margin-left : 20px;
+}
 
-        text-decoration-line:none
-
+table td.faq-con {
+    padding: 1rem !important; /* 원하는 padding 값 설정 */
 }

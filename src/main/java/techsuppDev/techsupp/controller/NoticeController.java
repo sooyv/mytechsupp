@@ -40,23 +40,11 @@ public class NoticeController {
 
     @GetMapping("")
     public String serviceMain() {
-
         return "service/service-header";
     }
 
-    @GetMapping("/faq")
-    public String faqsaveForm() {
 
-        return "service/faq";
-    }
-
-    @PostMapping("/faq")
-    public String faqsave(@ModelAttribute FaqDTO faqDTO) throws IOException {
-
-        faqService.save(faqDTO);
-        return "service/faq-list";
-    }
-
+    // 자주 묻는 질문 리스트
     @GetMapping("/faq-list")
     public String findfaqAll(Model model) {
         List<FaqDTO> faqDTOList = faqService.findAll();
@@ -65,6 +53,7 @@ public class NoticeController {
         return "service/faq-list";
     }
 
+    // 자주 묻는 질문 detail
     @GetMapping("/faq-list/{faqId}")
     public String faqfindById(@PathVariable Long faqId, Model model) {
         /*
@@ -84,7 +73,7 @@ public class NoticeController {
         List<NoticeDTO> noticeDTOList = noticeService.findAllNotice();
         System.out.println(noticeDTOList);
         model.addAttribute("noticeList", noticeDTOList);
-        return "service/list";
+        return "service/notice-list";
     }
 
     // 공지사항 확인 페이지 FOR USER
@@ -99,13 +88,6 @@ public class NoticeController {
 
         model.addAttribute("notice", noticeDTO);
         return "service/user-notice-detail";
-    }
-
-    @GetMapping("update/{noticeId}")
-    public String updateForm(@PathVariable Long noticeId, Model model) {
-        NoticeDTO noticeDTO = noticeService.findById(noticeId);
-        model.addAttribute("noticeUpdate", noticeDTO);
-        return "service/update";
     }
 
     @GetMapping("/fileDownload/{noticeId}")

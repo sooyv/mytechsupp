@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import techsuppDev.techsupp.DTO.*;
 import techsuppDev.techsupp.service.AdminProductService;
+import techsuppDev.techsupp.service.FaqService;
 import techsuppDev.techsupp.service.NoticeService;
 import techsuppDev.techsupp.service.ProductImageService;
 
@@ -27,6 +28,7 @@ public class AdminController {
     private final AdminProductService adminProductService;
     private final ProductImageService productImageService;
     private final NoticeService noticeService;
+    private final FaqService faqService;
 
     @GetMapping("/")
     public String Home() {
@@ -37,6 +39,10 @@ public class AdminController {
         model.addAttribute("result", adminProductService.getList(pageRequestDTO));
         return "admin/Product/list";
     }
+
+    /**
+     * PRODUCT
+     */
 
     // 상품 등록 페이지
     @GetMapping("/product/register")
@@ -100,26 +106,28 @@ public class AdminController {
         return "admin/Payment/paymentlist";
     }
 
-    // ---------------------------------------공지사항---------------------------------------------------
+    /**
+     * NOTICE
+     */
 
     // 공지사항 리스트 페이지
     @GetMapping("/notice/list")
     public String noticelist(Model model) {
         List<NoticeDTO> noticeDTOList = noticeService.findAllNotice();
         model.addAttribute("noticeList", noticeDTOList);
-        return "admin/qnaservice/notice";
+        return "admin/qnaService/notice";
     }
 
     // 공지사항 등록 페이지
     @GetMapping("/notice/register")
     public String noticeRegister(Model model) {
         model.addAttribute("notice", new NoticeDTO());
-        return "admin/qnaservice/notice-create";
+        return "admin/qnaService/notice-create";
     }
 
     // 공지사항 등록
     @PostMapping("/notice/register")
-    public String productRegisterPost(@ModelAttribute NoticeDTO noticeDTO) throws Exception {
+    public String noticeRegisterPost(@ModelAttribute NoticeDTO noticeDTO) throws Exception {
         noticeService.noticeResister(noticeDTO);
         return "redirect:/admin/notice/list";
     }
@@ -129,7 +137,7 @@ public class AdminController {
     public String noticeDetails(@PathVariable("noticeId") Long noticeId, Model model) {
         NoticeDTO noticeDTO = noticeService.findById(noticeId);
         model.addAttribute("notice", noticeDTO);
-        return "admin/qnaservice/notice-detail";
+        return "admin/qnaService/notice-detail";
     }
 
     // 공지사항 수정
@@ -153,14 +161,11 @@ public class AdminController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("notice 삭제 중 문제가 발생했습니다.");
         }
-//        return "redirect:/admin/notice/list";
     }
-//
+
     @DeleteMapping ("/attachedfile/delete/{noticeId}")
     public ResponseEntity<String> attachedFileDelete(@PathVariable("noticeId") Long noticeId) {
-        System.out.println("여기 타는지 확인");
         try {
-            System.out.println("여기는??");
             noticeService.deleteNoticeFile(noticeId);
             return ResponseEntity.ok("첨부 파일 삭제 성공");
         } catch (Exception e) {
@@ -168,19 +173,66 @@ public class AdminController {
         }
     }
 
+    /**
+     * FAQ
+     */
 
-    // 자주 묻는 질문 페이지
+    // 자주 묻는 질문 리스트 페이지
     @GetMapping("/faq/list")
-    public String Faqlist(Model model) {
-//        List<FaqDTO> faqDTOList = faq
-        return "admin/qnaservice/faq";
+    public String faqList(Model model) {
+        List<FaqDTO> faqDTOList = faqService.findAll();
+        model.addAttribute("faqList", faqDTOList);
+        return "admin/qnaService/faq";
     }
 
-    // 자주 묻는 질문
-    @PostMapping("/faq/new")
-    public String createFaq(@ModelAttribute NoticeDTO noticeDTO) throws IOException {
-        return "redirect:/admin/qnaservice/faq";
+    // 자주 묻는 질문 등록 페이지
+    @GetMapping("/faq/register")
+    public String faqRegister(Model model) {
+        model.addAttribute("faq", new FaqDTO());
+        return "admin/qnaService/faq-create";
     }
+
+    // 자주 묻는 질문 등록
+    @PostMapping("/faq/register")
+    public String createFaq(@ModelAttribute FaqDTO faqDTO) throws IOException {
+        // faq 작성 로직
+        faqService.faqResister(faqDTO);
+        System.out.println("createFaq post 확인 title : " + faqDTO.getFaqTitle());
+        System.out.println("createFaq post 확인 contents : " + faqDTO.getFaqContents());
+        return "redirect:/admin/faq/list";
+    }
+
+    // 자주묻는질문 상세 및 수정
+    @GetMapping("/faq/{faqId}")
+    public String faqDetails(@PathVariable("faqId") Long faqId, Model model) {
+        FaqDTO faqDTO = faqService.findById(faqId);
+        model.addAttribute("faq", faqDTO);
+        return "admin/qnaService/faq-detail";
+    }
+
+    // 자주 묻는 질문 수정
+    @PostMapping("/faq/edit/{faqId}")
+    public String faqUpdate(@ModelAttribute("faq") FaqDTO faqDTO) {
+        try {
+            faqService.faqUpdate(faqDTO);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:/admin/faq/list";
+    }
+
+    // 자주 묻는 질문 삭제
+    @DeleteMapping ("faq/delete/{faqId}")
+    public ResponseEntity<String> faqDelete(@PathVariable("faqId") Long faqId) {
+        try {
+            // 해당 faqId 삭제
+            faqService.deleteFaq(faqId);
+            return ResponseEntity.ok().body("삭제되었습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("notice 삭제 중 문제가 발생했습니다.");
+        }
+    }
+
 
 //    @GetMapping("payment/list")
 //    public String paymentList(Model model, @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {

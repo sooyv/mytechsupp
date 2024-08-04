@@ -19,20 +19,19 @@
             <div class="card mb-4">
                 <div class="card-body">
                     <table class="table" id="result">
-                        <thead>
-                        <tr>
-                            <th>번호</th>
-                            <th>제목</th>
-                            <th>작성자</th>
-                            <th>조회수</th>
-                        </tr>
-                        </thead>
+                        <div class="top-faq">
+                            TOP FAQ
+                        </div>
                         <tbody>
                         <tr th:each="faq: ${faqList}">
-                            <td th:text="${faq.faqId}"></td>
-                            <td><a th:href="@{|/notice/faq-list/${faq.faqId}|}" th:text="${faq.faqTitle}"></a></td>
-                            <td th:text="${faq.faqWriter}"></td>
-                            <td th:text="${faq.faqHits}"></td>
+                            <td class="faq-con">
+                                <span class="question">Q</span>
+                                <span class="faq-title"><a th:href="@{|/notice/faq-list/${faq.faqId}|}" th:text="${faq.faqTitle}"></a></span>
+                            </td>
+<!--                            <td th:text="${faq.faqId}"></td>-->
+<!--                            <td style="padding: 20px;"><span>Q <a id="faq-title" th:href="@{|/notice/faq-list/${faq.faqId}|}" th:text="${faq.faqTitle}"></a></span></td>-->
+<!--                            <td th:text="${faq.faqWriter}"></td>-->
+<!--                            <td th:text="${faq.faqHits}"></td>-->
                         </tr>
                         </tbody>
                     </table>

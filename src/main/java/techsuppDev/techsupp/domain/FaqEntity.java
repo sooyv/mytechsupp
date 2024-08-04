@@ -46,4 +46,14 @@ public class FaqEntity {
         return faqEntity;
     }
 
+    public static FaqEntity toUpdateEntity(FaqDTO faqDTO) {
+        FaqEntity FaqEntity = new FaqEntity();
+        FaqEntity.setFaqId(faqDTO.getFaqId());
+        FaqEntity.setFaqWriter(faqDTO.getFaqWriter());
+        FaqEntity.setFaqTitle(faqDTO.getFaqTitle());
+        FaqEntity.setFaqContents(faqDTO.getFaqContents());
+        FaqEntity.setFaqHits(faqDTO.getFaqHits());
+        return FaqEntity;
+    }
+
 }

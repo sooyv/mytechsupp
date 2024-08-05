@@ -69,10 +69,10 @@ public class AdminController {
         return "admin/Product/edit";
     }
 
-    @GetMapping("product/delete/{id}")
-    public String removeFile(@PathVariable("id") Long id) throws IOException {
+    @GetMapping("product/delete/{product_id}")
+    public String removeFile(@PathVariable("product_id") Long product_id) throws IOException {
 
-        ProductDTO productDTO = adminProductService.getProductDetail(id);
+        ProductDTO productDTO = adminProductService.getProductDetail(product_id);
 
         if (productDTO.getProductImgDTOList().size() != 0) {
             Path currentPath = Paths.get("/Users/leesoyoung/Desktop/Funding/techsupp/mytechsupp/src/main/resources/static/file/product/"
@@ -82,7 +82,7 @@ public class AdminController {
             productImageService.deleteImageData(imgId);
         }
 
-        adminProductService.delete(id);
+        adminProductService.delete(product_id);
 
         return "redirect:/admin/product/list";
     }

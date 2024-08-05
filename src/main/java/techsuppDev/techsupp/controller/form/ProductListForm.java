@@ -10,7 +10,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
-@Entity
 @Getter
 @Setter
 @AllArgsConstructor
@@ -33,6 +32,7 @@ import java.time.LocalDateTime;
         @ColumnResult(name = "img_url", type = String.class),
         @ColumnResult(name = "wish_id", type = String.class)
         })
+
 public class ProductListForm {
         @Id
         private Long id;

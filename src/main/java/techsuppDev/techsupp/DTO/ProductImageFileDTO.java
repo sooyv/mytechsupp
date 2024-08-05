@@ -10,7 +10,6 @@ import javax.persistence.Id;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 @Getter
 @Setter
 public class ProductImageFileDTO {

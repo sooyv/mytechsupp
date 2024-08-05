@@ -39,11 +39,11 @@ public class AdminProductService {
         for (int i = 0, max = multipartFileList.size(); i < max; i++) {
             Image image = null;
 
-            if(productDTO.getProductImgDTOList().size() != 0){
+            if (productDTO.getProductImgDTOList().size() != 0){
                 image = Image.builder()
                         .product(product)
                         .repImg(i == 0 ? "Y" : "N")
-                        .id(productDTO.getProductImgDTOList().get(0).getId())
+                        .imgId(productDTO.getProductImgDTOList().get(0).getId())
                         .build();
             } else{
                 image = Image.builder()
@@ -53,12 +53,12 @@ public class AdminProductService {
             }
             productImageService.saveImg(image, multipartFileList.get(i));
         }
-        return product.getId();
+        return product.getProductId();
     };
 
     @Transactional(readOnly = true)
-    public ProductDTO getProductDetail(Long id) {
-        List<Image> imageList = productImageRepository.findByProductIdOrderByIdAsc(id);
+    public ProductDTO getProductDetail(Long productId) {
+        List<Image> imageList = productImageRepository.findByProductProductIdOrderByImgIdAsc(productId);
         List<ProductImgDTO> productImgDTOList = new ArrayList<>();
 
         for (Image image : imageList) {
@@ -66,7 +66,7 @@ public class AdminProductService {
             productImgDTOList.add(productImgDTO);
         }
 
-        Product product = adminProductRepository.findById(id).orElseThrow(EntityExistsException::new);
+        Product product = adminProductRepository.findById(productId).orElseThrow(EntityExistsException::new);
         ProductDTO productDTO = ProductDTO.entityToDto(product);
         productDTO.setProductImgDTOList(productImgDTOList);
 
@@ -75,15 +75,15 @@ public class AdminProductService {
 
 
     public PageResultDTO<ProductDTO, Product> getList(PageRequestDTO pageRequestDTO) {
-        Pageable pageable = pageRequestDTO.getPageable(Sort.by("id").descending());
+        Pageable pageable = pageRequestDTO.getPageable(Sort.by("productId").descending());
         Page<Product> result = adminProductRepository.findAll(pageable);
         Function<Product, ProductDTO> fn = (entity -> ProductDTO.entityToDto(entity));
 
         return new PageResultDTO<>(result, fn);
     };
 
-    public void delete(Long id) {
-        adminProductRepository.delete(adminProductRepository.findById(id).get());
+    public void delete(Long productId) {
+        adminProductRepository.delete(adminProductRepository.findById(productId).get());
     }
 
 
@@ -96,17 +96,17 @@ public class AdminProductService {
 
         Collections.shuffle(randomProducts);
 
-        List<Product> plist;
+        List<Product> productList;
         if (randomProducts.size() < 5) {
-            plist = randomProducts.subList(0, randomProducts.size());
+            productList = randomProducts.subList(0, randomProducts.size());
         } else {
-            plist = randomProducts.subList(0, 5);
+            productList = randomProducts.subList(0, 5);
         }
         List<ProductDTO> pDTOList = new ArrayList<ProductDTO>();
 
-        for(Product p : plist){
-            ProductDTO pDTO = ProductDTO.entityToDto(p);
-            List<Image> imageList = productImageRepository.findByProductIdOrderByIdAsc(p.getId());
+        for (Product product : productList){
+            ProductDTO productDTO = ProductDTO.entityToDto(product);
+            List<Image> imageList = productImageRepository.findByProductProductIdOrderByImgIdAsc(product.getProductId());
 
             List<ProductImgDTO> productImgDTOList = new ArrayList<>();
 
@@ -115,15 +115,23 @@ public class AdminProductService {
             } else {
                 productImgDTOList.add(ProductImgDTO.entityToDto(imageList.get(0)));
             }
-            pDTO.setProductImgDTOList(productImgDTOList);
-            pDTOList.add(pDTO);
+            productDTO.setProductImgDTOList(productImgDTOList);
+            pDTOList.add(productDTO);
         }
 
 
         return pDTOList;
     }
+//    public PageResultDTO<AdminPaymentForm, AdminPaymentForm> paymentList(PageRequestDTO pageRequestDTO) {
+//        Pageable pageable = pageRequestDTO.getPageable(Sort.by("id").descending());
+//        Page<AdminPaymentForm> result = paymentRepository.getAllPayment(pageable);
+//        System.out.println(result);
+//        Function<AdminPaymentForm, AdminPaymentForm> fn = (entity -> entity);
+//
+//        return new PageResultDTO<>(result, fn);
+//    }
     public PageResultDTO<AdminPaymentForm, AdminPaymentForm> paymentList(PageRequestDTO pageRequestDTO) {
-        Pageable pageable = pageRequestDTO.getPageable(Sort.by("id").descending());
+        Pageable pageable = pageRequestDTO.getPageable(Sort.by("productId").descending());
         Page<AdminPaymentForm> result = paymentRepository.getAllPayment(pageable);
         System.out.println(result);
         Function<AdminPaymentForm, AdminPaymentForm> fn = (entity -> entity);

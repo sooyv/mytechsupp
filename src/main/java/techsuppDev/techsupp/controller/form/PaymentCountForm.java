@@ -8,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.SqlResultSetMapping;
 
 @Data
-@Entity
 @Getter
 @Setter
 @NoArgsConstructor

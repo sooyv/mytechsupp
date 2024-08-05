@@ -57,11 +57,9 @@ public class ApiController {
 
 
 //    productMain 에서 5개 보여주기
-
     @RequestMapping(value = "/products/*", method = RequestMethod.GET)
     public ResponseEntity findFiveProduct(
-            HttpServletRequest req
-            ) throws IOException {
+            HttpServletRequest req) throws IOException {
         int orderNumber = Integer.parseInt(req.getParameter("order"));
         String keyword = req.getParameter("keyword");
         if (orderNumber != 0) {
@@ -294,8 +292,6 @@ public ResponseEntity wishDelete( HttpServletRequest req) {
         payment.setPaymentMethod(object.get("paymentMethod").toString());
 
         paymentService.savePayment(payment);
-
-//        paylog
 
         Long savedPayment = paymentService.getSinglePaymentId();
 

@@ -5,9 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import techsuppDev.techsupp.domain.Payment;
-import techsuppDev.techsupp.domain.Product;
-import techsuppDev.techsupp.domain.User;
 import techsuppDev.techsupp.domain.WishList;
 
 import java.util.List;

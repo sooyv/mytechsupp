@@ -50,11 +50,11 @@ public class NoticeService {
     // 첨부파일 저장 로직
     public NoticeEntity saveNoticeFile(NoticeDTO noticeDTO) throws IOException {
 
-        MultipartFile noticeFile = noticeDTO.getNoticeFile(); // 1.
-        String originalFilename = noticeFile.getOriginalFilename(); // 2.
-        String storedFileName = System.currentTimeMillis() + "_" + originalFilename; // 3.
+        MultipartFile noticeFile = noticeDTO.getNoticeFile();
+        String originalFilename = noticeFile.getOriginalFilename();
+        String storedFileName = System.currentTimeMillis() + "_" + originalFilename;
         String savePath = fileUploadPath + storedFileName;
-        noticeFile.transferTo(new File(savePath)); // 5.
+        noticeFile.transferTo(new File(savePath));
 
         // 첨부 파일이 있을때 toSaveFileEntity로 첨부파일 추가 noticeEntity 변환
         NoticeEntity noticeEntity = NoticeEntity.toSaveFileEntity(noticeDTO);

@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    @Column(name = "userid") // db의 id userid와 매핑
+    @Column(name = "user_id") // db의 id userid와 매핑
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 

@@ -12,7 +12,6 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 @Getter
 @Setter
 @Table(name = "WishListForm")

@@ -2,16 +2,14 @@ package techsuppDev.techsupp.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import techsuppDev.techsupp.DTO.Paylog;
-import techsuppDev.techsupp.controller.form.PaymentCountForm;
 import techsuppDev.techsupp.controller.form.PaymentForm;
-import techsuppDev.techsupp.domain.Payment;
 import techsuppDev.techsupp.repository.PayLogRepository;
 import techsuppDev.techsupp.repository.PaymentRepository;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +19,7 @@ public class PaymentService {
     public final PayLogRepository payLogRepository;
 
 //    payment table에 데이터 입력
+    @Transactional
     public void savePayment(PaymentForm payment) {
         paymentRepository.savePayment(payment);
     }

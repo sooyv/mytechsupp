@@ -5,12 +5,9 @@ import org.springframework.web.multipart.MultipartFile;
 import techsuppDev.techsupp.domain.QuestionEntity;
 //import techsuppDev.techsupp.domain.QuestionStatus;
 
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 @Getter
 @Setter
@@ -50,7 +47,7 @@ public class QuestionDTO {
         QuestionDTO questionDTO = new QuestionDTO();
         questionDTO.setQuestionId(questionEntity.getQuestionId());
         questionDTO.setQuestionWriter(questionEntity.getQuestionWriter());
-        questionDTO.setQuestionPass(questionEntity.getQuestionPass());
+        questionDTO.setQuestionPass(questionEntity.getQuestionPassword());
         questionDTO.setQuestionCategory(questionEntity.getQuestionCategory());
         questionDTO.setQuestionTitle(questionEntity.getQuestionTitle());
         questionDTO.setQuestionContents(questionEntity.getQuestionContents());

@@ -26,7 +26,7 @@ public class QuestionEntity {
     private String questionWriter;
 
     @Column(length = 255)
-    private String questionPass;
+    private String questionPassword;
 
     @Column
     private String questionCategory;
@@ -59,7 +59,7 @@ public class QuestionEntity {
     public static QuestionEntity toSaveEntity(QuestionDTO questionDTO){
         QuestionEntity questionEntity = new QuestionEntity();
         questionEntity.setQuestionWriter(questionDTO.getQuestionWriter());
-        questionEntity.setQuestionPass(questionDTO.getQuestionPass());
+        questionEntity.setQuestionPassword(questionDTO.getQuestionPass());
         questionEntity.setQuestionCategory(questionDTO.getQuestionCategory());
         questionEntity.setQuestionTitle(questionDTO.getQuestionTitle());
         questionEntity.setQuestionContents(questionDTO.getQuestionContents());
@@ -75,7 +75,7 @@ public class QuestionEntity {
         QuestionEntity questionEntity = new QuestionEntity();
         questionEntity.setQuestionId(questionDTO.getQuestionId());
         questionEntity.setQuestionWriter(questionDTO.getQuestionWriter());
-        questionEntity.setQuestionPass(questionDTO.getQuestionPass());
+        questionEntity.setQuestionPassword(questionDTO.getQuestionPass());
         questionEntity.setQuestionCategory(questionDTO.getQuestionCategory());
         questionEntity.setQuestionTitle(questionDTO.getQuestionTitle());
         questionEntity.setQuestionContents(questionDTO.getQuestionContents());
@@ -88,7 +88,7 @@ public class QuestionEntity {
     public static QuestionEntity toSaveFileEntity(QuestionDTO questionDTO) {
         QuestionEntity questionEntity = new QuestionEntity();
         questionEntity.setQuestionWriter(questionDTO.getQuestionWriter());
-        questionEntity.setQuestionPass(questionDTO.getQuestionPass());
+        questionEntity.setQuestionPassword(questionDTO.getQuestionPass());
         questionEntity.setQuestionCategory(questionDTO.getQuestionCategory());
         questionEntity.setQuestionTitle(questionDTO.getQuestionTitle());
         questionEntity.setQuestionContents(questionDTO.getQuestionContents());

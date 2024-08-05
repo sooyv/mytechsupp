@@ -1,15 +1,10 @@
 package techsuppDev.techsupp.domain;
 
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 @Data
 @DiscriminatorValue("i")
@@ -20,7 +15,7 @@ import java.util.List;
 @SqlResultSetMapping(
     name = "ProductMapping",
     columns = {
-        @ColumnResult(name = "id", type = Long.class),
+        @ColumnResult(name = "product_id", type = Long.class),
         @ColumnResult(name = "moddate", type = LocalDateTime.class),
         @ColumnResult(name = "regdate", type = LocalDateTime.class),
         @ColumnResult(name = "click_count", type = int.class),
@@ -33,13 +28,12 @@ import java.util.List;
         @ColumnResult(name = "total_price", type = Integer.class)
     })
 
-//)
 @Table(name = "Product")
-public class Product extends BaseEntity{
+public class Product extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "product_id")
+    private Long productId;
     @Column(name = "seq_id")
     private Long seqId;
     @Column(name = "product_name", nullable = false)
@@ -57,8 +51,5 @@ public class Product extends BaseEntity{
     private ProductStatus productStatus;
     @Column(name = "click_count", columnDefinition = "integer default 0", nullable = false)
     private int clickCount;
-
-
-
 
 }

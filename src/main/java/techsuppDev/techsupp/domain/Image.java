@@ -16,18 +16,18 @@ public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "img_id")
-    private Long id;
-    private String imgName;
+    private Long imgId;
     private String originImgName;
+    private String storedImgName;
     private String imgUrl;
     private String repImg;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "product_id")
     private Product product;
 
-    public void updateProductImg(String imgName, String originImgName, String imgUrl) {
-        this.imgName = imgName;
+    public void updateProductImg(String originImgName, String storedImgName, String imgUrl) {
         this.originImgName = originImgName;
+        this.storedImgName = storedImgName;
         this.imgUrl = imgUrl;
     }
 }

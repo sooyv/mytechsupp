@@ -11,25 +11,23 @@ import javax.persistence.Id;
 import javax.persistence.SqlResultSetMapping;
 
 @Data
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@SqlResultSetMapping(
-        name = "AdminPaymentForm",
-        columns = {
-                @ColumnResult(name = "payment_id", type = Long.class),
-                @ColumnResult(name = "product_name", type = String.class),
-                @ColumnResult(name = "user_email", type = String.class),
-                @ColumnResult(name = "payment_method", type = String.class),
-                @ColumnResult(name = "payment_price", type = int.class),
-                @ColumnResult(name = "payment_date", type = String.class),
-                @ColumnResult(name = "paylog_status", type = String.class)
-        }
-)
+//@SqlResultSetMapping(
+//        name = "AdminPaymentForm",
+//        columns = {
+//                @ColumnResult(name = "payment_id", type = Long.class),
+//                @ColumnResult(name = "product_name", type = String.class),
+//                @ColumnResult(name = "user_email", type = String.class),
+//                @ColumnResult(name = "payment_method", type = String.class),
+//                @ColumnResult(name = "payment_price", type = int.class),
+//                @ColumnResult(name = "payment_date", type = String.class),
+//                @ColumnResult(name = "paylog_status", type = String.class)
+//        }
+//)
 public class AdminPaymentForm {
-
-    @Id
+//    @Id
     private Long paymentId;
     private String productName;
     private String userEmail;

@@ -1,6 +1,5 @@
 package techsuppDev.techsupp.DTO;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,12 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import techsuppDev.techsupp.domain.Product;
 import techsuppDev.techsupp.domain.ProductStatus;
 
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Lob;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +34,7 @@ public class ProductDTO {
 
     public Product dtoToEntity(ProductDTO productDTO) {
         Product entity = Product.builder()
-                .id(productDTO.getId())
+                .productId(productDTO.getId())
                 .productName(productDTO.getProductName())
                 .totalPrice(productDTO.getTotalPrice())
                 .period(productDTO.getPeriod())
@@ -51,7 +45,7 @@ public class ProductDTO {
 
     public static ProductDTO entityToDto(Product entity) {
         ProductDTO dto = ProductDTO.builder()
-                .id(entity.getId())
+                .id(entity.getProductId())
                 .productName(entity.getProductName())
                 .totalPrice(entity.getTotalPrice())
                 .period(entity.getPeriod())

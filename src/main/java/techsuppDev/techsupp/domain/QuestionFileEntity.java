@@ -10,9 +10,23 @@ import javax.persistence.*;
 @Setter
 @Table(name = "question_file")
 public class QuestionFileEntity {
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Long questionId;
+//
+//    @Column
+//    private String originalFileName;
+//
+//    @Column
+//    private String storedFileName;
+//
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "question_question_id")
+//    private QuestionEntity questionEntity;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long questionId;
+    private Long questionFileId;
 
     @Column
     private String originalFileName;
@@ -21,7 +35,7 @@ public class QuestionFileEntity {
     private String storedFileName;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "question_question_id")
+    @JoinColumn(name = "question_id")
     private QuestionEntity questionEntity;
 
     public static QuestionFileEntity toQuestionFileEntity(QuestionEntity questionEntity, String originalFileName, String storedFileName){

@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 @Builder
 @SqlResultSetMapping(
     name = "feedbackSpecificListMapping",

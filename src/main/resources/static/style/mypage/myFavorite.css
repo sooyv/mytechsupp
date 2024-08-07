@@ -1,32 +1,77 @@
-.myfavorite_container ul {
-  padding: 0;
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
 }
 
 .board_row {
-  width: 100%;
-  max-width: 1000px;
-  margin: 0 auto;
-  box-sizing: border-box;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    box-sizing: border-box;
 }
-
 
 .myfavorite_container {
-  padding: 40px;
-  margin-right: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-  width: 80%;
+  /*padding: 40px;*/
+  /*margin-right: auto;*/
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  /*align-items: center;*/
+  /*justify-content: space-evenly;*/
+  /*width: 80%;*/
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 90%;
 }
 
+.align-form {
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    /*width: 100%;*/
+    /*box-sizing: border-box;*/
+    /*background: #f5f5f5;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    background: #f5f5f5;
+    padding: 2em;
+}
 
-.myfavorite_container li {
-  list-style: none;
+.align-form h3 {
+    padding: 2rem 2rem 2rem 0rem;
+    width: 90%;
+}
+
+.favorites {
+    background-color: white;
+    font-weight: 600;
+    border-radius: 15px;
+
+    width: 90%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+}
+
+.myfavorite_container .favorites .notice_board .board_row {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.myfavorite_container .favorites .notice_board .board_row li {
+    list-style: none;
     border-bottom: solid 1px gray;
     float: left;
     text-align: center;
@@ -35,23 +80,22 @@
 }
 
 .title_row > li {
-
-  flex-grow: 1;
-  height: 50px;
-  line-height: 50px;
-  background: rgb(233, 233, 233);
-  font-weight: bold;
-  border-top: solid 2px rgb(0, 0, 0);
-  border-right: solid 1px gray;
+    flex-grow: 1;
+    height: 50px;
+    line-height: 50px;
+    background: rgb(233, 233, 233);
+    font-weight: bold;
+    border-top: solid 2px rgb(0, 0, 0);
+    border-right: solid 1px gray;
 }
 
 .data_row > li {
-  flex-basis: 0;
-  flex-grow: 1;
-  height: 40px;
-  line-height: 40px;
-  font-weight: lighter;
-  border-right: solid 1px gray;
+    flex-basis: 0;
+    flex-grow: 1;
+    height: 40px;
+    line-height: 40px;
+    font-weight: lighter;
+    border-right: solid 1px gray;
 }
 
 .w70 {
@@ -71,10 +115,12 @@
 }
 
 .notice_board {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 50px;
 }
 
 .pagination {
@@ -99,11 +145,6 @@
 
 .pagination .block button.active {
   font-weight: bold;
-}
-
-#entire_box {
-  display: flex;
-  flex-direction: row;
 }
 
 

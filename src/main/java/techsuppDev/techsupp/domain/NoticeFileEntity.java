@@ -14,13 +14,10 @@ public class NoticeFileEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "notice_file_id")
     private Long noticeFileId;
-
     @Column(name = "original_file_name")
     private String originalFileName;
-
     @Column(name = "stored_file_name")
     private String storedFileName;
-
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "notice_id", referencedColumnName = "notice_id")
     private NoticeEntity notice;

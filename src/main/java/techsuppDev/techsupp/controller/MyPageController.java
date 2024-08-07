@@ -41,6 +41,7 @@ public class MyPageController {
         return "mypage/checkPassword";
     }
 
+
     // 비밀번호 확인 체크
     @PostMapping("/checkpassword")
     @ResponseBody

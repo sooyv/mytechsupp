@@ -11,7 +11,7 @@
 </head>
 <body>
 <!--공통되는 header-->
-<div th:insert="/header :: header"></div>
+<div th:replace="/header :: header"></div>
 <div class="text-center">
   <main class="form-login w-100 m-auto">
     <form th:action="@{/member/login}" method="POST">

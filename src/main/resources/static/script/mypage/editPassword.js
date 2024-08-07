@@ -1,4 +1,5 @@
-//const form = document.getElementById("editPasswordForm");
+const form = document.getElementById("editPwd-form");
+
 const passwordInput = document.getElementById("password");
 const checkPasswordInput = document.getElementById("checkPassword");
 
@@ -20,10 +21,12 @@ checkPasswordInput.onkeyup = validatePassword;
 const password = passwordInput.value;
 const checkPassword = checkPasswordInput.value;
 
-$(document).ready(function () {
+form.addEventListener("submit", event => {
+    event.preventDefault();
+    $(document).ready(function () {
     $.ajax({
         type: 'POST',
-        url: "mypage/editPassword",
+        url: "mypage/editpassword",
         data: {
         password: password,
         checkPassword: checkPassword
@@ -36,7 +39,7 @@ $(document).ready(function () {
         },
     });
 });
-//});
+});
 
 // 비밀번호 일치 여부
 function validatePassword(){

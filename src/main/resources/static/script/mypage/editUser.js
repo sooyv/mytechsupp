@@ -1,6 +1,4 @@
-const form = document.getElementById("editUserForm");
-const userPhoneInput = document.getElementById("userPhone");
-
+const form = document.getElementById("editUser-form");
 
 // // 비밀번호 일치 여부
 // $("#checkPassword").on("keyup", function(event) { // 키보드에서 손을 땠을 때 실행
@@ -17,10 +15,10 @@ form.addEventListener("submit", event => {
         const PhoneNumber = $("#userPhone").val();
         $.ajax({
           type: 'POST',
-          url: "mypage/editUser",
+          url: "/mypage/editUser",
           data: {
-            userPhone : userPhone,
-            address : userAddress
+            userPhone : userName,
+            address : PhoneNumber
             },
           success: function (response) {
             console.log(response);

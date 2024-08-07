@@ -4,13 +4,17 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
 <body>
-    <ul th:fragment="mypage-sideBox" id="mypage_side_box">
-        <li class="btn_box" onclick="goMyPage()">마이페이지</li>
-        <li class="btn_box" onclick="goMyFavorite()">즐겨찾기</li>
-        <!--        <div class="btn_box" th:onclick="location.href=/user/myinvest">투자목록</div>-->
-        <li class="btn_box" onclick="checkPwd('/user/edituser')">회원정보수정</li>
-        <li class="btn_box" onclick="checkPwd('/user/editpassword')">비밀번호변경</li>
+<div th:fragment="mypage-sideBox">
+    <ul id="mypage_side_box">
+        <div>
+            <i class="fa-solid fa-robot"></i>
+        </div>
+        <li class="btn_box" id="mypage" onclick="goMyPage()"><i class="fa-solid fa-house icon"></i>마이페이지</li>
+        <li class="btn_box" id="myFavorite" onclick="goMyFavorite()"><i class="fa-solid fa-heart icon"></i>즐겨찾기</li>
+        <li class="btn_box" id="editUser" onclick="checkPwd('/user/edituser')"><i class="fa-solid fa-circle-user icon"></i>회원정보수정</li>
+        <li class="btn_box" id="editPwd" onclick="checkPwd('/user/editpassword')"><i class="fa-solid fa-key icon"></i>비밀번호변경</li>
     </ul>
+<!--    <script src="/script/mypage/myPage.js"></script>-->
+</div>
 </body>
-<script src="/script/mypage/myPage.js"></script>
 </html>

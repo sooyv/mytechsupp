@@ -4,53 +4,53 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>TECHSUPP </title>
-    <th:block th:replace="/head_css :: head_css"></th:block>
+    <div th:replace="/head_css :: head_css"></div>
     <link href="/style/mypage/myFavorite.css" rel="stylesheet">
     <link href="/style/mypage/myPage-sideBox.css" rel="stylesheet">
 </head>
 <body>
-<div th:insert="/header :: header"></div>
-
-<div id="entire_box">
-    <!-- 사이드 메뉴 -->
-    <div th:replace="/mypage/myPage-sideBox :: mypage-sideBox"></div>
-    <!-- 사이드 메뉴 끝 -->
-
+    <!--공통되는 header-->
+    <div th:replace="/header :: header"></div>
     <div class="myfavorite_container">
-        <div class="notice_board">
-            <!-- title 열 --> <h1 class="title_head">즐겨찾기</h1>
-            <ul class="board_row title_row">
-                <li class="w70">번호</li>
-                <li class="w500 no-hover">제품명</li>
-                <li class="w120">목표투자액</li>
-                <li class="w100">투자총액</li>
-                <li class="w100">제품상태</li>
-            </ul>
-            <ul class="board_row" th:each="w : ${wishList}">
-<!--                <li class="w70" th:text="${wStat.index + 1}"></li>-->
-                <li class="w70" th:text="${w.product.id}"></li>
-                <li class="w500" th:text="${w.product.productName}"></li>
-                <li class="w120" th:text="${w.product.investPrice}"></li>
-                <li class="w100" th:text="${w.product.totalPrice}"></li>
-                <li class="w100" th:text="${w.product.productStatus}"></li>
-            </ul>
+        <!-- 사이드 메뉴 -->
+        <div th:replace="/mypage/myPage-sideBox :: mypage-sideBox"></div>
+        <!-- 사이드 메뉴 끝 -->
+        <div class="align-form">
+            <h3 class="title_head">즐겨찾기</h3>
+            <div class="favorites">
+                <div class="notice_board">
+                    <ul class="board_row title_row">
+                        <li class="w70">번호</li>
+                        <li class="w500 no-hover">제품명</li>
+                        <li class="w120">목표투자액</li>
+                        <li class="w100">투자총액</li>
+                        <li class="w100">제품상태</li>
+                    </ul>
+                    <ul class="board_row" th:each="w : ${wishList}">
+                        <!--                <li class="w70" th:text="${wStat.index + 1}"></li>-->
+                        <li class="w70" th:text="${w.product.id}"></li>
+                        <li class="w500" th:text="${w.product.productName}"></li>
+                        <li class="w120" th:text="${w.product.investPrice}"></li>
+                        <li class="w100" th:text="${w.product.totalPrice}"></li>
+                        <li class="w100" th:text="${w.product.productStatus}"></li>
+                    </ul>
 
-            <div th:if="${wishList == null}">
-                <p>즐겨찾기한 제품이 없습니다.</p>
+                    <div th:if="${wishList == null}">
+                        <p>즐겨찾기한 제품이 없습니다.</p>
+                    </div>
+                </div>
+                <!-- 페이지 블럭 -->
+                <div class="pagination">
+                    <button class="before_move" onclick="prevBlock()">이전</button>
+                    <div class="block">
+                        <!-- 블럭 추가로 들어오는 위치 -->
+                    </div>
+                    <button class="next_move" onclick="nextBlock()">다음</button>
+                </div>
             </div>
         </div>
-        <!-- 페이지 블럭 -->
-        <div class="pagination">
-            <button class="before_move" onclick="prevBlock()">이전</button>
-            <div class="block">
-                <!-- 블럭 추가로 들어오는 위치 -->
-            </div>
-            <button class="next_move" onclick="nextBlock()">다음</button>
-        </div>
-    </div>
 </div>
-
-<script src="/script/mypage/myPage.js"></script>
-<script src="/script/mypage/myFavorite.js"></script>
+<!--<script src="/script/mypage/myFavorite.js"></script>-->
+    <script src="/script/mypage/myPage.js"></script>
 </body>
 </html>

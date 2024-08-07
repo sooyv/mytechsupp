@@ -20,16 +20,12 @@ public class NoticeEntity {
 
     @Column(length = 20, nullable = false)
     private String noticeWriter;
-
     @Column
     private String noticeTitle;
-
     @Column(length = 500)
     private String noticeContents;
-
     @Column
     private int noticeHits;
-
     @Column
     private int fileAttached; // 1 or 0
 

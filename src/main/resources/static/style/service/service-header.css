@@ -1,9 +1,6 @@
-h1 {
+.cs-title {
     text-align: center;
-    margin: 20px;
-}
-
-.lnb {
+    margin: 2.5rem;
 }
 
 .swiper-container {

@@ -1,88 +1,78 @@
-    html,
-    body {
-        height: 100%;
-    }
+.find-user-form {
+    height: 100%;
+}
 
-    find-user-form {
-        height: 100%;
-    }
+.form-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f5f5;
+    height: 100%;
+}
 
-    .form-center {
-        display: flex;
-        justify-content: center;
-        padding: 3rem;
-        background-color: #f5f5f5;
-        height: 90%;
-        font-family: 'IBM Plex Sans KR';
-    }
+.main {
+     padding: 10px;
+}
 
-    .main {
-         padding: 10px;
-    }
+.findform {
+    display: flex;
+    flex-direction: column;
+}
 
-    .findform {
-        display: flex;
-        flex-direction: column;
-    }
+ .title-style {
+    margin-bottom: 10px;
+}
 
-    h3 {
-        margin-bottom: 10px;
-    }
+hr {
+    border: 1px solid black;
+    width: auto;
+}
 
-    h5 {
-        margin-bottom: 10px;
-    }
+#idpw-btn {
+    display: flex;
+    margin-bottom: 15px;
+}
 
-    hr {
-        border: 1px solid black;
-        width: auto;
-    }
+.form-check {
+    margin-left: 20px;
+}
 
-    #idpw-btn {
-        display: flex;
-        margin-bottom: 15px;
-    }
+#username-box {
+    width: auto;
+    margin-top: 20px;
+}
 
-    .form-check {
-        margin-left: 20px;
-    }
+#phoneNum-box {
+    width: auto;
+    margin-top: 20px;
+}
 
-    #username-box {
-        width: auto;
-        margin-top: 20px;
-    }
+#email-box {
+    width: 330px;
+    margin-top: 20px;
+}
 
-    #phoneNum-box {
-        width: auto;
-        margin-top: 20px;
-    }
+#findId-btn {
+    width: 100%;
+    margin-top: 20px;
+}
 
-    #email-box {
-        width: 330px;
-        margin-top: 20px;
-    }
+#formFindPw {
+    width: 330px;
+}
 
-    #findId-btn {
-        width: 100%;
-        margin-top: 20px;
-    }
+#findPw-btn {
+    width: 330px;
+    margin-top: 20px;
+}
 
-    #formFindPw {
-        width: 330px;
-    }
+#goLogin {
+    width: 330px;
+    margin-top: 20px;
+}
 
-    #findPw-btn {
-        width: 330px;
-        margin-top: 20px;
-    }
-
-    #goLogin {
-        width: 330px;
-        margin-top: 20px;
-    }
-
-    .text-muted {
-        display: flex;
-        justify-content: center;
-    }
+.text-muted {
+    display: flex;
+    justify-content: center;
+}
 

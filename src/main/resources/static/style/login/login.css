@@ -1,9 +1,3 @@
-html,
-body {
-  height: 100%;
-  font-family: 'IBM Plex Sans KR';
-}
-
 .text-center {
   display: flex;
   align-items: center;

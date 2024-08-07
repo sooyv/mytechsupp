@@ -3,37 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>TECHSUPP 아이디 비밀번호 찾기</title>
-    <th:block th:replace="/head_css :: head_css"></th:block>
+    <div th:replace="/head_css :: head_css"></div>
     <link href="/style/login/finduser.css" rel="stylesheet">
 </head>
 <body>
+<!--공통되는 header-->
+<div th:replace="/header :: header"></div>
 <div class="find-user-form">
-    <!--공통되는 header-->
-    <div th:replace="/header :: header"></div>
-    <!-- 이메일 찾기 modal -->
-    <div class="modal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-center">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">이메일 찾기</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body"><!-- 찾아온 이메일 값 출력 --></div>
-                <div class="modal-footer">
-                    <button type="button" id="findPw" class="btn btn-secondary" data-bs-dismiss="modal">비밀번호 재발급</button>
-                    <button type="button" id="findEmailModal-btn" class="btn btn-primary">확인</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- main -->
     <div class="form-center">
         <div class="main">
             <div class="findform">
-                <h3>
+                <h3 class="title-style">
                     아이디 비밀번호 찾기
                 </h3>
-                <h5>
+                <h5 class="title-style">
                     인증된 이메일만 정보 찾기가 가능합니다 :)
                 </h5>
                 <hr>

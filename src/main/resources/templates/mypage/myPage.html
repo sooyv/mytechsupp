@@ -12,32 +12,32 @@
   <!--공통되는 header-->
   <div th:replace="/header :: header"></div>
   <div class="mypage-container">
-    <!-- 사이드 메뉴 -->
-    <div th:replace="/mypage/myPage-sideBox :: mypage-sideBox"></div>
-    <!-- 사이드 메뉴 끝 -->
-    <!-- 회원정보 -->
-    <div class="align-form">
-      <h3>회원정보</h3>
-      <form id="member-info-form" action="mypage"  method="post">
-        <div class="mypage_box">
-          <div id="email-box" class="form-group col-md-4" name="myPageForm">
-            <label for="email">이메일</label>
-            <input type="email" name="userEmail" id="email" class="form-control" aria-describedby="emailHelp" placeholder="email@example.com" th:value="${userinfo.userEmail}" readonly>
+      <!-- 사이드 메뉴 -->
+      <div th:replace="/mypage/myPage-sideBox :: mypage-sideBox"></div>
+      <!-- 사이드 메뉴 끝 -->
+      <!-- 회원정보 -->
+      <div class="align-form">
+        <h3>회원정보</h3>
+        <form id="member-info-form" action="mypage"  method="post">
+          <div class="mypage_box">
+            <div id="email-box" class="form-group col-md-4" name="myPageForm">
+              <label for="email">이메일</label>
+              <input type="email" name="userEmail" id="email" class="form-control" aria-describedby="emailHelp" placeholder="email@example.com" th:value="${userinfo.userEmail}" readonly>
+            </div>
+            <!-- 이름 -->
+            <div id="name-box" class="form-group col-md-4">
+              <label for="userName">이름</label>
+              <input type="name" id="userName" name="userName" th:value="${userinfo.userName}"  class="form-control"  placeholder="" readonly>
+            </div>
+            <!-- 전화번호 -->
+            <div id="phoneNum-box" class="form-group col-md-4">
+              <label for="userPhone">전화번호</label>
+              <input type="tel" id="userPhone" name="userPhone" th:value="${userinfo.userPhone}" class="form-control" placeholder="" readonly>
+            </div>
           </div>
-          <!-- 이름 -->
-          <div id="name-box" class="form-group col-md-4">
-            <label for="userName">이름</label>
-            <input type="name" id="userName" name="userName" th:value="${userinfo.userName}"  class="form-control"  placeholder="" readonly>
-          </div>
-          <!-- 전화번호 -->
-          <div id="phoneNum-box" class="form-group col-md-4">
-            <label for="userPhone">전화번호</label>
-            <input type="tel" id="userPhone" name="userPhone" th:value="${userinfo.userPhone}" class="form-control" placeholder="" readonly>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
+        </form>
+      </div>
+</div>
   <script src="/script/mypage/myPage.js"></script>
 </body>
 </html>

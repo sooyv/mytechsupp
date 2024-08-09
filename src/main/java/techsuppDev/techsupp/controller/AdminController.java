@@ -34,6 +34,7 @@ public class AdminController {
     public String Home() {
         return "admin/adminhome";
     }
+
     @GetMapping("/product/list")
     public String list(@ModelAttribute PageRequestDTO pageRequestDTO, Model model) {
         model.addAttribute("result", adminProductService.getList(pageRequestDTO));

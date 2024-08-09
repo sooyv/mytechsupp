@@ -24,7 +24,7 @@ public class FaqEntity {
     @Column
     private String faqTitle;
 
-    @Column(length = 500)
+    @Column(length = 1000)
     private String faqContents;
 
     @Column

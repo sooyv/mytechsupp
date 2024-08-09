@@ -21,5 +21,18 @@
 }
 
 a {
-    text-decoration-line:none
+    text-decoration-line:none;
+    color: black;
+}
+
+a:hover {
+    color: #5ebee7; /* hover 시 하늘색으로 변경 */
+}
+
+.link {
+    color: #4c90a8;
+}
+
+.top-link {
+    color: #27657b;
 }

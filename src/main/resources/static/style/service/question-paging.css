@@ -1,31 +1,52 @@
+th, td {
+    text-align: center;
+}
+
 .align-form {
-        display: flex;
-        justify-content: center;
-    }
+    display: flex;
+    justify-content: center;
+}
 
- #listForm {
-            display: flex;
-            justify-content: center;
-            width: 930px;
-        }
-
-
-#pagingForm{
+#listForm {
+    display: flex;
+    justify-content: center;
+    width: 930px;
+}
 
 
-        justify-content: space-evenly;
+#pagingForm {
+    justify-content: space-evenly;
+}
 
-    }
+#question-head {
+    border-bottom: solid 3px #b6b6b6;
+}
 
-#button {
+#question-btn-w {
+    display: flex;
+    justify-content: flex-end;
+}
 
-        display: flex;
-        justify-content: flex-end;
+#question-btn {
+    width: 100px;
+    height: 40px;
+    background-color: gray;
+    border: solid 1px gray;
+    border-radius: 3px;
+}
 
+#question-btn > a {
+    color: white;
 }
 
 a {
+    text-decoration-line: none
+}
 
-        text-decoration-line:none
-
+#answerStatus {
+    background-color: #626161;
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+    font-size: smaller;
 }

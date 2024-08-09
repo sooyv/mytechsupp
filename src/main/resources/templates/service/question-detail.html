@@ -13,8 +13,10 @@
 <div th:replace="/header :: header"></div>
 <div th:insert="/service/service-header :: service-header"></div>
 
+question-detail.html
+
 <div class="align-form">
-    <form id="signUpForm" action="/notice/question-detail" method="POST" enctype="multipart/form-data">
+    <form id="signUpForm" action="/cs/question-detail" method="POST" enctype="multipart/form-data">
         <div>
             <div id="userId-box" class="form-group col-md-4">
                 <label for="questionId">번호</label>
@@ -31,7 +33,7 @@
             <div id="pass-box" class="form-group col-md-4">
                 <label for="questionPass">비밀번호</label>
                 <input id="questionPass" type="password" class="form-control"
-                       th:value="${question.questionPass}" readonly>
+                       th:value="${question.getQuestionPwd}" readonly>
             </div>
             <!--            분류-->
             <div id="checkpassword-box" class="form-group col-md-4">
@@ -63,7 +65,7 @@
 
             <div>
                 <button onclick="question-pagingReq()">
-                    <a href="/notice/question-paging">문의사항</a></button>
+                    <a href="/cs/question-list">문의사항</a></button>
                 <button onclick="question-updateReq()">
                     <a th:href="@{/notice/question-update/{questionId}(questionId=${question.questionId})}">수정</a>
                 </button>

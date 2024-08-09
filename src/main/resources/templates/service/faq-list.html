@@ -26,37 +26,13 @@
                         <tr th:each="faq: ${faqList}">
                             <td class="faq-con">
                                 <span class="question">Q</span>
-                                <span class="faq-title"><a th:href="@{|/notice/faq-list/${faq.faqId}|}" th:text="${faq.faqTitle}"></a></span>
+                                <span class="faq-title"><a th:href="@{|/cs/faq/${faq.faqId}|}" th:text="${faq.faqTitle}"></a></span>
                             </td>
-<!--                            <td th:text="${faq.faqId}"></td>-->
-<!--                            <td style="padding: 20px;"><span>Q <a id="faq-title" th:href="@{|/notice/faq-list/${faq.faqId}|}" th:text="${faq.faqTitle}"></a></span></td>-->
-<!--                            <td th:text="${faq.faqWriter}"></td>-->
-<!--                            <td th:text="${faq.faqHits}"></td>-->
                         </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-
-
-            <!--<table>-->
-            <!--    <tr>-->
-            <!--        <th>faqId</th>-->
-            <!--        <th>title</th>-->
-            <!--        &lt;!&ndash;    <th>title(||쓰지 않은 경우)</th>&ndash;&gt;-->
-            <!--        <th>writer</th>-->
-            <!--        &lt;!&ndash;    <th>date</th>&ndash;&gt;-->
-            <!--        <th>hits</th>-->
-            <!--    </tr>-->
-            <!--    <tr th:each="faq: ${faqList}">-->
-            <!--        <td th:text="${faq.faqId}"></td>-->
-            <!--        <td><a th:href="@{|/notice/${faq.faqId}|}" th:text="${faq.faqTitle}"></a></td>-->
-            <!--        &lt;!&ndash;    <td><a th:href="@{/notice/${notice.noticeId}}" th:text="${notice.noticeTitle}"></a></td>&ndash;&gt;-->
-            <!--        <td th:text="${faq.faqWriter}"></td>-->
-            <!--        &lt;!&ndash;    <td th:text="*{#temporals.format(notice.noticeregDate, 'yyyy-MM-dd HH:mm:ss')}"></td>&ndash;&gt;-->
-            <!--        <td th:text="${faq.faqHits}"></td>-->
-            <!--    </tr>-->
-            <!--</table>-->
         </div>
     </form>
 </div>

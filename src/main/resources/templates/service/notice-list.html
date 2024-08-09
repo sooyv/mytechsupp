@@ -1,35 +1,69 @@
 <!DOCTYPE html>
-<!--<html lang="en">-->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>list</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-  <link href="/style/signUp/signUp.css" rel="stylesheet">
-  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <meta charset="UTF-8">
+    <title>techsupp 고객센터</title>
+    <div th:replace="/head_css :: head_css"></div>
+    <link rel="stylesheet" href="/style/service/notice-list.css"/>
 </head>
-
 <body>
 <div th:replace="/header :: header"></div>
-<table>
-  <tr>
-    <th>noticeId</th>
-    <th>title</th>
-    <!--    <th>title(||쓰지 않은 경우)</th>-->
-    <th>writer</th>
-    <!--    <th>date</th>-->
-    <th>hits</th>
-  </tr>
-  <tr th:each="notice: ${noticeList}">
-    <td th:text="${notice.noticeId}"></td>
-    <td><a th:href="@{|/notice/${notice.noticeId}|}" th:text="${notice.noticeTitle}"></a></td>
-    <!--    <td><a th:href="@{/notice/${notice.noticeId}}" th:text="${notice.noticeTitle}"></a></td>-->
-    <td th:text="${notice.noticeWriter}"></td>
-    <!--    <td th:text="*{#temporals.format(notice.noticeregDate, 'yyyy-MM-dd HH:mm:ss')}"></td>-->
-    <td th:text="${notice.noticeHits}"></td>
-  </tr>
-</table>
-<script src="/script/header.js"></script>
+<div th:insert="/service/service-header :: service-header"></div>
+
+<div class="align-form">
+    <form id="listForm">
+        <div class="container-fluid px-3">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <table class="table" id="result">
+                        <thead>
+                        <tr>
+                            <th scope="col">번호</th>
+                            <th scope="col">제목</th>
+                            <th scope="col">작성자</th>
+                            <th scope="col">조회수</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="notice: ${noticeList}">
+                            <td th:text="${notice.noticeId}"></td>
+                            <td><a th:href="@{|/cs/notice/${notice.noticeId}|(page=${noticeList.number + 1})}"
+                                   th:text="${notice.noticeTitle}"></a></td>
+                            <td th:text="${notice.noticeWriter}"></td>
+                            <td th:text="${notice.noticeHits}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- paging -->
+            <div class="align-form">
+                <div id="pagingForm">
+                    <a class="top-link" th:href="@{/cs/notice-list(page=1)}">First</a>
+                    <!-- 이전 링크 활성화 비활성화 -->
+                    <!-- boardList.getNumber() 사용자:2페이지 getNumber()=1 -->
+                    <a class="link" th:href="${noticeList.first} ? '#' : @{/cs/notice-list(page=${noticeList.number})}">prev</a>
+
+                    <!-- 페이지 번호 링크(현재 페이지는 숫자만) for(int page=startPage; page<=endPage; page++)-->
+                    <span th:each="page: ${#numbers.sequence(startPage, endPage)}">
+                     <!-- 현재페이지는 링크 없이 숫자만 -->
+                        <span th:if="${page == noticeList.number + 1}" th:text="${page}"></span>
+                            <!-- 현재페이지 번호가 아닌 다른 페이지번호에는 링크를 보여줌 -->
+                        <span th:unless="${page == noticeList.number + 1}">
+                            <a th:href="@{/cs/notice-list(page=${page})}" th:text="${page}"></a>
+                        </span>
+                    </span>
+
+                    <!-- 다음 링크 활성화 비활성화 사용자: 2페이지, getNumber: 1, 3페이지-->
+                    <a class="link" th:href="${noticeList.last} ? '#' : @{/cs/notice-list(page=${noticeList.number + 2})}">next</a>
+                    <!-- 마지막 페이지로 이동 -->
+                    <a class="top-link" th:href="@{/cs/notice-list(page=${noticeList.totalPages})}">Last</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="/script/service/userNotice.js"></script>
 </body>
 </html>

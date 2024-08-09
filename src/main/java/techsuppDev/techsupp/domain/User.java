@@ -3,6 +3,8 @@ package techsuppDev.techsupp.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -12,7 +14,7 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    @Column(name = "user_id") // db의 id userid와 매핑
+    @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
@@ -28,6 +30,9 @@ public class User {
     private String userPhone;
 
     private String role;        //ROLE_USER, ROLE_ADMIN
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<QuestionEntity> questions = new ArrayList<>();
 
     public void updatePassword(String userPassword) {
         this.userPassword = userPassword;

@@ -22,7 +22,7 @@ public class NoticeEntity {
     private String noticeWriter;
     @Column
     private String noticeTitle;
-    @Column(length = 500)
+    @Column(length = 1000)
     private String noticeContents;
     @Column
     private int noticeHits;

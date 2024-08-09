@@ -6,6 +6,7 @@ import lombok.Setter;
 import techsuppDev.techsupp.DTO.QuestionDTO;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,36 +17,34 @@ import java.util.List;
 public class QuestionEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long questionId;
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
-//    private Long userId;
-    @Column(length = 20, nullable = false)
-    private String questionWriter;
-
-    @Column(length = 255)
-    private String questionPassword;
-
-    @Column
-    private String questionCategory;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @Column
     private String questionTitle;
-
     @Column(length = 500)
     private String questionContents;
 
-//    @Enumerated(EnumType.STRING)
-//    @Column
-//    private QuestionStatus questionStatus;
+    @Column(name = "created_at_q", nullable = false, updatable = false)
+    private LocalDateTime createdAtQ;
 
-//    @Column
-//    private int questionStatus;
+    @Column(name = "updated_at_q")
+    private LocalDateTime updatedAtQ;
 
-//    @Column
-//    private String questionAnswer;
+    @Enumerated(EnumType.STRING)
+    @Column
+    private QuestionCategory questionCategory;
+
+    @Enumerated(EnumType.STRING)
+    @Column
+    private QuestionStatus questionStatus;
+
+    @Column(name = "is_private", nullable = false)
+    private Boolean is_private;
 
     @Column
     private int fileAttached;
@@ -53,18 +52,19 @@ public class QuestionEntity {
     @OneToMany(mappedBy = "questionEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<QuestionFileEntity> questionFileEntityList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "questionEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<CommentEntity> commentEntityList = new ArrayList<>();
+//    @OneToMany(mappedBy = "questionEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+//    private List<CommentEntity> commentEntityList = new ArrayList<>();
 
+    @OneToOne(mappedBy = "questionEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+    private QuestionAnswer questionAnswer;
+
+    // 파일 첨부 없이 등록
     public static QuestionEntity toSaveEntity(QuestionDTO questionDTO){
         QuestionEntity questionEntity = new QuestionEntity();
-        questionEntity.setQuestionWriter(questionDTO.getQuestionWriter());
-        questionEntity.setQuestionPassword(questionDTO.getQuestionPass());
-        questionEntity.setQuestionCategory(questionDTO.getQuestionCategory());
         questionEntity.setQuestionTitle(questionDTO.getQuestionTitle());
         questionEntity.setQuestionContents(questionDTO.getQuestionContents());
-//        questionEntity.setQuestionStatus(questionDTO.getQuestionStatus());
-//        questionEntity.setQuestionAnswer(questionDTO.getQuestionAnswer());
+        questionEntity.setQuestionCategory(questionDTO.getQuestionCategory());
+        questionEntity.setQuestionStatus(questionDTO.getQuestionStatus());
         questionEntity.setFileAttached(0);
 
         return questionEntity;
@@ -74,38 +74,40 @@ public class QuestionEntity {
     public static QuestionEntity toUpdateEntity(QuestionDTO questionDTO) {
         QuestionEntity questionEntity = new QuestionEntity();
         questionEntity.setQuestionId(questionDTO.getQuestionId());
-        questionEntity.setQuestionWriter(questionDTO.getQuestionWriter());
-        questionEntity.setQuestionPassword(questionDTO.getQuestionPass());
         questionEntity.setQuestionCategory(questionDTO.getQuestionCategory());
         questionEntity.setQuestionTitle(questionDTO.getQuestionTitle());
         questionEntity.setQuestionContents(questionDTO.getQuestionContents());
-//        questionEntity.setQuestionStatus(questionDTO.getQuestionStatus());
-//        questionEntity.setQuestionAnswer(questionDTO.getQuestionAnswer());
 
         return questionEntity;
     }
 
     public static QuestionEntity toSaveFileEntity(QuestionDTO questionDTO) {
         QuestionEntity questionEntity = new QuestionEntity();
-        questionEntity.setQuestionWriter(questionDTO.getQuestionWriter());
-        questionEntity.setQuestionPassword(questionDTO.getQuestionPass());
-        questionEntity.setQuestionCategory(questionDTO.getQuestionCategory());
         questionEntity.setQuestionTitle(questionDTO.getQuestionTitle());
         questionEntity.setQuestionContents(questionDTO.getQuestionContents());
-//        questionEntity.setQuestionStatus(questionDTO.getQuestionStatus());
-//        questionEntity.setQuestionAnswer(questionDTO.getQuestionAnswer());
+        questionEntity.setQuestionCategory(questionDTO.getQuestionCategory());
+        questionEntity.setQuestionStatus(questionDTO.getQuestionStatus());
         questionEntity.setFileAttached(1);
+
         return questionEntity;
     }
 
-//    public static QuestionEntity updateStatus(QuestionStatus questionStatus) {
-//        QuestionEntity questionEntity = new QuestionEntity();
-//        questionEntity.setQuestionStatus(QuestionStatus.AnswerCompleted);
-//        return questionEntity;
-//    }
 
+    // 문의 카테고리 - Getter,Setter
+    public QuestionCategory getQuestionCategory() {
+        return questionCategory;
+    }
 
+    public void setQuestionCategory(QuestionCategory questionCategory) {
+        this.questionCategory = questionCategory;
+    }
 
+    // 문의 답변 상태 카테고리 - Getter,Setter
+    public QuestionStatus getQuestionStatus() {
+        return questionStatus;
+    }
 
-
+    public void setQuestionStatus(QuestionStatus questionStatus) {
+        this.questionStatus = questionStatus;
+    }
 }

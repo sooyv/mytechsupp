@@ -18,6 +18,7 @@ import techsuppDev.techsupp.repository.QuestionRepository;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -26,6 +27,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class QuestionService {
 
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private final QuestionRepository questionRepository;
     private final QuestionFileRepository questionFileRepository;
 
@@ -109,10 +111,13 @@ public class QuestionService {
         System.out.println("questionEntities.isFirst() = " + questionEntities.isFirst()); // 첫 페이지 여부
         System.out.println("questionEntities.isLast() = " + questionEntities.isLast()); // 마지막 페이지 여부
 
-        // 목록: noticeid, writer, title, status,
-        Page<QuestionDTO> questionDTOS = questionEntities.map(question -> new QuestionDTO(question.getQuestionId(),
-                question.getQuestionWriter(), question.getQuestionTitle()));
-        return questionDTOS;
+
+        // 목록: noticeid, writer(user_email), title, status
+        Page<QuestionDTO> questionDTO = questionEntities.map(question -> new QuestionDTO(
+                question.getQuestionId(), question.getQuestionStatus(), question.getQuestionTitle(),
+                question.getUser().getUserEmail(), question.getCreatedAtQ()
+                ));
+        return questionDTO;
     }
 
 //    public void updateStatus(QuestionDTO questionDTO){

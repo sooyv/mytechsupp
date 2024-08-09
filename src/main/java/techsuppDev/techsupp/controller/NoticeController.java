@@ -28,7 +28,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/notice")
+@RequestMapping("/cs")
 public class NoticeController {
     private final NoticeService noticeService;
     private final QuestionService questionService;
@@ -38,15 +38,59 @@ public class NoticeController {
     @Value("${serviceSavePath}")
     String serviceSavePath;
 
-    @GetMapping("")
-    public String serviceMain() {
-        return "service/service-header";
+
+    /**
+     * 공지사항
+     */
+
+    // 공지사항 리스트
+    @GetMapping("/notice-list")
+    public String noticeList(@PageableDefault(page = 1) Pageable pageable, Model model) {
+        pageable.getPageNumber();
+        Page<NoticeDTO> noticeList = noticeService.paging(pageable);
+
+        int blockLimit = 5;
+        int startPage = (((int) (Math.ceil((double) pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1; // 1 4 7 10 ~~
+        int endPage = ((startPage + blockLimit - 1) < noticeList.getTotalPages()) ? startPage + blockLimit - 1 : noticeList.getTotalPages();
+
+        // page 갯수 20개
+        // 현재 사용자가 3페이지
+        // 1 2 3
+        // 현재 사용자가 7페이지
+        // 7 8 9
+        // 보여지는 페이지 갯수 3개
+        // 총 페이지 갯수 8개
+
+        model.addAttribute("noticeList", noticeList);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+
+        return "service/notice-list";
+    }
+
+    // 공지사항 상세 확인 페이지 - FOR USER
+    @GetMapping("/notice/{noticeId}")
+    public String noticeDetailPage(@PathVariable Long noticeId, Model model) {
+        /*
+        해당 게시글의 조회수를 하나 올리고
+        게시글 데이터를 가져와서 detail.html에 출력
+         */
+        noticeService.updateHits(noticeId);
+        NoticeDTO noticeDTO = noticeService.findById(noticeId);
+
+        model.addAttribute("notice", noticeDTO);
+        return "service/notice-detail";
     }
 
 
+
+    /**
+     * 자주 묻는 질문
+     */
+
     // 자주 묻는 질문 리스트
     @GetMapping("/faq-list")
-    public String findfaqAll(Model model) {
+    public String faqList(Model model) {
         List<FaqDTO> faqDTOList = faqService.findAll();
         System.out.println(faqDTOList);
         model.addAttribute("faqList", faqDTOList);
@@ -54,8 +98,8 @@ public class NoticeController {
     }
 
     // 자주 묻는 질문 detail
-    @GetMapping("/faq-list/{faqId}")
-    public String faqfindById(@PathVariable Long faqId, Model model) {
+    @GetMapping("/faq/{faqId}")
+    public String faqDetailPage(@PathVariable Long faqId, Model model) {
         /*
         해당 게시글의 조회수를 하나 올리고
         게시글 데이터를 가져와서 faq_detail.html에 출력
@@ -67,32 +111,12 @@ public class NoticeController {
         return "service/faq-detail";
     }
 
-    // 공지사항 리스트
-    @GetMapping("/list")
-    public String findAll(Model model) {
-        List<NoticeDTO> noticeDTOList = noticeService.findAllNotice();
-        System.out.println(noticeDTOList);
-        model.addAttribute("noticeList", noticeDTOList);
-        return "service/notice-list";
-    }
 
-    // 공지사항 확인 페이지 FOR USER
-    @GetMapping("/{noticeId}")
-    public String noticeDetailPage(@PathVariable Long noticeId, Model model) {
-        /*
-        해당 게시글의 조회수를 하나 올리고
-        게시글 데이터를 가져와서 detail.html에 출력
-         */
-        noticeService.updateHits(noticeId);
-        NoticeDTO noticeDTO = noticeService.findById(noticeId);
-
-        model.addAttribute("notice", noticeDTO);
-        return "service/user-notice-detail";
-    }
 
     @GetMapping("/fileDownload/{noticeId}")
     @ResponseBody
     public void downloadFile(HttpServletResponse res, @PathVariable Long noticeId) throws UnsupportedEncodingException {
+        System.out.println("====== 다운로드 파일 ======");
 
         //파일 조회
         NoticeDTO noticeDTO = noticeService.findById(noticeId);
@@ -110,6 +134,37 @@ public class NoticeController {
         //파일 복사
         fileCopy(res, savePath);
     }
+
+
+    /**
+     * 문의 사항
+     */
+    @GetMapping("/question-list")
+    public String questionList(@PageableDefault(page = 1) Pageable pageable, Model model) {
+
+        pageable.getPageNumber();
+        Page<QuestionDTO> questionList = questionService.paging(pageable);
+
+        int blockLimit = 5;
+        int startPage = (((int) (Math.ceil((double) pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1; // 1 4 7 10 ~~
+        int endPage = ((startPage + blockLimit - 1) < questionList.getTotalPages()) ? startPage + blockLimit - 1 : questionList.getTotalPages();
+
+        // page 갯수 20개
+        // 현재 사용자가 3페이지
+        // 1 2 3
+        // 현재 사용자가 7페이지
+        // 7 8 9
+        // 보여지는 페이지 갯수 3개
+        // 총 페이지 갯수 8개
+
+        model.addAttribute("questionList", questionList);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+
+        return "service/question-paging";
+    }
+
+
 
     /**
      * 파일 header 설정
@@ -165,13 +220,13 @@ public class NoticeController {
         return "redirect:/notice/question-paging";
     }
 
-    @GetMapping("/question-list")
-    public String findQuestionAll(Model model) {
-        List<QuestionDTO> questionDTOList = questionService.findAll();
-        model.addAttribute("questionList", questionDTOList);
-        return "service/question-list";
-//        return "/question-check/{questionId}";
-    }
+//    @GetMapping("/question-list")
+//    public String findQuestionAll(Model model) {
+//        List<QuestionDTO> questionDTOList = questionService.findAll();
+//        model.addAttribute("questionList", questionDTOList);
+//        return "service/question-list";
+////        return "/question-check/{questionId}";
+//    }
 
     @GetMapping("/question-list/{questionId}")
     public String questionfindById(@PathVariable Long questionId, Model model) {
@@ -187,28 +242,29 @@ public class NoticeController {
         return "service/question-detail";
     }
 
-    @GetMapping("/question-check/{questionId}")
-    public String questionCheck(@PathVariable Long questionId, Model model) {
-        model.addAttribute("questionId", questionId);
-        return "service/question-check";
-//        return "service/question-detail";
-    }
+//    @GetMapping("/question-check/{questionId}")
+//    public String questionCheck(@PathVariable Long questionId, Model model) {
+//        model.addAttribute("questionId", questionId);
+//        return "service/question-check";
+////        return "service/question-detail";
+//    }
 
-    @GetMapping("/question-check/getPass")
-    @ResponseBody
-    public boolean getPass(@RequestParam("questionId") Long questionId,
-                           @RequestParam("questionPass") String questionPass, Model model) throws Exception {
-        QuestionDTO questionDTO = new QuestionDTO();
-        questionDTO.setQuestionId(questionId);
-        QuestionDTO result = questionService.findById(questionId);
-
-        boolean flag = false;
-
-        if (result.getQuestionPass().equals(questionPass)) {
-            flag = true;
-        }
-        return flag;
-    }
+    // 비밀번호로 게시물 등록 -> 로그인 한 회원만 게시물 등록
+//    @GetMapping("/question-check/getPass")
+//    @ResponseBody
+//    public boolean getPass(@RequestParam("questionId") Long questionId,
+//                           @RequestParam("questionPass") String questionPass, Model model) throws Exception {
+//        QuestionDTO questionDTO = new QuestionDTO();
+//        questionDTO.setQuestionId(questionId);
+//        QuestionDTO result = questionService.findById(questionId);
+//
+//        boolean flag = false;
+//
+//        if (result.getQuestionPwd().equals(questionPass)) {
+//            flag = true;
+//        }
+//        return flag;
+//    }
 
 
     @GetMapping("/question-update/{questionId}")
@@ -288,54 +344,6 @@ public class NoticeController {
         }
     }
 
-    // /notice/paging?page=1
-    @GetMapping("/paging")
-    public String paging(@PageableDefault(page = 1) Pageable pageable, Model model) {
-        pageable.getPageNumber();
-        Page<NoticeDTO> noticeList = noticeService.paging(pageable);
-
-        int blockLimit = 5;
-        int startPage = (((int) (Math.ceil((double) pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1; // 1 4 7 10 ~~
-        int endPage = ((startPage + blockLimit - 1) < noticeList.getTotalPages()) ? startPage + blockLimit - 1 : noticeList.getTotalPages();
-
-        // page 갯수 20개
-        // 현재 사용자가 3페이지
-        // 1 2 3
-        // 현재 사용자가 7페이지
-        // 7 8 9
-        // 보여지는 페이지 갯수 3개
-        // 총 페이지 갯수 8개
-
-        model.addAttribute("noticeList", noticeList);
-        model.addAttribute("startPage", startPage);
-        model.addAttribute("endPage", endPage);
-
-        return "service/paging";
-    }
-
-    @GetMapping("/question-paging")
-    public String questionpaging(@PageableDefault(page = 1) Pageable pageable, Model model) {
-        pageable.getPageNumber();
-        Page<QuestionDTO> questionList = questionService.paging(pageable);
-
-        int blockLimit = 5;
-        int startPage = (((int) (Math.ceil((double) pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1; // 1 4 7 10 ~~
-        int endPage = ((startPage + blockLimit - 1) < questionList.getTotalPages()) ? startPage + blockLimit - 1 : questionList.getTotalPages();
-
-        // page 갯수 20개
-        // 현재 사용자가 3페이지
-        // 1 2 3
-        // 현재 사용자가 7페이지
-        // 7 8 9
-        // 보여지는 페이지 갯수 3개
-        // 총 페이지 갯수 8개
-
-        model.addAttribute("questionList", questionList);
-        model.addAttribute("startPage", startPage);
-        model.addAttribute("endPage", endPage);
-
-        return "service/question-paging";
-    }
 
 
 }

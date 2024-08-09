@@ -25,7 +25,7 @@
 /* hover 상태에서 텍스트 색상 변경 */
 .faq-con:hover .question,
 .faq-con:hover .faq-title a {
-    color: #5ebee7; /* hover 시 하늘색으로 변경 */
+    color: #5ebee7;
 }
 
 .top-faq {

@@ -2,12 +2,16 @@ package techsuppDev.techsupp.DTO;
 
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
+import techsuppDev.techsupp.domain.QuestionCategory;
 import techsuppDev.techsupp.domain.QuestionEntity;
+import techsuppDev.techsupp.domain.QuestionStatus;
 //import techsuppDev.techsupp.domain.QuestionStatus;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
@@ -15,39 +19,41 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @AllArgsConstructor
 public class QuestionDTO {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long questionId;
     private String questionWriter;
-    private String questionPass;
-    private String questionCategory;
     private String questionTitle;
     private String questionContents;
-//    private QuestionStatus questionStatus;
-//    private Date questionDate;
-//    private enum questionStatus;
-//    private String questionAnswer;
-
+    private LocalDateTime createdAtQ;
+    private LocalDateTime updatedAtQ;
+    private QuestionStatus questionStatus;
+    private QuestionCategory questionCategory;
     private MultipartFile questionFile;
     private String originalFileName;
     private String storedFileName;
     private int fileAttached;
 
-    public QuestionDTO(Long questionId, String questionWriter, String questionTitle) {
 
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+
+    public QuestionDTO(Long questionId, QuestionStatus questionStatus, String questionTitle, String questionWriter, LocalDateTime createdAtQ) {
         this.questionId = questionId;
-        this.questionWriter = questionWriter;
+        this.questionStatus = questionStatus;
         this.questionTitle = questionTitle;
-//        this.questionStatus = questionStatus;
+        this.questionWriter = questionWriter;
+        this.createdAtQ = createdAtQ;
     }
 
+    // 글 생성일자(년, 월, 일) 출력
+    public String getFormattedCreatedAtQ() {
+        return createdAtQ.format(DATE_FORMATTER);
+    }
 
     public static QuestionDTO toQuestionDTO(QuestionEntity questionEntity) {
         QuestionDTO questionDTO = new QuestionDTO();
         questionDTO.setQuestionId(questionEntity.getQuestionId());
-        questionDTO.setQuestionWriter(questionEntity.getQuestionWriter());
-        questionDTO.setQuestionPass(questionEntity.getQuestionPassword());
         questionDTO.setQuestionCategory(questionEntity.getQuestionCategory());
         questionDTO.setQuestionTitle(questionEntity.getQuestionTitle());
         questionDTO.setQuestionContents(questionEntity.getQuestionContents());

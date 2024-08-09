@@ -16,26 +16,34 @@
             <div class="card mb-4">
                 <div class="card-body">
                     <table class="table" id="result">
-                        <thead>
+                        <thead id="question-head">
                         <tr>
-                            <th>번호</th>
-                            <th>제목</th>
-                            <th>작성자</th>
-                            <th>답변상태</th>
+                            <th scope="col" colspan="2">문의내역</th>
+                            <th scope="col">작성자</th>
+                            <th scope="col">날짜</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="question: ${questionList}">
-                            <td th:text="${question.questionId}"></td>
+                            <!--                            <td th:text="${question.questionId}"></td>  -->
+                            <td>
+                                <span id="answerStatus" th:text="${question.questionStatus.getAnswer()}"></span>
+                            </td>
                             <td>
                                 <a th:href="@{|/notice/question-check/${question.questionId}|(page=${questionList.number + 1})}"
-                                   th:text="${question.questionTitle}"></a></td>
+                                   th:text="${question.questionTitle}"></a>
+                            </td>
                             <td th:text="${question.questionWriter}"></td>
+                            <td th:text="${question.getFormattedCreatedAtQ}"></td>
                             <!--                    <td th:text="${question.questionStatus}"></td>-->
                         </tr>
                         </tbody>
                     </table>
                 </div>
+            </div>
+
+            <div id="question-btn-w">
+                <button id="question-btn" onclick="pagingReq()"><a href="/cs/question">문의작성</a></button>
             </div>
 
             <div class="align-form">
@@ -47,28 +55,23 @@
                     <!-- boardList.getNumber() 사용자:2페이지 getNumber()=1 -->
                     <a th:href="${questionList.first} ? '#' : @{/notice/question-paging(page=${questionList.number})}">prev</a>
 
-                    <!-- 페이지 번호 링크(현재 페이지는 숫자만)
-                            for(int page=startPage; page<=endPage; page++)-->
+                    <!-- 페이지 번호 링크(현재 페이지는 숫자만) for(int page=startPage; page<=endPage; page++)-->
                     <span th:each="page: ${#numbers.sequence(startPage, endPage)}">
-<!-- 현재페이지는 링크 없이 숫자만 -->
-    <span th:if="${page == questionList.number + 1}" th:text="${page}"></span>
+                        <!-- 현재페이지는 링크 없이 숫자만 -->
+                        <span th:if="${page == questionList.number + 1}" th:text="${page}"></span>
                         <!-- 현재페이지 번호가 아닌 다른 페이지번호에는 링크를 보여줌 -->
-    <span th:unless="${page == questionList.number + 1}">
-        <a th:href="@{/notice/question-paging(page=${page})}" th:text="${page}"></a>
-    </span>
-</span>
+                        <span th:unless="${page == questionList.number + 1}">
+                            <a th:href="@{/notice/question-paging(page=${page})}" th:text="${page}"></a>
+                        </span>
+                    </span>
+
 
                     <!-- 다음 링크 활성화 비활성화
                         사용자: 2페이지, getNumber: 1, 3페이지-->
                     <a th:href="${questionList.last} ? '#' : @{/notice/question-paging(page=${questionList.number + 2})}">next</a>
                     <!-- 마지막 페이지로 이동 -->
                     <a th:href="@{/notice/question-paging(page=${questionList.totalPages})}">Last</a>
-
-                    <!--                    <button onclick="pagingReq()"><a href="/notice/question">문의작성</a></button>-->
                 </div>
-            </div>
-            <div id="button">
-                <button onclick="pagingReq()"><a href="/notice/question">문의작성</a></button>
             </div>
         </div>
     </form>

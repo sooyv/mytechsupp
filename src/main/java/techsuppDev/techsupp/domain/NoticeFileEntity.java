@@ -18,6 +18,7 @@ public class NoticeFileEntity {
     private String originalFileName;
     @Column(name = "stored_file_name")
     private String storedFileName;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "notice_id", referencedColumnName = "notice_id")
     private NoticeEntity notice;

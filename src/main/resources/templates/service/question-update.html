@@ -24,7 +24,7 @@
 </div>
 
 <div class="align-form">
-    <form id="signUpForm" action="/notice/question-update" method="POST" enctype="multipart/form-data">
+    <form id="signUpForm" action="/cs/question-update" method="POST" enctype="multipart/form-data">
         <div>
             <div id="ausername-box" class="form-group col-md-4">
                 <label for="questionId">번호</label>
@@ -41,7 +41,7 @@
                 <div id="pass-box" class="form-group col-md-4">
                     <label for="questionPass">비밀번호</label>
                     <input id="questionPass" name="questionPass" type="password" class="form-control"
-                           th:value="${questionUpdate.questionPass}" readonly>
+                           th:value="${questionUpdate.getQuestionPwd}" readonly>
                 </div>
                 <!--            분류-->
                 <div id="checkpassword-box" class="form-group col-md-4">

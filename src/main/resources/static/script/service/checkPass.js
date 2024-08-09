@@ -4,7 +4,7 @@ function checkPass() {
 
 	$.ajax({
 		type: 'GET',
-		url: '/notice/question-check/getPass',
+		url: '/cs/question-check/getPass',
 		data : {questionId,questionPass},
 		success: function(result) {
 			if(result){

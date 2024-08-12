@@ -213,6 +213,7 @@ public class NoticeController {
 
     @PostMapping("/question")
     public String save(@ModelAttribute QuestionDTO questionDTO) throws IOException {
+        System.out.println("contoller is_private"+ questionDTO.getIs_private());
         questionService.save(questionDTO);
         return "redirect:/cs/question-list";
     }

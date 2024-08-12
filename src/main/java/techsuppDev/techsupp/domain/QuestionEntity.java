@@ -26,7 +26,7 @@ public class QuestionEntity {
 
     @Column
     private String questionTitle;
-    @Column(length = 500)
+    @Column(length = 1000)
     private String questionContents;
 
     @Column(name = "created_at_q", nullable = false, updatable = false)
@@ -44,7 +44,7 @@ public class QuestionEntity {
     private QuestionStatus questionStatus = QuestionStatus.PENDING; // 기본값 설정
 
     @Column(name = "is_private", nullable = false)
-    private Boolean is_private;
+    private Boolean is_private = false;  // 기본값을 false로 설정
 
     @Column
     private int fileAttached;

@@ -8,11 +8,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import techsuppDev.techsupp.DTO.CommentDTO;
-import techsuppDev.techsupp.DTO.NoticeDTO;
 import techsuppDev.techsupp.DTO.QuestionDTO;
-import techsuppDev.techsupp.domain.*;
-import techsuppDev.techsupp.repository.NoticeRepository;
+import techsuppDev.techsupp.domain.*;;
 import techsuppDev.techsupp.repository.QuestionFileRepository;
 import techsuppDev.techsupp.repository.QuestionRepository;
 import techsuppDev.techsupp.repository.UserRepository;
@@ -39,7 +36,7 @@ public class QuestionService {
         System.out.println(questionDTO.getQuestionWriter());
         System.out.println(questionDTO.getQuestionTitle());
         System.out.println(questionDTO.getQuestionContents());
-        System.out.println(questionDTO);
+        System.out.println("isPrivate : "+ questionDTO.getIs_private());
 
         if (questionDTO.getQuestionFile().isEmpty()) {
             // 첨부 파일 없음.
@@ -52,9 +49,6 @@ public class QuestionService {
 
             questionEntity.setCreatedAtQ(now);
             questionEntity.setUpdatedAtQ(now);
-//            if (questionDTO.getIs_private() == null) {
-//                questionEntity.setIs_private(false);
-//            }
 
             questionRepository.save(questionEntity);
         } else {

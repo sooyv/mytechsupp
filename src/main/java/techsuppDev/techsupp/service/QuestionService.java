@@ -15,9 +15,11 @@ import techsuppDev.techsupp.domain.*;
 import techsuppDev.techsupp.repository.NoticeRepository;
 import techsuppDev.techsupp.repository.QuestionFileRepository;
 import techsuppDev.techsupp.repository.QuestionRepository;
+import techsuppDev.techsupp.repository.UserRepository;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,15 +30,32 @@ import java.util.Optional;
 public class QuestionService {
 
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final LocalDateTime now = LocalDateTime.now();
     private final QuestionRepository questionRepository;
     private final QuestionFileRepository questionFileRepository;
+    private final UserRepository userRepository;
 
     public void save(QuestionDTO questionDTO) throws IOException {
+        System.out.println(questionDTO.getQuestionWriter());
+        System.out.println(questionDTO.getQuestionTitle());
+        System.out.println(questionDTO.getQuestionContents());
+        System.out.println(questionDTO);
 
         if (questionDTO.getQuestionFile().isEmpty()) {
             // 첨부 파일 없음.
             QuestionEntity questionEntity = QuestionEntity.toSaveEntity(questionDTO);
-//            System.out.println("questionPass:" + questionEntity.getQuestionPass() );
+
+            String userEmail = questionDTO.getQuestionWriter();
+            Optional<User> optionalUser = userRepository.findByUserEmail(userEmail);
+            User user = optionalUser.orElseThrow(() -> new IllegalArgumentException("User not found for email: " + userEmail));
+            questionEntity.setUser(user);
+
+            questionEntity.setCreatedAtQ(now);
+            questionEntity.setUpdatedAtQ(now);
+//            if (questionDTO.getIs_private() == null) {
+//                questionEntity.setIs_private(false);
+//            }
+
             questionRepository.save(questionEntity);
         } else {
             // 첨부 파일 있음.

@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!--<html lang="en">-->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
@@ -17,7 +16,7 @@
     <div class="w-80">
         <h2 id="question-h2">문의작성</h2>
         <div class="align-form">
-            <form action="/cs/question" method="POST" enctype="multipart/form-data">
+            <form action="/cs/question" method="POST" enctype="multipart/form-data" th:object="${question}">
                 <div>
                     <ul>
                         <li class="question-li">
@@ -29,20 +28,20 @@
                                 </div>
                                 <div class="inquiry-group question-input">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                        <label class="form-check-label" for="flexRadioDefault1">
+                                        <input class="form-check-input" type="radio" name="questionCategory" value="PRODUCT_INQUIRY" id="product_inquiry">
+                                        <label class="form-check-label" for="product_inquiry">
                                             상품문의
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                                        <label class="form-check-label" for="flexRadioDefault1">
+                                        <input class="form-check-input" type="radio" name="questionCategory" value="DELIVERY_INQUIRY" id="delivery_inquiry">
+                                        <label class="form-check-label" for="product_inquiry">
                                             배송문의
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
-                                        <label class="form-check-label" for="flexRadioDefault1">
+                                        <input class="form-check-input" type="radio" name="questionCategory" value="OTHER_INQUIRY" id="other_inquiry">
+                                        <label class="form-check-label" for="other_inquiry">
                                             기타문의
                                         </label>
                                     </div>
@@ -58,7 +57,7 @@
                                     </h4>
                                 </div>
                                 <div class="question-input">
-                                    <div th:text="${session.userName}"  class="form-group col-md-4"></div>
+                                    <div th:text="${session.userName}" name="userName" class="form-group col-md-4"></div>
                                 </div>
                             </div>
                         </li>
@@ -71,8 +70,13 @@
                                     </h4>
                                 </div>
                                 <div class="question-input">
-                                    <div th:text="${session.userEmail}"  class="form-group col-md-4"></div>
+<!--                                    <div th:text="${session.userEmail}" name="questionWriter" class="form-group col-md-4"></div>-->
+                                    <!-- 숨겨진 input 필드 -->
+                                    <input type="hidden" name="questionWriter" th:value="${session.userEmail}" />
+                                    <!-- 사용자가 볼 수 있는 텍스트 표시 -->
+                                    <span th:text="${session.userEmail}"></span>
                                 </div>
+
                             </div>
                         </li>
 
@@ -86,7 +90,7 @@
                                 <div class="question-input">
                                     <input id="questionTitle" name="questionTitle" class="form-control input-w" placeholder="제목을 입력하세요">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                        <input class="form-check-input" type="checkbox" name="is_private" value="true" id="flexCheckDefault">
                                         <label class="form-check-label" for="flexCheckDefault">
                                             비밀글
                                         </label>
@@ -104,7 +108,7 @@
                                 </div>
                                 <div class="question-input">
                                     <div class="form-floating">
-                                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                                        <textarea class="form-control" name="questionContents" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
                                         <label for="floatingTextarea2">내용을 입력하세요</label>
                                     </div>
                                 </div>
@@ -123,10 +127,9 @@
                                 </div>
                             </div>
                         </li>
-
                     </ul>
 
-                    <div>
+                    <div id="inquiry-btn">
                         <button type="submit" class="btn btn-secondary">문의작성</button>
                     </div>
                 </div>

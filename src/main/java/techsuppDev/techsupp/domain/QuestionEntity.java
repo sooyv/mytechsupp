@@ -41,7 +41,7 @@ public class QuestionEntity {
 
     @Enumerated(EnumType.STRING)
     @Column
-    private QuestionStatus questionStatus;
+    private QuestionStatus questionStatus = QuestionStatus.PENDING; // 기본값 설정
 
     @Column(name = "is_private", nullable = false)
     private Boolean is_private;
@@ -64,11 +64,11 @@ public class QuestionEntity {
         questionEntity.setQuestionTitle(questionDTO.getQuestionTitle());
         questionEntity.setQuestionContents(questionDTO.getQuestionContents());
         questionEntity.setQuestionCategory(questionDTO.getQuestionCategory());
-        questionEntity.setQuestionStatus(questionDTO.getQuestionStatus());
+        questionEntity.setQuestionStatus(QuestionStatus.PENDING);
+        questionEntity.setIs_private(questionDTO.getIs_private());
         questionEntity.setFileAttached(0);
 
         return questionEntity;
-
     }
 
     public static QuestionEntity toUpdateEntity(QuestionDTO questionDTO) {

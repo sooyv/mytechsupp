@@ -5,22 +5,15 @@ import org.springframework.web.multipart.MultipartFile;
 import techsuppDev.techsupp.domain.QuestionCategory;
 import techsuppDev.techsupp.domain.QuestionEntity;
 import techsuppDev.techsupp.domain.QuestionStatus;
-//import techsuppDev.techsupp.domain.QuestionStatus;
-
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class QuestionDTO {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long questionId;
     private String questionWriter;
     private String questionTitle;
@@ -30,6 +23,7 @@ public class QuestionDTO {
     private QuestionStatus questionStatus;
     private QuestionCategory questionCategory;
     private MultipartFile questionFile;
+    private Boolean is_private;
     private String originalFileName;
     private String storedFileName;
     private int fileAttached;

@@ -213,10 +213,8 @@ public class NoticeController {
 
     @PostMapping("/question")
     public String save(@ModelAttribute QuestionDTO questionDTO) throws IOException {
-//        System.out.println("questionPass:" + questionDTO.getQuestionPass() );
-
         questionService.save(questionDTO);
-        return "redirect:/notice/question-paging";
+        return "redirect:/cs/question-list";
     }
 
 //    @GetMapping("/question-list")

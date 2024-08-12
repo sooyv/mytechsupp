@@ -14,67 +14,128 @@
 <div th:insert="/service/service-header :: service-header"></div>
 
 <div id="container">
-    <div id="contArea">
-        <div class="sub-title">
-            <h2>
-                문의작성
-            </h2>
-        </div>
-        <div class="real-cont">
+    <div class="w-80">
+        <h2 id="question-h2">문의작성</h2>
+        <div class="align-form">
+            <form action="/cs/question" method="POST" enctype="multipart/form-data">
+                <div>
+                    <ul>
+                        <li class="question-li">
+                            <div class="flex-row">
+                                <div class="li-h4">
+                                    <h4>
+                                        문의 유형
+                                    </h4>
+                                </div>
+                                <div class="inquiry-group question-input">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                            상품문의
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                            배송문의
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                            기타문의
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="question-li">
+                            <div class="flex-row">
+                                <div class="li-h4">
+                                    <h4>
+                                        성명
+                                    </h4>
+                                </div>
+                                <div class="question-input">
+                                    <div th:text="${session.userName}"  class="form-group col-md-4"></div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="question-li">
+                            <div class="flex-row">
+                                <div class="li-h4">
+                                    <h4>
+                                        아이디
+                                    </h4>
+                                </div>
+                                <div class="question-input">
+                                    <div th:text="${session.userEmail}"  class="form-group col-md-4"></div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="question-li">
+                            <div class="flex-row">
+                                <div class="li-h4">
+                                    <h4>
+                                        제목
+                                    </h4>
+                                </div>
+                                <div class="question-input">
+                                    <input id="questionTitle" name="questionTitle" class="form-control input-w" placeholder="제목을 입력하세요">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            비밀글
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="question-li">
+                            <div class="flex-row">
+                                <div class="li-h4">
+                                    <h4>
+                                        내용
+                                    </h4>
+                                </div>
+                                <div class="question-input">
+                                    <div class="form-floating">
+                                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                                        <label for="floatingTextarea2">내용을 입력하세요</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="question-li">
+                            <div class="li-h4">
+                                <h4>
+                                    첨부파일
+                                </h4>
+                            </div>
+                            <div>
+                                <div id="phoneNum-box" class="form-group col-md-4">
+                                    <input type="file" id="questionFile" name="questionFile" class="form-control">
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                    <div>
+                        <button type="submit" class="btn btn-secondary">문의작성</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
-<div class="align-form">
-    <form action="/cs/question" method="POST" enctype="multipart/form-data">
-        <div>
-            <!-- 작성자 -->
-            <div id="username-box" class="form-group col-md-4">
-                <label for="questionWriter">작성자</label>
-                <input type="text" id="questionWriter" name="questionWriter" class="form-control">
-            </div>
-            <!--            비밀번호-->
-            <div id="pass-box" class="form-group col-md-4">
-                <label for="questionPass">비밀번호</label>
-                <input id="questionPass" name="questionPass" type="password" class="form-control" placeholder="Password">
-            </div>
-            <!--            분류-->
-            <div id="checkpassword-box" class="form-group col-md-4">
-                <label for="questionCategory">분류</label>
-                <input id="questionCategory" name="questionCategory"  class="분류">
-            </div>
-            <!-- 제목 -->
-            <div id="password-box" class="form-group col-md-4">
-                <label for="questionTitle">제목</label>
-                <input id="questionTitle" name="questionTitle" class="form-control" placeholder="제목">
-            </div>
-            <!-- 내용 -->
-            <div>
-                <label for="questionContents">내용</label>
-                <textarea id="questionContents" name="questionContents" cols="60" rows="10"></textarea>
-            </div>
-            <!-- 첨부파일 -->
-            <div id="phoneNum-box" class="form-group col-md-4">
-                <label for="questionFile">첨부파일</label>
-                <input type="file" id="questionFile" name="questionFile" class="form-control">
-            </div>
-
-            <div>
-                <input type="submit" value="문의작성">
-            </div>
-        </div>
-    </form>
-</div>
-
-<!--<form action="/notice/question" method="post" enctype="multipart/form-data">-->
-<!--    작성자: <input type="text" name="questionWriter"> <br>-->
-<!--    비밀번호: <input type="text" name="questionPass" placeholder="비밀번호는 필수사항입니다"> <br>-->
-<!--    분류: <input type="text" name="questionCategory"> <br>-->
-<!--    제목: <input type="text" name="questionTitle"> <br>-->
-<!--    내용: <textarea name="questionContents" cols="30" rows="10"></textarea><br>-->
-<!--    첨부파일: <input type="file" name="questionFile"> <br>-->
-<!--    <input type="submit" value="문의작성">-->
-<!--</form>-->
 <script src="/script/header.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>

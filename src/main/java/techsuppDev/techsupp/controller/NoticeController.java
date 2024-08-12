@@ -207,8 +207,7 @@ public class NoticeController {
 
 
     @GetMapping("/question")
-    public String questionsaveForm() {
-
+    public String questionResiter() {
         return "service/question";
     }
 

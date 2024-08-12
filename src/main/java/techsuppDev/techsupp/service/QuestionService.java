@@ -115,7 +115,7 @@ public class QuestionService {
         // 목록: noticeid, writer(user_email), title, status
         Page<QuestionDTO> questionDTO = questionEntities.map(question -> new QuestionDTO(
                 question.getQuestionId(), question.getQuestionStatus(), question.getQuestionTitle(),
-                question.getUser().getUserEmail(), question.getCreatedAtQ()
+                question.getUser().getUserName(), question.getCreatedAtQ()
                 ));
         return questionDTO;
     }

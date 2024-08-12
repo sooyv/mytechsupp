@@ -62,20 +62,9 @@ public class UserService {
         return "0";
     }
 
-
-    // 회원 전체 조회
-    public List<User> findUser() {
-        return userRepository.findAll();
-    }
-
-    // 회원 한명 조회
-    public User findOne(Long userId) {
-        return userRepository.getOne(userId);
-    }
-
-
     public User getUserByEmail(String userEmail) {
         Optional<User> users = userRepository.findByUserEmail(userEmail);
+
         if (users != null) {
             return users.get();
         }

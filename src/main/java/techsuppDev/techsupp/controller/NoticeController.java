@@ -35,8 +35,8 @@ public class NoticeController {
     private final FaqService faqService;
     private final CommentService commentService;
 
-    @Value("${serviceSavePath}")
-    String serviceSavePath;
+    @Value("${noticeServicePath}")
+    String noticeServicePath;
 
 
     /**
@@ -122,7 +122,7 @@ public class NoticeController {
         NoticeDTO noticeDTO = noticeService.findById(noticeId);
 
         //파일 경로
-        Path savePath = Paths.get(serviceSavePath + noticeDTO.getStoredFileName());
+        Path savePath = Paths.get(noticeServicePath + noticeDTO.getStoredFileName());
         //해당 경로에 파일이 없으면
         if (!savePath.toFile().exists()) {
             throw new RuntimeException("file not found");
@@ -207,14 +207,15 @@ public class NoticeController {
 
 
     @GetMapping("/question")
-    public String questionResiter() {
+    public String questionResister() {
         return "service/question";
     }
 
     @PostMapping("/question")
     public String save(@ModelAttribute QuestionDTO questionDTO) throws IOException {
-        System.out.println("contoller is_private"+ questionDTO.getIs_private());
-        questionService.save(questionDTO);
+//        System.out.println("controller is_private : "+ questionDTO.getSecretPost());
+        System.out.println("controller is_private : "+ questionDTO.isSecretPost());
+        questionService.questionResister(questionDTO);
         return "redirect:/cs/question-list";
     }
 

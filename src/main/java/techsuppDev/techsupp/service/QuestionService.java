@@ -1,6 +1,7 @@
 package techsuppDev.techsupp.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +18,6 @@ import techsuppDev.techsupp.repository.UserRepository;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,59 +25,61 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class QuestionService {
-
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    private static final LocalDateTime now = LocalDateTime.now();
     private final QuestionRepository questionRepository;
     private final QuestionFileRepository questionFileRepository;
     private final UserRepository userRepository;
 
-    public void save(QuestionDTO questionDTO) throws IOException {
+    private static final LocalDateTime now = LocalDateTime.now();
+    @Value("${qnaServicePath}")
+    String qnaServicePath;
+
+    // 문의사항 작성
+    public void questionResister(QuestionDTO questionDTO) throws IOException {
         System.out.println(questionDTO.getQuestionWriter());
         System.out.println(questionDTO.getQuestionTitle());
         System.out.println(questionDTO.getQuestionContents());
-        System.out.println("isPrivate : "+ questionDTO.getIs_private());
+//        System.out.println("isPrivate : "+ questionDTO.getSecretPost());
+        System.out.println("isPrivate : "+ questionDTO.isSecretPost());
 
-        if (questionDTO.getQuestionFile().isEmpty()) {
+        if (questionDTO.getQuestionFile().isEmpty() || questionDTO.getQuestionFile() == null) {
             // 첨부 파일 없음.
-            QuestionEntity questionEntity = QuestionEntity.toSaveEntity(questionDTO);
 
+            // 세션에 존재하는 로그인한 유저가 있는지 맞는지 확인
             String userEmail = questionDTO.getQuestionWriter();
             Optional<User> optionalUser = userRepository.findByUserEmail(userEmail);
             User user = optionalUser.orElseThrow(() -> new IllegalArgumentException("User not found for email: " + userEmail));
+
+            QuestionEntity questionEntity = QuestionEntity.toSaveEntity(questionDTO);
             questionEntity.setUser(user);
-
-            questionEntity.setCreatedAtQ(now);
-            questionEntity.setUpdatedAtQ(now);
-
             questionRepository.save(questionEntity);
         } else {
-            // 첨부 파일 있음.
-            /*
-                1. DTO에 담긴 파일을 꺼냄
-                2. 파일의 이름 가져옴
-                3. 서버 저장용 이름을 만듦
-                // 내사진.jpg => 839798375892_내사진.jpg
-                4. 저장 경로 설정
-                5. 해당 경로에 파일 저장
-                6. question에 해당 데이터 save 처리
-                7. question_file에 해당 데이터 save 처리
-             */
-            MultipartFile questionFile = questionDTO.getQuestionFile(); // 1.
-            String originalFilename = questionFile.getOriginalFilename(); // 2.
-            String storedFileName = System.currentTimeMillis() + "_" + originalFilename; // 3.
-            String savePath = "C:/project file/techsupp/src/main/resources/static/file/service" + storedFileName; // C:/springboot_img/12987489712_내사진 notice랑 충돌확인
-            questionFile.transferTo(new File(savePath)); // 5.
-            QuestionEntity questionEntity = QuestionEntity.toSaveFileEntity(questionDTO);
-            Long savedQuestionId = questionRepository.save(questionEntity).getQuestionId();
-            QuestionEntity question = questionRepository.findById(savedQuestionId).get();
-
-            QuestionFileEntity questionFileEntity = QuestionFileEntity.toQuestionFileEntity(question, originalFilename, storedFileName);
-            questionFileRepository.save(questionFileEntity);
-
-
+            // 첨부파일 있음
+            saveQuestionFile(questionDTO);
         }
+    }
 
+    // 첨부파일 저장 로직 - 문의사항
+    public QuestionEntity saveQuestionFile(QuestionDTO questionDTO) throws IOException {
+
+        MultipartFile questionFile = questionDTO.getQuestionFile();
+        String originalFilename = questionFile.getOriginalFilename();
+        String storedFileName = System.currentTimeMillis() + "_" + originalFilename;
+        String savePath = qnaServicePath + storedFileName;
+        questionFile.transferTo(new File(savePath));
+
+        // 세션에 존재하는 로그인한 유저가 있는지 맞는지 확인
+        String userEmail = questionDTO.getQuestionWriter();
+        Optional<User> optionalUser = userRepository.findByUserEmail(userEmail);
+        User user = optionalUser.orElseThrow(() -> new IllegalArgumentException("User not found for email: " + userEmail));
+
+        // 첨부 파일이 있을때 toSaveFileEntity로 첨부파일 추가 questionEntity 변환
+        QuestionEntity questionEntity = QuestionEntity.toSaveFileEntity(questionDTO, user);
+        questionRepository.save(questionEntity);         // 저장
+
+        QuestionFileEntity questionFileEntity = QuestionFileEntity.toQuestionFileEntity(questionEntity, originalFilename, storedFileName);
+        questionFileRepository.save(questionFileEntity);
+
+        return questionFileEntity.getQuestionEntity();
     }
 
     @Transactional

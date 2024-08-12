@@ -28,8 +28,8 @@ public class NoticeService {
     private final NoticeRepository noticeRepository;
     private final NoticeFileRepository noticeFileRepository;
 
-    @Value("${serviceSavePath}")
-    String fileUploadPath;
+    @Value("${noticeServicePath}")
+    String noticeServicePath;
 
 
     // 공지사항 작성
@@ -42,18 +42,17 @@ public class NoticeService {
         } else {
             // 첨부 파일 있음.
             saveNoticeFile(noticeDTO);
-//          for(MultipartFile noticeFile: noticeDTO.getNoticeFile()) {
         }
     }
 
 
-    // 첨부파일 저장 로직
+    // 첨부파일 저장 로직 - 공지사항
     public NoticeEntity saveNoticeFile(NoticeDTO noticeDTO) throws IOException {
 
         MultipartFile noticeFile = noticeDTO.getNoticeFile();
         String originalFilename = noticeFile.getOriginalFilename();
         String storedFileName = System.currentTimeMillis() + "_" + originalFilename;
-        String savePath = fileUploadPath + storedFileName;
+        String savePath = noticeServicePath + storedFileName;
         noticeFile.transferTo(new File(savePath));
 
         // 첨부 파일이 있을때 toSaveFileEntity로 첨부파일 추가 noticeEntity 변환
@@ -95,7 +94,7 @@ public class NoticeService {
         System.out.println("saveFile");
         String originalFilename = file.getOriginalFilename();
         String storedFileName = System.currentTimeMillis() + "_" + originalFilename;
-        String savePath = fileUploadPath + storedFileName;
+        String savePath = noticeServicePath + storedFileName;
         file.transferTo(new File(savePath));
         return storedFileName;
     }
@@ -112,7 +111,6 @@ public class NoticeService {
         noticeFileEntity.setStoredFileName(storedFileName);
         noticeFileRepository.save(noticeFileEntity);
     }
-
 
     // 공지사항 삭제
     @Transactional
@@ -135,7 +133,7 @@ public class NoticeService {
                 noticeFileRepository.delete(noticeFile);
 
                 // 파일 시스템에서 파일 삭제
-                File file = new File(fileUploadPath + noticeFile.getStoredFileName());
+                File file = new File(noticeServicePath + noticeFile.getStoredFileName());
                 if (file.exists()) {
                     file.delete();
                 }

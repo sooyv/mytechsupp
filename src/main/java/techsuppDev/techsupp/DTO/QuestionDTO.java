@@ -23,7 +23,7 @@ public class QuestionDTO {
     private QuestionStatus questionStatus;
     private QuestionCategory questionCategory;
     private MultipartFile questionFile;
-    private Boolean is_private;
+    private boolean secretPost;
     private String originalFileName;
     private String storedFileName;
     private int fileAttached;

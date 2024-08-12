@@ -10,19 +10,6 @@ import javax.persistence.*;
 @Setter
 @Table(name = "question_file")
 public class QuestionFileEntity {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long questionId;
-//
-//    @Column
-//    private String originalFileName;
-//
-//    @Column
-//    private String storedFileName;
-//
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "question_question_id")
-//    private QuestionEntity questionEntity;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

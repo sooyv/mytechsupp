@@ -3,9 +3,12 @@ package techsuppDev.techsupp.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import techsuppDev.techsupp.DTO.QuestionDTO;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,13 +28,18 @@ public class QuestionEntity {
     private User user;
 
     @Column
+    @NotNull
     private String questionTitle;
+
     @Column(length = 1000)
+    @NotNull
     private String questionContents;
 
-    @Column(name = "created_at_q", nullable = false, updatable = false)
+    @CreationTimestamp
+    @Column(name = "created_at_q", updatable = false)
     private LocalDateTime createdAtQ;
 
+    @UpdateTimestamp
     @Column(name = "updated_at_q")
     private LocalDateTime updatedAtQ;
 
@@ -41,19 +49,17 @@ public class QuestionEntity {
 
     @Enumerated(EnumType.STRING)
     @Column
+    @NotNull
     private QuestionStatus questionStatus = QuestionStatus.PENDING; // 기본값 설정
 
-    @Column(name = "is_private", nullable = false)
-    private Boolean is_private = false;  // 기본값을 false로 설정
+    @Column
+    private boolean secretPost = false;  // 기본값을 false로 설정
 
     @Column
     private int fileAttached;
 
     @OneToMany(mappedBy = "questionEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<QuestionFileEntity> questionFileEntityList = new ArrayList<>();
-
-//    @OneToMany(mappedBy = "questionEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-//    private List<CommentEntity> commentEntityList = new ArrayList<>();
 
     @OneToOne(mappedBy = "questionEntity", cascade = CascadeType.ALL, orphanRemoval = true)
     private QuestionAnswer questionAnswer;
@@ -65,7 +71,8 @@ public class QuestionEntity {
         questionEntity.setQuestionContents(questionDTO.getQuestionContents());
         questionEntity.setQuestionCategory(questionDTO.getQuestionCategory());
         questionEntity.setQuestionStatus(QuestionStatus.PENDING);
-        questionEntity.setIs_private(questionDTO.getIs_private());
+        questionEntity.setSecretPost(questionDTO.isSecretPost());
+//        questionEntity.set_private(questionEntity.is_private());
         questionEntity.setFileAttached(0);
 
         return questionEntity;
@@ -81,12 +88,16 @@ public class QuestionEntity {
         return questionEntity;
     }
 
-    public static QuestionEntity toSaveFileEntity(QuestionDTO questionDTO) {
+    // 파일 첨부 등록
+    public static QuestionEntity toSaveFileEntity(QuestionDTO questionDTO, User user) {
         QuestionEntity questionEntity = new QuestionEntity();
+        questionEntity.setUser(user);
         questionEntity.setQuestionTitle(questionDTO.getQuestionTitle());
         questionEntity.setQuestionContents(questionDTO.getQuestionContents());
         questionEntity.setQuestionCategory(questionDTO.getQuestionCategory());
-        questionEntity.setQuestionStatus(questionDTO.getQuestionStatus());
+        questionEntity.setQuestionStatus(QuestionStatus.PENDING);
+//        questionEntity.setSecretPost(questionDTO.getSecretPost());
+        questionEntity.setSecretPost(questionDTO.isSecretPost());
         questionEntity.setFileAttached(1);
 
         return questionEntity;

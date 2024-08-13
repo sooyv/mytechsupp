@@ -28,8 +28,6 @@ public class QuestionService {
     private final QuestionRepository questionRepository;
     private final QuestionFileRepository questionFileRepository;
     private final UserRepository userRepository;
-
-    private static final LocalDateTime now = LocalDateTime.now();
     @Value("${qnaServicePath}")
     String qnaServicePath;
 

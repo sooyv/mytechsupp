@@ -50,10 +50,10 @@
                 <div id="pagingForm">
                     <!-- 첫번째 페이지로 이동 -->
                     <!-- /board/paging?page=1 -->
-                    <a th:href="@{/notice/question-paging(page=1)}">First</a>
+                    <a class="top-link" th:href="@{/notice/question-paging(page=1)}">First</a>
                     <!-- 이전 링크 활성화 비활성화 -->
                     <!-- boardList.getNumber() 사용자:2페이지 getNumber()=1 -->
-                    <a th:href="${questionList.first} ? '#' : @{/notice/question-paging(page=${questionList.number})}">prev</a>
+                    <a class="link" th:href="${questionList.first} ? '#' : @{/notice/question-paging(page=${questionList.number})}">prev</a>
 
                     <!-- 페이지 번호 링크(현재 페이지는 숫자만) for(int page=startPage; page<=endPage; page++)-->
                     <span th:each="page: ${#numbers.sequence(startPage, endPage)}">
@@ -65,12 +65,10 @@
                         </span>
                     </span>
 
-
-                    <!-- 다음 링크 활성화 비활성화
-                        사용자: 2페이지, getNumber: 1, 3페이지-->
-                    <a th:href="${questionList.last} ? '#' : @{/notice/question-paging(page=${questionList.number + 2})}">next</a>
+                    <!-- 다음 링크 활성화 비활성화 사용자: 2페이지, getNumber: 1, 3페이지-->
+                    <a class="link" th:href="${questionList.last} ? '#' : @{/notice/question-paging(page=${questionList.number + 2})}">next</a>
                     <!-- 마지막 페이지로 이동 -->
-                    <a th:href="@{/notice/question-paging(page=${questionList.totalPages})}">Last</a>
+                    <a class="top-link" th:href="@{/notice/question-paging(page=${questionList.totalPages})}">Last</a>
                 </div>
             </div>
         </div>

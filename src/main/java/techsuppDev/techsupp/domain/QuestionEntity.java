@@ -53,6 +53,7 @@ public class QuestionEntity {
     private QuestionStatus questionStatus = QuestionStatus.PENDING; // 기본값 설정
 
     @Column
+    @NotNull
     private boolean secretPost = false;  // 기본값을 false로 설정
 
     @Column

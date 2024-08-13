@@ -50,3 +50,27 @@ a {
     border-radius: 3px;
     font-size: smaller;
 }
+
+#pagingForm {
+    display: flex;
+    width: 200px;
+    justify-content: space-evenly;
+    margin: 20px 10px 50px 10px;
+}
+
+a {
+    text-decoration-line:none;
+    color: black;
+}
+
+a:hover {
+    color: #5ebee7; /* hover 시 하늘색으로 변경 */
+}
+
+.link {
+    color: #4c90a8;
+}
+
+.top-link {
+    color: #27657b;
+}

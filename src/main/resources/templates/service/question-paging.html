@@ -24,18 +24,25 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="question: ${questionList}">
-                            <!--                            <td th:text="${question.questionId}"></td>  -->
+                        <tr th:each="question : ${questionList}">
                             <td>
                                 <span id="answerStatus" th:text="${question.questionStatus.getAnswer()}"></span>
                             </td>
                             <td>
-                                <a th:href="@{|/notice/question-check/${question.questionId}|(page=${questionList.number + 1})}"
-                                   th:text="${question.questionTitle}"></a>
+                                <!-- 비밀글일 때 아이콘과 비밀글 메시지 표시 -->
+                                <span th:if="${question.secretPost}">
+                                    <i class="fas fa-lock"></i>
+                                    <span id="secretPost" th:text="'비밀글입니다'"></span>
+                                </span>
+                                <!-- 비밀글이 아닌 경우 링크를 추가하여 상세 페이지로 이동 -->
+                                <span th:unless="${question.secretPost}">
+                                    <a th:href="@{/notice/question-check/{id}(id=${question.questionId})}"
+                                       th:text="${question.questionTitle}"></a>
+                                </span>
                             </td>
+
                             <td th:text="${question.questionWriter}"></td>
                             <td th:text="${question.getFormattedCreatedAtQ}"></td>
-                            <!--                    <td th:text="${question.questionStatus}"></td>-->
                         </tr>
                         </tbody>
                     </table>

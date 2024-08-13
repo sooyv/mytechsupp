@@ -23,6 +23,7 @@ import java.io.*;
 import java.net.URLEncoder;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.Principal;
 import java.util.List;
 
 
@@ -140,10 +141,12 @@ public class NoticeController {
      * 문의 사항
      */
     @GetMapping("/question-list")
-    public String questionList(@PageableDefault(page = 1) Pageable pageable, Model model) {
+    public String questionList(@PageableDefault(page = 1) Pageable pageable, Principal principal, Model model) {
+        String currentUserEmail = (principal != null) ? principal.getName() : null;
+        boolean isAuthenticated = currentUserEmail != null; // 로그인 여부
 
         pageable.getPageNumber();
-        Page<QuestionDTO> questionList = questionService.paging(pageable);
+        Page<QuestionDTO> questionList = questionService.paging(pageable, currentUserEmail, isAuthenticated);
 
         int blockLimit = 5;
         int startPage = (((int) (Math.ceil((double) pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1; // 1 4 7 10 ~~
@@ -160,6 +163,8 @@ public class NoticeController {
         model.addAttribute("questionList", questionList);
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
+        model.addAttribute("currentUserEmail", currentUserEmail); // 현재 로그인한 사용자 이메일 추가
+
 
         return "service/question-paging";
     }

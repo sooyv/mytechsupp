@@ -32,12 +32,14 @@ public class QuestionDTO {
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 
-    public QuestionDTO(Long questionId, QuestionStatus questionStatus, String questionTitle, String questionWriter, LocalDateTime createdAtQ) {
+    public QuestionDTO(Long questionId, QuestionStatus questionStatus, String questionTitle,
+                                        String questionWriter, LocalDateTime createdAtQ, boolean secretPost) {
         this.questionId = questionId;
         this.questionStatus = questionStatus;
         this.questionTitle = questionTitle;
         this.questionWriter = questionWriter;
         this.createdAtQ = createdAtQ;
+        this.secretPost = isSecretPost();
     }
 
     // 글 생성일자(년, 월, 일) 출력

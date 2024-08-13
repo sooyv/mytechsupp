@@ -74,3 +74,7 @@ a:hover {
 .top-link {
     color: #27657b;
 }
+
+#secretPost, .icon-lock {
+    color: gray;
+}

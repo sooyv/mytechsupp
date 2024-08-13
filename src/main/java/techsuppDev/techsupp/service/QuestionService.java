@@ -109,27 +109,37 @@ public class QuestionService {
         return findById(questionDTO.getQuestionId());
     }
 
-    public Page<QuestionDTO> paging(Pageable pageable) {
-        int page = pageable.getPageNumber() - 1;
-        int pageLimit = 10; // 한 페이지에 보여줄 글 갯수
-        // 힌페이지당 3개씩 글을 보여주고 정렬 기준은 questionId 기준으로 내림차순 정렬
-        // page 위치에 있는 값은 0 부터 시작
-        Page<QuestionEntity> questionEntities =
-                questionRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "questionId")));
-        System.out.println("questionEntities.getContent() = " + questionEntities.getContent()); // 요청 페이지에 해당하는 글
-        System.out.println("questionEntities.getNumber() = " + questionEntities.getNumber()); // DB로 요청한 페이지 번호
-        System.out.println("questionEntities.getTotalPages() = " + questionEntities.getTotalPages()); // 전체 페이지 갯수
-        System.out.println("questionEntities.getSize() = " + questionEntities.getSize()); // 한 페이지에 보여지는 글 갯수
-        System.out.println("questionEntities.hasPrevious() = " + questionEntities.hasPrevious()); // 이전 페이지 존재 여부
-        System.out.println("questionEntities.isFirst() = " + questionEntities.isFirst()); // 첫 페이지 여부
-        System.out.println("questionEntities.isLast() = " + questionEntities.isLast()); // 마지막 페이지 여부
+    public Page<QuestionDTO> paging(Pageable pageable, String currentUserEmail, boolean isAuthenticated) {
+        // 페이지 번호와 페이지 크기 설정
+        int page = pageable.getPageNumber() - 1; // 페이지 번호는 0부터 시작
+        int pageLimit = pageable.getPageSize(); // 페이지당 항목 수
 
+        // 페이지 요청
+        Page<QuestionEntity> questionEntities = questionRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "questionId")));
 
-        // 목록: noticeid, writer(user_email), title, status
-        Page<QuestionDTO> questionDTO = questionEntities.map(question -> new QuestionDTO(
-                question.getQuestionId(), question.getQuestionStatus(), question.getQuestionTitle(),
-                question.getUser().getUserName(), question.getCreatedAtQ()
-                ));
+        // 페이지 데이터 변환
+        Page<QuestionDTO> questionDTO = questionEntities.map(question -> {
+            QuestionDTO dto = new QuestionDTO(
+                    question.getQuestionId(),
+                    question.getQuestionStatus(),
+                    question.getQuestionTitle(),
+                    question.getUser().getUserName(),
+                    question.getCreatedAtQ(),
+                    question.isSecretPost()
+            );
+
+            // 비밀글 처리
+            if (!isAuthenticated || !currentUserEmail.equals(question.getUser().getUserEmail())) {
+                // 로그인하지 않았거나 현재 사용자가 작성자가 아닌 비밀글의 경우 제목을 "비밀글입니다"로 변경
+                if (question.isSecretPost()) {
+                    dto.setQuestionTitle("비밀글입니다");
+//                    dto.setQuestionContents(null); // 비밀글 내용은 숨김
+                }
+            }
+
+            return dto;
+        });
+
         return questionDTO;
     }
 

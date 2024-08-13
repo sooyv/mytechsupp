@@ -15,7 +15,8 @@ import java.time.format.DateTimeFormatter;
 public class QuestionDTO {
 
     private Long questionId;
-    private String questionWriter;
+    private String userEmail;
+    private String userName;
     private String questionTitle;
     private String questionContents;
     private LocalDateTime createdAtQ;
@@ -33,13 +34,14 @@ public class QuestionDTO {
 
 
     public QuestionDTO(Long questionId, QuestionStatus questionStatus, String questionTitle,
-                                        String questionWriter, LocalDateTime createdAtQ, boolean secretPost) {
+                                        String userName, String userEmail, LocalDateTime createdAtQ, boolean secretPost) {
         this.questionId = questionId;
         this.questionStatus = questionStatus;
         this.questionTitle = questionTitle;
-        this.questionWriter = questionWriter;
+        this.userName = userName;
+        this.userEmail = userEmail;
         this.createdAtQ = createdAtQ;
-        this.secretPost = isSecretPost();
+        this.secretPost = secretPost;
     }
 
     // 글 생성일자(년, 월, 일) 출력

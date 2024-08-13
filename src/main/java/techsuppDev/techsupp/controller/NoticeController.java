@@ -164,7 +164,7 @@ public class NoticeController {
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
         model.addAttribute("currentUserEmail", currentUserEmail); // 현재 로그인한 사용자 이메일 추가
-
+        model.addAttribute("isAuthenticated", isAuthenticated); // 로그인 여부 추가
 
         return "service/question-paging";
     }

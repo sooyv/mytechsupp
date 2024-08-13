@@ -33,17 +33,14 @@ public class QuestionService {
 
     // 문의사항 작성
     public void questionResister(QuestionDTO questionDTO) throws IOException {
-        System.out.println(questionDTO.getQuestionWriter());
         System.out.println(questionDTO.getQuestionTitle());
         System.out.println(questionDTO.getQuestionContents());
-//        System.out.println("isPrivate : "+ questionDTO.getSecretPost());
-        System.out.println("isPrivate : "+ questionDTO.isSecretPost());
 
         if (questionDTO.getQuestionFile().isEmpty() || questionDTO.getQuestionFile() == null) {
             // 첨부 파일 없음.
 
             // 세션에 존재하는 로그인한 유저가 있는지 맞는지 확인
-            String userEmail = questionDTO.getQuestionWriter();
+            String userEmail = questionDTO.getUserEmail();
             Optional<User> optionalUser = userRepository.findByUserEmail(userEmail);
             User user = optionalUser.orElseThrow(() -> new IllegalArgumentException("User not found for email: " + userEmail));
 
@@ -66,7 +63,7 @@ public class QuestionService {
         questionFile.transferTo(new File(savePath));
 
         // 세션에 존재하는 로그인한 유저가 있는지 맞는지 확인
-        String userEmail = questionDTO.getQuestionWriter();
+        String userEmail = questionDTO.getUserEmail();
         Optional<User> optionalUser = userRepository.findByUserEmail(userEmail);
         User user = optionalUser.orElseThrow(() -> new IllegalArgumentException("User not found for email: " + userEmail));
 
@@ -109,42 +106,42 @@ public class QuestionService {
         return findById(questionDTO.getQuestionId());
     }
 
+
+
+
+
     public Page<QuestionDTO> paging(Pageable pageable, String currentUserEmail, boolean isAuthenticated) {
         // 페이지 번호와 페이지 크기 설정
         int page = pageable.getPageNumber() - 1; // 페이지 번호는 0부터 시작
-        int pageLimit = pageable.getPageSize(); // 페이지당 항목 수
+        int pageLimit = pageable.getPageSize();  // 페이지당 항목 수
 
-        // 페이지 요청
+        // 페이지 요청: 지정된 페이지 번호와 페이지 크기, 정렬 기준으로 QuestionEntity를 조회
         Page<QuestionEntity> questionEntities = questionRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "questionId")));
 
-        // 페이지 데이터 변환
-        Page<QuestionDTO> questionDTO = questionEntities.map(question -> {
-            QuestionDTO dto = new QuestionDTO(
+        // 페이지 데이터 변환: QuestionEntity를 QuestionDTO로 변환
+        Page<QuestionDTO> questionDTOPage = questionEntities.map(question -> {
+            QuestionDTO questionDTO = new QuestionDTO(
                     question.getQuestionId(),
                     question.getQuestionStatus(),
                     question.getQuestionTitle(),
                     question.getUser().getUserName(),
+                    question.getUser().getUserEmail(),
                     question.getCreatedAtQ(),
                     question.isSecretPost()
             );
 
             // 비밀글 처리
             if (!isAuthenticated || !currentUserEmail.equals(question.getUser().getUserEmail())) {
-                // 로그인하지 않았거나 현재 사용자가 작성자가 아닌 비밀글의 경우 제목을 "비밀글입니다"로 변경
+                // 로그인하지 않았거나 현재 사용자가 작성자가 아닌 비밀글의 경우
                 if (question.isSecretPost()) {
-                    dto.setQuestionTitle("비밀글입니다");
-//                    dto.setQuestionContents(null); // 비밀글 내용은 숨김
+                    questionDTO.setQuestionTitle("비밀글입니다");
                 }
             }
-
-            return dto;
+            return questionDTO;
         });
 
-        return questionDTO;
+        // 변환된 DTO 페이지 반환
+        return questionDTOPage;
     }
-
-//    public void updateStatus(QuestionDTO questionDTO){
-//        QuestionEntity questionStatus = QuestionEntity.updateStatus();
-//    }
 
 }

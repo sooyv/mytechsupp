@@ -75,6 +75,10 @@ a:hover {
     color: #27657b;
 }
 
-#secretPost, .icon-lock {
+.secretPost, .fa-lock {
     color: gray;
+}
+
+.fa-lock {
+    margin: 0px 5px;
 }

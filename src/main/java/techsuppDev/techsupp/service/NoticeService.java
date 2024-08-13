@@ -180,14 +180,6 @@ public class NoticeService {
         // page 위치에 있는 값은 0 부터 시작
         Page<NoticeEntity> noticeEntities =
                 noticeRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "noticeId")));
-        System.out.println("noticeEntities.getContent() = " + noticeEntities.getContent()); // 요청 페이지에 해당하는 글
-        System.out.println("noticeEntities.getTotalElements() = " + noticeEntities.getTotalElements()); // 전체 글갯수
-        System.out.println("noticeEntities.getNumber() = " + noticeEntities.getNumber()); // DB로 요청한 페이지 번호
-        System.out.println("noticeEntities.getTotalPages() = " + noticeEntities.getTotalPages()); // 전체 페이지 갯수
-        System.out.println("noticeEntities.getSize() = " + noticeEntities.getSize()); // 한 페이지에 보여지는 글 갯수
-        System.out.println("noticeEntities.hasPrevious() = " + noticeEntities.hasPrevious()); // 이전 페이지 존재 여부
-        System.out.println("noticeEntities.isFirst() = " + noticeEntities.isFirst()); // 첫 페이지 여부
-        System.out.println("noticeEntities.isLast() = " + noticeEntities.isLast()); // 마지막 페이지 여부
 
         // 목록: noticeid, writer, title, hits,
         Page<NoticeDTO> noticeDTOS = noticeEntities.map(notice -> new NoticeDTO(notice.getNoticeId(),

@@ -72,11 +72,10 @@
                                 <div class="question-input">
 <!--                                    <div th:text="${session.userEmail}" name="questionWriter" class="form-group col-md-4"></div>-->
                                     <!-- 숨겨진 input 필드 -->
-                                    <input type="hidden" name="questionWriter" th:value="${session.userEmail}" />
+                                    <input type="hidden" name="userEmail" th:value="${session.userEmail}" />
                                     <!-- 사용자가 볼 수 있는 텍스트 표시 -->
                                     <span th:text="${session.userEmail}"></span>
                                 </div>
-
                             </div>
                         </li>
 

@@ -218,7 +218,6 @@ public class NoticeController {
 
     @PostMapping("/question")
     public String save(@ModelAttribute QuestionDTO questionDTO) throws IOException {
-//        System.out.println("controller is_private : "+ questionDTO.getSecretPost());
         System.out.println("controller is_private : "+ questionDTO.isSecretPost());
         questionService.questionResister(questionDTO);
         return "redirect:/cs/question-list";

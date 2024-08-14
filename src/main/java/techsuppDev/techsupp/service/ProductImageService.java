@@ -26,7 +26,6 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ProductImageService {
 
-//    private String imgLocation = "/Users/rladn/IdeaProjects/techsupp/src/main/resources/static/file/product";
     @Value("${imgLocation}")
     String imgLocation;
 

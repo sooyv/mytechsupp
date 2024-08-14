@@ -2,6 +2,7 @@ package techsuppDev.techsupp.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +30,9 @@ public class AdminController {
     private final ProductImageService productImageService;
     private final NoticeService noticeService;
     private final FaqService faqService;
+
+    @Value("${imgLocation}")
+    String imgLocation;
 
     @GetMapping("/")
     public String Home() {
@@ -76,7 +80,7 @@ public class AdminController {
         ProductDTO productDTO = adminProductService.getProductDetail(product_id);
 
         if (productDTO.getProductImgDTOList().size() != 0) {
-            Path currentPath = Paths.get("/Users/leesoyoung/Desktop/Funding/techsupp/mytechsupp/src/main/resources/static/file/product/"
+            Path currentPath = Paths.get(imgLocation
                     + productDTO.getProductImgDTOList().get(0).getOriginImgName());
             Files.delete(currentPath);
             Long imgId = productDTO.getProductImgDTOList().get(0).getId();

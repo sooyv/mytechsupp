@@ -41,6 +41,7 @@ public class QuestionService {
 
             // 세션에 존재하는 로그인한 유저가 있는지 맞는지 확인
             String userEmail = questionDTO.getUserEmail();
+            System.out.println("이메일 확인 : " + questionDTO.getUserEmail());
             Optional<User> optionalUser = userRepository.findByUserEmail(userEmail);
             User user = optionalUser.orElseThrow(() -> new IllegalArgumentException("User not found for email: " + userEmail));
 

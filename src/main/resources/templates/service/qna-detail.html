@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>techsupp 고객센터</title>
+    <div th:replace="/head_css :: head_css"></div>
+    <link rel="stylesheet" href="/style/service/qna-detail.css"/>
+</head>
+<body>
+<div th:replace="/header :: header"></div>
+<div th:insert="/service/service-header :: service-header"></div>
+
+<div class="align-form">
+    <div id="qna-container">
+        <div class="qna-inner">
+            <div class="qna-question">
+                <div class="question-title">
+                    <div class="qna-title">
+                        <h2 class="qna-title-h2" th:text="'[' + ${question.questionCategory.getInquiry()} + ']'"></h2>
+                        <h2 class="qna-title-h2" th:text="${question.questionTitle}"></h2>
+                    </div>
+                    <div>
+                        <span th:text="${question.userName}"></span>
+                        /
+                        <span th:text="${question.getFormattedCreatedAtQ()}"></span>
+                    </div>
+                </div>
+                <div th:text="${question.questionContents}"></div>
+            </div>
+
+            <hr class="divide-sec">
+
+            <div class="qna-answer">
+                <div th:if="${question.getQuestionAnswer()}">
+                    <div class="qna-title" id="answer-title">
+                        <div class="answer-content" th:text="${question.getQuestionAnswer().getAnswerWriter()}"></div>
+                        <div class="answer-content" th:text="${question.getQuestionAnswer().getFormattedCreatedAtA()}"></div>
+                    </div>
+                    <div th:text="${question.getQuestionAnswer().getAnswerContent()}"></div>
+                </div>
+                <div th:unless="${question.getQuestionAnswer()}">
+                    <div class="qna-answer-n">등록된 답변이 없습니다</div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<script src="/script/service/userNotice.js"></script>
+</body>
+</html>

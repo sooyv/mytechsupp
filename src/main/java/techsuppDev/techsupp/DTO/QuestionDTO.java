@@ -28,13 +28,13 @@ public class QuestionDTO {
     private String originalFileName;
     private String storedFileName;
     private int fileAttached;
-
+    private QuestionAnswerDTO questionAnswer; // 답변 정보를 포함할 필드
 
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 
     public QuestionDTO(Long questionId, QuestionStatus questionStatus, String questionTitle,
-                                        String userName, String userEmail, LocalDateTime createdAtQ, boolean secretPost) {
+                       String userName, String userEmail, LocalDateTime createdAtQ, boolean secretPost) {
         this.questionId = questionId;
         this.questionStatus = questionStatus;
         this.questionTitle = questionTitle;
@@ -44,19 +44,15 @@ public class QuestionDTO {
         this.secretPost = secretPost;
     }
 
-    // 글 생성일자(년, 월, 일) 출력
-    public String getFormattedCreatedAtQ() {
-        return createdAtQ.format(DATE_FORMATTER);
-    }
-
     public static QuestionDTO toQuestionDTO(QuestionEntity questionEntity) {
         QuestionDTO questionDTO = new QuestionDTO();
         questionDTO.setQuestionId(questionEntity.getQuestionId());
+        questionDTO.setUserName(questionEntity.getUser().getUserName());
         questionDTO.setQuestionCategory(questionEntity.getQuestionCategory());
         questionDTO.setQuestionTitle(questionEntity.getQuestionTitle());
         questionDTO.setQuestionContents(questionEntity.getQuestionContents());
-//        questionDTO.setQuestionStatus(questionEntity.getQuestionStatus());
-//        questionDTO.setQuestionAnswer(questionEntity.getQuestionAnswer());
+        questionDTO.setCreatedAtQ(questionEntity.getCreatedAtQ());
+
         if (questionEntity.getFileAttached() == 0) {
             questionDTO.setFileAttached(questionEntity.getFileAttached()); // 0
         } else {
@@ -69,4 +65,8 @@ public class QuestionDTO {
         return questionDTO;
     }
 
+    // 글 생성일자(년, 월, 일) 출력
+    public String getFormattedCreatedAtQ() {
+        return createdAtQ.format(DATE_FORMATTER);
+    }
 }

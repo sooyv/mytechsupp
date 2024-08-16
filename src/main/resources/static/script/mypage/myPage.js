@@ -10,6 +10,10 @@ function checkPwd(path) {
     window.location.href = "/user/checkpassword?path=" + encodeURIComponent(path);
 }
 
+function goInquiry() {
+    window.location.href = "/user/myinquiry";
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // 페이지 URL을 기준으로 현재 페이지를 결정
     const urlParams = new URLSearchParams(window.location.search);
@@ -32,6 +36,8 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('editUser').classList.add('active');
     } else if (pathname.endsWith("/user/editpassword") || (path && path.endsWith("/user/editpassword"))) {
         document.getElementById('editPwd').classList.add('active');
+    } else if (pathname.endsWith("/user/myinquiry")) {
+        document.getElementById('inquiry').classList.add('active');
     }
 
     // 클릭 이벤트 처리

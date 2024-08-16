@@ -31,7 +31,7 @@ public class SecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return ((web) -> web.ignoring().antMatchers("/style/**", "/script/**", "/bootstrap/**"));
+        return ((web) -> web.ignoring().antMatchers("/style/**", "/script/**", "/bootstrap/**", "/file/**"));
     }
 
     @Bean

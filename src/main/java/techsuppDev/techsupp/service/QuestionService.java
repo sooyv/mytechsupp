@@ -9,18 +9,21 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import techsuppDev.techsupp.DTO.QuestionAnswerDTO;
 import techsuppDev.techsupp.DTO.QuestionDTO;
 import techsuppDev.techsupp.domain.*;;
 import techsuppDev.techsupp.repository.QuestionFileRepository;
 import techsuppDev.techsupp.repository.QuestionRepository;
 import techsuppDev.techsupp.repository.UserRepository;
 
+import javax.persistence.EntityNotFoundException;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -58,9 +61,13 @@ public class QuestionService {
     public QuestionEntity saveQuestionFile(QuestionDTO questionDTO) throws IOException {
 
         MultipartFile questionFile = questionDTO.getQuestionFile();
+        System.out.println("questionFile"+ questionFile);
         String originalFilename = questionFile.getOriginalFilename();
+        System.out.println("originalFilename"+ originalFilename);
         String storedFileName = System.currentTimeMillis() + "_" + originalFilename;
+        System.out.println("storedFileName"+ storedFileName);
         String savePath = qnaServicePath + storedFileName;
+        System.out.println("savePath"+ savePath);
         questionFile.transferTo(new File(savePath));
 
         // 세션에 존재하는 로그인한 유저가 있는지 맞는지 확인
@@ -86,29 +93,58 @@ public class QuestionService {
             questionDTOList.add(QuestionDTO.toQuestionDTO(questionEntity));
         }
         return questionDTOList;
-
     }
 
     @Transactional
     public QuestionDTO findById(Long questionId) {
-        Optional<QuestionEntity> optionalQuestionEntity = questionRepository.findById(questionId);
-        if (optionalQuestionEntity.isPresent()) {
-            QuestionEntity questionEntity = optionalQuestionEntity.get();
-            QuestionDTO questionDTO = QuestionDTO.toQuestionDTO(questionEntity);
-            return questionDTO;
-        } else {
-            return null;
-        }
+        QuestionEntity question = questionRepository.findById(questionId)
+                .orElseThrow(() -> new EntityNotFoundException("Question not found"));
+
+        return QuestionDTO.toQuestionDTO(question);
     }
+
+    // 문의 사항 단일 답변 가져오기
+    public QuestionDTO findByIdWithAnswer(Long questionId) {
+        QuestionEntity question = questionRepository.findById(questionId)
+                .orElseThrow(() -> new EntityNotFoundException("Question not found"));
+
+        QuestionDTO questionDTO = QuestionDTO.toQuestionDTO(question);
+
+        if (question.getQuestionAnswer() != null) {
+            QuestionAnswerDTO answerDTO = QuestionAnswerDTO.fromEntity(question.getQuestionAnswer());
+            questionDTO.setQuestionAnswer(answerDTO);
+        }
+        return questionDTO;
+    }
+
+    // 사용자 ID로 질문 리스트 조회
+    public List<QuestionDTO> getQuestionsByUserId(Long userId) {
+        List<QuestionEntity> questionEntities = questionRepository.findByUserUserId(userId);
+        return questionEntities.stream()
+                .map(this::toQuestionDTOWithAnswer) // 각 질문과 답변을 포함시킴
+                .collect(Collectors.toList());
+    }
+
+    // QuestionEntity QuestionDTO로 변환, 리스트
+    private QuestionDTO toQuestionDTOWithAnswer(QuestionEntity questionEntity) {
+        QuestionDTO questionDTO = QuestionDTO.toQuestionDTO(questionEntity);
+
+        if (questionEntity.getQuestionAnswer() != null) {
+            QuestionAnswerDTO answerDTO = QuestionAnswerDTO.fromEntity(questionEntity.getQuestionAnswer());
+            questionDTO.setQuestionAnswer(answerDTO);
+        }
+
+        return questionDTO;
+    }
+
+
+
     public QuestionDTO update(QuestionDTO questionDTO) {
 
         QuestionEntity questionEntity = QuestionEntity.toUpdateEntity(questionDTO);
         questionRepository.save(questionEntity);
         return findById(questionDTO.getQuestionId());
     }
-
-
-
 
 
     public Page<QuestionDTO> paging(Pageable pageable, String currentUserEmail, boolean isAuthenticated) {

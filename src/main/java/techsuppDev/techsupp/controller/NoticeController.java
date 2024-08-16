@@ -210,18 +210,30 @@ public class NoticeController {
         }
     }
 
-
+    // 문의 작성
     @GetMapping("/question")
-    public String questionResister() {
+    public String qnaResister() {
         return "service/question";
     }
 
+    // 문의 작성 post
     @PostMapping("/question")
-    public String save(@ModelAttribute QuestionDTO questionDTO) throws IOException {
+    public String qnaResisterPost(@ModelAttribute QuestionDTO questionDTO) throws IOException {
         System.out.println("controller is_private : "+ questionDTO.isSecretPost());
         questionService.questionResister(questionDTO);
         return "redirect:/cs/question-list";
     }
+
+    // 문의사항 상세 확인 페이지 - FOR USER
+    @GetMapping("/qna/{questionId}")
+    public String qnaDetailPage(@PathVariable Long questionId, Model model) {
+        QuestionDTO question = questionService.findByIdWithAnswer(questionId);
+
+        model.addAttribute("question", question);
+
+        return "service/qna-detail";
+    }
+
 
 //    @GetMapping("/question-list")
 //    public String findQuestionAll(Model model) {
@@ -231,19 +243,20 @@ public class NoticeController {
 ////        return "/question-check/{questionId}";
 //    }
 
-    @GetMapping("/question-list/{questionId}")
-    public String questionfindById(@PathVariable Long questionId, Model model) {
+//    @GetMapping("/question-list/{questionId}")
+//    public String questionfindById(@PathVariable Long questionId, Model model) {
+//
+//        QuestionDTO questionDTO = questionService.findById(questionId);
+//        System.out.println(questionDTO.getQuestionTitle());
+//        List<CommentDTO> commentDTOList = commentService.findAll(questionId);
+//
+//        model.addAttribute("question", questionDTO);
+//        model.addAttribute("commentList", commentDTOList);
+//
+////        return "service/question-check";
+//        return "service/question-detail";
+//    }
 
-        QuestionDTO questionDTO = questionService.findById(questionId);
-        System.out.println(questionDTO.getQuestionTitle());
-        List<CommentDTO> commentDTOList = commentService.findAll(questionId);
-
-        model.addAttribute("question", questionDTO);
-        model.addAttribute("commentList", commentDTOList);
-
-//        return "service/question-check";
-        return "service/question-detail";
-    }
 
 //    @GetMapping("/question-check/{questionId}")
 //    public String questionCheck(@PathVariable Long questionId, Model model) {
@@ -295,7 +308,7 @@ public class NoticeController {
 
         //파일 경로
         Path savePath = Paths.get("C:/project file/techsupp/src/main/resources/static/file/service" + questionDTO.getStoredFileName());
-        //해당 경로에 파일이 없으면
+        //해당 경로에 파일이 없으면의
         if (!savePath.toFile().exists()) {
             throw new RuntimeException("file not found");
         }

@@ -25,6 +25,7 @@
                         <div class="question-t">
                             <div class="flex-align">
                                 <i class="fas fa-solid fa-circle-question"></i>
+                                <div class="question-status" th:text="${'[' + question.questionStatus.getAnswer() + ']'}"></div>
                                 <div class="question-title" th:text="${question.questionTitle}"></div>
                             </div>
                             <div><i class="fa-solid fa-chevron-down accordion-btn"></i></div>
@@ -35,7 +36,10 @@
                     <!-- accordion answer -->
                     <div class="accordion-answer">
                         <div class="answer" th:if="${question.getQuestionAnswer()}">
-                            <div th:text="${question.questionAnswer.getAnswerWriter()}"></div>
+                            <div class="flex-align">
+                                <i class="fa-solid fa-a"></i>
+                                <div th:text="${question.questionAnswer.getAnswerWriter()}"></div>
+                            </div>
                             <div class="question-createdAtA" th:text="${question.questionAnswer.getFormattedCreatedAtA()}"></div>
                             <div class="answer-content font-15" th:text="${question.questionAnswer.answerContent}"></div>
                         </div>

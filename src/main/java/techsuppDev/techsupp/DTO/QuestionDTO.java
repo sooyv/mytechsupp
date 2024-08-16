@@ -51,6 +51,7 @@ public class QuestionDTO {
         questionDTO.setQuestionCategory(questionEntity.getQuestionCategory());
         questionDTO.setQuestionTitle(questionEntity.getQuestionTitle());
         questionDTO.setQuestionContents(questionEntity.getQuestionContents());
+        questionDTO.setQuestionStatus(questionEntity.getQuestionStatus());
         questionDTO.setCreatedAtQ(questionEntity.getCreatedAtQ());
 
         if (questionEntity.getFileAttached() == 0) {

@@ -25,20 +25,27 @@
                         <div class="question-t">
                             <div class="flex-align">
                                 <i class="fas fa-solid fa-circle-question"></i>
-                                <div class="question-status" th:text="${'[' + question.questionStatus.getAnswer() + ']'}"></div>
+                                <div class="question-status margin-l" th:name="questionStatus" th:text="${'[' + question.questionStatus.getAnswer() + ']'}"></div>
                                 <div class="question-title" th:text="${question.questionTitle}"></div>
                             </div>
-                            <div><i class="fa-solid fa-chevron-down accordion-btn"></i></div>
+
+                            <div class="flex-align">
+                                <div th:if="${question.questionStatus.getAnswer() == '답변대기'}" class="question-actions">
+                                    <a class="btn btn-edit" th:href="@{/user/inquiry/edit/{id}(id=${question.questionId})}">수정</a>
+                                    <a class="btn btn-delete" th:href="@{/user/inquiry/delete/{id}(id=${question.questionId})}">삭제</a>
+                                </div>
+                                <i class="fa-solid fa-chevron-down accordion-btn"></i>
+                            </div>
                         </div>
                         <span class="question-createdAtQ" th:text="${question.getFormattedCreatedAtQ()}"></span>
-                        <p class="question-content font-15" th:text="${question.questionContents}"></p>
+                        <p class="question-content font-15" th:name="questionContent" th:text="${question.questionContents}"></p>
                     </div>
                     <!-- accordion answer -->
                     <div class="accordion-answer">
                         <div class="answer" th:if="${question.getQuestionAnswer()}">
                             <div class="flex-align">
-                                <i class="fa-solid fa-a"></i>
-                                <div th:text="${question.questionAnswer.getAnswerWriter()}"></div>
+                                <i class="fa-solid fa-comment"></i>
+                                <div class="margin-l" th:text="${question.questionAnswer.getAnswerWriter()}"></div>
                             </div>
                             <div class="question-createdAtA" th:text="${question.questionAnswer.getFormattedCreatedAtA()}"></div>
                             <div class="answer-content font-15" th:text="${question.questionAnswer.answerContent}"></div>

@@ -20,9 +20,9 @@
 }
 
 .question-list {
-    border-bottom: 1px solid lightgray;
+    border-bottom: 3px solid lightgray;
     width: 80%;
-    padding: 1rem;
+    padding: 1.5rem;
 }
 
 .align-form {
@@ -51,10 +51,6 @@
     padding: 20px 10px;
 }
 
-.question-status {
-    margin-left: 7px;
-}
-
 .question-title {
     font-size: 16px;
     font-weight: bold;
@@ -70,17 +66,13 @@
     margin: 7px 0px 0px 0px;
 }
 
-.question-createdAtQ, question-createdAtA {
+.question-createdAtQ, .question-createdAtA {
     font-size: 12px;
 }
 
 .fa-chevron-down {
     cursor: pointer;
     margin: 0px !important;
-}
-
-fa-circle-question {
-    font-size: 25px;
 }
 
 .accordion-answer {
@@ -95,4 +87,21 @@ fa-circle-question {
 
 .font-15 {
     font-size: 15px;
+}
+
+.margin-l {
+    margin-left: 7px;
+}
+
+.question-actions {
+    margin: 0px 10px;
+}
+
+.btn-edit, .btn-delete {
+    padding: 5px;
+    font-size: 14px;
+}
+
+.btn-edit:hover, .btn-delete:hover {
+    color: deepskyblue;
 }

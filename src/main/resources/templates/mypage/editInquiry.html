@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TECHSUPP</title>
+  <div th:replace="/head_css :: head_css"></div>
+
+  <link href="/style/mypage/myPage-sideBox.css" rel="stylesheet">
+</head>
+<body>
+<!--공통되는 header-->
+<div th:replace="/header :: header"></div>
+<div class="mypage-container">
+  <!-- 사이드 메뉴 -->
+  <div th:replace="/mypage/myPage-sideBox :: mypage-sideBox"></div>
+</div>
+</body>
+</html>

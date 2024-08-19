@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import techsuppDev.techsupp.DTO.QuestionDTO;
 import techsuppDev.techsupp.DTO.UserDTO;
 import techsuppDev.techsupp.controller.form.MyPageForm;
@@ -22,6 +23,7 @@ import techsuppDev.techsupp.service.MyPageService;
 import techsuppDev.techsupp.service.QuestionService;
 import techsuppDev.techsupp.service.UserService;
 
+import javax.persistence.MapsId;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -176,7 +178,7 @@ public class MyPageController {
 
 
     @GetMapping("/myinquiry")
-    public String myinquiry(Model model, HttpServletRequest request) {
+    public String myInquiry(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
         Long userId = (Long) session.getAttribute("userId");
         List<QuestionDTO> questionList = questionService.getQuestionsByUserId(userId);
@@ -184,4 +186,22 @@ public class MyPageController {
         model.addAttribute("questionList", questionList);
         return "mypage/myInquiry";
     }
+
+    @GetMapping("/inquiry/edit/{questionId}")
+    public String editInquiry(@PathVariable("questionId") Long questionId, @ModelAttribute QuestionDTO questionDTO, RedirectAttributes redirectAttributes) {
+
+        QuestionDTO question = questionService.findByIdWithAnswer(questionId);
+        String status = String.valueOf(question.getQuestionStatus());
+
+        // 상태가 'PENDING'인 경우: 수정 페이지 접속 가능
+        if ("PENDING".equals(status)) {
+            return "/mypage/editInquiry";
+
+        // 상태가 'PENDING'이 아닌 경우: 에러 메시지와 함께 리다이렉트
+        } else {
+            redirectAttributes.addFlashAttribute("error", "문의 상태가 '답변대기'가 아니어서 수정이 불가능합니다.");
+            return "redirect:/mypage/myinquiry";
+        }
+    }
+
 }

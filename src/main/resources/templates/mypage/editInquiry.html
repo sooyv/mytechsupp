@@ -5,15 +5,135 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>TECHSUPP</title>
   <div th:replace="/head_css :: head_css"></div>
-
+  <link href="/style/mypage/editInquiry.css">
   <link href="/style/mypage/myPage-sideBox.css" rel="stylesheet">
 </head>
 <body>
 <!--공통되는 header-->
 <div th:replace="/header :: header"></div>
-<div class="mypage-container">
+<div class="editInquiry-container">
   <!-- 사이드 메뉴 -->
   <div th:replace="/mypage/myPage-sideBox :: mypage-sideBox"></div>
+  <div class="align-form">
+    <h3>문의사항 수정</h3>
+      <form id="editInquiry-form" th:action="@{|/user/inquiry/edit/${questionId}|}" method="POST">
+        <div>
+          <ul>
+            <li class="question-li">
+              <div class="flex-row">
+                <div class="li-h4">
+                  <h4>
+                    문의 유형
+                  </h4>
+                </div>
+                <div class="inquiry-group question-input">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="questionCategory" value="PRODUCT_INQUIRY" id="product_inquiry">
+                    <label class="form-check-label" for="product_inquiry">
+                      상품문의
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="questionCategory" value="DELIVERY_INQUIRY" id="delivery_inquiry">
+                    <label class="form-check-label" for="product_inquiry">
+                      배송문의
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="questionCategory" value="OTHER_INQUIRY" id="other_inquiry">
+                    <label class="form-check-label" for="other_inquiry">
+                      기타문의
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li class="question-li">
+              <div class="flex-row">
+                <div class="li-h4">
+                  <h4>
+                    성명
+                  </h4>
+                </div>
+                <div class="question-input">
+                  <div th:text="${session.userName}" name="userName" class="form-group col-md-4"></div>
+                </div>
+              </div>
+            </li>
+
+            <li class="question-li">
+              <div class="flex-row">
+                <div class="li-h4">
+                  <h4>
+                    아이디
+                  </h4>
+                </div>
+                <div class="question-input">
+                  <!--                                    <div th:text="${session.userEmail}" name="questionWriter" class="form-group col-md-4"></div>-->
+                  <!-- 숨겨진 input 필드 -->
+                  <input type="hidden" name="userEmail" th:value="${session.userEmail}" />
+                  <!-- 사용자가 볼 수 있는 텍스트 표시 -->
+                  <span th:text="${session.userEmail}"></span>
+                </div>
+              </div>
+            </li>
+
+            <li class="question-li">
+              <div class="flex-row">
+                <div class="li-h4">
+                  <h4>
+                    제목
+                  </h4>
+                </div>
+                <div class="question-input">
+                  <input id="questionTitle" name="questionTitle" class="form-control input-w" placeholder="제목을 입력하세요">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="secretPost" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                      비밀글
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li class="question-li">
+              <div class="flex-row">
+                <div class="li-h4">
+                  <h4>
+                    내용
+                  </h4>
+                </div>
+                <div class="question-input">
+                  <div class="form-floating">
+                    <textarea class="form-control" name="questionContents" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                    <label for="floatingTextarea2">내용을 입력하세요</label>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li class="question-li">
+              <div class="li-h4">
+                <h4>
+                  첨부파일
+                </h4>
+              </div>
+              <div>
+                <div id="phoneNum-box" class="form-group col-md-4">
+                  <input type="file" id="questionFile" name="questionFile" class="form-control">
+                </div>
+              </div>
+            </li>
+          </ul>
+
+          <div id="inquiry-btn">
+            <button type="submit" class="btn btn-secondary">문의작성</button>
+          </div>
+        </div>
+      </form>
+  </div>
 </div>
 </body>
 </html>

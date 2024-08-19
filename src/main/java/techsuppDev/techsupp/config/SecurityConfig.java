@@ -44,6 +44,7 @@ public class SecurityConfig {
                 .antMatchers("/admin/**").authenticated()
                 .antMatchers("/invest/**").authenticated()
                 .antMatchers("/feedbackSelect/feedback/form/**").authenticated()
+                .antMatchers("/cs/question").authenticated()    // 문의 작성은 로그인 후 가능
 //                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/admin/**").hasRole("ADMIN")          // ROLE_ADMIN 권한 유저 접근가능
                 .anyRequest().permitAll();

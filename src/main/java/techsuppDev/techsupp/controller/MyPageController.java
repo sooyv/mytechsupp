@@ -188,7 +188,7 @@ public class MyPageController {
     }
 
     @GetMapping("/inquiry/edit/{questionId}")
-    public String editInquiry(@PathVariable("questionId") Long questionId, @ModelAttribute QuestionDTO questionDTO, RedirectAttributes redirectAttributes) {
+    public String editInquiryPage(@PathVariable("questionId") Long questionId, @ModelAttribute QuestionDTO questionDTO, RedirectAttributes redirectAttributes) {
 
         QuestionDTO question = questionService.findByIdWithAnswer(questionId);
         String status = String.valueOf(question.getQuestionStatus());
@@ -199,9 +199,14 @@ public class MyPageController {
 
         // 상태가 'PENDING'이 아닌 경우: 에러 메시지와 함께 리다이렉트
         } else {
-            redirectAttributes.addFlashAttribute("error", "문의 상태가 '답변대기'가 아니어서 수정이 불가능합니다.");
+            redirectAttributes.addFlashAttribute("error", "'답변대기'상태일때만 수정이 가능합니다.");
             return "redirect:/mypage/myinquiry";
         }
+    }
+
+    @PostMapping("/inquiry/edit/{questionId}")
+    public String editInquiry(@PathVariable("questionId") Long questionId) {
+        return "redirect:/myinquiry";
     }
 
 }

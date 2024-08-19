@@ -1,6 +1,7 @@
 package techsuppDev.techsupp.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,12 +14,12 @@ import techsuppDev.techsupp.DTO.CommentDTO;
 import techsuppDev.techsupp.DTO.FaqDTO;
 import techsuppDev.techsupp.DTO.NoticeDTO;
 import techsuppDev.techsupp.DTO.QuestionDTO;
-import techsuppDev.techsupp.service.CommentService;
-import techsuppDev.techsupp.service.FaqService;
-import techsuppDev.techsupp.service.NoticeService;
-import techsuppDev.techsupp.service.QuestionService;
+import techsuppDev.techsupp.domain.User;
+import techsuppDev.techsupp.service.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.net.URLEncoder;
 import java.nio.file.Path;
@@ -34,7 +35,6 @@ public class NoticeController {
     private final NoticeService noticeService;
     private final QuestionService questionService;
     private final FaqService faqService;
-    private final CommentService commentService;
 
     @Value("${noticeServicePath}")
     String noticeServicePath;

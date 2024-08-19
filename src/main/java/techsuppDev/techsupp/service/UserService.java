@@ -63,12 +63,14 @@ public class UserService {
     }
 
     public User getUserByEmail(String userEmail) {
-        Optional<User> users = userRepository.findByUserEmail(userEmail);
+        Optional<User> userOptional = userRepository.findByUserEmail(userEmail);
 
-        if (users != null) {
-            return users.get();
-        }
-        return null;
+//        if (users != null) {
+//            return users.get();
+//        }
+//        return null;
+        return userOptional.orElse(null);
+
     }
 
     // 로그인

@@ -53,6 +53,7 @@ public class QuestionDTO {
         questionDTO.setQuestionContents(questionEntity.getQuestionContents());
         questionDTO.setQuestionStatus(questionEntity.getQuestionStatus());
         questionDTO.setCreatedAtQ(questionEntity.getCreatedAtQ());
+        questionDTO.setSecretPost(questionEntity.isSecretPost());
 
         if (questionEntity.getFileAttached() == 0) {
             questionDTO.setFileAttached(questionEntity.getFileAttached()); // 0

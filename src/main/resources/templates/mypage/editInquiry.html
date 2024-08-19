@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>TECHSUPP</title>
   <div th:replace="/head_css :: head_css"></div>
-  <link href="/style/mypage/editInquiry.css">
+  <link href="/style/mypage/editInquiry.css" rel="stylesheet">
   <link href="/style/mypage/myPage-sideBox.css" rel="stylesheet">
 </head>
 <body>
@@ -15,32 +15,35 @@
   <!-- 사이드 메뉴 -->
   <div th:replace="/mypage/myPage-sideBox :: mypage-sideBox"></div>
   <div class="align-form">
-    <h3>문의사항 수정</h3>
       <form id="editInquiry-form" th:action="@{|/user/inquiry/edit/${questionId}|}" method="POST">
-        <div>
+        <h3>문의 수정</h3>
+        <div class="inquiry">
           <ul>
-            <li class="question-li">
+            <li class="inquiry-li">
               <div class="flex-row">
                 <div class="li-h4">
                   <h4>
                     문의 유형
                   </h4>
                 </div>
-                <div class="inquiry-group question-input">
+                <div class="question-input flex-around">
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="questionCategory" value="PRODUCT_INQUIRY" id="product_inquiry">
+                    <input th:checked="${question.questionCategory.getInquiry() == '상품문의'}" class="form-check-input"
+                           type="radio" name="questionCategory" value="PRODUCT_INQUIRY" id="product_inquiry">
                     <label class="form-check-label" for="product_inquiry">
                       상품문의
                     </label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="questionCategory" value="DELIVERY_INQUIRY" id="delivery_inquiry">
+                    <input th:checked="${question.questionCategory.getInquiry() == '배송문의'}" class="form-check-input"
+                           type="radio" name="questionCategory" value="DELIVERY_INQUIRY" id="delivery_inquiry">
                     <label class="form-check-label" for="product_inquiry">
                       배송문의
                     </label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="questionCategory" value="OTHER_INQUIRY" id="other_inquiry">
+                    <input th:checked="${question.questionCategory.getInquiry() == '기타문의'}" class="form-check-input"
+                           type="radio" name="questionCategory" value="OTHER_INQUIRY" id="other_inquiry">
                     <label class="form-check-label" for="other_inquiry">
                       기타문의
                     </label>
@@ -49,7 +52,7 @@
               </div>
             </li>
 
-            <li class="question-li">
+            <li class="inquiry-li">
               <div class="flex-row">
                 <div class="li-h4">
                   <h4>
@@ -62,7 +65,7 @@
               </div>
             </li>
 
-            <li class="question-li">
+            <li class="inquiry-li">
               <div class="flex-row">
                 <div class="li-h4">
                   <h4>
@@ -70,7 +73,6 @@
                   </h4>
                 </div>
                 <div class="question-input">
-                  <!--                                    <div th:text="${session.userEmail}" name="questionWriter" class="form-group col-md-4"></div>-->
                   <!-- 숨겨진 input 필드 -->
                   <input type="hidden" name="userEmail" th:value="${session.userEmail}" />
                   <!-- 사용자가 볼 수 있는 텍스트 표시 -->
@@ -79,7 +81,7 @@
               </div>
             </li>
 
-            <li class="question-li">
+            <li class="inquiry-li">
               <div class="flex-row">
                 <div class="li-h4">
                   <h4>
@@ -87,9 +89,9 @@
                   </h4>
                 </div>
                 <div class="question-input">
-                  <input id="questionTitle" name="questionTitle" class="form-control input-w" placeholder="제목을 입력하세요">
+                  <input th:value="${question.questionTitle}" id="questionTitle" name="questionTitle" class="form-control input-w" placeholder="제목을 입력하세요">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="secretPost" id="flexCheckDefault">
+                    <input th:checked="${question.secretPost}" class="form-check-input" type="checkbox" name="secretPost" id="flexCheckDefault">
                     <label class="form-check-label" for="flexCheckDefault">
                       비밀글
                     </label>
@@ -98,7 +100,7 @@
               </div>
             </li>
 
-            <li class="question-li">
+            <li class="inquiry-li">
               <div class="flex-row">
                 <div class="li-h4">
                   <h4>
@@ -107,21 +109,21 @@
                 </div>
                 <div class="question-input">
                   <div class="form-floating">
-                    <textarea class="form-control" name="questionContents" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                    <textarea class="form-control" th:text="${question.questionContents}" name="questionContents" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
                     <label for="floatingTextarea2">내용을 입력하세요</label>
                   </div>
                 </div>
               </div>
             </li>
 
-            <li class="question-li">
-              <div class="li-h4">
+            <li class="inquiry-li">
+              <div>
                 <h4>
                   첨부파일
                 </h4>
               </div>
               <div>
-                <div id="phoneNum-box" class="form-group col-md-4">
+                <div id="file-attach" class="form-group col-md-4">
                   <input type="file" id="questionFile" name="questionFile" class="form-control">
                 </div>
               </div>
@@ -129,11 +131,12 @@
           </ul>
 
           <div id="inquiry-btn">
-            <button type="submit" class="btn btn-secondary">문의작성</button>
+            <button type="submit" class="btn btn-secondary">문의수정</button>
           </div>
         </div>
       </form>
   </div>
 </div>
+<script src="/script/mypage/myPage.js"></script>
 </body>
 </html>

@@ -188,13 +188,15 @@ public class MyPageController {
     }
 
     @GetMapping("/inquiry/edit/{questionId}")
-    public String editInquiryPage(@PathVariable("questionId") Long questionId, @ModelAttribute QuestionDTO questionDTO, RedirectAttributes redirectAttributes) {
+    public String editInquiryPage(@PathVariable("questionId") Long questionId, Model model, RedirectAttributes redirectAttributes) {
 
         QuestionDTO question = questionService.findByIdWithAnswer(questionId);
         String status = String.valueOf(question.getQuestionStatus());
 
         // 상태가 'PENDING'인 경우: 수정 페이지 접속 가능
         if ("PENDING".equals(status)) {
+            System.out.println("question.isSecretPost()) : " +question.isSecretPost());
+            model.addAttribute("question", question);
             return "/mypage/editInquiry";
 
         // 상태가 'PENDING'이 아닌 경우: 에러 메시지와 함께 리다이렉트
@@ -205,7 +207,7 @@ public class MyPageController {
     }
 
     @PostMapping("/inquiry/edit/{questionId}")
-    public String editInquiry(@PathVariable("questionId") Long questionId) {
+    public String editInquiry(@PathVariable("questionId") Long questionId, Model model) {
         return "redirect:/myinquiry";
     }
 

@@ -2,16 +2,16 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 100vh; /* Viewport height to take full screen */
-    overflow: hidden; /* Prevent scrollbars in the container */
+    height: 100vh;
+    overflow: hidden;
 }
 
 .inquiry {
     background-color: white;
     font-weight: 600;
     border-radius: 15px;
-    width: 100%; /* Adjust width as needed */
-    height: calc(100vh - 2em); /* Adjust height based on header and padding */
+    width: 90%;
+    height: calc(100vh - 2em);
     display: flex;
     flex-direction: column;
     align-items: center;

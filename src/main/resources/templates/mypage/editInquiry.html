@@ -15,7 +15,7 @@
   <!-- 사이드 메뉴 -->
   <div th:replace="/mypage/myPage-sideBox :: mypage-sideBox"></div>
   <div class="align-form">
-      <form id="editInquiry-form" th:action="@{|/user/inquiry/edit/${questionId}|}" method="POST">
+      <form id="editInquiry-form" th:action="@{|/user/inquiry/edit/${questionId}|}" method="POST" enctype="multipart/form-data">
         <h3>문의 수정</h3>
         <div class="inquiry">
           <ul>
@@ -124,6 +124,14 @@
               </div>
               <div>
                 <div id="file-attach" class="form-group col-md-4">
+                  <div class="flex-row">
+                    <!-- 기존 첨부 파일 표시 -->
+                    <span style="margin: 0px 10px 0px 10px;" th:if="${question.originalFileName != null}">
+                            <a th:href="@{/qna/fileDownload/{questionId}(questionId=${question.questionId})}" id="originalFileName" th:text="${question.originalFileName}"></a>
+                    </span>
+                    <div id="deleteFileBtn" th:data-qna-id="${question.questionId}"><i class="fa-solid fa-x"></i></div>
+                  </div>
+                  <!-- 새로운 첨부 파일 선택 -->
                   <input type="file" id="questionFile" name="questionFile" class="form-control">
                 </div>
               </div>

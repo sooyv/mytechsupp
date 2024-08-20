@@ -70,7 +70,7 @@ public class QuestionService {
         System.out.println("savePath"+ savePath);
         questionFile.transferTo(new File(savePath));
 
-        // 세션에 존재하는 로그인한 유저가 있는지 맞는지 확인
+        // 세션에 존재하는 로그인한 유저가 있는지 확인
         String userEmail = questionDTO.getUserEmail();
         Optional<User> optionalUser = userRepository.findByUserEmail(userEmail);
         User user = optionalUser.orElseThrow(() -> new IllegalArgumentException("User not found for email: " + userEmail));
@@ -82,7 +82,78 @@ public class QuestionService {
         QuestionFileEntity questionFileEntity = QuestionFileEntity.toQuestionFileEntity(questionEntity, originalFilename, storedFileName);
         questionFileRepository.save(questionFileEntity);
 
-        return questionFileEntity.getQuestionEntity();
+        return questionEntity;
+    }
+
+    @Transactional
+    public QuestionEntity updateQuestion(QuestionDTO questionDTO, Long questionId) throws IOException {
+        QuestionEntity questionEntity = questionRepository.findById(questionId)
+                .orElseThrow(() -> new RuntimeException("문의 사항을 찾을 수 없습니다."));
+
+        questionEntity.updateFromQuestionDTO(questionDTO);
+        // 첨부파일 업데이트
+        updateQuestionFile(questionDTO, questionEntity);
+
+        // 수정된 문의 사항 저장
+        return questionRepository.save(questionEntity);
+    }
+
+    public void updateQuestionFile(QuestionDTO questionDTO, QuestionEntity questionEntity) throws IOException {
+        MultipartFile questionFile = questionDTO.getQuestionFile();
+        QuestionFileEntity existingFile = questionEntity.getQuestionFileEntity();
+
+        if (questionFile != null && !questionFile.isEmpty()) {
+            // 새 파일이 업로드된 경우
+            if (existingFile != null) {
+                // 기존 파일 삭제
+                deleteQuestionFile(questionDTO.getQuestionId());
+                // 기존 파일 정보 삭제
+                questionFileRepository.delete(existingFile);
+            }
+
+            // 새로운 파일 저장
+            String originalFilename = questionFile.getOriginalFilename();
+            String storedFileName = System.currentTimeMillis() + "_" + originalFilename;
+            String savePath = qnaServicePath + storedFileName;
+            questionFile.transferTo(new File(savePath));
+
+            // 새로운 파일 정보 저장
+            QuestionFileEntity newFile = new QuestionFileEntity();
+            newFile.setOriginalFileName(originalFilename);
+            newFile.setStoredFileName(storedFileName);
+            newFile.setQuestionEntity(questionEntity);
+            questionFileRepository.save(newFile);
+
+            questionEntity.setFileAttached(1);
+        } else if (existingFile != null) {
+            // 기존 파일이 있지만 새 파일이 없는 경우
+            questionEntity.setFileAttached(1);
+        } else {
+            // 첨부파일이 없는 경우
+            questionEntity.setFileAttached(0);
+        }
+    }
+
+
+
+    @Transactional
+    public void deleteQuestionFile(Long questionId) {
+        Optional<QuestionEntity> questionEntityOptional = questionRepository.findById(questionId);
+
+        if (questionEntityOptional.isPresent()) {
+            QuestionEntity questionEntity = questionEntityOptional.get();
+            QuestionFileEntity questionFile = questionEntity.getQuestionFileEntity();
+
+            if (questionFile != null) {
+                questionEntity.setQuestionFileEntity(null);
+                questionFileRepository.delete(questionFile);
+
+                File file = new File(qnaServicePath + questionFile.getStoredFileName());
+                if (file.exists()) {
+                    file.delete();
+                }
+            }
+        }
     }
 
     @Transactional
@@ -109,6 +180,7 @@ public class QuestionService {
                 .orElseThrow(() -> new EntityNotFoundException("Question not found"));
 
         QuestionDTO questionDTO = QuestionDTO.toQuestionDTO(question);
+        System.out.println("findByIdWithAnswer 확인 1 : "+ questionDTO.getOriginalFileName());
 
         if (question.getQuestionAnswer() != null) {
             QuestionAnswerDTO answerDTO = QuestionAnswerDTO.fromEntity(question.getQuestionAnswer());

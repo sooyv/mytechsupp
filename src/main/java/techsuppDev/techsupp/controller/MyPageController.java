@@ -2,6 +2,7 @@ package techsuppDev.techsupp.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import techsuppDev.techsupp.DTO.NoticeDTO;
 import techsuppDev.techsupp.DTO.QuestionDTO;
 import techsuppDev.techsupp.DTO.UserDTO;
 import techsuppDev.techsupp.controller.form.MyPageForm;
@@ -25,7 +27,12 @@ import techsuppDev.techsupp.service.UserService;
 
 import javax.persistence.MapsId;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Controller
@@ -36,6 +43,8 @@ public class MyPageController {
     private final MyPageService myPageService;
     private final UserService userService;
     private final QuestionService questionService;
+    @Value("${qnaServicePath}")
+    String qnaServicePath;
 
 
     //  회원수정하기 전 비밀번호 확인
@@ -195,7 +204,7 @@ public class MyPageController {
 
         // 상태가 'PENDING'인 경우: 수정 페이지 접속 가능
         if ("PENDING".equals(status)) {
-            System.out.println("question.isSecretPost()) : " +question.isSecretPost());
+            System.out.println("question filename 확인 : " + question.getOriginalFileName());
             model.addAttribute("question", question);
             return "/mypage/editInquiry";
 
@@ -207,8 +216,13 @@ public class MyPageController {
     }
 
     @PostMapping("/inquiry/edit/{questionId}")
-    public String editInquiry(@PathVariable("questionId") Long questionId, Model model) {
-        return "redirect:/myinquiry";
+    public String editInquiry(@PathVariable("questionId") Long questionId, QuestionDTO questionDTO) {
+        try {
+            questionService.updateQuestion(questionDTO, questionId);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return "redirect:/user/myinquiry";
     }
 
 }

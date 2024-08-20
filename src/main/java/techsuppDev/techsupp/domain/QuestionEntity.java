@@ -59,8 +59,9 @@ public class QuestionEntity {
     @Column
     private int fileAttached;
 
-    @OneToMany(mappedBy = "questionEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<QuestionFileEntity> questionFileEntityList = new ArrayList<>();
+    @OneToOne(mappedBy = "questionEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    private QuestionFileEntity questionFileEntity;
+//    private List<QuestionFileEntity> questionFileEntityList = new ArrayList<>();
 
     @OneToOne(mappedBy = "questionEntity", cascade = CascadeType.ALL, orphanRemoval = true)
     private QuestionAnswer questionAnswer;
@@ -73,7 +74,6 @@ public class QuestionEntity {
         questionEntity.setQuestionCategory(questionDTO.getQuestionCategory());
         questionEntity.setQuestionStatus(QuestionStatus.PENDING);
         questionEntity.setSecretPost(questionDTO.isSecretPost());
-//        questionEntity.set_private(questionEntity.is_private());
         questionEntity.setFileAttached(0);
 
         return questionEntity;
@@ -85,8 +85,19 @@ public class QuestionEntity {
         questionEntity.setQuestionCategory(questionDTO.getQuestionCategory());
         questionEntity.setQuestionTitle(questionDTO.getQuestionTitle());
         questionEntity.setQuestionContents(questionDTO.getQuestionContents());
+        questionEntity.setFileAttached(questionEntity.getFileAttached());
+        questionEntity.setQuestionStatus(questionDTO.getQuestionStatus());
+        questionEntity.setSecretPost(questionDTO.isSecretPost());
 
         return questionEntity;
+    }
+
+    public void updateFromQuestionDTO(QuestionDTO questionDTO) {
+        this.setQuestionCategory(questionDTO.getQuestionCategory());
+        this.setQuestionTitle(questionDTO.getQuestionTitle());
+        this.setQuestionContents(questionDTO.getQuestionContents());
+        this.setQuestionStatus(QuestionStatus.PENDING);
+        this.setSecretPost(questionDTO.isSecretPost());
     }
 
     // 파일 첨부 등록

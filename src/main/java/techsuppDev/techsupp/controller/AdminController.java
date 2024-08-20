@@ -137,7 +137,7 @@ public class AdminController {
         return "redirect:/admin/notice/list";
     }
 
-    // 공지사항 상세 및 수정
+    // 공지사항 상세
     @GetMapping("/notice/{noticeId}")
     public String noticeDetails(@PathVariable("noticeId") Long noticeId, Model model) {
         NoticeDTO noticeDTO = noticeService.findById(noticeId);

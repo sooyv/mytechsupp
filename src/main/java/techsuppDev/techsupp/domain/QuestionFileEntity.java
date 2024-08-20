@@ -21,7 +21,7 @@ public class QuestionFileEntity {
     @Column
     private String storedFileName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id")
     private QuestionEntity questionEntity;
 

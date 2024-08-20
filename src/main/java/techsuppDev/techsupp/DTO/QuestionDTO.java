@@ -54,18 +54,16 @@ public class QuestionDTO {
         questionDTO.setQuestionStatus(questionEntity.getQuestionStatus());
         questionDTO.setCreatedAtQ(questionEntity.getCreatedAtQ());
         questionDTO.setSecretPost(questionEntity.isSecretPost());
+        questionDTO.setFileAttached(questionEntity.getFileAttached());
 
-        if (questionEntity.getFileAttached() == 0) {
-            questionDTO.setFileAttached(questionEntity.getFileAttached()); // 0
-        } else {
-            questionDTO.setFileAttached(questionEntity.getFileAttached()); // 1
-            // 파일 이름을 가져가야 함.
-            questionDTO.setOriginalFileName(questionEntity.getQuestionFileEntityList().get(0).getOriginalFileName());
-            questionDTO.setStoredFileName(questionEntity.getQuestionFileEntityList().get(0).getStoredFileName());
+        if (questionEntity.getQuestionFileEntity() != null) {
+            questionDTO.setOriginalFileName(questionEntity.getQuestionFileEntity().getOriginalFileName());
+            questionDTO.setStoredFileName(questionEntity.getQuestionFileEntity().getStoredFileName());
         }
 
         return questionDTO;
     }
+
 
     // 글 생성일자(년, 월, 일) 출력
     public String getFormattedCreatedAtQ() {

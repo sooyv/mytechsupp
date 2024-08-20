@@ -89,7 +89,7 @@
                   </h4>
                 </div>
                 <div class="question-input">
-                  <input th:value="${question.questionTitle}" id="questionTitle" name="questionTitle" class="form-control input-w" placeholder="제목을 입력하세요">
+                  <input th:value="${question.postTitle}" id="questionTitle" name="questionTitle" class="form-control input-w" placeholder="제목을 입력하세요">
                   <div class="form-check">
                     <input th:checked="${question.secretPost}" class="form-check-input" type="checkbox" name="secretPost" id="flexCheckDefault">
                     <label class="form-check-label" for="flexCheckDefault">
@@ -109,7 +109,7 @@
                 </div>
                 <div class="question-input">
                   <div class="form-floating">
-                    <textarea class="form-control" th:text="${question.questionContents}" name="questionContents" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                    <textarea class="form-control" th:text="${question.postContents}" name="questionContents" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
                     <label for="floatingTextarea2">내용을 입력하세요</label>
                   </div>
                 </div>
@@ -127,9 +127,9 @@
                   <div class="flex-row">
                     <!-- 기존 첨부 파일 표시 -->
                     <span style="margin: 0px 10px 0px 10px;" th:if="${question.originalFileName != null}">
-                            <a th:href="@{/qna/fileDownload/{questionId}(questionId=${question.questionId})}" id="originalFileName" th:text="${question.originalFileName}"></a>
+                            <a th:href="@{/qna/fileDownload/{questionId}(questionId=${question.postId})}" id="originalFileName" th:text="${question.originalFileName}"></a>
                     </span>
-                    <div id="deleteFileBtn" th:data-qna-id="${question.questionId}"><i class="fa-solid fa-x"></i></div>
+                    <div id="deleteFileBtn" th:data-qna-id="${question.postId}"><i class="fa-solid fa-x"></i></div>
                   </div>
                   <!-- 새로운 첨부 파일 선택 -->
                   <input type="file" id="questionFile" name="questionFile" class="form-control">

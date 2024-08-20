@@ -69,8 +69,8 @@ public class QuestionEntity {
     // 파일 첨부 없이 등록
     public static QuestionEntity toSaveEntity(QuestionDTO questionDTO){
         QuestionEntity questionEntity = new QuestionEntity();
-        questionEntity.setQuestionTitle(questionDTO.getQuestionTitle());
-        questionEntity.setQuestionContents(questionDTO.getQuestionContents());
+        questionEntity.setQuestionTitle(questionDTO.getPostTitle());
+        questionEntity.setQuestionContents(questionDTO.getPostContents());
         questionEntity.setQuestionCategory(questionDTO.getQuestionCategory());
         questionEntity.setQuestionStatus(QuestionStatus.PENDING);
         questionEntity.setSecretPost(questionDTO.isSecretPost());
@@ -81,10 +81,10 @@ public class QuestionEntity {
 
     public static QuestionEntity toUpdateEntity(QuestionDTO questionDTO) {
         QuestionEntity questionEntity = new QuestionEntity();
-        questionEntity.setQuestionId(questionDTO.getQuestionId());
+        questionEntity.setQuestionId(questionDTO.getPostId());
         questionEntity.setQuestionCategory(questionDTO.getQuestionCategory());
-        questionEntity.setQuestionTitle(questionDTO.getQuestionTitle());
-        questionEntity.setQuestionContents(questionDTO.getQuestionContents());
+        questionEntity.setQuestionTitle(questionDTO.getPostTitle());
+        questionEntity.setQuestionContents(questionDTO.getPostContents());
         questionEntity.setFileAttached(questionEntity.getFileAttached());
         questionEntity.setQuestionStatus(questionDTO.getQuestionStatus());
         questionEntity.setSecretPost(questionDTO.isSecretPost());
@@ -94,8 +94,8 @@ public class QuestionEntity {
 
     public void updateFromQuestionDTO(QuestionDTO questionDTO) {
         this.setQuestionCategory(questionDTO.getQuestionCategory());
-        this.setQuestionTitle(questionDTO.getQuestionTitle());
-        this.setQuestionContents(questionDTO.getQuestionContents());
+        this.setQuestionTitle(questionDTO.getPostTitle());
+        this.setQuestionContents(questionDTO.getPostContents());
         this.setQuestionStatus(QuestionStatus.PENDING);
         this.setSecretPost(questionDTO.isSecretPost());
     }
@@ -104,8 +104,8 @@ public class QuestionEntity {
     public static QuestionEntity toSaveFileEntity(QuestionDTO questionDTO, User user) {
         QuestionEntity questionEntity = new QuestionEntity();
         questionEntity.setUser(user);
-        questionEntity.setQuestionTitle(questionDTO.getQuestionTitle());
-        questionEntity.setQuestionContents(questionDTO.getQuestionContents());
+        questionEntity.setQuestionTitle(questionDTO.getPostTitle());
+        questionEntity.setQuestionContents(questionDTO.getPostContents());
         questionEntity.setQuestionCategory(questionDTO.getQuestionCategory());
         questionEntity.setQuestionStatus(QuestionStatus.PENDING);
 //        questionEntity.setSecretPost(questionDTO.getSecretPost());

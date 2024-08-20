@@ -5,8 +5,6 @@ import lombok.Setter;
 import techsuppDev.techsupp.DTO.NoticeDTO;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -35,9 +33,9 @@ public class NoticeEntity {
     // 첨부파일이 없을때 엔티티
     public static NoticeEntity toSaveEntity(NoticeDTO noticeDTO) {
         NoticeEntity noticeEntity = new NoticeEntity();
-        noticeEntity.setNoticeWriter(noticeDTO.getNoticeWriter());
-        noticeEntity.setNoticeTitle(noticeDTO.getNoticeTitle());
-        noticeEntity.setNoticeContents(noticeDTO.getNoticeContents());
+        noticeEntity.setNoticeWriter(noticeDTO.getUserEmail());
+        noticeEntity.setNoticeTitle(noticeDTO.getPostTitle());
+        noticeEntity.setNoticeContents(noticeDTO.getPostContents());
         noticeEntity.setNoticeHits(0);
         noticeEntity.setFileAttached(0); // 파일 없음.
         return noticeEntity;
@@ -46,9 +44,9 @@ public class NoticeEntity {
     // 첨부파일이 있을때 엔티티
     public static NoticeEntity toSaveFileEntity(NoticeDTO noticeDTO) {
         NoticeEntity noticeEntity = new NoticeEntity();
-        noticeEntity.setNoticeWriter(noticeDTO.getNoticeWriter());
-        noticeEntity.setNoticeTitle(noticeDTO.getNoticeTitle());
-        noticeEntity.setNoticeContents(noticeDTO.getNoticeContents());
+        noticeEntity.setNoticeWriter(noticeDTO.getUserEmail());
+        noticeEntity.setNoticeTitle(noticeDTO.getPostTitle());
+        noticeEntity.setNoticeContents(noticeDTO.getPostContents());
         noticeEntity.setNoticeHits(0);
         noticeEntity.setFileAttached(1); // 파일있음.
         return noticeEntity;
@@ -56,10 +54,10 @@ public class NoticeEntity {
 
     public static NoticeEntity toUpdateEntity(NoticeDTO noticeDTO) {
         NoticeEntity noticeEntity = new NoticeEntity();
-        noticeEntity.setNoticeId(noticeDTO.getNoticeId());
-        noticeEntity.setNoticeWriter(noticeDTO.getNoticeWriter());
-        noticeEntity.setNoticeTitle(noticeDTO.getNoticeTitle());
-        noticeEntity.setNoticeContents(noticeDTO.getNoticeContents());
+        noticeEntity.setNoticeId(noticeDTO.getPostId());
+        noticeEntity.setNoticeWriter(noticeDTO.getUserEmail());
+        noticeEntity.setNoticeTitle(noticeDTO.getPostTitle());
+        noticeEntity.setNoticeContents(noticeDTO.getPostContents());
         noticeEntity.setNoticeHits(noticeDTO.getNoticeHits());
         return noticeEntity;
     }

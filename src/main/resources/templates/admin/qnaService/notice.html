@@ -30,13 +30,13 @@
                     </thead>
                     <tbody>
                     <tr th:each="notice: ${noticeList}">
-                        <td th:text="${notice.noticeId}"></td>
-                        <td th:text="${notice.noticeTitle}"></td>
+                        <td th:text="${notice.getPostId}"></td>
+                        <td th:text="${notice.getPostTitle}"></td>
 <!--                        <td><a th:href="@{|/admin/notice/${notice.noticeId}|}" th:text="${notice.noticeTitle}"></a></td>-->
-                        <td th:text="${notice.noticeWriter}"></td>
+                        <td th:text="${notice.getUserEmail}"></td>
                         <td th:text="${notice.noticeHits}"></td>
-                        <td><a th:href="@{|/admin/notice/${notice.noticeId}|}">수정</a></td>
-                        <td><a class="deleteConfirm" href="#" th:data-notice-id="${notice.noticeId}">삭제</a></td>
+                        <td><a th:href="@{|/admin/notice/${notice.getPostId}|}">수정</a></td>
+                        <td><a class="deleteConfirm" href="#" th:data-notice-id="${notice.getPostId}">삭제</a></td>
                     </tr>
                     </tbody>
                 </table>

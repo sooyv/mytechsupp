@@ -17,7 +17,7 @@
                 <div class="question-title">
                     <div class="qna-title">
                         <h2 class="qna-title-h2" th:text="'[' + ${question.questionCategory.getInquiry()} + ']'"></h2>
-                        <h2 class="qna-title-h2" th:text="${question.questionTitle}"></h2>
+                        <h2 class="qna-title-h2" th:text="${question.postTitle}"></h2>
                     </div>
                     <div>
                         <span th:text="${question.userName}"></span>
@@ -25,7 +25,7 @@
                         <span th:text="${question.getFormattedCreatedAtQ()}"></span>
                     </div>
                 </div>
-                <div th:text="${question.questionContents}"></div>
+                <div th:text="${question.postContents}"></div>
             </div>
 
             <hr class="divide-sec">

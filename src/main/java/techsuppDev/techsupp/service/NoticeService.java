@@ -73,7 +73,7 @@ public class NoticeService {
 
         // 기존 파일 삭제 및 새 파일 저장 로직
         if (noticeFile != null && !noticeFile.isEmpty()) {
-            deleteNoticeFile(noticeDTO.getNoticeId()); // 기존 첨부 파일 삭제
+            deleteNoticeFile(noticeDTO.getPostId()); // 기존 첨부 파일 삭제
             String storedFileName = saveFile(noticeFile); // 새로운 파일 저장
             noticeEntity.setFileAttached(1);
             updateNoticeFileEntity(noticeEntity, noticeFile.getOriginalFilename(), storedFileName);

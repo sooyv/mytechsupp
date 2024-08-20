@@ -36,8 +36,8 @@
                                 </span>
                                 <!-- 비밀글이 아닌 경우 또는 로그인한 사용자가 작성한 비밀글 -->
                                 <span th:if="${!question.secretPost or (isAuthenticated and currentUserEmail == question.userEmail)}">
-                                    <a th:href="@{/cs/qna/{id}(id=${question.questionId})}"
-                                       th:text="${question.questionTitle}"></a>
+                                    <a th:href="@{/cs/qna/{id}(id=${question.postId})}"
+                                       th:text="${question.postTitle}"></a>
                                 </span>
                             </td>
                             <td th:text="${question.userName}"></td>

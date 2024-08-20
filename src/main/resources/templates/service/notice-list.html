@@ -26,10 +26,10 @@
                         </thead>
                         <tbody>
                         <tr th:each="notice: ${noticeList}">
-                            <td th:text="${notice.noticeId}"></td>
-                            <td><a th:href="@{|/cs/notice/${notice.noticeId}|(page=${noticeList.number + 1})}"
-                                   th:text="${notice.noticeTitle}"></a></td>
-                            <td th:text="${notice.noticeWriter}"></td>
+                            <td th:text="${notice.getPostId}"></td>
+                            <td><a th:href="@{|/cs/notice/${notice.getPostId}|(page=${noticeList.number + 1})}"
+                                   th:text="${notice.getPostTitle}"></a></td>
+                            <td th:text="${notice.getUserEmail}"></td>
                             <td th:text="${notice.noticeHits}"></td>
                         </tr>
                         </tbody>

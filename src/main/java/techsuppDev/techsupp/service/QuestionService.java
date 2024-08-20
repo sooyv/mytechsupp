@@ -36,8 +36,8 @@ public class QuestionService {
 
     // 문의사항 작성
     public void questionResister(QuestionDTO questionDTO) throws IOException {
-        System.out.println(questionDTO.getQuestionTitle());
-        System.out.println(questionDTO.getQuestionContents());
+        System.out.println(questionDTO.getPostTitle());
+        System.out.println(questionDTO.getPostContents());
 
         if (questionDTO.getQuestionFile().isEmpty() || questionDTO.getQuestionFile() == null) {
             // 첨부 파일 없음.
@@ -106,7 +106,7 @@ public class QuestionService {
             // 새 파일이 업로드된 경우
             if (existingFile != null) {
                 // 기존 파일 삭제
-                deleteQuestionFile(questionDTO.getQuestionId());
+                deleteQuestionFile(questionDTO.getPostId());
                 // 기존 파일 정보 삭제
                 questionFileRepository.delete(existingFile);
             }
@@ -215,7 +215,7 @@ public class QuestionService {
 
         QuestionEntity questionEntity = QuestionEntity.toUpdateEntity(questionDTO);
         questionRepository.save(questionEntity);
-        return findById(questionDTO.getQuestionId());
+        return findById(questionDTO.getPostId());
     }
 
 
@@ -243,7 +243,7 @@ public class QuestionService {
             if (!isAuthenticated || !currentUserEmail.equals(question.getUser().getUserEmail())) {
                 // 로그인하지 않았거나 현재 사용자가 작성자가 아닌 비밀글의 경우
                 if (question.isSecretPost()) {
-                    questionDTO.setQuestionTitle("비밀글입니다");
+                    questionDTO.setPostTitle("비밀글입니다");
                 }
             }
             return questionDTO;

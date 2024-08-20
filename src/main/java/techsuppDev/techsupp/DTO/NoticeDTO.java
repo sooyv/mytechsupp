@@ -4,44 +4,29 @@ import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 import techsuppDev.techsupp.domain.NoticeEntity;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class NoticeDTO {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long noticeId;
-    private String noticeWriter;
-    private String noticeTitle;
-    private String noticeContents;
+public class NoticeDTO extends ServiceDTO {
     private int noticeHits;
-
-    private MultipartFile noticeFile; // save.html -> Controller 파일 담는 용도
-    private String originalFileName; // 원본 파일 이름
-    private String storedFileName; // 서버 저장용 파일 이름
-    private int fileAttached; // 파일 첨부 여부(첨부 1, 미첨부 0)
+    private MultipartFile noticeFile;
 
 
-    public NoticeDTO(Long noticeId, String noticeWriter, String noticeTitle, int noticeHits) {
-        this.noticeId = noticeId;
-        this.noticeWriter = noticeWriter;
-        this.noticeTitle = noticeTitle;
+    public NoticeDTO(Long postId, String userEmail, String postTitle, int noticeHits) {
+        super.setPostId(postId);
+        super.setUserEmail(userEmail);
+        super.setPostTitle(postTitle);
         this.noticeHits = noticeHits;
     }
 
     public static NoticeDTO toNoticeDTO(NoticeEntity noticeEntity) {
         NoticeDTO noticeDTO = new NoticeDTO();
-        noticeDTO.setNoticeId(noticeEntity.getNoticeId());
-        noticeDTO.setNoticeWriter(noticeEntity.getNoticeWriter());
-        noticeDTO.setNoticeTitle(noticeEntity.getNoticeTitle());
-        noticeDTO.setNoticeContents(noticeEntity.getNoticeContents());
+        noticeDTO.setPostId(noticeEntity.getNoticeId());
+        noticeDTO.setUserEmail(noticeEntity.getNoticeWriter());
+        noticeDTO.setPostTitle(noticeEntity.getNoticeTitle());
+        noticeDTO.setPostContents(noticeEntity.getNoticeContents());
         noticeDTO.setNoticeHits(noticeEntity.getNoticeHits());
 //        noticeDTO.setNoticeregDate(noticeEntity.NoticecregDate());
 //        noticeDTO.setNoticemodDate(noticeEntity.getNoticemodDate());

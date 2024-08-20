@@ -21,33 +21,33 @@
                     <div class="notice-info">
                         <!-- 제목 -->
                         <div>
-                            <span id="notice-title" th:name="noticeTitle" th:text="${notice.noticeTitle}"></span>
+                            <span id="notice-title" th:name="noticeTitle" th:text="${notice.getPostTitle}"></span>
                         </div>
                         <div class="notice-sub">
                             <!-- 게시글 번호 -->
                             <div>
                                 <label for="notice-id">게시글 번호 : </label>
-                                <span id="notice-id" th:text="${notice.noticeId}"></span>
+                                <span id="notice-id" th:text="${notice.getPostId}"></span>
                             </div>
 
                             <!-- 작성자 -->
                             <div>
                                 <label for="notice-writer">작성자 : </label>
-                                <span id="notice-writer" th:text="${notice.noticeWriter}"></span>
+                                <span id="notice-writer" th:text="${notice.getUserEmail}"></span>
                             </div>
                         </div>
                     </div>
                     <div>
                         <!-- 내용 -->
                         <div>
-                            <div id="notice-contents" name="noticeContents" th:utext="${notice.noticeContents}"></div>
+                            <div id="notice-contents" name="noticeContents" th:utext="${notice.getPostContents}"></div>
                         </div>
 
                         <div id="notice-attachment">
                             <span th:if="${notice.originalFileName != null}">
                                 <label for="noticeFile">첨부파일 -</label>
                                 <a id="noticeFile"
-                                   th:href="@{/notice/fileDownload/{noticeId}(noticeId=${notice.noticeId})}"
+                                   th:href="@{/notice/fileDownload/{noticeId}(noticeId=${notice.getPostId})}"
                                    th:text="${notice.originalFileName}"></a>
                             </span>
                         </div>

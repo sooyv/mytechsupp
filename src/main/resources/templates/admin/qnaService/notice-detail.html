@@ -4,7 +4,7 @@
       layout:decorate="admin/layouts/base">
 <div layout:fragment="content" class="content">
 
-    <form th:action="@{|/admin/notice/edit/${notice.noticeId}|}" th:method="post" enctype="multipart/form-data">
+    <form th:action="@{|/admin/notice/edit/${notice.getPostId}|}" th:method="post" enctype="multipart/form-data">
         <div th:class="notice-details" style="padding: 3rem">
             <!-- 조회수 -->
             <input type="hidden" name="noticeHits" th:value="${notice.noticeHits}" />
@@ -12,18 +12,18 @@
             <div id="username-box" class="form-group col-md-4" style="margin-bottom: 1rem">
                 <label for="noticeWriter">작성자</label>
                 <input type="text" id="noticeWriter" class="form-control" placeholder="관리자"
-                       th:field="${notice.noticeWriter}">
+                       th:field="${notice.getUserEmail}">
             </div>
             <!-- 제목 -->
             <div class="form-group col-md-4" style="margin-bottom: 1rem">
                 <label for="notice-title">제목</label>
                 <input type="text" id="notice-title" class="form-control" placeholder="제목"
-                       th:field="${notice.noticeTitle}">
+                       th:field="${notice.getPostTitle}">
             </div>
             <!-- 내용 -->
             <div class="mb-3">
                 <label class="small mb-1">상품 내용</label>
-                <textarea class="form-control" rows="5" name="information" id="content" th:field="${notice.noticeContents}"></textarea>
+                <textarea class="form-control" rows="5" name="information" id="content" th:field="${notice.getPostContents}"></textarea>
             </div>
 
             <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-end;">
@@ -32,9 +32,9 @@
                         <label for="noticeFile">첨부파일</label>
                         <!-- 기존 첨부 파일 표시 -->
                         <span style="margin: 0px 10px 0px 10px;" th:if="${notice.originalFileName != null}">
-                            <a th:href="@{/notice/fileDownload/{noticeId}(noticeId=${notice.noticeId})}" id="originalFileName" th:text="${notice.originalFileName}"></a>
+                            <a th:href="@{/notice/fileDownload/{noticeId}(noticeId=${notice.getPostId})}" id="originalFileName" th:text="${notice.originalFileName}"></a>
                         </span>
-                        <div id="deleteFileBtn" th:data-notice-id="${notice.noticeId}"><i class="fa-solid fa-x"></i></div>
+                        <div id="deleteFileBtn" th:data-notice-id="${notice.getPostId}"><i class="fa-solid fa-x"></i></div>
                     </div>
                     <!-- 새로운 첨부 파일 선택 -->
                     <input type="file" id="noticeFile" name="noticeFile" class="form-control">

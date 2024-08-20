@@ -43,8 +43,6 @@ public class MyPageController {
     private final MyPageService myPageService;
     private final UserService userService;
     private final QuestionService questionService;
-    @Value("${qnaServicePath}")
-    String qnaServicePath;
 
 
     //  회원수정하기 전 비밀번호 확인

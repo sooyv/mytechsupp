@@ -89,7 +89,7 @@
                   </h4>
                 </div>
                 <div class="question-input">
-                  <input th:value="${question.postTitle}" id="questionTitle" name="questionTitle" class="form-control input-w" placeholder="제목을 입력하세요">
+                  <input th:value="${question.postTitle}" id="questionTitle" name="postTitle" class="form-control input-w" placeholder="제목을 입력하세요">
                   <div class="form-check">
                     <input th:checked="${question.secretPost}" class="form-check-input" type="checkbox" name="secretPost" id="flexCheckDefault">
                     <label class="form-check-label" for="flexCheckDefault">
@@ -109,7 +109,7 @@
                 </div>
                 <div class="question-input">
                   <div class="form-floating">
-                    <textarea class="form-control" th:text="${question.postContents}" name="questionContents" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                    <textarea class="form-control" th:text="${question.postContents}" name="postContents" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
                     <label for="floatingTextarea2">내용을 입력하세요</label>
                   </div>
                 </div>

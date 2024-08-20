@@ -26,6 +26,12 @@
                     </div>
                 </div>
                 <div th:text="${question.postContents}"></div>
+                <div>
+                    <!-- 기존 첨부 파일 표시 -->
+                    <span style="margin: 0px 10px 0px 10px;" th:if="${question.originalFileName != null}">
+                            <a th:href="@{/qna/fileDownload/{questionId}(questionId=${question.postId})}" id="originalFileName" th:text="${question.originalFileName}"></a>
+                    </span>
+                </div>
             </div>
 
             <hr class="divide-sec">

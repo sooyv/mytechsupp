@@ -36,8 +36,6 @@ public class QuestionService {
 
     // 문의사항 작성
     public void questionResister(QuestionDTO questionDTO) throws IOException {
-        System.out.println(questionDTO.getPostTitle());
-        System.out.println(questionDTO.getPostContents());
 
         if (questionDTO.getQuestionFile().isEmpty() || questionDTO.getQuestionFile() == null) {
             // 첨부 파일 없음.
@@ -91,6 +89,9 @@ public class QuestionService {
                 .orElseThrow(() -> new RuntimeException("문의 사항을 찾을 수 없습니다."));
 
         questionEntity.updateFromQuestionDTO(questionDTO);
+        System.out.println("title 확인 : " + questionDTO.getPostTitle());
+        System.out.println("contents 확인 : " + questionDTO.getPostContents());
+
         // 첨부파일 업데이트
         updateQuestionFile(questionDTO, questionEntity);
 

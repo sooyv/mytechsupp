@@ -12,18 +12,18 @@
             <div class="form-group col-md-4" style="margin: 1rem 1rem 1rem 0rem;">
                 <label for="noticeWriter">작성자</label>
                 <input type="text" id="noticeWriter" class="form-control" placeholder="관리자"
-                       th:field="${notice.getUserEmail}">
+                       th:field="${notice.userEmail}">
             </div>
             <!-- 제목 -->
             <div class="form-group col-md-4" style="margin: 1rem 1rem 1rem 0rem;">
                 <label for="noticeTitle">제목</label>
                 <input type="text" id="noticeTitle" class="form-control" placeholder="제목"
-                       th:field="${notice.getPostTitle}">
+                       th:field="${notice.postTitle}">
             </div>
             <!-- 내용 -->
             <div class="mb-3">
                 <label class="small mb-1">상품 내용</label>
-                <textarea class="form-control" rows="5" name="information" id="content" th:field="${notice.getPostContents}"></textarea>
+                <textarea class="form-control" rows="5" name="information" id="content" th:field="${notice.postContents}"></textarea>
             </div>
 
             <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-end;">

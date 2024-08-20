@@ -67,13 +67,17 @@ public class NoticeService {
 
     // 공지사항 수정
     @Transactional
-    public NoticeEntity noticeUpdate(NoticeDTO noticeDTO) throws IOException {
-        NoticeEntity noticeEntity = NoticeEntity.toUpdateEntity(noticeDTO);
+    public NoticeEntity noticeUpdate(NoticeDTO noticeDTO, Long noticeId) throws IOException {
+        NoticeEntity noticeEntity = noticeRepository.findById(noticeId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid notice ID: " + noticeId));
+
+        NoticeEntity updatedNoticeEntity = NoticeEntity.toUpdateEntity(noticeEntity, noticeDTO);
         MultipartFile noticeFile = noticeDTO.getNoticeFile();
+        System.out.println("noticeFile 확인 : " + noticeFile.getOriginalFilename());
 
         // 기존 파일 삭제 및 새 파일 저장 로직
         if (noticeFile != null && !noticeFile.isEmpty()) {
-            deleteNoticeFile(noticeDTO.getPostId()); // 기존 첨부 파일 삭제
+            deleteNoticeFile(noticeEntity.getNoticeId()); // 기존 첨부 파일 삭제
             String storedFileName = saveFile(noticeFile); // 새로운 파일 저장
             noticeEntity.setFileAttached(1);
             updateNoticeFileEntity(noticeEntity, noticeFile.getOriginalFilename(), storedFileName);
@@ -86,7 +90,7 @@ public class NoticeService {
             noticeEntity.setFileAttached(0);
         }
 
-        return noticeRepository.save(noticeEntity);
+        return noticeRepository.save(updatedNoticeEntity);
     }
 
     // 파일 저장

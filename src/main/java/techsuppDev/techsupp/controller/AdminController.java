@@ -147,9 +147,9 @@ public class AdminController {
 
     // 공지사항 수정
     @PostMapping("/notice/edit/{noticeId}")
-    public String noticeUpdate(@ModelAttribute("notice") NoticeDTO noticeDTO) {
+    public String noticeUpdate(@PathVariable Long noticeId, @ModelAttribute("notice") NoticeDTO noticeDTO) {
             try {
-                noticeService.noticeUpdate(noticeDTO);
+                noticeService.noticeUpdate(noticeDTO, noticeId);
             } catch (Exception e) {
                 e.printStackTrace();
             }

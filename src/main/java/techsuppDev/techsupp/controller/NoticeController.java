@@ -229,6 +229,9 @@ public class NoticeController {
     public String qnaDetailPage(@PathVariable Long questionId, Model model) {
         QuestionDTO question = questionService.findByIdWithAnswer(questionId);
 
+        System.out.println("파일 확인 1 : "+ question.getOriginalFileName());
+        System.out.println("파일 확인 2 : "+ question.getQuestionFile().getOriginalFilename());
+
         model.addAttribute("question", question);
 
         return "service/qna-detail";

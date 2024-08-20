@@ -52,13 +52,12 @@ public class NoticeEntity {
         return noticeEntity;
     }
 
-    public static NoticeEntity toUpdateEntity(NoticeDTO noticeDTO) {
-        NoticeEntity noticeEntity = new NoticeEntity();
-        noticeEntity.setNoticeId(noticeDTO.getPostId());
+    public static NoticeEntity toUpdateEntity(NoticeEntity noticeEntity, NoticeDTO noticeDTO) {
         noticeEntity.setNoticeWriter(noticeDTO.getUserEmail());
         noticeEntity.setNoticeTitle(noticeDTO.getPostTitle());
         noticeEntity.setNoticeContents(noticeDTO.getPostContents());
         noticeEntity.setNoticeHits(noticeDTO.getNoticeHits());
         return noticeEntity;
     }
+
 }

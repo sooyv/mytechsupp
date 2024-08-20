@@ -21,5 +21,4 @@ public abstract class ServiceDTO {
     private String originalFileName;
     private String storedFileName;
     private int fileAttached;
-
 }

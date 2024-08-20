@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>techsupp 고객센터</title>
+    <title>TECHSUPP 고객센터</title>
     <div th:replace="/head_css :: head_css"></div>
     <link rel="stylesheet" href="/style/service/qna-detail.css"/>
 </head>
@@ -26,10 +26,10 @@
                     </div>
                 </div>
                 <div th:text="${question.postContents}"></div>
-                <div>
-                    <!-- 기존 첨부 파일 표시 -->
-                    <span style="margin: 0px 10px 0px 10px;" th:if="${question.originalFileName != null}">
-                            <a th:href="@{/qna/fileDownload/{questionId}(questionId=${question.postId})}" id="originalFileName" th:text="${question.originalFileName}"></a>
+                <div class="file-attached">
+                    <span class="margin-side" th:if="${question.originalFileName != null}">
+                        <span class="margin-side">첨부파일 -</span>
+                        <a th:href="@{/qna/fileDownload/{questionId}(questionId=${question.postId})}" id="originalFileName" th:text="${question.originalFileName}"></a>
                     </span>
                 </div>
             </div>

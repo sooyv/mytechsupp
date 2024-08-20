@@ -181,7 +181,7 @@ public class QuestionService {
                 .orElseThrow(() -> new EntityNotFoundException("Question not found"));
 
         QuestionDTO questionDTO = QuestionDTO.toQuestionDTO(question);
-        System.out.println("findByIdWithAnswer 확인 1 : "+ questionDTO.getOriginalFileName());
+        System.out.println("findByIdWithAnswer 확인 : "+ questionDTO.getOriginalFileName());
 
         if (question.getQuestionAnswer() != null) {
             QuestionAnswerDTO answerDTO = QuestionAnswerDTO.fromEntity(question.getQuestionAnswer());

@@ -9,7 +9,7 @@
 }
 
 .qna-question {
-    padding: 2rem 3rem 4rem 3rem;
+    padding: 2rem 3rem 2rem 3rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -53,4 +53,15 @@
 
 .answer-content {
     margin: 0px 10px 0px 0px;
+}
+
+.file-attached {
+    display: flex;
+    justify-content: end;
+    margin-top: 2rem;
+    font-size: 15px;
+}
+
+.margin-side {
+    margin: 0px 10px;
 }

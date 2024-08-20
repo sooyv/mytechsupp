@@ -230,7 +230,6 @@ public class NoticeController {
         QuestionDTO question = questionService.findByIdWithAnswer(questionId);
 
         System.out.println("파일 확인 1 : "+ question.getOriginalFileName());
-        System.out.println("파일 확인 2 : "+ question.getQuestionFile().getOriginalFilename());
 
         model.addAttribute("question", question);
 

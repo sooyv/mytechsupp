@@ -117,20 +117,26 @@
             </li>
 
             <li class="inquiry-li">
-              <div>
+              <div class="flex-row">
                 <h4>
                   첨부파일
                 </h4>
+                <!-- 기존 첨부 파일 표시 -->
+                <span id="originalFile-box" th:if="${question.originalFileName != null}"> -
+                    <a th:href="@{/qna/fileDownload/{questionId}(questionId=${question.postId})}" id="originalFileName" th:text="${question.originalFileName}"></a>
+                    <div id="deleteFile-btn" th:data-qna-id="${question.postId}"><i class="fa-solid fa-x"></i></div>
+                </span>
               </div>
               <div>
                 <div id="file-attach" class="form-group col-md-4">
-                  <div class="flex-row">
-                    <!-- 기존 첨부 파일 표시 -->
-                    <span style="margin: 0px 10px 0px 10px;" th:if="${question.originalFileName != null}">
-                            <a th:href="@{/qna/fileDownload/{questionId}(questionId=${question.postId})}" id="originalFileName" th:text="${question.originalFileName}"></a>
-                    </span>
-                    <div id="deleteFileBtn" th:data-qna-id="${question.postId}"><i class="fa-solid fa-x"></i></div>
-                  </div>
+<!--                  <div class="flex-row">-->
+<!--                    &lt;!&ndash; 기존 첨부 파일 표시 &ndash;&gt;-->
+<!--                    <span class="flex-row" th:if="${question.originalFileName != null}">-->
+<!--                      <a th:href="@{/qna/fileDownload/{questionId}(questionId=${question.postId})}" id="originalFileName" th:text="${question.originalFileName}"></a>-->
+<!--                      <div id="deleteFile-btn" th:data-qna-id="${question.postId}"><i class="fa-solid fa-x"></i></div>-->
+<!--                    </span>-->
+<!--&lt;!&ndash;                    <div id="deleteFileBtn" th:data-qna-id="${question.postId}"><i class="fa-solid fa-x"></i></div>&ndash;&gt;-->
+<!--                  </div>-->
                   <!-- 새로운 첨부 파일 선택 -->
                   <input type="file" id="questionFile" name="questionFile" class="form-control">
                 </div>

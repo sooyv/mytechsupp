@@ -45,6 +45,7 @@
     display: flex;
     align-items: center;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .accordion-question {
@@ -60,6 +61,7 @@
 .question-t {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .question-content {

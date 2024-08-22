@@ -1,29 +1,20 @@
 package techsuppDev.techsupp.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
-import techsuppDev.techsupp.DTO.CommentDTO;
 import techsuppDev.techsupp.DTO.FaqDTO;
 import techsuppDev.techsupp.DTO.NoticeDTO;
 import techsuppDev.techsupp.DTO.QuestionDTO;
-import techsuppDev.techsupp.domain.User;
 import techsuppDev.techsupp.service.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.*;
-import java.net.URLEncoder;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.List;
 
@@ -35,6 +26,7 @@ public class NoticeController {
     private final NoticeService noticeService;
     private final QuestionService questionService;
     private final FaqService faqService;
+    private final AttachmentFileService attachmentFileService;
 
     @Value("${noticeServicePath}")
     String noticeServicePath;
@@ -113,27 +105,20 @@ public class NoticeController {
     }
 
 
-
-    @GetMapping("/fileDownload/{noticeId}")
+    // 공지사항 파일 다운로드
+    @GetMapping("/notice/download/file/{noticeId}")
     @ResponseBody
-    public void downloadFile(HttpServletResponse res, @PathVariable Long noticeId) throws UnsupportedEncodingException {
-        System.out.println("====== 다운로드 파일 ======");
+    public void noticeDownloadFile(HttpServletResponse res, @PathVariable Long noticeId) throws UnsupportedEncodingException, FileNotFoundException {
+        String csType = "notice";
 
-        //파일 조회
+        // 1. 파일 조회
         NoticeDTO noticeDTO = noticeService.findById(noticeId);
 
-        //파일 경로
-        Path savePath = Paths.get(noticeServicePath + noticeDTO.getStoredFileName());
-        //해당 경로에 파일이 없으면
-        if (!savePath.toFile().exists()) {
-            throw new RuntimeException("file not found");
-        }
+        // 2. 파일 헤더 설정
+        attachmentFileService.setFileHeader(res, noticeDTO);
 
-        //파일 헤더 설정
-        setFileHeader(res, noticeDTO);
-
-        //파일 복사
-        fileCopy(res, savePath);
+        // 3. 파일 경로 확인, 파일 복사
+        attachmentFileService.filePath(res, noticeDTO, csType);
     }
 
 
@@ -167,47 +152,6 @@ public class NoticeController {
         model.addAttribute("isAuthenticated", isAuthenticated); // 로그인 여부 추가
 
         return "service/question-paging";
-    }
-
-
-
-    /**
-     * 파일 header 설정
-     *
-     * @param res
-     * @param noticeDTO
-     * @throws UnsupportedEncodingException
-     */
-    private void setFileHeader(HttpServletResponse res, NoticeDTO noticeDTO) throws UnsupportedEncodingException {
-        res.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode((String) noticeDTO.getOriginalFileName(), "UTF-8"));
-        res.setHeader("Content-Transfer-Encoding", "binary");
-        res.setHeader("Content-Type", "application/download; utf-8");
-        res.setHeader("Pragma", "no-cache;");
-        res.setHeader("Expires", "-1;");
-    }
-
-    /**
-     * 파일 복사
-     *
-     * @param res
-     * @param savePath
-     */
-    private void fileCopy(HttpServletResponse res, Path savePath) {
-        FileInputStream fis = null;
-
-        try {
-            fis = new FileInputStream(savePath.toFile());
-            FileCopyUtils.copy(fis, res.getOutputStream());
-            res.getOutputStream().flush();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        } finally {
-            try {
-                fis.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     // 문의 작성
@@ -267,101 +211,38 @@ public class NoticeController {
 ////        return "service/question-detail";
 //    }
 
-    // 비밀번호로 게시물 등록 -> 로그인 한 회원만 게시물 등록
-//    @GetMapping("/question-check/getPass")
-//    @ResponseBody
-//    public boolean getPass(@RequestParam("questionId") Long questionId,
-//                           @RequestParam("questionPass") String questionPass, Model model) throws Exception {
-//        QuestionDTO questionDTO = new QuestionDTO();
-//        questionDTO.setQuestionId(questionId);
-//        QuestionDTO result = questionService.findById(questionId);
-//
-//        boolean flag = false;
-//
-//        if (result.getQuestionPwd().equals(questionPass)) {
-//            flag = true;
-//        }
-//        return flag;
-//    }
 
 
     @GetMapping("/question-update/{questionId}")
-    public String questionUpdateForm(@PathVariable Long questionId, Model model) {
+    public String questionUpdate(@PathVariable Long questionId, Model model) {
         QuestionDTO questionDTO = questionService.findById(questionId);
         model.addAttribute("questionUpdate", questionDTO);
         return "service/question-update";
     }
 
     @PostMapping("/question-update")
-    public String questionupdate(@ModelAttribute QuestionDTO questionDTO, Model model) {
+    public String questionUpdatePost(@ModelAttribute QuestionDTO questionDTO, Model model) {
         QuestionDTO question = questionService.update(questionDTO);
         model.addAttribute("question", question);
         return "/service/question-detail";
     }
 
 
-    @GetMapping("/question-list/fileDownload/{questionId}")
+    // 문의사항 파일 다운로드
+    @GetMapping("/qna/download/file/{questionId}")
     @ResponseBody
-    public void questiondownloadFile(HttpServletResponse res, @PathVariable Long questionId) throws UnsupportedEncodingException {
+    public void questionDownloadFile(HttpServletResponse res, @PathVariable Long questionId) throws UnsupportedEncodingException, FileNotFoundException {
+        String csType = "question";
 
-        //파일 조회
-//        NoticeFileEntity noticeFile = noticeFileRepository.findById(noticeId).get();
+        // 1. 파일 조회
         QuestionDTO questionDTO = questionService.findById(questionId);
 
-        //파일 경로
-        Path savePath = Paths.get("C:/project file/techsupp/src/main/resources/static/file/service" + questionDTO.getStoredFileName());
-        //해당 경로에 파일이 없으면의
-        if (!savePath.toFile().exists()) {
-            throw new RuntimeException("file not found");
-        }
+        // 2. 파일 헤더 설정
+        attachmentFileService.setFileHeader(res, questionDTO);
 
-        //파일 헤더 설정
-        setFileHeader(res, questionDTO);
-
-        //파일 복사
-        fileCopy(res, savePath);
+        // 3. 파일 경로 확인, 파일 복사
+        attachmentFileService.filePath(res, questionDTO, csType);
     }
-
-    /**
-     * 파일 header 설정
-     *
-     * @param res
-     * @param questionDTO
-     * @throws UnsupportedEncodingException
-     */
-    private void setFileHeader(HttpServletResponse res, QuestionDTO questionDTO) throws UnsupportedEncodingException {
-        res.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode((String) questionDTO.getOriginalFileName(), "UTF-8"));
-        res.setHeader("Content-Transfer-Encoding", "binary");
-        res.setHeader("Content-Type", "application/download; utf-8");
-        res.setHeader("Pragma", "no-cache;");
-        res.setHeader("Expires", "-1;");
-    }
-
-    /**
-     * 파일 복사
-     *
-     * @param res
-     * @param savePath
-     */
-    private void questionfileCopy(HttpServletResponse res, Path savePath) {
-        FileInputStream fis = null;
-
-        try {
-            fis = new FileInputStream(savePath.toFile());
-            FileCopyUtils.copy(fis, res.getOutputStream());
-            res.getOutputStream().flush();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        } finally {
-            try {
-                fis.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        }
-    }
-
 
 
 }

@@ -47,7 +47,7 @@
                             <span th:if="${notice.originalFileName != null}">
                                 <label for="noticeFile">첨부파일 -</label>
                                 <a id="noticeFile"
-                                   th:href="@{/notice/fileDownload/{noticeId}(noticeId=${notice.getPostId})}"
+                                   th:href="@{/cs/notice/download/file/{noticeId}(noticeId=${notice.getPostId})}"
                                    th:text="${notice.originalFileName}"></a>
                             </span>
                         </div>

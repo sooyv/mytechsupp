@@ -29,7 +29,8 @@
                 <div class="file-attached">
                     <span class="margin-side" th:if="${question.originalFileName != null}">
                         <span class="margin-side">첨부파일 -</span>
-                        <a th:href="@{/qna/fileDownload/{questionId}(questionId=${question.postId})}" id="originalFileName" th:text="${question.originalFileName}"></a>
+                        <a th:href="@{/cs/qna/download/file/{questionId}(questionId=${question.postId})}" id="originalFileName"
+                           th:text="${question.originalFileName}"></a>
                     </span>
                 </div>
             </div>

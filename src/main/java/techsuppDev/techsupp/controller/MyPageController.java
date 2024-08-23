@@ -223,4 +223,14 @@ public class MyPageController {
         return "redirect:/user/myinquiry";
     }
 
+//    @DeleteMapping("/inquiry/attachedfile/delete/{questionId}")
+//    public ResponseEntity<String> attachedFileDelete(@PathVariable("noticeId") Long noticeId) {
+//        try {
+//            questionService.deleteNoticeFile(noticeId);
+//            return ResponseEntity.ok("첨부 파일 삭제 성공");
+//        } catch (Exception e) {
+//            return ResponseEntity.badRequest().body("첨부 파일 삭제 실패");
+//        }
+//    }
+
 }

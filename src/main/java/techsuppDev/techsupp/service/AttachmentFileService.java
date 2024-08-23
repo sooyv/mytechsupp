@@ -3,21 +3,34 @@ package techsuppDev.techsupp.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
 import techsuppDev.techsupp.DTO.NoticeDTO;
 import techsuppDev.techsupp.DTO.ServiceDTO;
+import techsuppDev.techsupp.domain.NoticeEntity;
+import techsuppDev.techsupp.domain.NoticeFileEntity;
+import techsuppDev.techsupp.repository.NoticeFileRepository;
+import techsuppDev.techsupp.repository.NoticeRepository;
+import techsuppDev.techsupp.repository.QuestionFileRepository;
+import techsuppDev.techsupp.repository.QuestionRepository;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class AttachmentFileService {
+    private final NoticeRepository noticeRepository;
+    private final NoticeFileRepository noticeFileRepository;
+    private final QuestionRepository questionRepository;
+    private final QuestionFileRepository questionFileRepository;
     @Value("${qnaServicePath}")
     String qnaServicePath;
 
@@ -74,14 +87,6 @@ public class AttachmentFileService {
      * @param res
      * @param savePath
      */
-//    public void fileCopy(HttpServletResponse res, Path savePath) {
-//        try (FileInputStream fis = new FileInputStream(savePath.toFile())) {
-//            FileCopyUtils.copy(fis, res.getOutputStream());
-//            res.getOutputStream().flush();
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
     public void fileCopy(HttpServletResponse res, Path savePath) {
         FileInputStream fis = null;
 
@@ -100,5 +105,31 @@ public class AttachmentFileService {
         }
     }
 
+
+    /**
+     * 첨부 파일 수정 - 삭제
+     */
+    @Transactional
+    public void deleteAttachFile(Long postId) {
+
+        Optional<NoticeEntity> noticeEntityOptional = noticeRepository.findById(postId);
+
+        if (noticeEntityOptional.isPresent()) {
+            NoticeEntity noticeEntity = noticeEntityOptional.get();
+            NoticeFileEntity noticeFile = noticeEntity.getNoticeFile();
+
+            if (noticeFile != null) {
+                noticeEntity.setNoticeFile(null);
+                noticeFileRepository.delete(noticeFile);
+
+                // 파일 시스템에서 파일 삭제
+                File file = new File(noticeServicePath + noticeFile.getStoredFileName());
+                if (file.exists()) {
+                    file.delete();
+                }
+            }
+
+        }
+    }
 
 }

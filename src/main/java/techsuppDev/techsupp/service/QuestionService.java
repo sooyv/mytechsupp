@@ -136,7 +136,7 @@ public class QuestionService {
     }
 
 
-
+    // 문의사항 첨부파일 삭제
     @Transactional
     public void deleteQuestionFile(Long questionId) {
         Optional<QuestionEntity> questionEntityOptional = questionRepository.findById(questionId);

@@ -210,8 +210,6 @@ public class QuestionService {
         return questionDTO;
     }
 
-
-
     public QuestionDTO update(QuestionDTO questionDTO) {
 
         QuestionEntity questionEntity = QuestionEntity.toUpdateEntity(questionDTO);
@@ -219,6 +217,22 @@ public class QuestionService {
         return findById(questionDTO.getPostId());
     }
 
+    @Transactional
+    public boolean deleteQnaIfPending(Long questionId) {
+        Optional<QuestionEntity> questionOptional = questionRepository.findById(questionId);
+
+        if (questionOptional.isPresent()) {
+            QuestionEntity question = questionOptional.get();
+
+            if ("답변대기".equals(question.getQuestionStatus().getAnswer())) {
+                questionRepository.deleteById(questionId);
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
 
     public Page<QuestionDTO> paging(Pageable pageable, String currentUserEmail, boolean isAuthenticated) {
         // 페이지 번호와 페이지 크기 설정

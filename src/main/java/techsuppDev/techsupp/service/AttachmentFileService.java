@@ -2,6 +2,7 @@ package techsuppDev.techsupp.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
@@ -23,6 +24,8 @@ import java.net.URLEncoder;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 
 @Service
 @RequiredArgsConstructor
@@ -109,27 +112,5 @@ public class AttachmentFileService {
     /**
      * 첨부 파일 수정 - 삭제
      */
-    @Transactional
-    public void deleteAttachFile(Long postId) {
-
-        Optional<NoticeEntity> noticeEntityOptional = noticeRepository.findById(postId);
-
-        if (noticeEntityOptional.isPresent()) {
-            NoticeEntity noticeEntity = noticeEntityOptional.get();
-            NoticeFileEntity noticeFile = noticeEntity.getNoticeFile();
-
-            if (noticeFile != null) {
-                noticeEntity.setNoticeFile(null);
-                noticeFileRepository.delete(noticeFile);
-
-                // 파일 시스템에서 파일 삭제
-                File file = new File(noticeServicePath + noticeFile.getStoredFileName());
-                if (file.exists()) {
-                    file.delete();
-                }
-            }
-
-        }
-    }
 
 }

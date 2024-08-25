@@ -194,6 +194,7 @@ public class MyPageController {
         return "mypage/myInquiry";
     }
 
+    // mypage 문의사항 수정
     @GetMapping("/inquiry/edit/{questionId}")
     public String editInquiryPage(@PathVariable("questionId") Long questionId, Model model, RedirectAttributes redirectAttributes) {
 
@@ -213,6 +214,7 @@ public class MyPageController {
         }
     }
 
+    // mypage 문의사항 수정 post
     @PostMapping("/inquiry/edit/{questionId}")
     public String editInquiry(@PathVariable("questionId") Long questionId, QuestionDTO questionDTO) {
         try {
@@ -222,6 +224,24 @@ public class MyPageController {
         }
         return "redirect:/user/myinquiry";
     }
+
+    // mypage 문의사항 삭제
+    @DeleteMapping ("/inquiry/delete/{questionId}")
+    public ResponseEntity<String> inquiryDelete(@PathVariable("questionId") Long questionId) {
+        try {
+            // 해당 faqId 삭제
+            boolean qnaAnswerStatus = questionService.deleteQnaIfPending(questionId);
+            if (qnaAnswerStatus) {
+                return ResponseEntity.ok().body("삭제되었습니다.");
+            } else {
+                return ResponseEntity.badRequest().body("삭제할 수 없습니다. 질문의 상태를 확인해주세요.");
+            }
+
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("문의사항 삭제 중 문제가 발생했습니다.");
+        }
+    }
+
 
 //    @DeleteMapping("/inquiry/attachedfile/delete/{questionId}")
 //    public ResponseEntity<String> attachedFileDelete(@PathVariable("noticeId") Long noticeId) {

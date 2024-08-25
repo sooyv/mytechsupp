@@ -213,19 +213,19 @@ public class NoticeController {
 
 
 
-    @GetMapping("/question-update/{questionId}")
-    public String questionUpdate(@PathVariable Long questionId, Model model) {
-        QuestionDTO questionDTO = questionService.findById(questionId);
-        model.addAttribute("questionUpdate", questionDTO);
-        return "service/question-update";
-    }
+//    @GetMapping("/question-update/{questionId}")
+//    public String questionUpdate(@PathVariable Long questionId, Model model) {
+//        QuestionDTO questionDTO = questionService.findById(questionId);
+//        model.addAttribute("questionUpdate", questionDTO);
+//        return "service/question-update";
+//    }
 
-    @PostMapping("/question-update")
-    public String questionUpdatePost(@ModelAttribute QuestionDTO questionDTO, Model model) {
-        QuestionDTO question = questionService.update(questionDTO);
-        model.addAttribute("question", question);
-        return "/service/question-detail";
-    }
+//    @PostMapping("/question-update")
+//    public String questionUpdatePost(@ModelAttribute QuestionDTO questionDTO, Model model) {
+//        QuestionDTO question = questionService.update(questionDTO);
+//        model.addAttribute("question", question);
+//        return "/service/question-detail";
+//    }
 
 
     // 문의사항 파일 다운로드

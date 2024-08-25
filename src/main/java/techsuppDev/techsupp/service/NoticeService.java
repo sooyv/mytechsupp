@@ -119,7 +119,7 @@ public class NoticeService {
     // 공지사항 삭제
     @Transactional
     public Long deleteNotice(Long noticeId) {
-        noticeRepository.deleteByNotionId(noticeId);
+        noticeRepository.deleteById(noticeId);
         return noticeId;
     }
 

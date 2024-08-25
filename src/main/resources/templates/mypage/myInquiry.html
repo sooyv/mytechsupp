@@ -31,8 +31,8 @@
 
                             <div class="flex-align">
                                 <div th:if="${question.questionStatus.getAnswer() == '답변대기'}" class="question-actions">
-                                    <a class="btn btn-edit" th:href="@{/user/inquiry/edit/{questionId}(id=${question.postId})}">수정</a>
-                                    <a class="btn btn-delete deleteConfirm" href="#" th:data-question-id="${question.postId}">삭제</a>
+                                    <a class="btn btn-edit" th:href="@{/user/inquiry/edit/{questionId}(questionId=${question.getPostId()})}">수정</a>
+                                    <a class="btn btn-delete deleteConfirm" href="#" th:data-question-id="${question.getPostId}">삭제</a>
                                 </div>
                                 <i class="fa-solid fa-chevron-down accordion-btn"></i>
                             </div>

@@ -1,6 +1,5 @@
 $(function () {
-
-    $(document).on("click", "#deleteFileBtn", function (event) {
+    $(document).on("click", "#deleteFile-btn", function (event) {
         console.log("첨부파일 삭제 클릭");
         event.preventDefault();
         const noticeId = $(this).data("noticeId");
@@ -28,6 +27,5 @@ $(function () {
         } else {
             alert("삭제할 첨부파일이 존재하지 않습니다.");
         }
-
     });
 });

@@ -142,7 +142,6 @@ public class NoticeService {
                     file.delete();
                 }
             }
-
         }
     }
 

@@ -168,6 +168,7 @@ public class AdminController {
         }
     }
 
+    // 공지사항 수정 - 공지사항 첨부파일 삭제 X btn
     @DeleteMapping ("/attachedfile/delete/{noticeId}")
     public ResponseEntity<String> attachedFileDelete(@PathVariable("noticeId") Long noticeId) {
         try {

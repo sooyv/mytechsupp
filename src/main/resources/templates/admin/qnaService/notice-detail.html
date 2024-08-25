@@ -34,7 +34,7 @@
                         <span style="margin: 0px 10px 0px 10px;" th:if="${notice.originalFileName != null}">
                             <a th:href="@{/notice/fileDownload/{noticeId}(noticeId=${notice.getPostId})}" id="originalFileName" th:text="${notice.originalFileName}"></a>
                         </span>
-                        <div id="deleteFileBtn" th:data-notice-id="${notice.getPostId}"><i class="fa-solid fa-x"></i></div>
+                        <div id="deleteFile-btn" th:data-notice-id="${notice.getPostId}"><i class="fa-solid fa-x"></i></div>
                     </div>
                     <!-- 새로운 첨부 파일 선택 -->
                     <input type="file" id="noticeFile" name="noticeFile" class="form-control">

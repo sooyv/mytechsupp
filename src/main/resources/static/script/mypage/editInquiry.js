@@ -1,6 +1,4 @@
 $(function () {
-
-    // 이벤트 위임을 사용하여 동적으로 추가된 요소에 이벤트를 바인딩합니다.
     $(document).on("click", "#deleteFile-btn", function (event) {
         console.log("첨부파일 삭제 클릭");
         event.preventDefault();
@@ -12,7 +10,7 @@ $(function () {
             if (confirm('정말 삭제하시겠습니까?')) {
                 $.ajax({
                     type: 'DELETE',
-                    url: "/inquiry/attachedfile/delete/" + questionId,
+                    url: "/user/inquiry/attachedfile/delete/" + questionId,
                     contentType: 'application/json',
                     data: JSON.stringify({ questionId: questionId }),
                     success: function(response) {

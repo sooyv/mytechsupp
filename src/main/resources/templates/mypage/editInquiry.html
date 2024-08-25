@@ -124,7 +124,7 @@
                 <!-- 기존 첨부 파일 표시 -->
                 <span id="originalFile-box" th:if="${question.originalFileName != null}"> -
                     <a th:href="@{/qna/fileDownload/{questionId}(questionId=${question.postId})}" id="originalFileName" th:text="${question.originalFileName}"></a>
-                    <div id="deleteFile-btn" th:data-qna-id="${question.postId}"><i class="fa-solid fa-x"></i></div>
+                    <div id="deleteFile-btn" th:data-question-id="${question.postId}"><i class="fa-solid fa-x"></i></div>
                 </span>
               </div>
               <div>

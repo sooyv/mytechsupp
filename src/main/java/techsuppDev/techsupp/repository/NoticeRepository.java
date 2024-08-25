@@ -19,5 +19,4 @@ public interface NoticeRepository extends JpaRepository<NoticeEntity, Long> {
     @Modifying
     @Query(value = "update NoticeEntity b set b.noticeHits=b.noticeHits+1 where b.noticeId=:noticeId")
     void updateHits(@Param("noticeId") Long noticeId);
-
 }
